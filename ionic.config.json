@@ -1,0 +1,8 @@
+{
+  "name": "TheHouseMonk-Business",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}
