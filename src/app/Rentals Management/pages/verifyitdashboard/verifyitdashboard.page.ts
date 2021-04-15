@@ -397,15 +397,27 @@ export class VerifyitDashboardPage implements OnInit {
           if(this.tagId){
             let tagId = this.tagId.data
             console.log(tagId);
-            
-            if(tagId.includes("myparam")){
-             tagId= tagId.split('=')[1]
-             alert(tagId)
-             this.gettag(tagId);
-            }else{
-              this.gettag(tagId);
-    
+            if (this.tagId.includes("params")) {
+              debugger;
+              this.tagId = this.tagId.split("=")[1];
+              // alert(this.tagId);
+              this.gettag(this.tagId);
+            } else if (this.tagId.includes("Brand")) {
+              this.tagId = this.tagId.split("=")[1];
+              this.router.navigateByUrl("/verifyit-product-catalog");
+              alert(this.tagId);
+            } else {
+              this.gettag(this.tagId);
             }
+            // if(tagId.includes("myparams")){
+            //  tagId= tagId.split('=')[1]
+            //  alert(tagId)
+            //  this.gettag(tagId);
+            // }
+            // else{
+            //   this.gettag(tagId);
+    
+            // }
             this.tagId= (JSON.parse(tagId))
     
             this.productData = this.strToObj(tagId)
