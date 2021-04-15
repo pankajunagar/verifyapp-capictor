@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { WebView } from "@ionic-native/ionic-webview/ngx"
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { StorageService } from 'src/app/common-services/storage-service.service';
 import { PictureComponent } from 'src/app/common-components/picture/picture.component';
 @Component({
@@ -43,7 +44,7 @@ export class CreateTicketPage implements OnInit {
     private route: ActivatedRoute,
     private alertService: AlertServiceService,
     public webview: WebView,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private storageService: StorageService,
     private actionSheet: ActionSheetController
   ) {

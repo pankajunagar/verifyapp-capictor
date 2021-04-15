@@ -5,6 +5,7 @@ import { TicketFilterPage } from '../../pages/ticket-filter/ticket-filter.page';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { TicketComponent } from '../../components/ticket/ticket.component';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -35,7 +36,7 @@ export class TicketsPage implements OnInit {
     private modalController: ModalController,
     private alertService: AlertServiceService,
     private popOverCtrl: PopoverController,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private route: ActivatedRoute,
   ) {
     this.status = '';

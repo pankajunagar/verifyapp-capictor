@@ -38,12 +38,13 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
-
+// import { VideoPlayer } from '@ionic-native/video-player/ngx';
 // import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 
 @NgModule({
   declarations: [
@@ -79,14 +80,17 @@ import { environment } from '../environments/environment';
         deps: [HttpClient]
       }
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     InAppBrowser,
     SocialSharing,
     Deeplinks,
     QRScanner,
+    // VideoPlayer,
     Screenshot,
+    StreamingMedia,
     Geolocation,
     BarcodeScanner,
     Ndef,

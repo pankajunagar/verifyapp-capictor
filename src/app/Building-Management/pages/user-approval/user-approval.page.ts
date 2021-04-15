@@ -3,6 +3,7 @@ import { LoadingController, ModalController, PopoverController } from '@ionic/an
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { BuildingUserService } from '../../services/building-user.service';
 import { Router } from '@angular/router';
 
@@ -22,7 +23,7 @@ export class UserApprovalPage implements OnInit {
     private modalController: ModalController,
     private alertService: AlertServiceService,
     private popOver: PopoverController,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private router:Router
   ) {
     this.getUserApprovals();

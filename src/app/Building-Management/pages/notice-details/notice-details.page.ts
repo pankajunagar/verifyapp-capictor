@@ -4,6 +4,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-notice-details',
@@ -24,7 +25,7 @@ export class NoticeDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private alertService: AlertServiceService,
-    public transService: translateService
+    public transService: TranslateServiceService
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
       params.params.noticeId ? this.noticeId = params.params.noticeId : '';

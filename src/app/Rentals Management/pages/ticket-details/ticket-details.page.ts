@@ -6,6 +6,7 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { MaterialSearchPage } from '../../pages/material-search/material-search.page';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PictureComponent } from 'src/app/common-components/picture/picture.component';
 
@@ -41,7 +42,7 @@ export class TicketDetailsPage implements OnInit {
     private modalController: ModalController,
     private alertService: AlertServiceService,
     private alertCtrl: AlertController,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     public trans: TranslateService,
     private actionSheet: ActionSheetController
   ) {

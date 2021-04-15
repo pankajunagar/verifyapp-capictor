@@ -1,4 +1,4 @@
-  import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 
 import { NFC, Ndef } from "@ionic-native/nfc/ngx";
@@ -159,10 +159,6 @@ export class VerifyitDashboardPage implements OnInit {
   }
 
   ionViewDidLoad() {
-
-
-
-    debugger;
     this.userType = window.localStorage.getItem("userType");
 
     this.platform.ready().then(() => {

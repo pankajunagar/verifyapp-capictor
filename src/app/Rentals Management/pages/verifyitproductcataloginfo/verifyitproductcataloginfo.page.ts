@@ -5,7 +5,8 @@ import { NFC, Ndef } from "@ionic-native/nfc/ngx";
 import {
   Platform,
   ModalController,
-  ActionSheetController
+  ActionSheetController,
+  LoadingController
 } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
@@ -17,15 +18,24 @@ import { AlertController } from "@ionic/angular";
 import { TellUsifyouBuyitComponent } from "../../modals/tellusifyoubuyit/tellusifyoubuyit.component";
 import { CertificateModalComponent } from "../../modals/certificatemodal/certificatemodal.component";
 import {
+  StreamingMedia,
+  StreamingVideoOptions
+} from "@ionic-native/streaming-media/ngx";
+import {
+  BarcodeScanner,
+  BarcodeScannerOptions
+} from "@ionic-native/barcode-scanner/ngx";
+import {
   InAppBrowser,
   InAppBrowserOptions,
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
-  selector: 'app-verifyitproductcataloginfo',
-  templateUrl: './verifyitproductcataloginfo.page.html',
-  styleUrls: ['./verifyitproductcataloginfo.page.scss'],
+  selector: "app-verifyitproductcataloginfo",
+  templateUrl: "./verifyitproductcataloginfo.page.html",
+  styleUrls: ["./verifyitproductcataloginfo.page.scss"]
 })
 export class VerifyitProductCatalogInfoPage {
   cred = {
@@ -36,7 +46,7 @@ export class VerifyitProductCatalogInfoPage {
     model_number: null,
     serial_number: null,
     brand: null,
-    
+
     img: {
       default: {
         main: null
@@ -51,11 +61,15 @@ export class VerifyitProductCatalogInfoPage {
     },
     how_to_use_it: { english: null, spanish: null, portugues: null }
   };
-  trackingData={
-    user_id : '',
-    tag_id :  '',
-    product_id : '',
-    device_id : '',
+  trackingData = {
+    user_id: '',
+    tag_id: '',
+    product_id: '',
+    device_id: '',
+    otype: '',
+    meta_data: {
+      mobile_number: ''
+    }
   }
   credKeys = {
     key12: null,
@@ -86,7 +100,9 @@ export class VerifyitProductCatalogInfoPage {
   callgettagresult = {
     product_name: "",
     brand: "",
-    product_id:''
+    product_id: '',
+    model_number:'',
+    manufactured:''
   };
 
   readingTag: boolean = false;
@@ -115,7 +131,7 @@ export class VerifyitProductCatalogInfoPage {
     this.hasLogin = window.localStorage.getItem("name");
     // alert('=================='+this.hasLogin)
     // this.ionViewDidLoad()
-    this.callgettagresult = this.utilservice.productCatalogInfo
+    this.callgettagresult = this.utilservice.productCatalogInfo;
 
     // this.callgettagresult  =  JSON.parse(this.callgettagresult)
     console.log(this.callgettagresult);
@@ -376,94 +392,69 @@ export class VerifyitProductCatalogInfoPage {
     // enableViewportScale : 'yes', //iOS only 
     allowInlineMediaPlayback: 'no',//iOS only 
     // disallowoverscroll : 'no', //iOS only 
-    presentationstyle : 'fullscreen',//iOS only 
-    fullscreen : 'no',//Windows only    
-    hideurlbar:'yes',
-    toolbar:'yes',
-    location:'no',
-    hidenavigationbuttons:'yes',
+    presentationstyle: 'fullscreen',//iOS only 
+    fullscreen: 'no',//Windows only    
+    hideurlbar: 'yes',
+    toolbar: 'yes',
+    location: 'no',
+    hidenavigationbuttons: 'yes',
     zoom: 'no'
   };
 
   routemessage;
 
+  mobile_number
+  async trackingLinks(data) {
+    let alert = await this.alertController.create({
+      subHeader: `Enter your Paytm number for cash back
+      Your cash back will credit in 2-5 working days after approval of review.`,
+      inputs: [
+        {
+          name: 'mobile_number',
+          type: 'number'
+        }],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Submit',
+          handler: (alertData) => { //takes the data 
+            console.log(alertData.mobile_number);
+            this.mobile_number = alertData.mobile_number
+            // data.push('mobile_number')
+            this.trackingReview(data)
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
+
   async presentActionSheet(data) {
     let buttons = [];
     const _this = this;
 
-    data.forEach(element => {
+    data.value.forEach(element => {
       let button = {
         text: element.text,
         // icon:data.icon,
         handler: () => {
           // console.log('setting icon ' + this.data.icon);
           // const browser = this.iab.create(element.link);
+if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
 
-          this.browser = this.iab.create(element.link, "_blank", this.options);
+  this.trackingLinks(element)
+}else{
+  this.openInappBrowser(element)
+}
 
-          this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
-            
-            setInterval(function () {
-
-            if (event.url.includes("thankyou")) {
-
-
-            //   setInterval(function(){ 
-            //     //this code runs every second 
-            // }, 1000);
-                // await this.ngZone.run(() => this.navigateTomsgPage());
-                // alert('purchaseproductreview')
-                // this.router.navigateByUrl("/verifyit-message");
-                // this.routemessage='purchaseproductreview'
-                try {
-
-                  _this.routemessage="thankyou"
-                  _this.browser.close();
-                } catch (error) {
-                  alert(error)
-                }
-              }
-            }, 2000);
-
-          });
-          this.browser.on("exit").subscribe(
-            async data => {
-              debugger
-     
-              if(_this.routemessage=='thankyou'){
-                _this.trackingData.user_id=window.localStorage.getItem('userid')
-                _this.trackingData.tag_id=window.localStorage.getItem('tagId');
-                _this.trackingData.product_id= this.callgettagresult.product_id;
-                _this.trackingData.device_id = "xxx"
-
-                this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
-
-                            },err=>{
-                              alert(JSON.stringify(err))
-                            }
-                            );
-
-
-                // _this.router.navigateByUrl('/verifyit-message')
-
-              }else{
-
-                // _this.router.navigateByUrl('/verifyit-account')
-                // alert('Review not submitted.')
-              }
-
-              // this.router.navigateByUrl("/verifyit-message");
-
-
-
-            },
-
-            err => {
-              // alert(err);
-            }
-          );
-
-          return true;
         }
       };
       buttons.push(button);
@@ -483,6 +474,104 @@ export class VerifyitProductCatalogInfoPage {
     this.browser.close();
     this.router.navigateByUrl("/verifyit-message");
 
+  }
+
+
+  openInappBrowser(element) {
+    const _this = this
+    this.browser = this.iab.create(element.link, "_blank", this.options);
+
+    this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
+
+      setInterval(function () {
+
+        if (event.url.includes("thankyou")) {
+
+
+          //   setInterval(function(){ 
+          //     //this code runs every second 
+          // }, 1000);
+          // await this.ngZone.run(() => this.navigateTomsgPage());
+          // alert('purchaseproductreview')
+          // this.router.navigateByUrl("/verifyit-message");
+          // this.routemessage='purchaseproductreview'
+          try {
+
+            _this.routemessage = "thankyou"
+            _this.browser.close();
+          } catch (error) {
+            alert(error)
+          }
+        }
+      }, 2000);
+
+    });
+    this.browser.on("exit").subscribe(
+
+      async data => {
+        debugger
+
+        if (_this.routemessage == 'thankyou') {
+          _this.trackingData.user_id = window.localStorage.getItem('userid')
+          _this.trackingData.tag_id = window.localStorage.getItem('tagId');
+          _this.trackingData.product_id = this.callgettagresult.product_id;
+          _this.trackingData.device_id = "xxx"
+
+          this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
+
+          }, err => {
+            alert(JSON.stringify(err))
+          }
+          );
+
+
+          // _this.router.navigateByUrl('/verifyit-message')
+
+        } else {
+
+          // _this.router.navigateByUrl('/verifyit-account')
+          // alert('Review not submitted.')
+        }
+
+        // this.router.navigateByUrl("/verifyit-message");
+
+
+
+      },
+
+      err => {
+        // alert(err);
+      }
+    );
+
+    return true;
+
+  }
+
+
+  trackingReview(data) {
+    const _this = this
+    if (this.callgettagresult.brand == 'RRC') {
+      // this.trackingLinks(data)
+      _this.trackingData.user_id = window.localStorage.getItem('userid')
+      _this.trackingData.tag_id = window.localStorage.getItem('tagId');
+      _this.trackingData.product_id = this.callgettagresult.product_id;
+      _this.trackingData.device_id = "xxx"
+      // _this.trackingData.mobile_number = this.mobile_number
+      _this.trackingData.otype = 'REVIEW_LINK_CLICK'
+
+      _this.trackingData.meta_data.mobile_number = this.mobile_number
+
+      this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
+
+        this.openInappBrowser(data)
+
+
+      }, err => {
+        alert(JSON.stringify(err))
+      }
+      );
+    }
   }
 
   // createButtons(data) {
@@ -512,6 +601,18 @@ export class VerifyitProductCatalogInfoPage {
   product_link = "";
 
   socialShare() {
+
+
+
+    // let options: StreamingVideoOptions = {
+    //   successCallback: () => { console.log('=======================>Video played==================>') },
+    //   errorCallback: (e) => { console.log('Error streaming') },
+    //   orientation: 'portrait',
+    //   shouldAutoClose: true,
+    //   controls: false
+    // };
+    // this.streamingMedia.playVideo('https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4', options);
+
     // console.log('kkkkkkk=================',this.brand_color)
     this.jsonToBeUsed.forEach(element => {
       if (element.key == "purchase online") {

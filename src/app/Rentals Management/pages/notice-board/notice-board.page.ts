@@ -5,6 +5,7 @@ import { NoticeCreatePage } from '../notice-create/notice-create.page'
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +27,7 @@ export class NoticeBoardPage implements OnInit {
     private loading: LoadingController,
     private modalController: ModalController,
     private alertService: AlertServiceService,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private router: Router
   ) {
   }

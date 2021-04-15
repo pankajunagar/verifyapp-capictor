@@ -5,6 +5,7 @@ import { NoticeService } from '../../services/notice.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 @Component({
@@ -37,7 +38,7 @@ export class NoticeCreatePage implements OnInit {
     private router: Router,
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     public webView: WebView
   ) { }
 

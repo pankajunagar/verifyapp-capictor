@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { Storage } from '@ionic/storage';
 import { RentalsUserService } from '../../services/rentals-user.service';
 import { Device } from '@ionic-native/device/ngx';
@@ -43,7 +44,7 @@ export class HomePage implements OnInit {
     private userService: RentalsUserService,
     private alertService: AlertServiceService,
     private push: Push,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private storage: Storage,
     private device: Device,
     private alertCtrl: AlertController,

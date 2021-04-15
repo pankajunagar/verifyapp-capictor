@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-ticket-sub-category-search',
@@ -15,7 +16,7 @@ export class TicketSubCategorySearchPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
-    public transService: translateService
+    public transService: TranslateServiceService
   ) {
     this.selectedSubCategory.name = this.navParams.get('name');
     this.selectedSubCategory.ticketSubCategory = this.navParams.get('ticketSubCategory');

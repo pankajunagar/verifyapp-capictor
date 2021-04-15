@@ -6,6 +6,7 @@ import { AlertServiceService } from 'src/app/common-services/alert-service.servi
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-termsandcondition',
@@ -30,7 +31,7 @@ export class TermsModalComponent implements OnInit {
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
     public webView: WebView,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private actionSheet: ActionSheetController
   ) { }
 

@@ -6,6 +6,7 @@ import { AlertServiceService } from 'src/app/common-services/alert-service.servi
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { Utils } from '../../services/utils.service';
 import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { NailaService } from '../../services/naila.service';
@@ -36,7 +37,7 @@ export class GeneratedQRcodeModalComponent implements OnInit {
     private route: ActivatedRoute,
     public webView: WebView,
     private utils: Utils,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private actionSheet: ActionSheetController,
     private screenshot: Screenshot,
     private nviservice: NailaService,

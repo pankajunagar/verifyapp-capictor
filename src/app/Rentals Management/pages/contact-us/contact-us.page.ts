@@ -4,6 +4,7 @@ import { ContactUsService } from '../../services/contact-us.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -41,7 +42,7 @@ export class ContactUsPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertServiceService,
-    public transService: translateService
+    public transService: TranslateServiceService
   ) { }
 
   async ngOnInit() {

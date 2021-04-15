@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { Storage } from '@ionic/storage';
 import { BuildingUserService } from '../../services/building-user.service';
 
@@ -20,7 +21,7 @@ export class ProfilePage implements OnInit {
     private userService: BuildingUserService,
     private alertService: AlertServiceService,
     private loadingCtrl: LoadingController,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     private storage: Storage
   ) {
     this.getProfile(window.localStorage.getItem('user_id'));

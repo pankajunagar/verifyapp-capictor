@@ -1,0 +1,32 @@
+
+ion-button{
+  display: block;
+  justify-content: center;
+  margin-top: 6vh;
+  /* width: 80%; */
+  margin-left: 5vh;
+  margin-right: 5vh;
+
+}
+ion-list{
+  display: inline-flex;
+  justify-content: center;
+}
+
+.transparentBody {
+  background: transparent !important;
+}
+
+.aclass{
+  width: 100%;
+}
+
+h4{
+  text-align: center;
+  text-transform: capitalize;
+}
+ion-label{
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+}

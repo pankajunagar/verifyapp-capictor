@@ -2,6 +2,7 @@ import { AlertServiceService } from '../../../common-services/alert-service.serv
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { BuildingUserService } from '../../services/building-user.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class UserSearchPage implements OnInit {
     private modalController: ModalController,
     private navParams: NavParams,
     private alertService: AlertServiceService,
-    public transService: translateService
+    public transService: TranslateServiceService
   ) {
     if (this.navParams.get('id')) {
       this.selectedUser.id = this.navParams.get('id');

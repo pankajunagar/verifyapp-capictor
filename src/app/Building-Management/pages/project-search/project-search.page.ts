@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { ProjectService } from '../../services/project.service';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-project-search',
@@ -27,7 +28,7 @@ export class ProjectSearchPage implements OnInit {
     private modalController: ModalController,
     private navParams: NavParams,
     private alertService: AlertServiceService,
-    public transService: translateService
+    public transService: TranslateServiceService
   ) {
     if (this.navParams.get('id')) {
       this.selectedProject.ticketBelongsToRefId = this.navParams.get('id');

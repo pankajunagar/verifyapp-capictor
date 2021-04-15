@@ -3,6 +3,7 @@ import { ModalController, NavParams } from '@ionic/angular';
 import { UnitService } from '../../services/unit.service';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-unit-search',
@@ -27,7 +28,7 @@ export class UnitSearchPage implements OnInit {
     private modalController: ModalController,
     private navParams: NavParams,
     private alertService: AlertServiceService,
-    public transService: translateService
+    public transService: TranslateServiceService
   ) {
     if (this.navParams.get('id')) {
       this.selectedUnit.ticketBelongsToRefId = this.navParams.get('id');

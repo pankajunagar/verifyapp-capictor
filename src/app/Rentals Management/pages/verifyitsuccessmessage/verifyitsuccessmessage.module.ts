@@ -1,24 +1,24 @@
-import { ApplicationPageModule } from './../../ApplicationPageModule';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { ApplicationPageModule } from "./../../ApplicationPageModule";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Routes, RouterModule } from "@angular/router";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
 // import { HomePage } from './home.page';
-import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
-import { VerifyItSuccessMessagePage } from './verifyitsuccessmessage.page';
+import { CreateNoticeComponent } from "../../modals/create-notice/create-notice.component";
+import { VerifyItSuccessMessagePage } from "./verifyitsuccessmessage.page";
 // import { VerifyitDashboardPage } from './verifyitdashboard.page';
 // import { VerifyitDashboardPage } from './VerifyitDashboardPage.page';
 // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+// my comments
 
 const routes: Routes = [
   {
-    path: '',
-    component: VerifyItSuccessMessagePage
-  }
+    path: "",
+    component: VerifyItSuccessMessagePage,
+  },
 ];
 
 @NgModule({
@@ -28,11 +28,11 @@ const routes: Routes = [
     FormsModule,
     ApplicationPageModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   providers: [
     // BarcodeScanner
   ],
-  declarations: [VerifyItSuccessMessagePage]
+  declarations: [VerifyItSuccessMessagePage],
 })
-export class VerifyItSuccessMessageModule { }
+export class VerifyItSuccessMessageModule {}

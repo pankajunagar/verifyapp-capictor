@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-approvalpopup',
@@ -12,7 +13,7 @@ export class ApprovalpopupComponent implements OnInit {
 
   constructor(
     private popoverCtrl: PopoverController,
-    public transService: translateService,
+    public transService: TranslateServiceService,
     public trans: TranslateService
   ) { }
   @Input() val;

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController } from '@ionic/angular';
 import { translateService } from 'src/app/common-services/translate/translate-service.service';
+import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 
 @Component({
   selector: 'app-calendar',
@@ -32,7 +33,7 @@ export class CalendarPage implements OnInit {
     private ticketService: TicketService,
     private loading: LoadingController,
     private alertService: AlertServiceService,
-    public transService: translateService
+    public transService: TranslateServiceService
   ) {
     this.searchTicket('');
   }
