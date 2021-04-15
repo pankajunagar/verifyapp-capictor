@@ -318,7 +318,8 @@ genToken(){
 }
 
 reviewTracking(data){
-  return this.http.post(`${this.appSettings.getApi()}/tracking/review_tracking`, data,
+  // return this.http.post(`${this.appSettings.getApi()}/tracking/review_tracking`, data,
+  return this.http.post(`${this.appSettings.getApi()}/tracking/tracking`, data,
   {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

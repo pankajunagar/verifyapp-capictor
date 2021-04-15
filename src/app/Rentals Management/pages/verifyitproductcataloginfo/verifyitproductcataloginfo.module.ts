@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 // import { VerifyitProductInfoPage } from './verifyitProductinfo.page';
-// import { TellUsifyouBuyitComponent } from '../../modals/tellusifyoubuyit/tellusifyoubuyit.component';
+ import { TellUsifyouBuyitComponent } from '../../modals/tellusifyoubuyit/tellusifyoubuyit.component';
 import { VerifyitProductCatalogInfoPage } from './verifyitproductcataloginfo.page';
 // import { VerifyitProductCatalogInfoPage } from './verifyitproductcatalog.page';
 
@@ -20,7 +20,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent],
+  entryComponents: [CreateNoticeComponent,
+    // TellUsifyouBuyitComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
