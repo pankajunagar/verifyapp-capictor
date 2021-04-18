@@ -29,6 +29,7 @@ export class VerifyitDashboardPage implements OnInit {
   videoElement:any;
   scanActive= false;
   scanResult= null;
+  
   cred = {
     tagId: null,
     verified: null,
@@ -559,4 +560,7 @@ export class VerifyitDashboardPage implements OnInit {
     // debugger
     return obj
   }
+
+
+  
 }
