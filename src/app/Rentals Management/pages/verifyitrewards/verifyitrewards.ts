@@ -45,12 +45,14 @@ export class Verifyitrewards {
     this.listbanner=data;
     this.items=this.listbanner.data
       this.listbanner.data.forEach(element => {
+        
         element.name= element.product_name
       });
     console.log(this.listbanner);
     })
 
 
+    
 
   }
   items
