@@ -65,6 +65,9 @@ const routes: Routes = [
 
     { path: 'verifyit-product-catalog', loadChildren: '../Rentals Management/pages/verifyitproductcatalog/verifyitproductcatalog.module#VerifyitProductCatalogPageModule' },
     
+    { path: 'verifyit-rewards', loadChildren: '../Rentals Management/pages/verifyitrewards/verifyitrewards.module#VerifyitRewardsModule' },
+    
+    
     // { path: 'rentals-my-data-project-details', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },
     // { path: 'rentals-my-data-project-details/:id', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },
     // { path: 'rentals-my-data-unit-search', loadChildren: '../Rentals Management/mydata/Unit/my-data-unit-search/my-data-unit-search.module#MyDataUnitSearchPageModule' },

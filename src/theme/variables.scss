@@ -103,6 +103,15 @@
 @media (prefers-color-scheme: light){
   
 }
+
+.custome-refer-modal {
+  padding-top: 25em;
+  // height: 38.7em;
+  .modal-wrapper {
+    border-top-left-radius: 3vh;
+    border-top-right-radius: 3vh;
+  }
+}
 // .alertOTPcss{
 //   --font-size: 12px !important;
 // }
