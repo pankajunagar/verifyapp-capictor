@@ -111,6 +111,7 @@ export class VerifyitDashboardPage implements OnInit {
     console.log(this.videoElement);
     
   }
+  
   data = {
     lat: 0,
     long: 0,
