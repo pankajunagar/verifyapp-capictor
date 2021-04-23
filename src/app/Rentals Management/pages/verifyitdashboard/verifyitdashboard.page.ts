@@ -117,7 +117,6 @@ export class VerifyitDashboardPage implements OnInit {
   };
   ngOnInit() {
     if(this.router.url.includes("params")){
-
       this.gettag((this.router.url).split('=')[1])
     }
 // this.gettag('1600')

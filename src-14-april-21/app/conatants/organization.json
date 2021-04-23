@@ -1,8 +1,0 @@
-{
-    "appName": "Business - TheHouseMonk",
-    "connectTo": "production",
-    "buildFor": "RM",
-    "appBundleId": "com.grexterBusiness.coliving",
-    "mixpanel-token": "1350cf4808c3adbdd9ef79625d091dc7",
-    "orgName":"The house monk"
-}
