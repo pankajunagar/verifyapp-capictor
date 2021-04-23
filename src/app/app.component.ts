@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
         url: `verifyit-account`,
         src: "assets/imgs/profile1.svg",
         userrole: "default"
-      }
+      },
       // {
       //   title: 'Tickets',
       // url: `rentals-naila-ticket-page`,
@@ -98,7 +98,14 @@ export class AppComponent implements OnInit {
       //   src: '/assets/imgs/business.svg',
       //   userrole:'Beautician'
 
-      // },
+    
+      {
+        title: 'Rewards',
+        url: `verifyit-rewards`,
+        src: '/assets/imgs/offers.svg',
+        userrole:'default'
+
+      },
       // {
       //   title: 'Log Out',
       //   // url: `rentals-naila-cart-page`,
@@ -148,7 +155,14 @@ export class AppComponent implements OnInit {
         url: `verifyit-account`,
         src: "assets/imgs/profile1.svg",
         userrole: "default"
-      }
+      },
+      {
+        title: 'Rewards',
+        url: `verifyit-rewards`,
+        src: '/assets/imgs/commerce-and-shopping.svg',
+        userrole:'default'
+
+      },
       // {
       //   title: 'Tickets',
       // url: `rentals-naila-ticket-page`,

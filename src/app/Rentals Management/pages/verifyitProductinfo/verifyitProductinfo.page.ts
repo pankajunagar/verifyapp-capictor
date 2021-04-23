@@ -22,6 +22,9 @@ import {
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
 
+import { Plugins } from '@capacitor/core';
+const { Share } = Plugins;
+
 @Component({
   selector: "app-verifyitProductinfo",
   templateUrl: "./verifyitProductinfo.page.html",
@@ -590,9 +593,25 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
   brand = this.callgettagresult.brand;
   product_link = "";
 
-  socialShare() {
+  async socialShare() {
+    this.product_title = this.callgettagresult.product_name;
+    this.brand = this.callgettagresult.brand;
+    // this.product_link= this.product_link;
 
-
+    this.jsonToBeUsed.forEach(element => {
+      if (element.key == "purchase online") {
+        console.log(element);
+        this.product_link = element.value[0].link;
+      }
+    });
+    let shareRet = await Share.share({
+      title: this.product_title,
+      text: "Hey, Checkout" + " from " + this.brand 
+     
+      ,
+      url: this.product_link,
+      // dialogTitle: 'Share with buddies'
+    });
 
     // let options: StreamingVideoOptions = {
     //   successCallback: () => { console.log('=======================>Video played==================>') },
@@ -604,39 +623,30 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
     // this.streamingMedia.playVideo('https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4', options);
 
     // console.log('kkkkkkk=================',this.brand_color)
-    this.jsonToBeUsed.forEach(element => {
-      if (element.key == "purchase online") {
-        console.log(element);
-        this.product_link = element.value[0].link;
-      }
-    });
-    this.product_title = this.callgettagresult.product_name;
-    this.brand = this.callgettagresult.brand;
-    // this.product_link= this.product_link;
 
-    this.socialSharing
-      .share(
-        "Hey, Checkout" +
-        " " +
-        this.product_title +
-        " from " +
-        this.brand +
-        "." +
-        "\n",
-        "",
-        "",
-        this.product_link
-      )
-      .then(() => {
-        console.log(
-          "===============shared================== to whatsapp========"
-        );
-      })
-      .catch(() => {
-        console.log(
-          "===============shared===========not======= to whatsapp========"
-        );
-      });
+    // this.socialSharing
+    //   .share(
+        // "Hey, Checkout" +
+        // " " +
+        // this.product_title +
+        // " from " +
+        // this.brand +
+        // "." +
+        // "\n",
+        // "",
+        // "",
+        // this.product_link
+    //   )
+    //   .then(() => {
+    //     console.log(
+    //       "===============shared================== to whatsapp========"
+    //     );
+    //   })
+    //   .catch(() => {
+    //     console.log(
+    //       "===============shared===========not======= to whatsapp========"
+    //     );
+    //   });
   }
   async navigateTomsgPage() {
     this.router.navigateByUrl('/verifyit-message')

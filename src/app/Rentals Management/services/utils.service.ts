@@ -18,6 +18,7 @@ export class Utils {
     cartitem:any;
     userrole:any;
     productId;
+    royaltyData;
     productCatalogInfo;
     hidenfc
     userType:any;

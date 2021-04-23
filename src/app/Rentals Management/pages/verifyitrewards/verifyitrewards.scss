@@ -1,0 +1,34 @@
+img{
+  width:100%;
+  height:100%;
+}
+
+.myCard{
+  position: relative;
+  height: 125px;
+  width: 40vw !important;
+
+
+}
+
+.myOverlay{
+  float: left;
+  margin-left: 5vw;
+  margin-top: 5vw;
+  font-weight: 500;
+  font-size: 27px;
+  color: black;
+
+
+}
+ion-col{
+  margin-left: -2vw;
+}
+.card-title2{
+  font-size: 17px;
+  bottom: 25px;
+  position: absolute;
+}
+.card-title{
+  // margin-top: 2vw;
+}

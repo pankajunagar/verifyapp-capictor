@@ -29,6 +29,7 @@ export class VerifyitDashboardPage implements OnInit {
   videoElement:any;
   scanActive= false;
   scanResult= null;
+  
   cred = {
     tagId: null,
     verified: null,
@@ -110,6 +111,7 @@ export class VerifyitDashboardPage implements OnInit {
     console.log(this.videoElement);
     
   }
+  
   data = {
     lat: 0,
     long: 0,
@@ -558,4 +560,7 @@ export class VerifyitDashboardPage implements OnInit {
     // debugger
     return obj
   }
+
+
+  
 }
