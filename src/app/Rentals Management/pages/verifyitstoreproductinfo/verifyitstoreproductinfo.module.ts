@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 import { VerifyitStoreProductInfoPage } from './verifyitstoreproductinfo.page';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+// import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { GeneratedQRcodeModalComponent } from '../../modals/generatedqrcodemodal/generatedqrcodemodal.component';
 // import { VerifyitStoreProductInfoPage } from '../verifyitProductinfo/verifyitProductinfo.page';
 // import { VerifyitStoreProductInfoPage } from './verifyitProductinfo.page';
@@ -23,7 +23,7 @@ const routes: Routes = [
 @NgModule({
   entryComponents: [CreateNoticeComponent,GeneratedQRcodeModalComponent],
   imports: [
-    NgxQRCodeModule,
+    // NgxQRCodeModule,
     CommonModule,
     FormsModule,
     ApplicationPageModule,

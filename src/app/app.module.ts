@@ -40,7 +40,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 // import { VideoPlayer } from '@ionic-native/video-player/ngx';
 // import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+// import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -57,7 +57,7 @@ import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
   ],
   entryComponents: [OrgModalComponent, CountrycodemodalComponent, PictureComponent,ApprovalpopupComponent],
   imports: [
-    NgxQRCodeModule,
+    // NgxQRCodeModule,
 
     FormsModule,
     BrowserModule,

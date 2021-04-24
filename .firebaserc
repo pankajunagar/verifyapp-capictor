@@ -1,10 +1,5 @@
 {
   "projects": {
-<<<<<<< HEAD
     "default": "nowverifycap"
-=======
-    "default": "nowverifyit-f7758",
-    "capacitor": "nowverifycap"
->>>>>>> 19f9cbcf355751491ac67db39b22442e0c0b0d4b
   }
 }
