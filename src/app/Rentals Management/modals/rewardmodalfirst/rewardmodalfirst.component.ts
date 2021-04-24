@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { NoticeService } from './../../services/notice.service';
-import { ModalController, LoadingController, ActionSheetController } from '@ionic/angular';
+import { ModalController, LoadingController, ActionSheetController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
@@ -30,6 +30,7 @@ export class RewardmodalfirstComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private noticeService: NoticeService,
     private router: Router,
+    private alertCtrl:AlertController,
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
     public webView: WebView,
@@ -56,7 +57,40 @@ export class RewardmodalfirstComponent implements OnInit {
 
 
   redeemNow(){
-    alert('Coming soon.')
+    // alert('Coming soon.')
+    this.presentAlertConfirm();
+    // this.alertService.presentAlert('Coming soon','Login to secure your loyalty point.')
   }
 
+
+  async presentAlertConfirm() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      // header: 'Confirm!',
+      message: 'Coming soon.',
+      buttons: [
+        {
+          text: 'Skip',
+          role: 'cancel',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.modalController.dismiss();
+          }
+        },
+        {
+          text: 'Login to secure points.',
+          // cssClass: 'secondary',
+          handler: (blah) => {
+            this.router.navigateByUrl('/login')
+            this.modalController.dismiss();
+          }
+        },
+      ]
+    });
+
+    await alert.present();
+  }
 }
+
+
+

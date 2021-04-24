@@ -43,19 +43,27 @@ export class Verifyitrewards {
     let data;
     this.nailaservice.getLoyaltyPointByuser(data).subscribe(data => {
     this.listbanner=data;
-    this.items=this.listbanner.data
-      this.listbanner.data.forEach(element => {
+    // this.items=this.listbanner.data
+      // this.listbanner.data.forEach(element => {
         
-        element.name= element.product_name
-      });
-    console.log(this.listbanner);
+      //   element.name= element.product_name
+      // });
+      let obj = {}
+      this.listbanner.data.forEach((item)=>{
+        if(obj[item.brand]){
+             obj[item.brand].loyalty_points = Number(obj[item.brand].loyalty_points) + Number (item.loyalty_points)
+        }else{
+            obj[item.brand] = item
+        }
+      })
+      this.items=(Object.values(obj))
     })
 
 
     
 
   }
-  items
+  items=[]
   setFilteredItems() {
     this.items = this.listbanner.data;
     this.items = this.filterItems(this.searchTerm);
@@ -69,6 +77,7 @@ export class Verifyitrewards {
 
 
   async presentModal2(data) {
+    debugger
     this.utils.royaltyData=data
     let modal = await this.modalController.create({
       component: RewardmodalfirstComponent,
