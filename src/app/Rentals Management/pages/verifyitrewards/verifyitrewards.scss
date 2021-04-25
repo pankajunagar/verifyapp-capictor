@@ -5,18 +5,18 @@ img{
 
 .myCard{
   position: relative;
-  height: 125px;
-  width: 40vw !important;
+  height: 160px;
+  width: 45vw !important;
 
 
 }
 
 .myOverlay{
-  float: left;
-  margin-left: 5vw;
-  margin-top: 5vw;
-  font-weight: 500;
-  font-size: 27px;
+  // float: left;
+  // margin-left: 2vw;
+  // margin-top: 5vw;
+  // font-weight: 500;
+  // font-size: 27px;
   color: black;
 
 
@@ -25,10 +25,36 @@ ion-col{
   margin-left: -2vw;
 }
 .card-title2{
-  font-size: 17px;
+  font-size: 21px;
   bottom: 25px;
-  position: absolute;
+  justify-content: center;
+  font-weight: 500;
+  display: flex;
+  // margin-left: 2vw;
+  margin-top: 3vw;
+  
 }
 .card-title{
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  ion-button{
+    position: absolute;
+    bottom: 0px;
+    font-size: 2vw;
+  }
   // margin-top: 2vw;
+  // position: absolute;
+  // bottom: 25px;
+}
+.tap-card{
+  color: black;
+  font-size: 21px;
+  display: inline-table;
+  margin-top: 20px;
 }

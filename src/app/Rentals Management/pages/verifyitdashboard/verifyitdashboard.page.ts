@@ -117,7 +117,7 @@ export class VerifyitDashboardPage implements OnInit {
     console.log(this.videoElement);
     
   }
-  
+
   data = {
     lat: 0,
     long: 0,
@@ -126,6 +126,11 @@ export class VerifyitDashboardPage implements OnInit {
   ngOnInit() {
     if(this.router.url.includes("params")){
       this.gettag((this.router.url).split('=')[1])
+    }else if(this.router.url.includes("brand"))
+    {
+      let brand=((this.router.url).split('=')[1])
+      this.router.navigate(['/verifyit-product-catalog'],{ queryParams: {brand:brand}})
+
     }
 // this.gettag('1600')
     this.platform.ready().then(() => {

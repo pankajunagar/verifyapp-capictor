@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "nowverifycap"
+    "default": "nowverifyit-f7758",
+    "capacitor": "nowverifycap",
+    "prod": "nowverifyit-f7758",
+    "staging": "nowverifycap"
   }
 }

@@ -22,13 +22,15 @@
   ></ion-searchbar> -->
   <ion-row class="center-text">
     <ion-col *ngFor="let item of items" size="6">
-
       <ion-card (click)="presentModal2(item)" class="myCard">
         <!-- <img 
           src={{item.img1}} /> -->
         <div class="myOverlay">
-          <div class="card-title">{{item.loyalty_points}}</div>
           <div class="card-title2">{{item.brand}}</div>
+          <div class="tap-card">{{item.loyalty_points}}</div>
+          <div class="card-title">
+            <ion-button>Redeem points</ion-button>
+          </div>
 
         </div>
       </ion-card>

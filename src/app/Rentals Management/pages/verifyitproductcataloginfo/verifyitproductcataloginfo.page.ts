@@ -129,9 +129,11 @@ export class VerifyitProductCatalogInfoPage {
     private actionSheetController: ActionSheetController
   ) {
     this.hasLogin = window.localStorage.getItem("name");
+    debugger
     // alert('=================='+this.hasLogin)
     // this.ionViewDidLoad()
     this.callgettagresult = this.utilservice.productCatalogInfo;
+    this.utilservice.callgettagresult=this.utilservice.productCatalogInfo;
 
     // this.callgettagresult  =  JSON.parse(this.callgettagresult)
     console.log(this.callgettagresult);
