@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController, AlertController, NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
 import * as moment from 'moment';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
@@ -28,7 +28,7 @@ export class VerifyitProductCatalogPage {
 
 
 
-  constructor(private nailaservice: NailaService, private utils: Utils, private router: Router) {
+  constructor(private nailaservice: NailaService, private utils: Utils, private router: Router,private route: ActivatedRoute, ) {
 
   }
   searchTerm
@@ -37,9 +37,11 @@ export class VerifyitProductCatalogPage {
   jsonToBeUsed = []
 
   ngOnInit() {
-    // 
-    debugger
-    this.nailaservice.listRelatedProducts(this.utils.productId).subscribe(data => {
+
+    if (this.route.snapshot.queryParams['brand']) {
+     let brand = this.route.snapshot.queryParams['brand'];
+
+     this.nailaservice.listRelatedProductsfrombrand(brand).subscribe(data=>{
       this.listbanner = data;
 
       if (this.listbanner.data[0].meta_data.category) {
@@ -60,7 +62,34 @@ export class VerifyitProductCatalogPage {
         element.name = element.product_name
       });
       console.log(this.listbanner);
-    })
+     })
+    }else{
+      this.nailaservice.listRelatedProducts(this.utils.productId).subscribe(data => {
+        this.listbanner = data;
+  
+        if (this.listbanner.data[0].meta_data.category) {
+          this.groupBy(this.listbanner.data, "category");
+  
+          console.log('=================================>===============')
+          this.groupedProducts.push(this.result)
+  
+  
+          Object.keys(this.result).forEach(e => this.jsonToBeUsed.push({ key: e, value: this.result[e] }))
+          console.log(this.jsonToBeUsed)
+          console.log('=================================>===============')
+        }
+  
+  
+        this.items = this.listbanner.data
+        this.listbanner.data.forEach(element => {
+          element.name = element.product_name
+        });
+        console.log(this.listbanner);
+      })
+    }
+    // 
+    
+
 
 
 
@@ -78,6 +107,7 @@ export class VerifyitProductCatalogPage {
   }
 
   showProductInfo(item) {
+    debugger
     this.utils.productCatalogInfo = '';
 
     this.utils.productCatalogInfo = item;

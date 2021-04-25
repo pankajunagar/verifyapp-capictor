@@ -303,6 +303,18 @@ listRelatedProducts(data){
   withCredentials:true,
   })
 }
+listRelatedProductsfrombrand(data){
+  return this.http.get(`${this.appSettings.getApi()}/products/getRelatedProductDetails/0/${data}`,{
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token'),
+    credentials: 'include',
+
+              
+  }),
+  withCredentials:true,
+  })
+}
 
 genToken(){
   return this.http.get(`${this.appSettings.getApi()}/login/gentoken`,{
