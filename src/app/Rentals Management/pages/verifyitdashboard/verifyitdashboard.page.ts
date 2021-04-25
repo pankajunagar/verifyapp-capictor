@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 
@@ -17,6 +18,10 @@ import {
   BarcodeScannerOptions
 } from "@ionic-native/barcode-scanner/ngx";
 import jsQR from 'jsqr';
+import { Plugins } from "@capacitor/core";
+import { InAppBrowser, InAppBrowserOptions } from "@ionic-native/in-app-browser/ngx";
+const { Browser } = Plugins;
+
 
 @Component({
   selector: "app-verifyitdashboard",
@@ -81,6 +86,7 @@ export class VerifyitDashboardPage implements OnInit {
   canvasElement: any;
   canvasContext: any;
   constructor(
+    private iab: InAppBrowser,
     private nfc: NFC,
     private ndef: Ndef,
     private platform: Platform,
@@ -159,6 +165,21 @@ export class VerifyitDashboardPage implements OnInit {
     await loading.present();
   }
 
+  //**Charu Start */
+  open(){
+    var url='https://ionicframework.com/'
+    const option: InAppBrowserOptions ={
+      zoom:'no',
+      hardwareback:'no',
+      closebuttoncaption:'yes'
+    }
+    const browser = this.iab.create(url,'_self',option);
+    
+   browser.show();
+  }
+
+
+  //**Charu End */
   ionViewDidLoad() {
     this.userType = window.localStorage.getItem("userType");
 

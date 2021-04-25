@@ -180,7 +180,7 @@ export class VerifyitProductCatalogInfoPage {
   }
 
   // ionViewDidLoad() {
-  //   debugger
+
 
   //   this.platform.ready().then(() => {
   //     this.nfc.enabled().then((resolve) => {
@@ -369,7 +369,7 @@ export class VerifyitProductCatalogInfoPage {
     this.utilservice.certificateData = data;
     // alert(JSON.stringify(data))
     this.presentModal();
-    debugger;
+ 
   }
 
   async presentModal() {
@@ -479,7 +479,8 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
 
   openInappBrowser(element) {
     const _this = this
-    this.browser = this.iab.create(element.link, "_blank", this.options);
+    // this.browser = this.iab.create(element.link, "_blank", this.options);
+    this.browser = this.iab.create(element.link, "_self", this.options);
 
     this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
 
@@ -509,8 +510,7 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
     this.browser.on("exit").subscribe(
 
       async data => {
-        debugger
-
+     
         if (_this.routemessage == 'thankyou') {
           _this.trackingData.user_id = window.localStorage.getItem('userid')
           _this.trackingData.tag_id = window.localStorage.getItem('tagId');

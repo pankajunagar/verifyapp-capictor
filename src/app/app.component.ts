@@ -213,6 +213,7 @@ export class AppComponent implements OnInit {
     this.deferredPrompt = e;
     this.showButton = true;
   }
+
   addToHomeScreen() {
     // hide our user interface that shows our A2HS button
     this.showButton = false;
@@ -228,7 +229,7 @@ export class AppComponent implements OnInit {
     }
     this.deferredPrompt = null;
   });
-}
+}  
   ngOnInit() {
     this.utils.LoadPage.subscribe(data => {
       if (window.localStorage.getItem("userType")) {

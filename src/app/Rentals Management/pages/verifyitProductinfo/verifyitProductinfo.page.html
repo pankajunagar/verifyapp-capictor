@@ -88,14 +88,16 @@
       <div class="row" *ngFor="let item of jsonToBeUsed">
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' 
+          && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
-          {{item.key.split('_').join(' ')}}
+         {{item.key.split('_').join(' ')}}
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' 
+          && item.key!='review' && item.key!='brand_color'"
           class="description"
         >
           {{item.value}}
@@ -103,14 +105,16 @@
 
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product_video' 
+          && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
-          {{item.key.split('_').join(' ')}}
+         {{item.key.split('_').join(' ')}}
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' 
+          && item.key!='review' && item.key!='brand_color'"
           class="description"
         >
           <a
@@ -123,31 +127,34 @@
 
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product_video' 
+          && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
-          {{item.key.split('_').join(' ')}}:
+         {{item.key.split('_').join(' ')}}:
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product_video' 
+          && item.key!='review' && item.key!='brand_color'"
           class="description"
         >
           <a
             style="text-decoration: underline; color: blue"
             (click)="showCertificates(item.value)"
           >
-            {{ item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
+          {{ item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
             : '..' }}
           </a>
         </div>
 
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product_video' 
+          && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
-          {{item.key.split('_').join(' ')}}:
+         {{item.key.split('_').join(' ')}}:
         </div>
         <div
           text-capitalize
@@ -157,27 +164,34 @@
           <a
             style="text-decoration: underline; color: blue"
             (click)="presentActionSheet(item)"
-            >{{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
+            > 
+            
+            {{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
             : '..'}}</a
           >
         </div>
 
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video'  && item.key=='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video'  
+          && item.key=='review' && item.key!='brand_color'"
           class="label"
         >
+        <!-- Review -->
           {{item.key.split('_').join(' ')}}:
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video'  && item.key=='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video'  
+          && item.key=='review' && item.key!='brand_color'"
           class="description"
         >
           <a
             style="text-decoration: underline; color: blue"
             (click)="presentActionSheet(item)"
-            >{{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
+            >
+             <!-- Review Link -->
+            {{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
             : '..'}}</a
           >
         </div>
@@ -185,7 +199,8 @@
 
         <div
         text-capitalize
-        *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product_video'   && item.key!='review' && item.key!='brand_color'"
+        *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product_video'  
+         && item.key!='review' && item.key!='brand_color'"
         class="description"
       >
         <a
