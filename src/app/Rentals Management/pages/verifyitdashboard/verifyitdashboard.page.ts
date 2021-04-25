@@ -119,7 +119,6 @@ export class VerifyitDashboardPage implements OnInit {
   };
   ngOnInit() {
     if(this.router.url.includes("params")){
-
       this.gettag((this.router.url).split('=')[1])
     }else if(this.router.url.includes("brand"))
     {

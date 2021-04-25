@@ -207,6 +207,8 @@
 
 
     </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
+    <ion-router-outlet main>
+      <button *ngIf="showButton" (click)="addToHomeScreen()">Add NowVerifyIt to Your home screen</button>
+    </ion-router-outlet>
   </ion-split-pane>
 </ion-app>
