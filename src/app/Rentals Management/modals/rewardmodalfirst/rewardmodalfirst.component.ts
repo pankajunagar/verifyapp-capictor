@@ -15,7 +15,7 @@ import { Utils } from '../../services/utils.service';
   styleUrls: ['./rewardmodalfirst.component.scss'],
 })
 export class RewardmodalfirstComponent implements OnInit {
-
+hasLogin
   notice: any = {
     discussionBelongsTo: 'Project',
     discussionType: 'Notice',
@@ -36,10 +36,15 @@ export class RewardmodalfirstComponent implements OnInit {
     public webView: WebView,
     public transService: TranslateServiceService,
     private actionSheet: ActionSheetController
-  ) { }
+  ) {
+    this.hasLogin=false
+   }
   royaltyData
   ngOnInit() { 
     this.royaltyData=this.utils.royaltyData
+    if(window.localStorage.getItem('name')){
+      this.hasLogin=true;
+    }
   }
 
   async presentLoading() {
@@ -78,6 +83,7 @@ export class RewardmodalfirstComponent implements OnInit {
           }
         },
         {
+          
           text: 'Login to secure points.',
           // cssClass: 'secondary',
           handler: (blah) => {
@@ -89,6 +95,10 @@ export class RewardmodalfirstComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  LoginNow(){
+    this.router.navigateByUrl('/login')
   }
 }
 

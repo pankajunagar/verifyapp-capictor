@@ -10,7 +10,7 @@
           </ion-item>
 <ion-item lines="none">
 
-  
+
   <h4>
       Congrats! you have earned {{royaltyData.loyalty_points}} loyalty points from {{royaltyData.brand}}
     </h4>
@@ -20,6 +20,7 @@
               It is valid till {{royaltyData.validity}}
              </p>
              
+
           </ion-item>
           <ion-item lines="none">
               <a href="">
@@ -29,8 +30,8 @@
         </ion-list>
         
         <ion-row class="share-link">
-            <ion-col size="12" size-lg class="ion-text-center">
-                <button (click)="redeemNow()" class="font-18" ion-button
+            <ion-col *ngIf="!hasLogin" size="12" size-lg class="ion-text-center">
+                <button (click)="LoginNow()" class="font-18" ion-button
                     expand="block">Login to secure points.</button>
             </ion-col>
             <ion-col size="12" size-lg class="ion-text-center">
