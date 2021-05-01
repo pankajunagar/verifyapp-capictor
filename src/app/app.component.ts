@@ -16,6 +16,7 @@ import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { Console } from '@angular/core/src/console';
 import { VerifyitAccountsPage } from './Rentals Management/pages/verifyitaccountspage/verifyitaccountspage';
 import { NailaService } from './Rentals Management/services/naila.service';
+import { SettingsService } from "./settings.service";
 declare var wkWebView: any;
 interface DeeplinkMatch {
   $myparam: string;
@@ -27,7 +28,7 @@ interface DeeplinkMatch {
 export class AppComponent implements OnInit {
   userrole;
 
-
+  selectedTheme:String='red-theme';
 
 
   public appPages = {
@@ -279,9 +280,23 @@ export class AppComponent implements OnInit {
     private alertService: AlertServiceService,
     private buildingUserService: BuildingUserService,
     private utils: Utils,
-    private verifyitservice:NailaService
+    private verifyitservice:NailaService,
+    private settings:SettingsService
   ) // private push: Push
-  { }
+  { 
+    this.settings.getActiveTheme().subscribe(val=>this.selectedTheme= val);
+   
+  }
+
+
+  toggleAppTheme(){
+   
+    if(this.selectedTheme=='red-theme'){
+      this.settings.setActiveTheme('light-theme');
+    }else{
+      this.settings.setActiveTheme('red-theme')
+    }
+  }
 
   // ionViewWillEnter(){
   //   this.toggleRole('');

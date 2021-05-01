@@ -1,0 +1,15 @@
+.light-theme{
+    ion-content ion-header ion-toolbar{
+        background-color: blue;
+
+    }
+
+    .header .toolbar-title{
+        color:#fff;
+    }
+
+    .header .toolbar-background{
+        border-color: blue;
+        background-color: blue;
+    }
+}

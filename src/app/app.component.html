@@ -1,9 +1,9 @@
-<ion-app color="primary">
+<ion-app color="primary" [ngClass]="selectedTheme">
   <ion-split-pane>
     <ion-menu style="--width: 220px;" side="start">
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-menu-toggle>
+          <ion-menu-toggle (click)="toggleAppTheme()">
             <ion-title style="margin-bottom: 50px;" class="">
 
               <ion-col size="4">
@@ -178,6 +178,7 @@
                 {{translate.instant(p.title)}} 
               </ion-label>
             </ion-item>
+         
 
 
             <!-- <ion-item *ngIf="p.title == 'Log Out' &&  p.userrole!=(userrole || this.utils.userType)" style="--background: black;
@@ -205,9 +206,20 @@
         </ion-list>
       </ion-content>
 
+      <!-- <ion-content style="--background: black;
+      --color: white;
+      --border-width: 0 0 0px 0;">
+      <ion-list style="background:black;">      
+        <ion-item style="--background: black;
+        color: white;">
+          <button (click)="addToHomeScreen()">Add NowVerifyIt to Your home screen</button>
+        </ion-item>
+      </ion-list>
+      </ion-content> -->
+
 
     </ion-menu>
-    <button *ngIf="showButton" (click)="addToHomeScreen()">Add NowVerifyIt to Your home screen</button>
+   
     <ion-router-outlet main>
     
     </ion-router-outlet>
