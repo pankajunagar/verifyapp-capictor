@@ -6,7 +6,7 @@ import {
   Platform,
   ModalController,
   ActionSheetController,
-  LoadingController
+  ToastController
 } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
@@ -17,20 +17,18 @@ import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 import { AlertController } from "@ionic/angular";
 import { TellUsifyouBuyitComponent } from "../../modals/tellusifyoubuyit/tellusifyoubuyit.component";
 import { CertificateModalComponent } from "../../modals/certificatemodal/certificatemodal.component";
-import {
-  StreamingMedia,
-  StreamingVideoOptions
-} from "@ionic-native/streaming-media/ngx";
-import {
-  BarcodeScanner,
-  BarcodeScannerOptions
-} from "@ionic-native/barcode-scanner/ngx";
+
+import { Plugins } from '@capacitor/core';
+import * as WebVPPlugin from 'capacitor-video-player';
+const { CapacitorVideoPlayer,Device } = Plugins;
 import {
   InAppBrowser,
   InAppBrowserOptions,
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+
+// import { Plugins } from '@capacitor/core';
+const { Share } = Plugins;
 
 @Component({
   selector: "app-verifyitproductcataloginfo",
@@ -38,6 +36,22 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   styleUrls: ["./verifyitproductcataloginfo.page.scss"]
 })
 export class VerifyitProductCatalogInfoPage {
+ 
+  private _videoPlayer: any;
+  private _url: string;
+  private _handlerPlay: any;
+  private _handlerPause: any;
+  private _handlerEnded: any;
+  private _handlerReady: any;
+  private _handlerExit: any;
+  private _first: boolean = false;
+  private _apiTimer1: any;
+  private _apiTimer2: any;
+  private _apiTimer3: any;
+  private _testApi: boolean = true;
+
+
+
   cred = {
     tagId: null,
     verified: null,
@@ -117,6 +131,7 @@ export class VerifyitProductCatalogInfoPage {
     private ndef: Ndef,
     private platform: Platform,
     private iab: InAppBrowser,
+    private toastController:ToastController,
     private ngZone: NgZone,
     private socialSharing: SocialSharing,
     private qrScanner: QRScanner,
@@ -129,7 +144,6 @@ export class VerifyitProductCatalogInfoPage {
     private actionSheetController: ActionSheetController
   ) {
     this.hasLogin = window.localStorage.getItem("name");
-    debugger
     // alert('=================='+this.hasLogin)
     // this.ionViewDidLoad()
     this.callgettagresult = this.utilservice.productCatalogInfo;
@@ -180,6 +194,32 @@ export class VerifyitProductCatalogInfoPage {
       }
     });
   }
+
+
+  async ngOnInit() {
+    // define the plugin to use
+    const info = await Device.getInfo();
+    if (info.platform === "ios" || info.platform === "android") {
+      this._videoPlayer = CapacitorVideoPlayer;
+    } else {
+      this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer
+    }
+    // define the video url
+    this._url = "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+    // add listeners to the plugin
+    this._addListenersToPlayerPlugin();
+  }
+
+
+  async showProductVideo(data) {
+
+    const res:any  = await this._videoPlayer.initPlayer({mode:"fullscreen",url:data,playerId:"fullscreen",componentTag:"app-verifyitProductinf"});
+ 
+
+  }
+
+
+  
 
   // ionViewDidLoad() {
 
@@ -289,7 +329,7 @@ export class VerifyitProductCatalogInfoPage {
   // readTag() {
   //   if (this.canNFC) {
   //     setTimeout(() => {
-  //       this.alertService.presentAlert('','Connecting with Server.....');
+  //       this.alertService.presentAlert('','Connecting with Server..');
   //       this.readingTag = true;
   //       this.tagListenerSuccess();
   //     }, 100);
@@ -398,7 +438,7 @@ export class VerifyitProductCatalogInfoPage {
     fullscreen: 'no',//Windows only    
     hideurlbar: 'yes',
     toolbar: 'yes',
-    location: 'no',
+    location: 'yes',
     hidenavigationbuttons: 'yes',
     zoom: 'no'
   };
@@ -408,8 +448,9 @@ export class VerifyitProductCatalogInfoPage {
   mobile_number
   async trackingLinks(data) {
     let alert = await this.alertController.create({
-      subHeader: `Enter your Paytm number for cash back
+      subHeader: `Enter your number for cash back
       Your cash back will credit in 2-5 working days after approval of review.`,
+      message: '',
       inputs: [
         {
           name: 'mobile_number',
@@ -426,10 +467,16 @@ export class VerifyitProductCatalogInfoPage {
         }, {
           text: 'Submit',
           handler: (alertData) => { //takes the data 
-            console.log(alertData.mobile_number);
-            this.mobile_number = alertData.mobile_number
-            // data.push('mobile_number')
-            this.trackingReview(data)
+            if(alertData.mobile_number.length>9){
+
+              console.log(alertData.mobile_number);
+              this.mobile_number = alertData.mobile_number
+              // data.push('mobile_number')
+              this.trackingReview(data)
+            }else{
+              this.presentToast()
+              return false;
+            }
           }
         }
       ]
@@ -437,9 +484,16 @@ export class VerifyitProductCatalogInfoPage {
     await alert.present();
   }
 
-
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Mobile number is not valid.',
+      duration: 3000
+    });
+    toast.present();
+  }
 
   async presentActionSheet(data) {
+ 
     let buttons = [];
     const _this = this;
 
@@ -473,6 +527,7 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
   }
 
   thankyouRedirect() {
+
     this.browser.close();
     this.router.navigateByUrl("/verifyit-message");
 
@@ -480,10 +535,10 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
 
 
   openInappBrowser(element) {
+ 
     const _this = this
     // this.browser = this.iab.create(element.link, "_blank", this.options);
-    this.browser = this.iab.create(element.link, "_self", this.options);
-
+    this.browser = this.iab.create(element.link, "_self", this.options);//charu
     this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
 
       setInterval(function () {
@@ -602,9 +657,24 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
   brand = this.callgettagresult.brand;
   product_link = "";
 
-  socialShare() {
+  async socialShare() {
+    this.product_title = this.callgettagresult.product_name;
+    this.brand = this.callgettagresult.brand;
+    // this.product_link= this.product_link;
 
-
+    this.jsonToBeUsed.forEach(element => {
+      this.product_link = element.value[0].link;
+      // if (element.key == "purchase online") {
+      //   console.log(element);
+      //   this.product_link = element.value[0].link;
+      // }
+    });
+    let shareRet = await Share.share({
+      title: this.product_title,
+      text: "Hey, Checkout" + " from " + this.brand,
+      url: this.product_link,
+      // dialogTitle: 'Share with buddies'
+    });
 
     // let options: StreamingVideoOptions = {
     //   successCallback: () => { console.log('=======================>Video played==================>') },
@@ -616,45 +686,118 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
     // this.streamingMedia.playVideo('https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4', options);
 
     // console.log('kkkkkkk=================',this.brand_color)
-    this.jsonToBeUsed.forEach(element => {
-      if (element.key == "purchase online") {
-        console.log(element);
-        this.product_link = element.value[0].link;
-      }
-    });
-    this.product_title = this.callgettagresult.product_name;
-    this.brand = this.callgettagresult.brand;
-    // this.product_link= this.product_link;
 
-    this.socialSharing
-      .share(
-        "Hey, Checkout" +
-        " " +
-        this.product_title +
-        " from " +
-        this.brand +
-        "." +
-        "\n",
-        "",
-        "",
-        this.product_link
-      )
-      .then(() => {
-        console.log(
-          "===============shared================== to whatsapp========"
-        );
-      })
-      .catch(() => {
-        console.log(
-          "===============shared===========not======= to whatsapp========"
-        );
-      });
+    // this.socialSharing
+    //   .share(
+        // "Hey, Checkout" +
+        // " " +
+        // this.product_title +
+        // " from " +
+        // this.brand +
+        // "." +
+        // "\n",
+        // "",
+        // "",
+        // this.product_link
+    //   )
+    //   .then(() => {
+    //     console.log(
+    //       "===============shared================== to whatsapp========"
+    //     );
+    //   })
+    //   .catch(() => {
+    //     console.log(
+    //       "===============shared===========not======= to whatsapp========"
+    //     );
+    //   });
   }
   async navigateTomsgPage() {
     this.router.navigateByUrl('/verifyit-message')
   }
 
+
+
+  private _addListenersToPlayerPlugin() {
+    this._handlerPlay = this._videoPlayer.addListener('jeepCapVideoPlayerPlay', (data:any) => {
+      console.log('Event jeepCapVideoPlayerPlay ', data);
+      
+    }, false);
+    this._handlerPause = this._videoPlayer.addListener('jeepCapVideoPlayerPause', (data:any) => {
+      console.log('Event jeepCapVideoPlayerPause ', data);
+      
+    }, false);
+    this._handlerEnded = this._videoPlayer.addListener('jeepCapVideoPlayerEnded', async (data:any) => {
+      console.log('Event jeepCapVideoPlayerEnded ', data);
+      
+    }, false);
+    this._handlerExit = this._videoPlayer.addListener('jeepCapVideoPlayerExit', async (data:any) => {
+      console.log('Event jeepCapVideoPlayerExit ', data)
+      
+      }, false);
+    this._handlerReady = this._videoPlayer.addListener('jeepCapVideoPlayerReady', async (data:any) => {
+      console.log('Event jeepCapVideoPlayerReady ', data)
+      console.log("testVideoPlayerPlugin testAPI ",this._testApi);
+      console.log("testVideoPlayerPlugin first ",this._first);
+      if(this._testApi && this._first) {
+        // test the API
+        this._first = false;
+        console.log("testVideoPlayerPlugin calling isPlaying ");
+        const isPlaying = await this._videoPlayer.isPlaying({playerId:"fullscreen"});
+        console.log('const isPlaying ', isPlaying)
+        this._apiTimer1 = setTimeout(async () => {
+          const pause = await this._videoPlayer.pause({playerId:"fullscreen"});
+          console.log('const pause ', pause)
+          const isPlaying = await this._videoPlayer.isPlaying({playerId:"fullscreen"});
+          console.log('const isPlaying after pause ', isPlaying)
+          let currentTime = await this._videoPlayer.getCurrentTime({playerId:"fullscreen"});
+          console.log('const currentTime ', currentTime);
+          let muted = await this._videoPlayer.getMuted({playerId:"fullscreen"});
+          console.log('initial muted ', muted);
+          const setMuted = await this._videoPlayer.setMuted({playerId:"fullscreen",muted:!muted.value});
+          console.log('setMuted ', setMuted);
+          muted = await this._videoPlayer.getMuted({playerId:"fullscreen"});
+          console.log('const muted ', muted);
+          const duration = await this._videoPlayer.getDuration({playerId:"fullscreen"});
+          console.log("duration ",duration);
+          // valid for movies havin a duration > 25
+          const seektime = currentTime.value + 0.5 * duration.value < duration.value -25 ? currentTime.value + 0.5 * duration.value
+                          : duration.value -25;
+          const setCurrentTime = await this._videoPlayer.setCurrentTime({playerId:"fullscreen",seektime:(seektime)});
+          console.log('const setCurrentTime ', setCurrentTime);
+          const play = await this._videoPlayer.play({playerId:"fullscreen"});
+          console.log("play ",play);
+          this._apiTimer2 = setTimeout(async () => {
+            const setMuted = await this._videoPlayer.setMuted({playerId:"fullscreen",muted:false});
+            console.log('setMuted ', setMuted);
+            const setVolume = await this._videoPlayer.setVolume({playerId:"fullscreen",volume:0.5});
+            console.log("setVolume ",setVolume);
+            const volume = await this._videoPlayer.getVolume({playerId:"fullscreen"});
+            console.log("Volume ",volume);
+            this._apiTimer3 = setTimeout(async () => {
+              const pause = await this._videoPlayer.pause({playerId:"fullscreen"});
+              console.log('const pause ', pause);
+              const duration = await this._videoPlayer.getDuration({playerId:"fullscreen"});
+              console.log("duration ",duration);
+              const volume = await this._videoPlayer.setVolume({playerId:"fullscreen",volume:1.0});
+              console.log("Volume ",volume);
+              const setCurrentTime = await this._videoPlayer.setCurrentTime({playerId:"fullscreen",seektime:(duration.value - 3)});
+              console.log('const setCurrentTime ', setCurrentTime);
+              const play = await this._videoPlayer.play({playerId:"fullscreen"});
+              console.log('const play ', play);
+            }, 10000);
+          }, 10000);
+
+        }, 5000);
+      }
+    }, false);
+
+  }
+  
+
+
+
 }
+
 
 
 
