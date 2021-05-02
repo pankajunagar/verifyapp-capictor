@@ -232,10 +232,11 @@ export class AppComponent implements OnInit {
   });
 }  
   ngOnInit() {
-
-    setTimeout(()=>{
-      this.presentAlertConfirm();
-    },5000)
+    if(localStorage.getItem('addtohomescreen') !=='1'){
+      setTimeout(()=>{
+        this.presentAlertConfirm();
+      },5000)
+    }
     this.utils.LoadPage.subscribe(data => {
       if (window.localStorage.getItem("userType")) {
         this.userrole = window.localStorage.getItem("userType");
@@ -311,6 +312,7 @@ export class AppComponent implements OnInit {
           text: 'Add',
           handler: () => {
             console.log('Confirm Okay');
+            localStorage.setItem('addtohomescreen','1');
             this.addToHomeScreen();
           }
         }
