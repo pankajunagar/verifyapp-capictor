@@ -4,6 +4,7 @@
     "capacitor": "nowverifycap",
     "prod": "nowverifyit-f7758",
     "staging": "nowverifycap",
+    "test" : "noeverifycaptest"
     "develop": "nowverifycap"
   }
 }

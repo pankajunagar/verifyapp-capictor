@@ -1,15 +1,13 @@
-.red-theme{
-    ion-content{
-        background-color: red;
-
+.dark-theme {
+    ion-content {
+      --background: red;
+      --color: #fff;
     }
-
-    .header .toolbar-title{
-        color:#fff;
+    .toolbar-title {
+      --color: #fff;
     }
-
-    .header .toolbar-background{
-        border-color: red;
-        background-color: red;
+    ion-toolbar.new-background-color{
+      --background: blue;
+      color:#fff;
     }
-}
+  }  

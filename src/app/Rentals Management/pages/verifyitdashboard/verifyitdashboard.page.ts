@@ -20,6 +20,7 @@ import {
 import jsQR from 'jsqr';
 import { Plugins } from "@capacitor/core";
 import { InAppBrowser, InAppBrowserOptions } from "@ionic-native/in-app-browser/ngx";
+import { SettingsService } from 'src/app/settings.service';
 const { Browser } = Plugins;
 
 
@@ -85,6 +86,7 @@ export class VerifyitDashboardPage implements OnInit {
   subscriptions: Array<Subscription> = new Array<Subscription>();
   canvasElement: any;
   canvasContext: any;
+  selectedTheme: any;
   constructor(
     private iab: InAppBrowser,
     private nfc: NFC,
@@ -98,16 +100,25 @@ export class VerifyitDashboardPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     private alertService: AlertServiceService,
     private geolocation: Geolocation,
-
+    private settings: SettingsService,
     private apiSvc: NailaService
   ) {
    
 
-
+    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
     this.ionViewDidLoad();
     this.userType = window.localStorage.getItem("userType");
     // this.alertService.presentthis.alertService.presentAlert(''," user info data",window.localStorage.getItem('userType'));
+  }
+
+  toggleAppTheme() {
+    debugger;
+    if (this.selectedTheme === 'dark-theme') {
+      this.settings.setActiveTheme('light-theme');
+    } else {
+      this.settings.setActiveTheme('dark-theme');
+    }
   }
 
   ionViewDidEnter(){

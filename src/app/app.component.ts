@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, AfterViewInit, HostListener } from "@angular/core";
 
-import { Platform, NavController, LoadingController } from "@ionic/angular";
+import { Platform, NavController, LoadingController, AlertController } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -232,6 +232,11 @@ export class AppComponent implements OnInit {
   });
 }  
   ngOnInit() {
+    if(localStorage.getItem('addtohomescreen') !=='1'){
+      setTimeout(()=>{
+        this.presentAlertConfirm();
+      },5000)
+    }
     this.utils.LoadPage.subscribe(data => {
       if (window.localStorage.getItem("userType")) {
         this.userrole = window.localStorage.getItem("userType");
@@ -281,22 +286,42 @@ export class AppComponent implements OnInit {
     private buildingUserService: BuildingUserService,
     private utils: Utils,
     private verifyitservice:NailaService,
-    private settings:SettingsService
+    private settings:SettingsService,
+    private alertCtrl:AlertController
   ) // private push: Push
   { 
-    this.settings.getActiveTheme().subscribe(val=>this.selectedTheme= val);
+    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
    
   }
 
 
-  toggleAppTheme(){
-   
-    if(this.selectedTheme=='red-theme'){
-      this.settings.setActiveTheme('light-theme');
-    }else{
-      this.settings.setActiveTheme('red-theme')
-    }
+  async presentAlertConfirm() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Add to home Screen',
+      // message: 'Message <strong>text</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Add',
+          handler: () => {
+            console.log('Confirm Okay');
+            localStorage.setItem('addtohomescreen','1');
+            this.addToHomeScreen();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
+
 
   // ionViewWillEnter(){
   //   this.toggleRole('');

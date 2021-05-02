@@ -8,18 +8,16 @@ import { BehaviorSubject } from 'rxjs';
 export class SettingsService {
 
   private theme: BehaviorSubject<String>;
-
-  constructor() { 
-
-    this.theme = new BehaviorSubject('red-theme');
-  }
-
-  setActiveTheme(val){
-    this.theme.next(val);
-  }
-
-getActiveTheme(){
-    return this.theme.asObservable();
-}
-
+ 
+    constructor() {
+        this.theme = new BehaviorSubject('light-theme');
+    }
+ 
+    setActiveTheme(val) {
+        this.theme.next(val);
+    }
+ 
+    getActiveTheme() {
+        return this.theme.asObservable();
+    }
 }
