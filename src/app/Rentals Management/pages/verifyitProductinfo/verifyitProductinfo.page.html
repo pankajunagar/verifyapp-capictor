@@ -139,7 +139,7 @@ min-width: 100%;"  *ngIf="item.key!='Instruction' && item.key!='Description' && 
   >
     <a
       style="text-decoration: underline; color: blue"
-      (click)="showProductVideo(item.link)"
+      (click)="showProductVideo(list.link)"
       > 
       
       {{list.text}}</a
@@ -263,7 +263,8 @@ min-width: 100%;"  *ngIf="item.key!='Instruction' && item.key!='Description' && 
         style="text-decoration: underline; color: blue"
         (click)="showProductVideo(item.value)"
       >
-        Show Video
+        <!-- Show Video -->
+        {{item.key.split('_').join(' ')}}
       </a>
     </div>
       </div>
