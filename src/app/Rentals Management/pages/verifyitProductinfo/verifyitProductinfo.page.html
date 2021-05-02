@@ -67,19 +67,19 @@
         <div class="description">{{callgettagresult.brand}}</div>
       </div>
 
-      <div *ngIf="callgettagresult.model_number" class="row">
+      <div *ngIf="(callgettagresult.model_number)?.length> 0" class="row">
         <div class="label">{{credKeys.key2}}</div>
         <div class="description">{{callgettagresult.model_number}}</div>
       </div>
 
-      <div *ngIf="callgettagresult.manufactured" class="row">
+      <div *ngIf="(callgettagresult.manufactured)?.length> 0" class="row">
         <div class="label">{{credKeys.key10}}</div>
         <div class="description">{{callgettagresult.manufactured}}</div>
       </div>
 
       <div
         class="row"
-        *ngIf="(callgettagresult.serial_number != '0' || callgettagresult.serial_number.length > 2) "
+        *ngIf="callgettagresult.serial_number?.length > 0 " 
       >
         <div class="label">{{credKeys.key3}}</div>
         <div class="description">{{callgettagresult.serial_number}}</div>
@@ -88,14 +88,14 @@
       <div class="row" *ngFor="let item of jsonToBeUsed">
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object'  && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
          {{item.key.split('_').join(' ')}}
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="description"
         >
           {{item.value}}
@@ -103,14 +103,14 @@
 
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
          {{item.key.split('_').join(' ')}}
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="description"
         >
           <a
@@ -121,16 +121,62 @@
           </a>
         </div>
 
+<div style="    margin: 0 0 0 -5px;
+min-width: 100%;"  *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video-object' && item.key!='review' && item.key!='brand_color'">
+<!-- {{item.key}} -->
+    
+<ion-row  size="12" *ngFor="let list of item.value">
+
+  <ion-col style="    margin: 0 0 0 0px;" size="6"
+    text-capitalize
+    class="label"
+  >
+   {{list.key.split('_').join(' ')}}:
+  </ion-col>
+  <ion-col  size="6"
+    text-capitalize
+    class="description"
+  >
+    <a
+      style="text-decoration: underline; color: blue"
+      (click)="showProductVideo(item.link)"
+      > 
+      
+      {{list.text}}</a
+    >
+  </ion-col>
+<br/>
+</ion-row>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
          {{item.key.split('_').join(' ')}}:
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="description"
         >
           <a
@@ -144,14 +190,14 @@
 
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="label"
         >
          {{item.key.split('_').join(' ')}}:
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && item.key!='review' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='product-video' && item.key=='purchase online' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && item.key!='review' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='product-video' && item.key=='purchase online' && item.key!='brand_color'"
           class="description"
         >
           <a
@@ -166,7 +212,7 @@
 
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
           class="label"
         >
         <!-- Review -->
@@ -174,7 +220,7 @@
         </div>
         <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
           class="description"
         >
           <a
@@ -190,7 +236,7 @@
 
         <!-- <div
         text-capitalize
-        *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
+        *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
         class="label"
       >{{item.key.split('_').join(' ')}}:
         <a
@@ -202,7 +248,7 @@
 
       <div
       text-capitalize
-      *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
+      *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
       class="label"
     >
       {{item.key.split('_').join(' ')}}
@@ -210,7 +256,7 @@
 
       <div
       text-capitalize
-      *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
+      *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
       class="description"
     >
       <a

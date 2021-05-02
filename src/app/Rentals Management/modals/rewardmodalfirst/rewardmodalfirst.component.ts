@@ -98,6 +98,7 @@ hasLogin
   }
 
   LoginNow(){
+    this.modalController.dismiss();
     this.router.navigateByUrl('/login')
   }
 }

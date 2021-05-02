@@ -1,280 +1,307 @@
 <ion-header no-border>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
-      <ion-button style="color: black">
-          <img src="../../../../assets/icons.png" width="30px" height="30px"/>
-      </ion-button>
-    </ion-buttons> -->
-
-    <ion-title>Product Information</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content *ngIf="callgettagresult" no-padding>
-  <section [style.background-color]="this.brand_color">
-    <!-- <ion-card class="mapp-card">
-    <ion-card-header  text-center>
-	    <h3 ion-text  class="write-head" color="primary" >{{credKeys.key12}}</h3>
-    </ion-card-header> -->
-
-    <ion-row>
-      <ion-col class="product-image">
-        <img
-          tyle="margin-right: -15vh;
-          margin-top: 6vh;
-          position: absolute;
-          height: 500px;
-          width: 500px;"
-          src="{{callgettagresult.img1}}"
-        />
-
-        <img
-          *ngIf="callgettagresult.verified=='Yes' "
-          class="auth-logo"
-          width="100"
-          height="100"
-          src="assets/auth-logo.png"
-        />
-
-        <img
-          *ngIf="callgettagresult.verified=='No'"
-          style="
-            margin-right: -15vh;
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
+        <ion-button style="color: black">
+            <img src="../../../../assets/icons.png" width="30px" height="30px"/>
+        </ion-button>
+      </ion-buttons> -->
+  
+      <ion-title>Product Information</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content *ngIf="callgettagresult" no-padding>
+    <section [style.background-color]="this.brand_color">
+      <!-- <ion-card class="mapp-card">
+      <ion-card-header  text-center>
+        <h3 ion-text  class="write-head" color="primary" >{{credKeys.key12}}</h3>
+      </ion-card-header> -->
+  
+      <ion-row>
+        <ion-col class="product-image">
+          <img
+            tyle="margin-right: -15vh;
             margin-top: 6vh;
             position: absolute;
-            height: 100px;
-            width: 100px;
-          "
-          src="assets/fake.png"
-        />
-        <div class="btn-share" (click)="socialShare();">
-          <ion-icon ios="ios-share" md="md-share"></ion-icon>
+            height: 500px;
+            width: 500px;"
+            src="{{callgettagresult.img1}}"
+          />
+  
+          <img
+            *ngIf="callgettagresult.verified=='Yes' "
+            class="auth-logo"
+            width="100"
+            height="100"
+            src="assets/auth-logo.png"
+          />
+  
+          <img
+            *ngIf="callgettagresult.verified=='No'"
+            style="
+              margin-right: -15vh;
+              margin-top: 6vh;
+              position: absolute;
+              height: 100px;
+              width: 100px;
+            "
+            src="assets/fake.png"
+          />
+          <div class="btn-share" (click)="socialShare();">
+            <ion-icon ios="ios-share" md="md-share"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col size="12" class="ion-padding product-title">
+          <h2 class="product-name">{{callgettagresult.product_name}}</h2>
+        </ion-col>
+      </ion-row>
+  
+      <ion-grid class="ion-padding">
+        <div class="row">
+          <div class="label">{{credKeys.key4}}</div>
+          <div class="description">{{callgettagresult.brand}}</div>
         </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col size="12" class="ion-padding product-title">
-        <h2 class="product-name">{{callgettagresult.product_name}}</h2>
-      </ion-col>
-    </ion-row>
-
-    <ion-grid class="ion-padding">
-      <div class="row">
-        <!-- <div class="label">{{credKeys.key4}}</div> -->
-        <div class="label">catalog  brand</div>
-        <div class="description">{{callgettagresult.brand}}</div>
-      </div>
-
-      <div *ngIf="(callgettagresult.model_number)" class="row">
-        <div class="label">{{credKeys.key2}}</div>
-        <div class="description">{{callgettagresult.model_number}}</div>
-      </div>
-
-      <div *ngIf="(callgettagresult.manufactured)" class="row">
-        <div class="label">{{credKeys.key10}}</div>
-        <div class="description">{{callgettagresult.manufactured}}</div>
-      </div>
-
-      <div
-        class="row"
-        *ngIf="(callgettagresult.serial_number != '0' || callgettagresult.serial_number.length > 2) "
-      >
-        <div class="label">{{credKeys.key3}}</div>
-        <div class="description">{{callgettagresult.serial_number}}</div>
-      </div>
-
-      <div class="row" *ngFor="let item of jsonToBeUsed">
-        <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
-          class="label"
-        >
-          {{item.key.split('_').join(' ')}}
-        </div>
-        <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
-          class="description"
-        >
-          {{item.value}}
-        </div>
-
-        <!-- <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
-          class="label"
-        >
-          {{item.key.split('_').join(' ')}}
-        </div> -->
-        <!-- <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
-          class="description"
-        >
-          <a
-            style="text-decoration: underline; color: blue"
-            (click)="showCatalog(callgettagresult.product_id)"
+  
+        <div *ngIf="(callgettagresult.model_number)?.length> 0" class="row">
+            <div class="label">{{credKeys.key2}}</div>
+            <div class="description">{{callgettagresult.model_number}}</div>
+          </div>
+    
+          <div *ngIf="(callgettagresult.manufactured)?.length> 0" class="row">
+            <div class="label">{{credKeys.key10}}</div>
+            <div class="description">{{callgettagresult.manufactured}}</div>
+          </div>
+    
+          <div
+            class="row"
+            *ngIf="callgettagresult.serial_number?.length > 0 " 
           >
-            Show catalog
-          </a>
-        </div> -->
-
-        <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
-          class="label"
-        >
-          {{item.key.split('_').join(' ')}}:
-        </div>
-        <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
-          class="description"
-        >
-          <a
-            style="text-decoration: underline; color: blue"
-            (click)="showCertificates(item.value)"
+            <div class="label">{{credKeys.key3}}</div>
+            <div class="description">{{callgettagresult.serial_number}}</div>
+          </div>
+  
+        <div class="row" *ngFor="let item of jsonToBeUsed">
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            class="label"
           >
+           {{item.key.split('_').join(' ')}}
+          </div>
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            class="description"
+          >
+            {{item.value}}
+          </div>
+  
+          <!-- <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            class="label"
+          >
+           {{item.key.split('_').join(' ')}}
+          </div>
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            class="description"
+          >
+            <a
+              style="text-decoration: underline; color: blue"
+              (click)="showCatalog(callgettagresult.product_id)"
+            >
+              Show catalog
+            </a>
+          </div> -->
+  
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            class="label"
+          >
+           {{item.key.split('_').join(' ')}}:
+          </div>
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            class="description"
+          >
+            <a
+              style="text-decoration: underline; color: blue"
+              (click)="showCertificates(item.value)"
+            >
             {{ item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
-            : '..' }}
-          </a>
-        </div>
-
-        <div
+              : '..' }}
+            </a>
+          </div>
+  
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            class="label"
+          >
+           {{item.key.split('_').join(' ')}}:
+          </div>
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && item.key!='review' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='product-video' && item.key=='purchase online' && item.key!='brand_color'"
+            class="description"
+          >
+            <a
+              style="text-decoration: underline; color: blue"
+              (click)="presentActionSheet(item)"
+              > 
+              
+              {{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
+              : '..'}}</a
+            >
+          </div>
+  
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
+            class="label"
+          >
+          <!-- Review -->
+            {{item.key.split('_').join(' ')}}:
+          </div>
+          <div
+            text-capitalize
+            *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
+            class="description"
+          >
+            <a
+              style="text-decoration: underline; color: blue"
+              (click)="presentActionSheet(item)"
+              >
+               <!-- Review Link -->
+              {{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
+              : '..'}}</a
+            >
+          </div>
+  
+  
+          <!-- <div
           text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product_video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
           class="label"
-        >
-          {{item.key.split('_').join(' ')}}:
-        </div>
-        <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && item.key!='review' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='product_video' && item.key=='purchase online' && item.key!='brand_color'"
-          class="description"
-        >
+        >{{item.key.split('_').join(' ')}}:
           <a
             style="text-decoration: underline; color: blue"
-            (click)="presentActionSheet(item)"
-            >{{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
-            : '..'}}</a
-          >
-        </div>
-
-        <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video'  && item.key=='review' && item.key!='brand_color'"
-          class="label"
-        >
-          {{item.key.split('_').join(' ')}}:
-        </div>
-        <div
-          text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product_video'  && item.key=='review' && item.key!='brand_color'"
-          class="description"
-        >
-          <a
-            style="text-decoration: underline; color: blue"
-            (click)="presentActionSheet(item)"
-            >{{item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
-            : '..'}}</a
-          >
-        </div>
-
-
+            (click)="showProductVideo(item.value)"
+            >Show Video
+            </a>
+        </div> -->
+  
         <div
         text-capitalize
-        *ngIf="item.key!='Instruction' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product_video'   && item.key!='review' && item.key!='brand_color'"
+        *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
+        class="label"
+      >
+        {{item.key.split('_').join(' ')}}
+      </div>
+  
+        <div
+        text-capitalize
+        *ngIf="item.key!='Instruction' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
         class="description"
       >
         <a
           style="text-decoration: underline; color: blue"
           (click)="showProductVideo(item.value)"
-          >Show Video
-          </a>
-      </div>
-      </div>
-    </ion-grid>
-    <ion-row class="ion-padding">
-      <ion-col>
-        <h2 class="instruction-label">{{credKeys.key11}}</h2>
-      </ion-col>
-      <ng-container *ngFor="let item of jsonToBeUsed">
-        <ion-col
-          *ngIf="item.key=='Instruction' && jsonToBeUsed.length"
-          size="12"
         >
-          <p class="instruction">{{item.value}}</p>
+          Show Video
+        </a>
+      </div>
+        </div>
+      </ion-grid>
+      <ion-row class="ion-padding">
+        <ng-container *ngFor="let item of jsonToBeUsed">
+        <ion-col *ngIf="item.key==('Instruction') || item.key=='Product-details' || item.key=='Description' && jsonToBeUsed.length">
+          <h2 class="instruction-label">{{item.key.split('_').join(' ')}}</h2>
         </ion-col>
-      </ng-container>
-    </ion-row>
-
-    <ion-row class="ion-padding">
-      <ng-container *ngFor="let item of jsonToBeUsed">
-        <ion-col
-          *ngIf="item.value=='offline' && jsonToBeUsed.length"
-          class="col-btn mb-5"
-        >
-          <!-- <ion-button *ngIf="!cred.tagId" ion-button type="submit" [disabled]="writingTag" text-uppercase
-        class="write-btn margin-top-15" block (click)="readTag();">Get Product Information</ion-button> -->
-          <ion-button
-            ion-button
-            type="submit"
-            text-uppercase
-            class="write-btn"
-            expand="block"
-            size="large"
-            (click)="presentModal2();"
+          <ion-col
+            *ngIf="item.key==('Instruction') || item.key=='Product-details' || item.key=='Description' && jsonToBeUsed.length"
+            size="12"
           >
-            Tell us if you buy it
-          </ion-button>
-        </ion-col>
-
-        <ion-col
-          *ngIf="item.value=='online' && jsonToBeUsed.length"
-          class="col-btn mb-5"
-        >
-          <!-- <ion-button *ngIf="!cred.tagId" ion-button type="submit" [disabled]="writingTag" text-uppercase
+            <p class="instruction">{{item.value}}</p>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+  
+      <ion-row class="ion-padding">
+        <ng-container *ngFor="let item of jsonToBeUsed">
+          <ion-col
+            *ngIf="item.value=='offline' && jsonToBeUsed.length"
+            class="col-btn mb-5"
+          >
+            <!-- <ion-button *ngIf="!cred.tagId" ion-button type="submit" [disabled]="writingTag" text-uppercase
           class="write-btn margin-top-15" block (click)="readTag();">Get Product Information</ion-button> -->
-          <ion-button
-            *ngIf="!hasLogin"
-            ion-button
-            type="submit"
-            text-uppercase
-            class="write-btn"
-            block
-            [routerLink]="['/login']"
+            <ion-button
+              ion-button
+              type="submit"
+              text-uppercase
+              class="write-btn"
+              expand="block"
+              size="large"
+              (click)="presentModal2();"
+            >
+              Tell us if you buy it
+            </ion-button>
+          </ion-col>
+  
+          <ion-col
+            *ngIf="item.value=='online' && jsonToBeUsed.length"
+            class="col-btn mb-5"
           >
-            Log In for better exprience
-          </ion-button>
-
-          <ion-button
-            *ngIf="hasLogin"
-            ion-button
-            type="submit"
-            text-uppercase
-            class="write-btn"
-            block
-            [routerLink]="['/verifyit-dashboard']"
-          >
-            Home
-          </ion-button>
-
-          <!-- <ion-button ion-button type="submit"  text-uppercase class="write-btn" block
-        [routerLink]="['/verifyit-dashboard']">Home
-       </ion-button> -->
-        </ion-col>
-        <!-- <ion-button  ion-button type="submit" text-uppercase class="write-btn" block (click)="socialShare();" >social share
-
-      </ion-button> -->
-      </ng-container>
-    </ion-row>
-  </section>
-  <ion-footer>
-    <!--ion-toolbar>
-    <p><b> NFC Status:</b>&nbsp;{{ statusMessage }}</p>
-  </ion-toolbar-->
-  </ion-footer></ion-content
->
+            <!-- <ion-button *ngIf="!cred.tagId" ion-button type="submit" [disabled]="writingTag" text-uppercase
+            class="write-btn margin-top-15" block (click)="readTag();">Get Product Information</ion-button> -->
+            <ion-button
+              *ngIf="!hasLogin"
+              ion-button
+              type="submit"
+              text-uppercase
+              class="write-btn"
+              block
+              [routerLink]="['/login']"
+            >
+              Log In for better exprience
+            </ion-button>
+  
+            <ion-button
+              *ngIf="hasLogin"
+              ion-button
+              type="submit"
+              text-uppercase
+              class="write-btn"
+              block
+              [routerLink]="['/verifyit-dashboard']"
+            >
+              Home
+            </ion-button>
+  
+            <!-- <ion-button ion-button type="submit"  text-uppercase class="write-btn" block
+          [routerLink]="['/verifyit-dashboard']">Home
+         </ion-button> -->
+          </ion-col>
+          <!-- <ion-button  ion-button type="submit" text-uppercase class="write-btn" block (click)="socialShare();" >social share
+  
+        </ion-button> -->
+        </ng-container>
+      </ion-row>
+    </section>
+    <div id="fullscreen" slot="fixed"></div>
+    <ion-footer>
+      <!--ion-toolbar>
+      <p><b> NFC Status:</b>&nbsp;{{ statusMessage }}</p>
+    </ion-toolbar-->
+    </ion-footer></ion-content
+  >
+  

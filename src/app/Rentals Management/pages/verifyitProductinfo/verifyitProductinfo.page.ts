@@ -1,11 +1,13 @@
 import { Component, OnInit, NgZone } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
+// import { Plugins } from '@capacitor/core';
 
 import { NFC, Ndef } from "@ionic-native/nfc/ngx";
 import {
   Platform,
   ModalController,
-  ActionSheetController
+  ActionSheetController,
+  ToastController
 } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
@@ -20,6 +22,7 @@ import { CertificateModalComponent } from "../../modals/certificatemodal/certifi
 import { Plugins } from '@capacitor/core';
 import * as WebVPPlugin from 'capacitor-video-player';
 const { CapacitorVideoPlayer,Device } = Plugins;
+const { Browser } = Plugins;
 import {
   InAppBrowser,
   InAppBrowserOptions,
@@ -135,6 +138,7 @@ export class VerifyitProductInfoPage implements OnInit{
     private qrScanner: QRScanner,
     private utilservice: Utils,
     private alertService: AlertServiceService,
+    private toastController:ToastController,
     private router: Router,
     public alertController: AlertController,
     private apiSvc: NailaService,
@@ -447,6 +451,7 @@ export class VerifyitProductInfoPage implements OnInit{
     let alert = await this.alertController.create({
       subHeader: `Enter your number for cash back
       Your cash back will credit in 2-5 working days after approval of review.`,
+      message: '',
       inputs: [
         {
           name: 'mobile_number',
@@ -463,10 +468,16 @@ export class VerifyitProductInfoPage implements OnInit{
         }, {
           text: 'Submit',
           handler: (alertData) => { //takes the data 
-            console.log(alertData.mobile_number);
-            this.mobile_number = alertData.mobile_number
-            // data.push('mobile_number')
-            this.trackingReview(data)
+            if(alertData.mobile_number.length>9){
+
+              console.log(alertData.mobile_number);
+              this.mobile_number = alertData.mobile_number
+              // data.push('mobile_number')
+              this.trackingReview(data)
+            }else{
+              this.presentToast()
+              return false;
+            }
           }
         }
       ]
@@ -474,6 +485,13 @@ export class VerifyitProductInfoPage implements OnInit{
     await alert.present();
   }
 
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Mobile number is not valid.',
+      duration: 3000
+    });
+    toast.present();
+  }
 
 
   async presentActionSheet(data) {
@@ -518,75 +536,90 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
   }
 
 
-  openInappBrowser(element) {
- 
-    const _this = this
-    // this.browser = this.iab.create(element.link, "_blank", this.options);
-    this.browser = this.iab.create(element.link, "_self", this.options);//charu
-    this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
+  async openInappBrowser(element) {
 
-      setInterval(function () {
+    await Browser.open({ url: element.link ,windowName:'_self',toolbarColor:'	#FF0000'});
+    Browser.addListener('browserPageLoaded',()=>{
+      debugger
+   alert('hello===========>')
+    })
+    setTimeout(function() { window.opener.location.href='http://redirect.address';
+  }, 5000);
+    
+    //   const _this = this
+  //   // this.browser = this.iab.create(element.link, "_blank", this.options);
+  //   this.browser = this.iab.create(element.link, "_self", this.options);//charu
+  //   this.browser.addEventListener('loadstop', function(){
+  //     alert('hello');
+  //     this.browser.close()
+  //     // this.browser.executeScript({code: "(function() { alert(123); })()"});
+  // })
 
-        if (event.url.includes("thankyou")) {
 
 
-          //   setInterval(function(){ 
-          //     //this code runs every second 
-          // }, 1000);
-          // await this.ngZone.run(() => this.navigateTomsgPage());
-          // alert('purchaseproductreview')
-          // this.router.navigateByUrl("/verifyit-message");
-          // this.routemessage='purchaseproductreview'
-          try {
 
-            _this.routemessage = "thankyou"
-            _this.browser.close();
-          } catch (error) {
-            alert(error)
-          }
-        }
-      }, 2000);
+  //  let myWindow= this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
 
-    });
-    this.browser.on("exit").subscribe(
 
-      async data => {
+
+  //     setInterval(function(){ 
+      
+  //       let event=  window.location.href
+          
+  //       myWindow.executeScript({
+  //         code: "(function() { alert('hello'); })()"
+  //     }
+
+
+
+  //       if (event.includes("thankyou")) {
+    
+  //         alert('Review submitted succesfully')
+    
+  //       }
+  //         alert("Hello"); }, 3000);
+
+  //     // setInterval(function () {
+  //       if (event.url.includes("thankyou")) {
+
+  //         alert('Review submitted succesfully')
+
+  // //       }
      
-        if (_this.routemessage == 'thankyou') {
-          _this.trackingData.user_id = window.localStorage.getItem('userid')
-          _this.trackingData.tag_id = window.localStorage.getItem('tagId');
-          _this.trackingData.product_id = this.callgettagresult.product_id;
-          _this.trackingData.device_id = "xxx"
 
-          this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
+  // //   });
+  //   this.browser.on("exit").subscribe(
 
-          }, err => {
-            alert(JSON.stringify(err))
-          }
-          );
+  //     async data => {
+     
+  //       if (_this.routemessage == 'thankyou') {
+  //         _this.trackingData.user_id = window.localStorage.getItem('userid')
+  //         _this.trackingData.tag_id = window.localStorage.getItem('tagId');
+  //         _this.trackingData.product_id = this.callgettagresult.product_id;
+  //         _this.trackingData.device_id = "xxx"
 
+  //         this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
 
-          // _this.router.navigateByUrl('/verifyit-message')
-
-        } else {
-
-          // _this.router.navigateByUrl('/verifyit-account')
-          // alert('Review not submitted.')
-        }
-
-        // this.router.navigateByUrl("/verifyit-message");
+  //         }, err => {
+  //           alert(JSON.stringify(err))
+  //         }
+  //         );
 
 
+  //         // _this.router.navigateByUrl('/verifyit-message')
 
-      },
+  //       } else {
 
-      err => {
-        // alert(err);
-      }
-    );
+  //         // _this.router.navigateByUrl('/verifyit-account')
+  //         // alert('Review not submitted.')
+  //       }
+  //     },
 
-    return true;
-
+  //     err => {
+  //       // alert(err);
+  //     }
+  //   );
+  //   return true;
   }
 
 
@@ -644,22 +677,24 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
   async socialShare() {
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
-    // this.product_link= this.product_link;
+    this.product_link= "https://nowverifycap.web.app?params="+window.localStorage.getItem('tagId')+'&source='+window.localStorage.getItem('token').slice(-10);
 
-    this.jsonToBeUsed.forEach(element => {
-      if (element.key == "purchase online") {
-        console.log(element);
-        this.product_link = element.value[0].link;
-      }
-    });
+    // this.jsonToBeUsed.forEach(element => {
+    //   if (element.key == "purchase online") {
+    //     console.log(element);
+    //     this.product_link = element.value[0].link;
+    //   }
+    // });
     let shareRet = await Share.share({
       title: this.product_title,
-      text: "Hey, Checkout" + " from " + this.brand 
+      text: "Hey, Checkout" + " from " + this.brand
      
       ,
       url: this.product_link,
       // dialogTitle: 'Share with buddies'
+      
     });
+    this.shareTracking()
 
     // let options: StreamingVideoOptions = {
     //   successCallback: () => { console.log('=======================>Video played==================>') },
@@ -698,6 +733,48 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
   }
   async navigateTomsgPage() {
     this.router.navigateByUrl('/verifyit-message')
+  }
+  shortToken
+  shareTracking(){
+
+    debugger
+  this.shortToken= window.localStorage.getItem('token')
+  // let firstFourWord=this.shortToken.slice(0, 4)
+  let lastFourWord =this.shortToken.slice(-10)
+  let lastTentoken= lastFourWord
+  // console.log(firstAndLastFourtoken)
+
+  // if (this.callgettagresult.brand == 'RRC') {
+    // this.trackingLinks(data)
+  // this.trackingData.user_id = window.localStorage.getItem('userid')
+  // this.trackingData.tag_id = window.localStorage.getItem('tagId');
+  // this.trackingData.product_id = this.callgettagresult.product_id;
+  // this.trackingData.device_id = "xxx"
+  // this.trackingData.mobile_number = this.mobile_number
+  // this.trackingData.otype = 'REVIEW_LINK_CLICK'
+
+  this.trackingData.meta_data.mobile_number = this.mobile_number
+  let shareData={
+  user_id:window.localStorage.getItem('userid'),
+  tag_id:window.localStorage.getItem('tagId'),
+  product_id:this.callgettagresult.product_id,
+  device_id:'xxxx',
+  otype : 'SHARE_LINK_CLICK',
+  source_token:lastTentoken
+
+}
+  this.apiSvc.reviewTracking(shareData).subscribe((res) => {
+
+    // this.openInappBrowser(data)
+    alert('tracking done')
+
+
+  }, err => {
+    alert(JSON.stringify(err))
+  }
+  );
+  
+
   }
 
 

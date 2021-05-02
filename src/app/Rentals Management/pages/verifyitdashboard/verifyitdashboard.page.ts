@@ -134,14 +134,25 @@ export class VerifyitDashboardPage implements OnInit {
     long: 0,
     tagId: ""
   };
+  source_token
+  hideDashboardScreen=true;
   ngOnInit() {
-    if(this.router.url.includes("params")){
+    // window.localStorage.setItem('product-link',this.router.url)
+    if(this.router.url.includes("params") && !this.router.url.includes("source")){
+      this.hideDashboardScreen=false
       this.gettag((this.router.url).split('=')[1])
-    }else if(this.router.url.includes("brand"))
+    }else if(this.router.url.includes("brand") && !this.router.url.includes("source"))
     {
+      this.hideDashboardScreen=false
       let brand=((this.router.url).split('=')[1])
       this.router.navigate(['/verifyit-product-catalog'],{ queryParams: {brand:brand}})
 
+    }else if(this.router.url.includes("params") && this.router.url.includes("source")){
+      this.hideDashboardScreen=false
+      this.source_token = ((this.router.url).split('=')[2])
+      window.localStorage.setItem('source_token',this.source_token)
+      this.gettag((this.router.url).split('=')[1].split('&')[0])
+      // this.router.navigateByUrl('/verifyit-product-info')
     }
 // this.gettag('1600')
     this.platform.ready().then(() => {

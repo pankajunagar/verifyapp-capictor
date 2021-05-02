@@ -117,10 +117,17 @@ export class MainAppSetting {
 
             if (this.appFor == 'alpha') {
                 //   API = 'https://www.nowverifyit.com';
+<<<<<<< HEAD
+                API = 'https://develop.nowverifyit.com'; //charu
+            } else if (this.appFor == 'production') {
+                // API = 'https://www.nowverifyit.com';
+                API = 'https://develop.nowverifyit.com';//charu
+=======
                 API = 'http://develop.nowverifyit.com'; //charu
             } else if (this.appFor == 'production') {
                 // API = 'https://www.nowverifyit.com';
                 API = 'http://develop.nowverifyit.com';//charu
+>>>>>>> 987915f4f3f352805b81cb3fe4b44f74337bce4f
             }
         } else if (this.ORG == "BM") {
             window.localStorage.setItem('appSrc', 'building-management');
