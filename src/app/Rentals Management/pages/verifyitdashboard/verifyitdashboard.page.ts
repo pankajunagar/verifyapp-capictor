@@ -105,19 +105,19 @@ export class VerifyitDashboardPage implements OnInit {
   ) {
    
 
-    this.settings.getActiveTheme().subscribe(val=>this.selectedTheme= val);
+    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
     this.ionViewDidLoad();
     this.userType = window.localStorage.getItem("userType");
     // this.alertService.presentthis.alertService.presentAlert(''," user info data",window.localStorage.getItem('userType'));
   }
 
-  toggleAppTheme(){
-   debugger;
-    if(this.selectedTheme=='red-theme'){
+  toggleAppTheme() {
+    debugger;
+    if (this.selectedTheme === 'dark-theme') {
       this.settings.setActiveTheme('light-theme');
-    }else{
-      this.settings.setActiveTheme('red-theme')
+    } else {
+      this.settings.setActiveTheme('dark-theme');
     }
   }
 

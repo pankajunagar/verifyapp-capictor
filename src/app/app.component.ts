@@ -284,7 +284,7 @@ export class AppComponent implements OnInit {
     private settings:SettingsService
   ) // private push: Push
   { 
-    this.settings.getActiveTheme().subscribe(val=>this.selectedTheme= val);
+    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
    
   }
 

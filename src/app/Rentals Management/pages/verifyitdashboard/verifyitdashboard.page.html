@@ -1,7 +1,10 @@
-<ion-header no-border [ngClass]="selectedTheme">
-  <ion-toolbar color="primary">
+<ion-header no-border>
+  <ion-toolbar class="new-background-color">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-toggle (click)="toggleAppTheme()"></ion-toggle>
     </ion-buttons>
     <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
       <ion-button style="color: black">
@@ -9,7 +12,7 @@
       </ion-button>
     </ion-buttons> -->
 
-    <ion-title  (click)="toggleAppTheme()">NOWVERIFYIT</ion-title>
+    <ion-title>NOWVERIFYIT</ion-title>
   </ion-toolbar>
 
 </ion-header>
