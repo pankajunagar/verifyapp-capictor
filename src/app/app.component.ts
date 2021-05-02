@@ -290,7 +290,7 @@ export class AppComponent implements OnInit {
 
 
   toggleAppTheme(){
-   
+   debugger;
     if(this.selectedTheme=='red-theme'){
       this.settings.setActiveTheme('light-theme');
     }else{

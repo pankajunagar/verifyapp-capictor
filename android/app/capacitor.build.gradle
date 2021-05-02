@@ -9,7 +9,7 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
-
+    implementation project(':capacitor-video-player')
     implementation "com.razorpay:checkout:1.5.12"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
     implementation "io.branch.sdk.android:library:4.4.0"
