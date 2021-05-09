@@ -12,3 +12,19 @@ ion-list{
   background: transparent !important;
 }
 
+div.square {
+  border: solid 2px #111;
+  width: 200px;
+  height: 200px;
+  z-index: 11;
+  // margin: 30px;
+}
+p.square {
+  border: solid 5px #fff;
+  width: 300px;
+  height: 200px;
+  z-index: 11;
+  margin-left: 30px;
+  // margin: 30px;
+}
+
