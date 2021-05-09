@@ -509,7 +509,8 @@ export class VerifyitProductInfoPage implements OnInit{
 if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
 
   this.trackingLinks(element)
-}else{
+}else if(data.key=='purchase online'){
+this.trackingOnlinePurchase(element)
   this.openInappBrowser(element)
 }
 
@@ -533,6 +534,31 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
     this.browser.close();
     this.router.navigateByUrl("/verifyit-message");
 
+  }
+  trackingOnlinePurchase(element){
+    // this.shortToken= window.localStorage.getItem('token')
+    // let lastFourWord =this.shortToken.slice(-10)
+    // let lastTentoken= lastFourWord
+    // this.trackingData.meta_data.mobile_number = this.mobile_number
+    let shareData={
+    user_id:window.localStorage.getItem('userid'),
+    tag_id:window.localStorage.getItem('tagId'),
+    product_id:this.callgettagresult.product_id,
+    device_id:'xxxx',
+    otype : 'ONLINE_LINK_CLICK',
+    // source_token:lastTentoken
+  
+  }
+    this.apiSvc.reviewTracking(shareData).subscribe((res) => {
+  
+      // this.openInappBrowser(data)
+      alert('tracking online done')
+  
+  
+    }, err => {
+      alert(JSON.stringify(err))
+    }
+    );
   }
 
 
@@ -736,23 +762,9 @@ if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
   }
   shortToken
   shareTracking(){
-
-    debugger
   this.shortToken= window.localStorage.getItem('token')
-  // let firstFourWord=this.shortToken.slice(0, 4)
   let lastFourWord =this.shortToken.slice(-10)
   let lastTentoken= lastFourWord
-  // console.log(firstAndLastFourtoken)
-
-  // if (this.callgettagresult.brand == 'RRC') {
-    // this.trackingLinks(data)
-  // this.trackingData.user_id = window.localStorage.getItem('userid')
-  // this.trackingData.tag_id = window.localStorage.getItem('tagId');
-  // this.trackingData.product_id = this.callgettagresult.product_id;
-  // this.trackingData.device_id = "xxx"
-  // this.trackingData.mobile_number = this.mobile_number
-  // this.trackingData.otype = 'REVIEW_LINK_CLICK'
-
   this.trackingData.meta_data.mobile_number = this.mobile_number
   let shareData={
   user_id:window.localStorage.getItem('userid'),

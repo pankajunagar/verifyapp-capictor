@@ -6,6 +6,7 @@ import { StorageService } from '../common-services/storage-service.service.js';
 
 
 
+
 const ORG = jsonFile.buildFor;
 const appFor = jsonFile.connectTo;
 @Injectable({
@@ -117,6 +118,7 @@ export class MainAppSetting {
 
             if (this.appFor == 'alpha') {
                 //   API = 'https://www.nowverifyit.com';
+
                 API = 'https://develop.nowverifyit.com'; //charu
             } else if (this.appFor == 'production') {
                 // API = 'https://www.nowverifyit.com';
