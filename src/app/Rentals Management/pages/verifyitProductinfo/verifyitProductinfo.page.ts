@@ -48,6 +48,8 @@ export class VerifyitProductInfoPage implements OnInit {
   private _handlerEnded: any;
   private _handlerReady: any;
   private _handlerExit: any;
+
+  
   private _first: boolean = false;
   private _apiTimer1: any;
   private _apiTimer2: any;
@@ -200,9 +202,9 @@ export class VerifyitProductInfoPage implements OnInit {
 
   async ngOnInit() {
 
-   return  this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://www.amazon.in/'
-    );
+  //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
+  //     'https://www.amazon.in/'
+  //   );
     // define the plugin to use
     const info = await Device.getInfo();
     if (info.platform === "ios" || info.platform === "android") {
@@ -506,11 +508,12 @@ export class VerifyitProductInfoPage implements OnInit {
         text: element.text,
         // icon:data.icon,
         handler: () => {
+          
           // console.log('setting icon ' + this.data.icon);
           // const browser = this.iab.create(element.link);
           if (this.callgettagresult.brand == "RRC" && data.key == "review") {
             this.trackingLinks(element);
-          } else if (data.key == "purchase online") {
+          } else {
             this.trackingOnlinePurchase(element);
             this.openInappBrowser(element);
           }
@@ -535,21 +538,23 @@ export class VerifyitProductInfoPage implements OnInit {
   }
 
   async openInappBrowser(element) {
+    
     await Browser.open({
       url: element.link,
       windowName: "_self",
       toolbarColor: "	#FF0000"
     });
     Browser.addListener("browserPageLoaded", () => {
-      debugger;
-      alert("hello===========>");
+      // ;
+      // alert("hello===========>");
+      // console.log("hello===========>")
     });
     setTimeout(function() {
       window.opener.location.href = "http://redirect.address";
     }, 5000);
 
     //   const _this = this
-    //   // this.browser = this.iab.create(element.link, "_blank", this.options);
+      // this.browser = this.iab.create(element.link, "_blank", this.options);
     //   this.browser = this.iab.create(element.link, "_self", this.options);//charu
     //   this.browser.addEventListener('loadstop', function(){
     //     alert('hello');
@@ -909,7 +914,7 @@ export class VerifyitProductInfoPage implements OnInit {
     this.apiSvc.reviewTracking(shareData).subscribe(
       res => {
         // this.openInappBrowser(data)
-        alert("tracking online done");
+        // alert("tracking online done");
       },
       err => {
         alert(JSON.stringify(err));

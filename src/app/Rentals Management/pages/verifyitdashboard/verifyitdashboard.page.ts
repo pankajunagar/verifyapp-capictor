@@ -172,8 +172,6 @@ export class VerifyitDashboardPage implements OnInit {
     });
 
 
-
-
     this.utilservice.LoadPage.subscribe(data => {
       // debugger
       // this.alertService.presentAlert('',this.utilservice.userType)

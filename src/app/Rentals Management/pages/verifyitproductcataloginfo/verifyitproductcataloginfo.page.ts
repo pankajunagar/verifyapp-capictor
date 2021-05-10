@@ -502,7 +502,7 @@ export class VerifyitProductCatalogInfoPage {
           // const browser = this.iab.create(element.link);
           if (this.callgettagresult.brand == "RRC" && data.key == "review") {
             this.trackingLinks(element);
-          } else if (data.key == "purchase online") {
+          } else {
             this.trackingOnlinePurchase(element);
             this.openInappBrowser(element);
           }
@@ -533,8 +533,8 @@ export class VerifyitProductCatalogInfoPage {
       toolbarColor: "	#FF0000"
     });
     Browser.addListener("browserPageLoaded", () => {
-      debugger;
-      alert("hello===========>");
+     
+      // alert("hello===========>");
     });
     // setTimeout(function() {
     //   window.opener.location.href = "http://redirect.address";
@@ -902,7 +902,7 @@ export class VerifyitProductCatalogInfoPage {
     this.apiSvc.reviewTracking(shareData).subscribe(
       res => {
         // this.openInappBrowser(data)
-        alert("tracking online done");
+        // alert("tracking online done");
       },
       err => {
         alert(JSON.stringify(err));

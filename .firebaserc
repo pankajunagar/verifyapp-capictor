@@ -2,6 +2,7 @@
   "projects": {
     "develop": "nowverifycap",
     "development": "nowverifycap",
-    "prod": "nowverifyit-f7758"
+    "prod": "nowverifyit-f7758",
+    "dev": "nowverifycap"
   }
 }
