@@ -71,9 +71,17 @@
           </ion-button>
 
         </ion-col>
+    
+        <!-- <div class="sqr"></div> -->
+        <!-- <div> -->
+          <p class="square">
 
-        <video #video [hidden]="!scanActive" width="100%"></video>
-        <canvas #canvas hidden></canvas>
+          </p>
+        <!-- </div> -->
+            <video #video [hidden]="!scanActive" width="100%" style="z-index: 1;margin-top: -250px !important;">
+            </video>
+            <canvas #canvas hidden></canvas>
+      
 
         <ion-col *ngIf="this.canNFC" style="margin-top: 5vh;
         margin-bottom: 5vh;">

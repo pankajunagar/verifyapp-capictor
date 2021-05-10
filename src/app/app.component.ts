@@ -419,7 +419,7 @@ export class AppComponent implements OnInit {
   async initializeApp() {
     const device = await Device.getInfo();
     window.localStorage.setItem('device_id', device.uuid)
-    alert(device.uuid)
+    // alert(device.uuid)
     console.log("device id=================>"+ device.uuid)
 
     if (!window.localStorage.getItem('token')) {
@@ -681,10 +681,11 @@ export class AppComponent implements OnInit {
       }
     });
 
+
     PushNotifications.addListener(
       'registration',
       (token: PushNotificationToken) => {
-        alert('Push registration success, token: ' + token.value);
+        // alert('Push registration success, token: ' + token.value);
         console.log('Push registration success, token: '+ token.value)
 
       },
