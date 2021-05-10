@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "182516696535",
+    "project_id": "nowverifyit-f7758",
+    "storage_bucket": "nowverifyit-f7758.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182516696535:android:0588a6ad91a7eec4387792",
+        "android_client_info": {
+          "package_name": "com.nowverifyit.empower"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182516696535-nskhbt6t2drhe10rji6gr1pjk5lfbhee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4XG2ku6eVkuSR6GPJi4ok0e6Zwyyb72s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182516696535-nskhbt6t2drhe10rji6gr1pjk5lfbhee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "182516696535-3bibqovc7820oedf089oqrg54sp5ml58.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nowverifyit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

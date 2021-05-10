@@ -347,7 +347,7 @@ getLoyaltyPointByuser(data){
   return this.http.get(`${this.appSettings.getApi()}/loyaltypoints/getloyaltyofuser`,{
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      // Authorization: localStorage.getItem('token'),
+      Authorization: localStorage.getItem('token'),
     credentials: 'include',
 
               

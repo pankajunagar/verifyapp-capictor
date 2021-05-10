@@ -10,15 +10,12 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':capacitor-video-player')
-    implementation "com.razorpay:checkout:1.5.12"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
     implementation "io.branch.sdk.android:library:4.4.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "com.android.support:support-v4:27.+"
 }
 apply from: "../../node_modules/cordova-androidx-build/src/android/cordova-androidx-build.gradle"
-apply from: "../../node_modules/cordova-plugin-googlemaps/src/android/frameworks/tbxml-android.gradle"
-apply from: "../../node_modules/cordova-plugin-googlemaps/src/android/frameworks/pgm-custom.gradle"
 apply from: "../../node_modules/phonegap-plugin-multidex/multidex.gradle"
 apply from: "../../node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle"
 

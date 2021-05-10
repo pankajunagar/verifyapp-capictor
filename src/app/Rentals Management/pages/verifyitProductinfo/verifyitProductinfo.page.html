@@ -345,6 +345,16 @@ min-width: 100%;"  *ngIf="item.key!='Instruction' && item.key!='Description' && 
     </ion-row>
   </section>
   <div id="fullscreen" slot="fixed"></div>
+
+  <ion-content forceOverscroll="false">
+    <iframe
+      width="100%"
+      height="50%"
+      [src]="helpUrl"
+      frameborder="0"
+      target="_parent"
+    ></iframe>
+  </ion-content>
   <ion-footer>
     <!--ion-toolbar>
     <p><b> NFC Status:</b>&nbsp;{{ statusMessage }}</p>

@@ -19,15 +19,16 @@ import { AlertController } from "@ionic/angular";
 import { TellUsifyouBuyitComponent } from "../../modals/tellusifyoubuyit/tellusifyoubuyit.component";
 import { CertificateModalComponent } from "../../modals/certificatemodal/certificatemodal.component";
 
-import { Plugins } from '@capacitor/core';
-import * as WebVPPlugin from 'capacitor-video-player';
-const { CapacitorVideoPlayer,Device } = Plugins;
+import { Plugins } from "@capacitor/core";
+import * as WebVPPlugin from "capacitor-video-player";
+const { CapacitorVideoPlayer, Device } = Plugins;
 const { Browser } = Plugins;
 import {
   InAppBrowser,
   InAppBrowserOptions,
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
+import { DomSanitizer } from '@angular/platform-browser';
 
 // import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
@@ -37,7 +38,8 @@ const { Share } = Plugins;
   templateUrl: "./verifyitProductinfo.page.html",
   styleUrls: ["./verifyitProductinfo.page.scss"]
 })
-export class VerifyitProductInfoPage implements OnInit{
+export class VerifyitProductInfoPage implements OnInit {
+  helpUrl: any;
 
   private _videoPlayer: any;
   private _url: string;
@@ -51,8 +53,6 @@ export class VerifyitProductInfoPage implements OnInit{
   private _apiTimer2: any;
   private _apiTimer3: any;
   private _testApi: boolean = true;
-
-
 
   cred = {
     tagId: null,
@@ -78,15 +78,15 @@ export class VerifyitProductInfoPage implements OnInit{
     how_to_use_it: { english: null, spanish: null, portugues: null }
   };
   trackingData = {
-    user_id: '',
-    tag_id: '',
-    product_id: '',
-    device_id: '',
-    otype: '',
+    user_id: "",
+    tag_id: "",
+    product_id: "",
+    device_id: "",
+    otype: "",
     meta_data: {
-      mobile_number: ''
+      mobile_number: ""
     }
-  }
+  };
   credKeys = {
     key12: null,
     key1: null,
@@ -104,7 +104,7 @@ export class VerifyitProductInfoPage implements OnInit{
   };
 
   brand_color: any;
-  browser
+  browser;
 
   canNFC = false;
   statusMessage: string;
@@ -116,9 +116,9 @@ export class VerifyitProductInfoPage implements OnInit{
   callgettagresult = {
     product_name: "",
     brand: "",
-    product_id: '',
-    model_number:'',
-    manufactured:''
+    product_id: "",
+    model_number: "",
+    manufactured: ""
   };
 
   readingTag: boolean = false;
@@ -138,13 +138,15 @@ export class VerifyitProductInfoPage implements OnInit{
     private qrScanner: QRScanner,
     private utilservice: Utils,
     private alertService: AlertServiceService,
-    private toastController:ToastController,
+    private toastController: ToastController,
     private router: Router,
+    private sanitizer: DomSanitizer,
     public alertController: AlertController,
     private apiSvc: NailaService,
     private modalController: ModalController,
     private actionSheetController: ActionSheetController
   ) {
+    this.sanitizer = sanitizer;
     this.hasLogin = window.localStorage.getItem("name");
     // alert('=================='+this.hasLogin)
     // this.ionViewDidLoad()
@@ -196,34 +198,35 @@ export class VerifyitProductInfoPage implements OnInit{
     });
   }
 
-
   async ngOnInit() {
+
+   return  this.sanitizer.bypassSecurityTrustResourceUrl(
+      'https://www.amazon.in/'
+    );
     // define the plugin to use
     const info = await Device.getInfo();
     if (info.platform === "ios" || info.platform === "android") {
       this._videoPlayer = CapacitorVideoPlayer;
     } else {
-      this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer
+      this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
     }
     // define the video url
-    this._url = "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+    this._url =
+      "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
     // add listeners to the plugin
     this._addListenersToPlayerPlugin();
   }
 
-
   async showProductVideo(data) {
-
-    const res:any  = await this._videoPlayer.initPlayer({mode:"fullscreen",url:data,playerId:"fullscreen",componentTag:"app-verifyitProductinf"});
- 
-
+    const res: any = await this._videoPlayer.initPlayer({
+      mode: "fullscreen",
+      url: data,
+      playerId: "fullscreen",
+      componentTag: "app-verifyitProductinf"
+    });
   }
 
-
-  
-
   // ionViewDidLoad() {
-
 
   //   this.platform.ready().then(() => {
   //     this.nfc.enabled().then((resolve) => {
@@ -412,7 +415,6 @@ export class VerifyitProductInfoPage implements OnInit{
     this.utilservice.certificateData = data;
     // alert(JSON.stringify(data))
     this.presentModal();
- 
   }
 
   async presentModal() {
@@ -423,59 +425,61 @@ export class VerifyitProductInfoPage implements OnInit{
   }
 
   options: InAppBrowserOptions = {
-    hidden: 'no', //Or  'yes'
+    hidden: "no", //Or  'yes'
     // clearcache : 'yes',
     // clearsessioncache : 'yes',
-    // zoom : 'yes',//Android only ,shows browser zoom controls 
-    hardwareback: 'yes',
-    mediaPlaybackRequiresUserAction: 'no',
-    shouldPauseOnSuspend: 'no', //Android only 
-    closebuttoncaption: 'Close', //iOS only
-    // toolbar : 'yes', //iOS only 
-    // enableViewportScale : 'yes', //iOS only 
-    allowInlineMediaPlayback: 'no',//iOS only 
-    // disallowoverscroll : 'no', //iOS only 
-    presentationstyle: 'fullscreen',//iOS only 
-    fullscreen: 'no',//Windows only    
-    hideurlbar: 'yes',
-    toolbar: 'yes',
-    location: 'no',
-    hidenavigationbuttons: 'yes',
-    zoom: 'no'
+    // zoom : 'yes',//Android only ,shows browser zoom controls
+    hardwareback: "yes",
+    mediaPlaybackRequiresUserAction: "no",
+    shouldPauseOnSuspend: "no", //Android only
+    closebuttoncaption: "Close", //iOS only
+    // toolbar : 'yes', //iOS only
+    // enableViewportScale : 'yes', //iOS only
+    allowInlineMediaPlayback: "no", //iOS only
+    // disallowoverscroll : 'no', //iOS only
+    presentationstyle: "fullscreen", //iOS only
+    fullscreen: "no", //Windows only
+    hideurlbar: "yes",
+    toolbar: "yes",
+    location: "no",
+    hidenavigationbuttons: "yes",
+    zoom: "no"
   };
 
   routemessage;
 
-  mobile_number
+  mobile_number;
   async trackingLinks(data) {
     let alert = await this.alertController.create({
-      subHeader: `Enter your number for cash back
-      Your cash back will credit in 2-5 working days after approval of review.`,
-      message: '',
+      
+      header: "Please Enter your mobile number for cash back.",
+      message: 'Once you submit review please take a screenshot of review and share it with <a href="tel:+91-8527934125">+91-8527934125 </a> (customer care number) on WhatsApp. You will receive cash back after verification process.',
       inputs: [
         {
-          name: 'mobile_number',
-          type: 'number'
-        }],
+          name: "mobile_number",
+          type: "number"
+        }
+      ],
       buttons: [
         {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
           handler: () => {
-            console.log('Confirm Cancel');
+            console.log("Confirm Cancel");
           }
-        }, {
-          text: 'Submit',
-          handler: (alertData) => { //takes the data 
-            if(alertData.mobile_number.length>9){
-
+        },
+        {
+          text: "Submit",
+          handler: alertData => {
+            //takes the data
+            if (alertData.mobile_number.length > 9) {
               console.log(alertData.mobile_number);
-              this.mobile_number = alertData.mobile_number
+              this.mobile_number = alertData.mobile_number;
               // data.push('mobile_number')
-              this.trackingReview(data)
-            }else{
-              this.presentToast()
+              this.trackingReview(data);
+            } else {
+              this.presentToast();
               return false;
             }
           }
@@ -487,15 +491,13 @@ export class VerifyitProductInfoPage implements OnInit{
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Mobile number is not valid.',
+      message: "Mobile number is not valid.",
       duration: 3000
     });
     toast.present();
   }
 
-
   async presentActionSheet(data) {
- 
     let buttons = [];
     const _this = this;
 
@@ -506,14 +508,12 @@ export class VerifyitProductInfoPage implements OnInit{
         handler: () => {
           // console.log('setting icon ' + this.data.icon);
           // const browser = this.iab.create(element.link);
-if(this.callgettagresult.brand=='RRC'&& data.key=='review'){
-
-  this.trackingLinks(element)
-}else if(data.key=='purchase online'){
-this.trackingOnlinePurchase(element)
-  this.openInappBrowser(element)
-}
-
+          if (this.callgettagresult.brand == "RRC" && data.key == "review") {
+            this.trackingLinks(element);
+          } else if (data.key == "purchase online") {
+            this.trackingOnlinePurchase(element);
+            this.openInappBrowser(element);
+          }
         }
       };
       buttons.push(button);
@@ -530,148 +530,89 @@ this.trackingOnlinePurchase(element)
   }
 
   thankyouRedirect() {
-
     this.browser.close();
     this.router.navigateByUrl("/verifyit-message");
-
   }
-  trackingOnlinePurchase(element){
-    // this.shortToken= window.localStorage.getItem('token')
-    // let lastFourWord =this.shortToken.slice(-10)
-    // let lastTentoken= lastFourWord
-    // this.trackingData.meta_data.mobile_number = this.mobile_number
-    let shareData={
-    user_id:window.localStorage.getItem('userid'),
-    tag_id:window.localStorage.getItem('tagId'),
-    product_id:this.callgettagresult.product_id,
-    device_id:'xxxx',
-    otype : 'ONLINE_LINK_CLICK',
-    // source_token:lastTentoken
-  
-  }
-    this.apiSvc.reviewTracking(shareData).subscribe((res) => {
-  
-      // this.openInappBrowser(data)
-      alert('tracking online done')
-  
-  
-    }, err => {
-      alert(JSON.stringify(err))
-    }
-    );
-  }
-
 
   async openInappBrowser(element) {
+    await Browser.open({
+      url: element.link,
+      windowName: "_self",
+      toolbarColor: "	#FF0000"
+    });
+    Browser.addListener("browserPageLoaded", () => {
+      debugger;
+      alert("hello===========>");
+    });
+    setTimeout(function() {
+      window.opener.location.href = "http://redirect.address";
+    }, 5000);
 
-    await Browser.open({ url: element.link ,windowName:'_self',toolbarColor:'	#FF0000'});
-    Browser.addListener('browserPageLoaded',()=>{
-      debugger
-   alert('hello===========>')
-    })
-    setTimeout(function() { window.opener.location.href='http://redirect.address';
-  }, 5000);
-    
     //   const _this = this
-  //   // this.browser = this.iab.create(element.link, "_blank", this.options);
-  //   this.browser = this.iab.create(element.link, "_self", this.options);//charu
-  //   this.browser.addEventListener('loadstop', function(){
-  //     alert('hello');
-  //     this.browser.close()
-  //     // this.browser.executeScript({code: "(function() { alert(123); })()"});
-  // })
+    //   // this.browser = this.iab.create(element.link, "_blank", this.options);
+    //   this.browser = this.iab.create(element.link, "_self", this.options);//charu
+    //   this.browser.addEventListener('loadstop', function(){
+    //     alert('hello');
+    //     this.browser.close()
+    //     // this.browser.executeScript({code: "(function() { alert(123); })()"});
+    // })
 
+    //  let myWindow= this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
 
+    //     setInterval(function(){
 
+    //       let event=  window.location.href
 
-  //  let myWindow= this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
+    //       myWindow.executeScript({
+    //         code: "(function() { alert('hello'); })()"
+    //     }
 
+    //       if (event.includes("thankyou")) {
 
+    //         alert('Review submitted succesfully')
 
-  //     setInterval(function(){ 
-      
-  //       let event=  window.location.href
-          
-  //       myWindow.executeScript({
-  //         code: "(function() { alert('hello'); })()"
-  //     }
+    //       }
+    //         alert("Hello"); }, 3000);
 
+    //     // setInterval(function () {
+    //       if (event.url.includes("thankyou")) {
 
+    //         alert('Review submitted succesfully')
 
-  //       if (event.includes("thankyou")) {
-    
-  //         alert('Review submitted succesfully')
-    
-  //       }
-  //         alert("Hello"); }, 3000);
+    // //       }
 
-  //     // setInterval(function () {
-  //       if (event.url.includes("thankyou")) {
+    // //   });
+    //   this.browser.on("exit").subscribe(
 
-  //         alert('Review submitted succesfully')
+    //     async data => {
 
-  // //       }
-     
+    //       if (_this.routemessage == 'thankyou') {
+    //         _this.trackingData.user_id = window.localStorage.getItem('userid')
+    //         _this.trackingData.tag_id = window.localStorage.getItem('tagId');
+    //         _this.trackingData.product_id = this.callgettagresult.product_id;
+    //         _this.trackingData.device_id = "xxx"
 
-  // //   });
-  //   this.browser.on("exit").subscribe(
+    //         this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
 
-  //     async data => {
-     
-  //       if (_this.routemessage == 'thankyou') {
-  //         _this.trackingData.user_id = window.localStorage.getItem('userid')
-  //         _this.trackingData.tag_id = window.localStorage.getItem('tagId');
-  //         _this.trackingData.product_id = this.callgettagresult.product_id;
-  //         _this.trackingData.device_id = "xxx"
+    //         }, err => {
+    //           alert(JSON.stringify(err))
+    //         }
+    //         );
 
-  //         this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
+    //         // _this.router.navigateByUrl('/verifyit-message')
 
-  //         }, err => {
-  //           alert(JSON.stringify(err))
-  //         }
-  //         );
+    //       } else {
 
+    //         // _this.router.navigateByUrl('/verifyit-account')
+    //         // alert('Review not submitted.')
+    //       }
+    //     },
 
-  //         // _this.router.navigateByUrl('/verifyit-message')
-
-  //       } else {
-
-  //         // _this.router.navigateByUrl('/verifyit-account')
-  //         // alert('Review not submitted.')
-  //       }
-  //     },
-
-  //     err => {
-  //       // alert(err);
-  //     }
-  //   );
-  //   return true;
-  }
-
-
-  trackingReview(data) {
-    const _this = this
-    if (this.callgettagresult.brand == 'RRC') {
-      // this.trackingLinks(data)
-      _this.trackingData.user_id = window.localStorage.getItem('userid')
-      _this.trackingData.tag_id = window.localStorage.getItem('tagId');
-      _this.trackingData.product_id = this.callgettagresult.product_id;
-      _this.trackingData.device_id = "xxx"
-      // _this.trackingData.mobile_number = this.mobile_number
-      _this.trackingData.otype = 'REVIEW_LINK_CLICK'
-
-      _this.trackingData.meta_data.mobile_number = this.mobile_number
-
-      this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
-
-        this.openInappBrowser(data)
-
-
-      }, err => {
-        alert(JSON.stringify(err))
-      }
-      );
-    }
+    //     err => {
+    //       // alert(err);
+    //     }
+    //   );
+    //   return true;
   }
 
   // createButtons(data) {
@@ -703,7 +644,11 @@ this.trackingOnlinePurchase(element)
   async socialShare() {
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
-    this.product_link= "https://nowverifycap.web.app?params="+window.localStorage.getItem('tagId')+'&source='+window.localStorage.getItem('token').slice(-10);
+    this.product_link =
+      "https://pwa.nowverifyit.com?params=" +
+      window.localStorage.getItem("tagId") +
+      "&source=" +
+      window.localStorage.getItem("token").slice(-10);
 
     // this.jsonToBeUsed.forEach(element => {
     //   if (element.key == "purchase online") {
@@ -713,14 +658,12 @@ this.trackingOnlinePurchase(element)
     // });
     let shareRet = await Share.share({
       title: this.product_title,
-      text: "Hey, Checkout" + " from " + this.brand
-     
-      ,
-      url: this.product_link,
+      text: "Hey, Checkout" + " from " + this.brand,
+
+      url: this.product_link
       // dialogTitle: 'Share with buddies'
-      
     });
-    this.shareTracking()
+    this.shareTracking();
 
     // let options: StreamingVideoOptions = {
     //   successCallback: () => { console.log('=======================>Video played==================>') },
@@ -735,16 +678,16 @@ this.trackingOnlinePurchase(element)
 
     // this.socialSharing
     //   .share(
-        // "Hey, Checkout" +
-        // " " +
-        // this.product_title +
-        // " from " +
-        // this.brand +
-        // "." +
-        // "\n",
-        // "",
-        // "",
-        // this.product_link
+    // "Hey, Checkout" +
+    // " " +
+    // this.product_title +
+    // " from " +
+    // this.brand +
+    // "." +
+    // "\n",
+    // "",
+    // "",
+    // this.product_link
     //   )
     //   .then(() => {
     //     console.log(
@@ -758,120 +701,242 @@ this.trackingOnlinePurchase(element)
     //   });
   }
   async navigateTomsgPage() {
-    this.router.navigateByUrl('/verifyit-message')
+    this.router.navigateByUrl("/verifyit-message");
   }
-  shortToken
-  shareTracking(){
-  this.shortToken= window.localStorage.getItem('token')
-  let lastFourWord =this.shortToken.slice(-10)
-  let lastTentoken= lastFourWord
-  this.trackingData.meta_data.mobile_number = this.mobile_number
-  let shareData={
-  user_id:window.localStorage.getItem('userid'),
-  tag_id:window.localStorage.getItem('tagId'),
-  product_id:this.callgettagresult.product_id,
-  device_id:'xxxx',
-  otype : 'SHARE_LINK_CLICK',
-  source_token:lastTentoken
-
-}
-  this.apiSvc.reviewTracking(shareData).subscribe((res) => {
-
-    // this.openInappBrowser(data)
-    alert('tracking done')
-
-
-  }, err => {
-    alert(JSON.stringify(err))
-  }
-  );
-  
-
-  }
-
-
+  shortToken;
 
   private _addListenersToPlayerPlugin() {
-    this._handlerPlay = this._videoPlayer.addListener('jeepCapVideoPlayerPlay', (data:any) => {
-      console.log('Event jeepCapVideoPlayerPlay ', data);
-      
-    }, false);
-    this._handlerPause = this._videoPlayer.addListener('jeepCapVideoPlayerPause', (data:any) => {
-      console.log('Event jeepCapVideoPlayerPause ', data);
-      
-    }, false);
-    this._handlerEnded = this._videoPlayer.addListener('jeepCapVideoPlayerEnded', async (data:any) => {
-      console.log('Event jeepCapVideoPlayerEnded ', data);
-      
-    }, false);
-    this._handlerExit = this._videoPlayer.addListener('jeepCapVideoPlayerExit', async (data:any) => {
-      console.log('Event jeepCapVideoPlayerExit ', data)
-      
-      }, false);
-    this._handlerReady = this._videoPlayer.addListener('jeepCapVideoPlayerReady', async (data:any) => {
-      console.log('Event jeepCapVideoPlayerReady ', data)
-      console.log("testVideoPlayerPlugin testAPI ",this._testApi);
-      console.log("testVideoPlayerPlugin first ",this._first);
-      if(this._testApi && this._first) {
-        // test the API
-        this._first = false;
-        console.log("testVideoPlayerPlugin calling isPlaying ");
-        const isPlaying = await this._videoPlayer.isPlaying({playerId:"fullscreen"});
-        console.log('const isPlaying ', isPlaying)
-        this._apiTimer1 = setTimeout(async () => {
-          const pause = await this._videoPlayer.pause({playerId:"fullscreen"});
-          console.log('const pause ', pause)
-          const isPlaying = await this._videoPlayer.isPlaying({playerId:"fullscreen"});
-          console.log('const isPlaying after pause ', isPlaying)
-          let currentTime = await this._videoPlayer.getCurrentTime({playerId:"fullscreen"});
-          console.log('const currentTime ', currentTime);
-          let muted = await this._videoPlayer.getMuted({playerId:"fullscreen"});
-          console.log('initial muted ', muted);
-          const setMuted = await this._videoPlayer.setMuted({playerId:"fullscreen",muted:!muted.value});
-          console.log('setMuted ', setMuted);
-          muted = await this._videoPlayer.getMuted({playerId:"fullscreen"});
-          console.log('const muted ', muted);
-          const duration = await this._videoPlayer.getDuration({playerId:"fullscreen"});
-          console.log("duration ",duration);
-          // valid for movies havin a duration > 25
-          const seektime = currentTime.value + 0.5 * duration.value < duration.value -25 ? currentTime.value + 0.5 * duration.value
-                          : duration.value -25;
-          const setCurrentTime = await this._videoPlayer.setCurrentTime({playerId:"fullscreen",seektime:(seektime)});
-          console.log('const setCurrentTime ', setCurrentTime);
-          const play = await this._videoPlayer.play({playerId:"fullscreen"});
-          console.log("play ",play);
-          this._apiTimer2 = setTimeout(async () => {
-            const setMuted = await this._videoPlayer.setMuted({playerId:"fullscreen",muted:false});
-            console.log('setMuted ', setMuted);
-            const setVolume = await this._videoPlayer.setVolume({playerId:"fullscreen",volume:0.5});
-            console.log("setVolume ",setVolume);
-            const volume = await this._videoPlayer.getVolume({playerId:"fullscreen"});
-            console.log("Volume ",volume);
-            this._apiTimer3 = setTimeout(async () => {
-              const pause = await this._videoPlayer.pause({playerId:"fullscreen"});
-              console.log('const pause ', pause);
-              const duration = await this._videoPlayer.getDuration({playerId:"fullscreen"});
-              console.log("duration ",duration);
-              const volume = await this._videoPlayer.setVolume({playerId:"fullscreen",volume:1.0});
-              console.log("Volume ",volume);
-              const setCurrentTime = await this._videoPlayer.setCurrentTime({playerId:"fullscreen",seektime:(duration.value - 3)});
-              console.log('const setCurrentTime ', setCurrentTime);
-              const play = await this._videoPlayer.play({playerId:"fullscreen"});
-              console.log('const play ', play);
+    this._handlerPlay = this._videoPlayer.addListener(
+      "jeepCapVideoPlayerPlay",
+      (data: any) => {
+        // console.log('Event jeepCapVideoPlayerPlay ', data);
+        this.trackingVideoCompletion("VIDEO_LINK_CLICK");
+      },
+      false
+    );
+    this._handlerPause = this._videoPlayer.addListener(
+      "jeepCapVideoPlayerPause",
+      (data: any) => {
+        console.log("Event jeepCapVideoPlayerPause ", data);
+      },
+      false
+    );
+    this._handlerEnded = this._videoPlayer.addListener(
+      "jeepCapVideoPlayerEnded",
+      async (data: any) => {
+        console.log("Event jeepCapVideoPlayerEnded ", data);
+        this.trackingVideoCompletion("VIDEO_PLAY_COMPLETE");
+
+        // alert('<=========================ended=========================>')
+      },
+      false
+    );
+    this._handlerExit = this._videoPlayer.addListener(
+      "jeepCapVideoPlayerExit",
+      async (data: any) => {
+        console.log("Event jeepCapVideoPlayerExit ", data);
+      },
+      false
+    );
+    this._handlerReady = this._videoPlayer.addListener(
+      "jeepCapVideoPlayerReady",
+      async (data: any) => {
+        console.log("Event jeepCapVideoPlayerReady ", data);
+        console.log("testVideoPlayerPlugin testAPI ", this._testApi);
+        console.log("testVideoPlayerPlugin first ", this._first);
+        if (this._testApi && this._first) {
+          // test the API
+          this._first = false;
+          console.log("testVideoPlayerPlugin calling isPlaying ");
+          const isPlaying = await this._videoPlayer.isPlaying({
+            playerId: "fullscreen"
+          });
+          console.log("const isPlaying ", isPlaying);
+          this._apiTimer1 = setTimeout(async () => {
+            const pause = await this._videoPlayer.pause({
+              playerId: "fullscreen"
+            });
+            console.log("const pause ", pause);
+            const isPlaying = await this._videoPlayer.isPlaying({
+              playerId: "fullscreen"
+            });
+            console.log("const isPlaying after pause ", isPlaying);
+            let currentTime = await this._videoPlayer.getCurrentTime({
+              playerId: "fullscreen"
+            });
+            console.log("const currentTime ", currentTime);
+            let muted = await this._videoPlayer.getMuted({
+              playerId: "fullscreen"
+            });
+            console.log("initial muted ", muted);
+            const setMuted = await this._videoPlayer.setMuted({
+              playerId: "fullscreen",
+              muted: !muted.value
+            });
+            console.log("setMuted ", setMuted);
+            muted = await this._videoPlayer.getMuted({
+              playerId: "fullscreen"
+            });
+            console.log("const muted ", muted);
+            const duration = await this._videoPlayer.getDuration({
+              playerId: "fullscreen"
+            });
+            console.log("duration ", duration);
+            // valid for movies havin a duration > 25
+            const seektime =
+              currentTime.value + 0.5 * duration.value < duration.value - 25
+                ? currentTime.value + 0.5 * duration.value
+                : duration.value - 25;
+            const setCurrentTime = await this._videoPlayer.setCurrentTime({
+              playerId: "fullscreen",
+              seektime: seektime
+            });
+            console.log("const setCurrentTime ", setCurrentTime);
+            const play = await this._videoPlayer.play({
+              playerId: "fullscreen"
+            });
+            console.log("play ", play);
+            this._apiTimer2 = setTimeout(async () => {
+              const setMuted = await this._videoPlayer.setMuted({
+                playerId: "fullscreen",
+                muted: false
+              });
+              console.log("setMuted ", setMuted);
+              const setVolume = await this._videoPlayer.setVolume({
+                playerId: "fullscreen",
+                volume: 0.5
+              });
+              console.log("setVolume ", setVolume);
+              const volume = await this._videoPlayer.getVolume({
+                playerId: "fullscreen"
+              });
+              console.log("Volume ", volume);
+              this._apiTimer3 = setTimeout(async () => {
+                const pause = await this._videoPlayer.pause({
+                  playerId: "fullscreen"
+                });
+                console.log("const pause ", pause);
+                const duration = await this._videoPlayer.getDuration({
+                  playerId: "fullscreen"
+                });
+                console.log("duration ", duration);
+                const volume = await this._videoPlayer.setVolume({
+                  playerId: "fullscreen",
+                  volume: 1.0
+                });
+                console.log("Volume ", volume);
+                const setCurrentTime = await this._videoPlayer.setCurrentTime({
+                  playerId: "fullscreen",
+                  seektime: duration.value - 3
+                });
+                console.log("const setCurrentTime ", setCurrentTime);
+                const play = await this._videoPlayer.play({
+                  playerId: "fullscreen"
+                });
+                console.log("const play ", play);
+              }, 10000);
             }, 10000);
-          }, 10000);
-
-        }, 5000);
-      }
-    }, false);
-
+          }, 5000);
+        }
+      },
+      false
+    );
   }
-  
+
+  // tracking apis
+
+  shareTracking() {
+    this.shortToken = window.localStorage.getItem("token");
+    let lastFourWord = this.shortToken.slice(-10);
+    let lastTentoken = lastFourWord;
+    this.trackingData.meta_data.mobile_number = this.mobile_number;
+    let shareData = {
+      user_id: window.localStorage.getItem("userid"),
+      tag_id: window.localStorage.getItem("tagId"),
+      product_id: this.callgettagresult.product_id,
+      device_id: window.localStorage.getItem("device_id"),
+      otype: "SOCIAL_SHARE_CLICK",
+      source_token: lastTentoken
+    };
+    this.apiSvc.reviewTracking(shareData).subscribe(
+      res => {
+        // this.openInappBrowser(data)
+        // alert("tracking done");
+      },
+      err => {
+        alert(JSON.stringify(err));
+      }
+    );
+  }
+
+  trackingReview(data) {
+    const _this = this;
+    if (this.callgettagresult.brand == "RRC") {
+      // this.trackingLinks(data)
+      _this.trackingData.user_id = window.localStorage.getItem("userid");
+      _this.trackingData.tag_id = window.localStorage.getItem("tagId");
+      _this.trackingData.product_id = this.callgettagresult.product_id;
+      (_this.trackingData.device_id = window.localStorage.getItem("device_id")),
+        // _this.trackingData.mobile_number = this.mobile_number
+        (_this.trackingData.otype = "REVIEW_LINK_CLICK");
+
+      _this.trackingData.meta_data.mobile_number = this.mobile_number;
+
+      this.apiSvc.reviewTracking(_this.trackingData).subscribe(
+        res => {
+          this.openInappBrowser(data);
+        },
+        err => {
+          alert(JSON.stringify(err));
+        }
+      );
+    }
+  }
+
+  trackingOnlinePurchase(element) {
+    // this.shortToken= window.localStorage.getItem('token')
+    // let lastFourWord =this.shortToken.slice(-10)
+    // let lastTentoken= lastFourWord
+    // this.trackingData.meta_data.mobile_number = this.mobile_number
+    let shareData = {
+      user_id: window.localStorage.getItem("userid"),
+      tag_id: window.localStorage.getItem("tagId"),
+      product_id: this.callgettagresult.product_id,
+      device_id: window.localStorage.getItem("device_id"),
+      otype: "PURCHASE_LINK_CLICK"
+      // source_token:lastTentoken
+    };
+    this.apiSvc.reviewTracking(shareData).subscribe(
+      res => {
+        // this.openInappBrowser(data)
+        alert("tracking online done");
+      },
+      err => {
+        alert(JSON.stringify(err));
+      }
+    );
+  }
 
 
+  // otype:LAND_THROUGH_SOCIAL_SHARING
 
+  trackingVideoCompletion(data) {
+    let shareData = {
+      user_id: window.localStorage.getItem("userid"),
+      tag_id: window.localStorage.getItem("tagId"),
+      product_id: this.callgettagresult.product_id,
+      device_id: window.localStorage.getItem("device_id"),
+      otype: data
+      // source_token:lastTentoken
+    };
+    this.apiSvc.reviewTracking(shareData).subscribe(
+      res => {
+        // this.openInappBrowser(data)
+        // alert(' online done')
+      },
+      err => {
+        alert(JSON.stringify(err));
+      }
+    );
+  }
 }
-
-
-
-

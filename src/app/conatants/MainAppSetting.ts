@@ -4,9 +4,6 @@ import * as jsonFile from '../conatants/organization.json';
 import { Injectable } from '@angular/core';
 import { StorageService } from '../common-services/storage-service.service.js';
 
-
-
-
 const ORG = jsonFile.buildFor;
 const appFor = jsonFile.connectTo;
 @Injectable({
@@ -117,18 +114,11 @@ export class MainAppSetting {
             this.storageService.storeDataToIonicStorage('appSrc', 'rentals');
 
             if (this.appFor == 'alpha') {
-                //   API = 'https://www.nowverifyit.com';
-<<<<<<< HEAD
+                // API = 'https://www.nowverifyit.com';
                 API = 'https://develop.nowverifyit.com'; //charu
             } else if (this.appFor == 'production') {
                 // API = 'https://www.nowverifyit.com';
                 API = 'https://develop.nowverifyit.com';//charu
-=======
-                API = 'http://develop.nowverifyit.com'; //charu
-            } else if (this.appFor == 'production') {
-                // API = 'https://www.nowverifyit.com';
-                API = 'http://develop.nowverifyit.com';//charu
->>>>>>> 59fd2fa08c4f8f6a8e9adab2812fa5a2dc466f6b
             }
         } else if (this.ORG == "BM") {
             window.localStorage.setItem('appSrc', 'building-management');

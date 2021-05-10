@@ -154,7 +154,8 @@ export class VerifyitDashboardPage implements OnInit {
       this.gettag((this.router.url).split('=')[1].split('&')[0])
       // this.router.navigateByUrl('/verifyit-product-info')
     }
-// this.gettag('1600')
+// this.gettag('4507')
+
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -408,6 +409,8 @@ export class VerifyitDashboardPage implements OnInit {
   // }
 
   ionViewWillLeave() {
+    this.hideDashboardScreen=true
+
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
@@ -416,6 +419,9 @@ export class VerifyitDashboardPage implements OnInit {
   tagId;
   productData
   scan(){
+
+    this.platform.ready().then(() => {
+    
     if(this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA){
       this.scanActive=true;
       this.canvasElement.height= this.videoElement.videoHeight;
@@ -472,6 +478,7 @@ export class VerifyitDashboardPage implements OnInit {
     }else{
       requestAnimationFrame(this.scan.bind(this))
     }
+  });
   }
   async scanqrcode() {
 
@@ -610,5 +617,5 @@ export class VerifyitDashboardPage implements OnInit {
   }
 
 
-  
+
 }
