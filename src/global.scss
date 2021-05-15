@@ -919,3 +919,45 @@ ion-item{
 //       width: 100%;
 //   }
 // }
+
+////////////
+
+#js--sc--container{
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  canvas{
+      position: absolute;
+      top:0px;
+      left:0px;
+      z-index: 99;
+      border-radius: 5px;
+  }
+  .cardamountcss{
+      z-index: 9;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50% , -50%);
+      position: absolute;
+
+      .won-amnt{
+          font-size:2em;
+          color: #424242;
+      }
+      .won-text{
+          font-size: 1em;
+          color: #424242;
+      }
+  }
+  .sc__inner{
+      background-color: #ffffff;
+      height: 100%;
+      width: 100%;
+      // border-radius: 5px;
+      // border: 1px solid #26005f;
+  }
+  .sc__canvas{
+    width: 100%;
+    height: 100%;
+  }
+}

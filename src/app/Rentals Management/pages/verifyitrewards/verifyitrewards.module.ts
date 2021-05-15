@@ -11,6 +11,7 @@ import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.
 // import { NailasearchPage } from './nailasearchpage';
 import { Verifyitrewards } from './verifyitrewards';
 import { RewardmodalfirstComponent } from '../../modals/rewardmodalfirst/rewardmodalfirst.component';
+// import { ScratchmodalComponent } from '../../modals/scratchmodal/scratchmodal.component';
 
 
 const routes: Routes = [

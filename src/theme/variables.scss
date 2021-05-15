@@ -115,6 +115,23 @@
     border-top-right-radius: 3vh;
   }
 }
+
+
+.scratch-modal {
+  // padding-top: 25em;
+  padding-top: 15em;
+  padding-bottom: 15em;
+  padding-left: 5em;
+  padding-right: 5em;
+  // height: 38.7em;
+  .modal-wrapper {
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+
+  }
+}
 // .alertOTPcss{
 //   --font-size: 12px !important;
 // }

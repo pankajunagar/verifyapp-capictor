@@ -135,6 +135,8 @@ export class LoginService {
               'Access-Control-Allow-Credentials': 'true',
               credentials: 'include',
 
+              Authorization: localStorage.getItem('token'),
+
               
             }),
             withCredentials:true,

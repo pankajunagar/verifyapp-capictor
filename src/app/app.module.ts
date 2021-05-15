@@ -45,6 +45,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 
 @NgModule({
   declarations: [

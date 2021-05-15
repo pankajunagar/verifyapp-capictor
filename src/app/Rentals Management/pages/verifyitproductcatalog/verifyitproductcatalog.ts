@@ -111,7 +111,11 @@ export class VerifyitProductCatalogPage {
     this.utils.productCatalogInfo = '';
 
     this.utils.productCatalogInfo = item;
-    this.router.navigateByUrl('/verifyit-product-catalog-info')
+
+    this.utils.callgettagresult = item
+    
+    this.utils.LoadPageOnrouteChange();
+    this.router.navigateByUrl('/verifyit-product-info')
   }
 
 

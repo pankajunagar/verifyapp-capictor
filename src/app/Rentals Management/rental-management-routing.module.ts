@@ -67,6 +67,9 @@ const routes: Routes = [
     
     { path: 'verifyit-rewards', loadChildren: '../Rentals Management/pages/verifyitrewards/verifyitrewards.module#VerifyitRewardsModule' },
     
+    { path: 'verifyit-offer', loadChildren: '../Rentals Management/pages/verifyitoffer/verifyitoffer.module#VerifyitOfferModule' },
+
+    // VerifyitOfferModule
     
     // { path: 'rentals-my-data-project-details', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },
     // { path: 'rentals-my-data-project-details/:id', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },

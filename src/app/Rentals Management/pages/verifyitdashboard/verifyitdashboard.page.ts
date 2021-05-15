@@ -30,12 +30,12 @@ const { Browser } = Plugins;
   styleUrls: ["./verifyitdashboard.page.scss"]
 })
 export class VerifyitDashboardPage implements OnInit {
-  @ViewChild('video') video :ElementRef;
-  @ViewChild('canvas') canvas :ElementRef;
-  videoElement:any;
-  scanActive= false;
-  scanResult= null;
-  
+  @ViewChild('video') video: ElementRef;
+  @ViewChild('canvas') canvas: ElementRef;
+  videoElement: any;
+  scanActive = false;
+  scanResult = null;
+
   cred = {
     tagId: null,
     verified: null,
@@ -103,7 +103,7 @@ export class VerifyitDashboardPage implements OnInit {
     private settings: SettingsService,
     private apiSvc: NailaService
   ) {
-   
+
 
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
@@ -121,12 +121,12 @@ export class VerifyitDashboardPage implements OnInit {
     }
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.videoElement = this.video.nativeElement;
     this.canvasElement = this.canvas.nativeElement;
     this.canvasContext = this.canvasElement.getContext('2d');
     console.log(this.videoElement);
-    
+
   }
 
   data = {
@@ -135,26 +135,25 @@ export class VerifyitDashboardPage implements OnInit {
     tagId: ""
   };
   source_token
-  hideDashboardScreen=true;
+  hideDashboardScreen = true;
   ngOnInit() {
     // window.localStorage.setItem('product-link',this.router.url)
-    if(this.router.url.includes("params") && !this.router.url.includes("source")){
-      this.hideDashboardScreen=false
+    if (this.router.url.includes("params") && !this.router.url.includes("source")) {
+      this.hideDashboardScreen = false
       this.gettag((this.router.url).split('=')[1])
-    }else if(this.router.url.includes("brand") && !this.router.url.includes("source"))
-    {
-      this.hideDashboardScreen=false
-      let brand=((this.router.url).split('=')[1])
-      this.router.navigate(['/verifyit-product-catalog'],{ queryParams: {brand:brand}})
+    } else if (this.router.url.includes("brand") && !this.router.url.includes("source")) {
+      this.hideDashboardScreen = false
+      let brand = ((this.router.url).split('=')[1])
+      this.router.navigate(['/verifyit-product-catalog'], { queryParams: { brand: brand } })
 
-    }else if(this.router.url.includes("params") && this.router.url.includes("source")){
-      this.hideDashboardScreen=false
+    } else if (this.router.url.includes("params") && this.router.url.includes("source")) {
+      this.hideDashboardScreen = false
       this.source_token = ((this.router.url).split('=')[2])
-      window.localStorage.setItem('source_token',this.source_token)
+      window.localStorage.setItem('source_token', this.source_token)
       this.gettag((this.router.url).split('=')[1].split('&')[0])
       // this.router.navigateByUrl('/verifyit-product-info')
     }
-// this.gettag('4507')
+    // this.gettag('4507')
 
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -192,16 +191,16 @@ export class VerifyitDashboardPage implements OnInit {
   }
 
   //**Charu Start */
-  open(){
-    var url='https://ionicframework.com/'
-    const option: InAppBrowserOptions ={
-      zoom:'no',
-      hardwareback:'no',
-      closebuttoncaption:'yes'
+  open() {
+    var url = 'https://ionicframework.com/'
+    const option: InAppBrowserOptions = {
+      zoom: 'no',
+      hardwareback: 'no',
+      closebuttoncaption: 'yes'
     }
-    const browser = this.iab.create(url,'_self',option);
-    
-   browser.show();
+    const browser = this.iab.create(url, '_self', option);
+
+    browser.show();
   }
 
 
@@ -407,7 +406,7 @@ export class VerifyitDashboardPage implements OnInit {
   // }
 
   ionViewWillLeave() {
-    this.hideDashboardScreen=true
+    this.hideDashboardScreen = true
 
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
@@ -416,77 +415,86 @@ export class VerifyitDashboardPage implements OnInit {
 
   tagId;
   productData
-  scan(){
+  scan() {
 
     this.platform.ready().then(() => {
-    
-    if(this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA){
-      this.scanActive=true;
-      this.canvasElement.height= this.videoElement.videoHeight;
-      this.canvasElement.width = this.videoElement.videoWidth;
 
-      this.canvasContext.drawImage(
-        this.videoElement,
-        0,
-        0,
-        this.canvasElement.width,
-        this.canvasElement.height
-      )
-     const imageData =  this.canvasContext.getImageData(
-        0,
-        0,
-        this.canvasElement.width,
-        this.canvasElement.height
-      )
+      if (this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA) {
+        this.scanActive = true;
+        this.canvasElement.height = this.videoElement.videoHeight;
+        this.canvasElement.width = this.videoElement.videoWidth;
 
-      const code = jsQR(imageData.data, imageData.width, imageData.height,{
-        inversionAttempts: 'dontInvert'
-      })
-      console.log(code);
+        this.canvasContext.drawImage(
+          this.videoElement,
+          0,
+          0,
+          this.canvasElement.width,
+          this.canvasElement.height
+        )
+        const imageData = this.canvasContext.getImageData(
+          0,
+          0,
+          this.canvasElement.width,
+          this.canvasElement.height
+        )
+
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: 'dontInvert'
+        })
+        console.log(code);
         //     // logic for existing and new qr code
 
         this.tagId = code
 
-          if(this.tagId){
-            let tagId = this.tagId.data
-            console.log(tagId);
-            
-            if(tagId.includes("params")){
-             tagId= tagId.split('=')[1]
+        if (this.tagId) {
+          let tagId = this.tagId.data
+          console.log(tagId);
+
+          if (tagId.includes("params")) {
+            tagId = tagId.split('=')[1]
             //  alert(tagId)
-             this.gettag(tagId);
-            }
-            else{
-              this.gettag(tagId);
-    
-            }
-            this.tagId= (JSON.parse(tagId))
-    
-            this.productData = this.strToObj(tagId)
+            this.gettag(tagId);
           }
+          else {
+            this.gettag(tagId);
 
+          }
+          this.tagId = (JSON.parse(tagId))
 
-      if(code){
-        this.scanActive = false;
-      }else{
-        if(this.scanActive){
-          requestAnimationFrame(this.scan.bind(this))
+          this.productData = this.strToObj(tagId)
         }
+
+
+        if (code) {
+          this.scanActive = false;
+        } else {
+          if (this.scanActive) {
+            requestAnimationFrame(this.scan.bind(this))
+          }
+        }
+      } else {
+        requestAnimationFrame(this.scan.bind(this))
       }
-    }else{
-      requestAnimationFrame(this.scan.bind(this))
-    }
-  });
+    });
   }
   async scanqrcode() {
+    debugger
+    let locationUrl= window.location.href
+    debugger
 
-    const stream  =await navigator.mediaDevices.getUserMedia({
-      video:{facingMode:'environment'}
-    });
-    this.videoElement.srcObject = stream;
-    this.videoElement.setAttribute('playsinline',true);
-    this.videoElement.play();
-    requestAnimationFrame(this.scan.bind(this))
+    if (locationUrl.includes("pwa") || locationUrl.includes("nowverifycap") ) {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' }
+      });
+      this.videoElement.srcObject = stream;
+      this.videoElement.setAttribute('playsinline', true);
+      this.videoElement.play();
+      requestAnimationFrame(this.scan.bind(this))
+    } else {
+      
+      this.scanIOS()
+    }
+
     // this.options = {
     //   prompt: "Scan your barcode "
     // };
@@ -612,6 +620,60 @@ export class VerifyitDashboardPage implements OnInit {
     }
     // debugger
     return obj
+  }
+
+
+
+  scanIOS() {
+    this.options = {
+      prompt: "Scan your barcode "
+    };
+    this.barcodeScanner.scan(this.options).then(
+      barcodeData => {
+        console.log(barcodeData);
+
+        // logic for existing and new qr code
+
+        this.tagId = (barcodeData.text).toString();
+
+
+
+        if (this.tagId.includes("myparam")) {
+          debugger
+          this.tagId = this.tagId.split('=')[1]
+          alert(this.tagId)
+          this.gettag(this.tagId);
+        } else {
+          this.gettag(this.tagId);
+
+        }
+        this.tagId = (JSON.parse(this.tagId))
+
+        this.productData = this.strToObj(this.tagId)
+
+
+
+        // let variabletype = typeof (this.tagId)
+        // if (variabletype == "number") {
+        //   debugger
+        //   // alert('number')
+        //   this.gettag(this.tagId);
+
+        // } else {
+        //   debugger
+        //   this.gettag(this.productData.tagId);
+
+          // alert('string')
+        // }
+
+
+
+
+      },
+      err => {
+        console.log("Error occured : " + err);
+      }
+    );
   }
 
 

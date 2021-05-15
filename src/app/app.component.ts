@@ -120,6 +120,13 @@ export class AppComponent implements OnInit {
         userrole: 'default'
 
       },
+      {
+        title: 'Offers',
+        url: `verifyit-offer`,
+        src: '/assets/imgs/commerce-and-shopping.svg',
+        userrole: 'default'
+
+      },
       // {
       //   title: 'Log Out',
       //   // url: `rentals-naila-cart-page`,
@@ -173,6 +180,14 @@ export class AppComponent implements OnInit {
       {
         title: 'Rewards',
         url: `verifyit-rewards`,
+        src: '/assets/imgs/dollar.svg',
+        userrole: 'default'
+
+      },
+      
+      {
+        title: 'Offers',
+        url: `verifyit-offer`,
         src: '/assets/imgs/commerce-and-shopping.svg',
         userrole: 'default'
 
@@ -686,7 +701,9 @@ export class AppComponent implements OnInit {
       'registration',
       (token: PushNotificationToken) => {
         // alert('Push registration success, token: ' + token.value);
+        console.log('=====================>')
         console.log('Push registration success, token: '+ token.value)
+        console.log('=====================>')
 
       },
     );
@@ -698,6 +715,7 @@ export class AppComponent implements OnInit {
     PushNotifications.addListener(
       'pushNotificationReceived',
       (notification: PushNotification) => {
+        this.router.navigateByUrl('/verifyit-rewards')
         alert('Push received: ' + JSON.stringify(notification));
       },
     );
@@ -705,7 +723,8 @@ export class AppComponent implements OnInit {
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
+        this.router.navigateByUrl('/verifyit-rewards')
+        // alert('Push action performed: ' + JSON.stringify(notification));
       },
     );
   }

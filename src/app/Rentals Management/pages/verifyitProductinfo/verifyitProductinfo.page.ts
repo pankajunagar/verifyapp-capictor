@@ -148,15 +148,24 @@ export class VerifyitProductInfoPage implements OnInit {
     private modalController: ModalController,
     private actionSheetController: ActionSheetController
   ) {
+
     this.sanitizer = sanitizer;
+    this.utilservice.LoadPage.subscribe(data => {
+      this.ngOnInit();
+    })
+  }
+  
+  async ngOnInit() {
+    
+    this.jsonToBeUsed=[]
     this.hasLogin = window.localStorage.getItem("name");
     // alert('=================='+this.hasLogin)
     // this.ionViewDidLoad()
     this.callgettagresult = this.utilservice.callgettagresult;
-
+  
     // this.callgettagresult  =  JSON.parse(this.callgettagresult)
     console.log(this.callgettagresult);
-
+  
     if (this.utilservice.callgettagresult.meta_data) {
       // this.callgettagresult= this.callgettagresult
       Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
@@ -167,22 +176,14 @@ export class VerifyitProductInfoPage implements OnInit {
       );
     } else {
     }
-
-    //   for (var type in this.callgettagresult) {
-    //    let item = {
-    //     key: '',
-    //     value: ''
-    //    };
-    //     item.key = type;
-    //     item.value = this.callgettagresult[type];
-    //     this.jsonToBeUsed.push(item);
-    // }
+  
+   
     console.log(this.jsonToBeUsed);
     this.credKeys.key1 = "Product Name";
     this.credKeys.key2 = "Model Number";
     this.credKeys.key3 = "Serial Number";
     this.credKeys.key4 = "Brand";
-
+  
     this.credKeys.key5 = "Water Resistant";
     this.credKeys.key6 = "Display Type";
     this.credKeys.key7 = "Series";
@@ -192,16 +193,12 @@ export class VerifyitProductInfoPage implements OnInit {
     this.credKeys.key11 = "Instructions";
     this.credKeys.key12 = "Wine Information";
     this.credKeys.key13 = "Verified";
-
+  
     this.jsonToBeUsed.forEach(element => {
       if (element.key == "brand_color") {
         this.brand_color = element.value;
       }
     });
-  }
-
-  async ngOnInit() {
-
   //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
   //     'https://www.amazon.in/'
   //   );

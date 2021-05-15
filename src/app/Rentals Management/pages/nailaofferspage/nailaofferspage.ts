@@ -23,6 +23,7 @@ import { NailaService } from '../../services/naila.service';
 })
 
 
+
 export class NailaOffersPage {
 
 
