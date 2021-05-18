@@ -414,6 +414,17 @@ export class VerifyitDashboardPage implements OnInit {
     });
   }
 
+  stopScan() {
+    this.scanActive = false;
+    const stream = this.videoElement.srcObject;
+    const tracks = stream.getTracks();
+    tracks.forEach(function(track) {
+    track.stop();
+    });
+    
+    this.videoElement.srcObject = null;
+    }
+
   tagId;
   productData
   scan() {
@@ -454,17 +465,18 @@ export class VerifyitDashboardPage implements OnInit {
           if (tagId.includes("params")) {
             tagId = tagId.split('=')[1]
             //  alert(tagId)
-            this.gettag(tagId);
+             this.gettag(tagId);
+             this.stopScan();
+            }
+            else{
+              this.gettag(tagId);
+              this.stopScan();
+    
+            }
+            this.tagId= (JSON.parse(tagId))
+    
+            this.productData = this.strToObj(tagId)
           }
-          else {
-            this.gettag(tagId);
-
-          }
-          this.tagId = (JSON.parse(tagId))
-
-          this.productData = this.strToObj(tagId)
-        }
-
 
         if (code) {
           this.scanActive = false;

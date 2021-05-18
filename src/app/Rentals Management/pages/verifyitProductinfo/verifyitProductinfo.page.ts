@@ -30,6 +30,7 @@ import {
 } from "@ionic-native/in-app-browser/ngx";
 import { DomSanitizer } from '@angular/platform-browser';
 import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
+import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
 
 // import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
@@ -928,6 +929,17 @@ showDeactivate
       }
     );
   }
+
+  async openQuiz(){
+    const modal = await this.modalController.create({
+      component: QuizModalComponent,
+      cssClass: 'my-quiz-class'
+    });
+    return await modal.present();
+  }
+
+
+
 
 
   // otype:LAND_THROUGH_SOCIAL_SHARING
