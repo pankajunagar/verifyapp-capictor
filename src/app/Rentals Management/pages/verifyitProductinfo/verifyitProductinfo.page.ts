@@ -18,7 +18,7 @@ import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 import { AlertController } from "@ionic/angular";
 import { TellUsifyouBuyitComponent } from "../../modals/tellusifyoubuyit/tellusifyoubuyit.component";
 import { CertificateModalComponent } from "../../modals/certificatemodal/certificatemodal.component";
-
+// Userrole5modalComponent
 import { Plugins } from "@capacitor/core";
 import * as WebVPPlugin from "capacitor-video-player";
 const { CapacitorVideoPlayer, Device } = Plugins;
@@ -29,6 +29,7 @@ import {
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
 import { DomSanitizer } from '@angular/platform-browser';
+import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
 
 // import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
@@ -122,7 +123,7 @@ export class VerifyitProductInfoPage implements OnInit {
     model_number: "",
     manufactured: ""
   };
-
+showDeactivate
   readingTag: boolean = false;
   writingTag: boolean = false;
   isWriting: boolean = false;
@@ -149,6 +150,8 @@ export class VerifyitProductInfoPage implements OnInit {
     private actionSheetController: ActionSheetController
   ) {
 
+    this.showDeactivate=false
+
     this.sanitizer = sanitizer;
     this.utilservice.LoadPage.subscribe(data => {
       this.ngOnInit();
@@ -156,6 +159,13 @@ export class VerifyitProductInfoPage implements OnInit {
   }
   
   async ngOnInit() {
+    if(window.localStorage.getItem('showDeactivate')=='4'){
+      this.showDeactivate=true
+    
+    }else{
+      this.showDeactivate=false
+
+    }
     
     this.jsonToBeUsed=[]
     this.hasLogin = window.localStorage.getItem("name");
@@ -940,5 +950,14 @@ export class VerifyitProductInfoPage implements OnInit {
         alert(JSON.stringify(err));
       }
     );
+  }
+
+
+  async openUserModal(){
+    let modal = await this.modalController.create({
+      component: Userrole5modalComponent,
+      cssClass: "user-modal",
+    });
+    return await modal.present();
   }
 }

@@ -55,10 +55,17 @@
       </ion-col>
     </ion-row>
 
+    
     <ion-row>
       <ion-col size="12" class="ion-padding product-title">
         <h2 class="product-name">{{callgettagresult.product_name}}</h2>
       </ion-col>
+    </ion-row>
+    <ion-row *ngIf="showDeactivate" style="    display: flex;
+    justify-content: center;">
+      <ion-button (click)="openUserModal()">
+        Deactivate scanned coupon
+      </ion-button>
     </ion-row>
 
     <ion-grid class="ion-padding">

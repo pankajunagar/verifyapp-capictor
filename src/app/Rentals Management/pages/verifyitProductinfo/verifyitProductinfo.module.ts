@@ -8,6 +8,9 @@ import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.
 import { VerifyitProductInfoPage } from './verifyitProductinfo.page';
 import { TellUsifyouBuyitComponent } from '../../modals/tellusifyoubuyit/tellusifyoubuyit.component';
 import { CertificateModalComponent } from '../../modals/certificatemodal/certificatemodal.component';
+import { Userrole5modalComponent } from '../../modals/userrole5modal/userrole5modal.component';
+import { IonicSelectableModule } from 'ionic-selectable';
+import { UserroleinfoModalComponent } from '../../modals/userroleinfomodal/userroleinfomodal.component';
 
 
 
@@ -19,9 +22,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,CertificateModalComponent],
+  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent],
   imports: [
     CommonModule,
+    IonicSelectableModule,
     FormsModule,
     ApplicationPageModule,
     IonicModule,
@@ -29,8 +33,8 @@ const routes: Routes = [
   ],
   providers: [
     // BarcodeScanner
-    TellUsifyouBuyitComponent,CertificateModalComponent
+    TellUsifyouBuyitComponent,CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent
   ],
-  declarations: [VerifyitProductInfoPage,TellUsifyouBuyitComponent,CertificateModalComponent]
+  declarations: [VerifyitProductInfoPage,TellUsifyouBuyitComponent,CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent]
 })
 export class VerifyitProductInfoPageModule { }

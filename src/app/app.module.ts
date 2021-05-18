@@ -4,6 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { IonicSelectableModule } from 'ionic-selectable';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -60,7 +61,7 @@ import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
   entryComponents: [OrgModalComponent, CountrycodemodalComponent, PictureComponent,ApprovalpopupComponent],
   imports: [
     // NgxQRCodeModule,
-
+    IonicSelectableModule,
     FormsModule,
     BrowserModule,
     HttpClientModule,

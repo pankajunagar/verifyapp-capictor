@@ -132,6 +132,25 @@
 
   }
 }
+
+
+
+
+.user-modal{
+  // padding-top: 25em;
+  padding-top: 10em;
+  padding-bottom: 10em;
+  padding-left: 2em;
+  padding-right: 2em;
+  // height: 38.7em;
+  .modal-wrapper {
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+
+  }
+}
 // .alertOTPcss{
 //   --font-size: 12px !important;
 // }
@@ -145,3 +164,20 @@
 //   height: 10px;
 //   width: 10px;
 // }
+
+.harshuser{
+  // padding-top: 25em;
+  padding-top: 20em;
+  position: absolute;
+  padding-bottom: 1em;
+  padding-left: 3em;
+  padding-right: 6em;
+  // height: 38.7em;
+  .modal-wrapper {
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+
+  }
+}

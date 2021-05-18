@@ -823,6 +823,7 @@ export class LoginPage implements OnInit {
   }
   firstname
   userrole
+  
   registeredUser() {
 
     const data = {
@@ -849,7 +850,20 @@ export class LoginPage implements OnInit {
 
       if (window.localStorage.getItem('name')) {
 
-        window.localStorage.setItem('userType', data.data.userType);
+        if(data.data.userType==4){
+          debugger
+          window.localStorage.setItem('showDeactivate', '4');
+
+          data.data.userType=2
+          window.localStorage.setItem('userType', data.data.userType);
+
+          
+
+        }else{
+
+          window.localStorage.setItem('userType', data.data.userType);
+        }
+
         this.utils.userType = window.localStorage.getItem('userType')
         window.localStorage.setItem('userType', data.data.userType);
         this.router.navigateByUrl('/verifyit-dashboard')

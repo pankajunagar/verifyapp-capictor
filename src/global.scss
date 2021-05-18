@@ -961,3 +961,24 @@ ion-item{
     height: 100%;
   }
 }
+.ionic-selectable-value-item{
+  float: right;
+}
+
+.ionic-selectable{
+  .show-modal{
+
+    padding-top: 19em;
+    position: absolute;
+    padding-bottom: 1em;
+    padding-left: 3em;
+    padding-right: 6em;
+  }
+}
+
+
+.ionic-selectable-modal{
+  .toolbar-title-default{
+  display: none;
+  }
+}

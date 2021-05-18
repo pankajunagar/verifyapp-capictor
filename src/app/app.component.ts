@@ -260,6 +260,7 @@ export class AppComponent implements OnInit {
       });
   }
   ngOnInit() {
+   
     // if (localStorage.getItem('addtohomescreen') !== '1') {
     //   setTimeout(() => {
     //     this.presentAlertConfirm();
