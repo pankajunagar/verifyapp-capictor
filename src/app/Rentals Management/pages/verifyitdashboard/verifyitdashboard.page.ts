@@ -168,6 +168,7 @@ export class VerifyitDashboardPage implements OnInit {
           console.log("Error getting location", error);
         });
 
+        
     });
 
 
