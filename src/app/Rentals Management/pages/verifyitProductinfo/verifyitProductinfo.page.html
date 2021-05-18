@@ -345,9 +345,15 @@ min-width: 100%;"  *ngIf="item.key!='Instruction' && item.key!='Description' && 
     </ion-row>
   </section>
   <div id="fullscreen" slot="fixed"></div>
-  <ion-footer>
-    <!--ion-toolbar>
-    <p><b> NFC Status:</b>&nbsp;{{ statusMessage }}</p>
-  </ion-toolbar-->
-  </ion-footer></ion-content
->
+  
+  <!-- <ion-footer> -->
+    <!-- </ion-footer> -->
+  </ion-content>
+  <footer style="padding: 35px;" (click)="openQuiz()" class="my-footer" *ngIf="callgettagresult.meta_data?.pop_up=='1'">
+    <!-- <ion-toolbar> -->
+      <div class="ion-text-center">
+        Todays Questions
+      </div>
+    <!-- </ion-toolbar> -->
+  </footer>
+

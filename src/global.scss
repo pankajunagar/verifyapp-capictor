@@ -912,6 +912,13 @@ ion-item{
   color: black !important;
   text-transform: capitalize !important;
 }
+
+.my-quiz-class .modal-wrapper{
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  display: block;
+}
 }
 
 // ngx-qrcode {

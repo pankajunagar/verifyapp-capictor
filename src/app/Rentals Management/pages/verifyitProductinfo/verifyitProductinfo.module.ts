@@ -8,6 +8,7 @@ import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.
 import { VerifyitProductInfoPage } from './verifyitProductinfo.page';
 import { TellUsifyouBuyitComponent } from '../../modals/tellusifyoubuyit/tellusifyoubuyit.component';
 import { CertificateModalComponent } from '../../modals/certificatemodal/certificatemodal.component';
+import { QuizModalComponent } from 'src/app/quiz-modal/quiz-modal.component';
 
 
 
@@ -19,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,CertificateModalComponent],
+  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,CertificateModalComponent,QuizModalComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -31,6 +32,6 @@ const routes: Routes = [
     // BarcodeScanner
     TellUsifyouBuyitComponent,CertificateModalComponent
   ],
-  declarations: [VerifyitProductInfoPage,TellUsifyouBuyitComponent,CertificateModalComponent]
+  declarations: [VerifyitProductInfoPage,TellUsifyouBuyitComponent,CertificateModalComponent,QuizModalComponent]
 })
 export class VerifyitProductInfoPageModule { }

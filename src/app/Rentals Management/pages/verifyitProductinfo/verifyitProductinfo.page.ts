@@ -28,6 +28,7 @@ import {
   InAppBrowserOptions,
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
+import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
 
 // import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
@@ -866,8 +867,14 @@ this.trackingOnlinePurchase(element)
     }, false);
 
   }
-  
 
+  async openQuiz(){
+    const modal = await this.modalController.create({
+      component: QuizModalComponent,
+      cssClass: 'my-quiz-class'
+    });
+    return await modal.present();
+  }
 
 
 }

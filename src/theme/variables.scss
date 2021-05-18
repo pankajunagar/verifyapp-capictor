@@ -128,3 +128,17 @@
 //   height: 10px;
 //   width: 10px;
 // }
+
+.my-quiz-class .modal-wrapper{
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  display: block;
+  margin-top: 50%;
+  --border-radius: 25px 25px 5px 5px 
+}
+
+ion-footer.my-footer{
+  --border-radius: 20px 20px 0 0
+
+}

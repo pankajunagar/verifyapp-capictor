@@ -154,7 +154,7 @@ export class VerifyitDashboardPage implements OnInit {
       this.gettag((this.router.url).split('=')[1].split('&')[0])
       // this.router.navigateByUrl('/verifyit-product-info')
     }
-// this.gettag('1600')
+// this.gettag('4516')
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -413,6 +413,17 @@ export class VerifyitDashboardPage implements OnInit {
     });
   }
 
+  stopScan() {
+    this.scanActive = false;
+    const stream = this.videoElement.srcObject;
+    const tracks = stream.getTracks();
+    tracks.forEach(function(track) {
+    track.stop();
+    });
+    
+    this.videoElement.srcObject = null;
+    }
+
   tagId;
   productData
   scan(){
@@ -451,9 +462,11 @@ export class VerifyitDashboardPage implements OnInit {
              tagId= tagId.split('=')[1]
             //  alert(tagId)
              this.gettag(tagId);
+             this.stopScan();
             }
             else{
               this.gettag(tagId);
+              this.stopScan();
     
             }
             this.tagId= (JSON.parse(tagId))
