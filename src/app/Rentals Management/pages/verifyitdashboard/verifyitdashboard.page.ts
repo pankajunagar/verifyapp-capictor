@@ -153,8 +153,8 @@ export class VerifyitDashboardPage implements OnInit {
       this.gettag((this.router.url).split('=')[1].split('&')[0])
       // this.router.navigateByUrl('/verifyit-product-info')
     }
-    // this.gettag('4507')
-
+    // this.gettag('4516')
+  
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
