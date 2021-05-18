@@ -168,7 +168,7 @@ export class VerifyitDashboardPage implements OnInit {
           console.log("Error getting location", error);
         });
 
-        
+
     });
 
 
@@ -413,6 +413,7 @@ export class VerifyitDashboardPage implements OnInit {
       sub.unsubscribe();
     });
   }
+  
 
   stopScan() {
     this.scanActive = false;
