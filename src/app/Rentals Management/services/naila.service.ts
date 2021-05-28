@@ -340,6 +340,7 @@ reviewTracking(data){
   });
 }
 
+
 getLoyaltyPointByuser(data){
 
   // http://develop.nowverifyit.com/loyaltypoints/getloyaltyofuser/{$user_id}/{$token_id}/{$mobile_number}
