@@ -461,8 +461,9 @@ export class VerifyitDashboardPage implements OnInit {
         if (this.tagId) {
           let tagId = this.tagId.data
           console.log(tagId);
-
-          if (tagId.includes("params")) {
+           
+          tagId.replace(/\s+/g, "");
+          if (tagId.includes("params")) {   
             tagId = tagId.split('=')[1]
             //  alert(tagId)
              this.gettag(tagId);
@@ -474,7 +475,6 @@ export class VerifyitDashboardPage implements OnInit {
     
             }
             this.tagId= (JSON.parse(tagId))
-    
             this.productData = this.strToObj(tagId)
           }
 
@@ -491,9 +491,9 @@ export class VerifyitDashboardPage implements OnInit {
     });
   }
   async scanqrcode() {
-    debugger
+  
     let locationUrl= window.location.href
-    debugger
+   
 
     if (locationUrl.includes("pwa") || locationUrl.includes("nowverifycap") ) {
       const stream = await navigator.mediaDevices.getUserMedia({
