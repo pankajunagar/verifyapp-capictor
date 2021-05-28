@@ -43,7 +43,9 @@ export class MainAppSetting {
             // Credentials:'include',
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Credentials': 'true'
+                'Access-Control-Allow-Credentials': 'true',
+                Authorization: localStorage.getItem('token'),
+
 
             }),
             // withCredentials:true,

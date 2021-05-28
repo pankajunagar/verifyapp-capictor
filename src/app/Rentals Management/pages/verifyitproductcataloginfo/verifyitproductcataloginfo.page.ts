@@ -7,7 +7,8 @@ import {
   Platform,
   ModalController,
   ActionSheetController,
-  ToastController
+  ToastController,
+  NavController
 } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
@@ -28,6 +29,9 @@ import {
   InAppBrowserOptions,
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
+import { DomSanitizer } from "@angular/platform-browser";
+import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
+import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
 
 // import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
@@ -38,6 +42,8 @@ const { Share } = Plugins;
   styleUrls: ["./verifyitproductcataloginfo.page.scss"]
 })
 export class VerifyitProductCatalogInfoPage {
+  helpUrl: any;
+
   private _videoPlayer: any;
   private _url: string;
   private _handlerPlay: any;
@@ -45,6 +51,8 @@ export class VerifyitProductCatalogInfoPage {
   private _handlerEnded: any;
   private _handlerReady: any;
   private _handlerExit: any;
+
+  
   private _first: boolean = false;
   private _apiTimer1: any;
   private _apiTimer2: any;
@@ -81,7 +89,6 @@ export class VerifyitProductCatalogInfoPage {
     device_id: "",
     otype: "",
     meta_data: {
-      brand:'',
       mobile_number: ""
     }
   };
@@ -118,7 +125,7 @@ export class VerifyitProductCatalogInfoPage {
     model_number: "",
     manufactured: ""
   };
-
+showDeactivate
   readingTag: boolean = false;
   writingTag: boolean = false;
   isWriting: boolean = false;
@@ -129,6 +136,7 @@ export class VerifyitProductCatalogInfoPage {
   constructor(
     private nfc: NFC,
     private ndef: Ndef,
+    private navCtrl: NavController,
     private platform: Platform,
     private iab: InAppBrowser,
     private ngZone: NgZone,
@@ -138,6 +146,7 @@ export class VerifyitProductCatalogInfoPage {
     private alertService: AlertServiceService,
     private toastController: ToastController,
     private router: Router,
+    private sanitizer: DomSanitizer,
     public alertController: AlertController,
     private apiSvc: NailaService,
     private modalController: ModalController,
@@ -193,8 +202,60 @@ export class VerifyitProductCatalogInfoPage {
       }
     });
   }
-
+  
   async ngOnInit() {
+    if(window.localStorage.getItem('showDeactivate')=='4'){
+      this.showDeactivate=true
+    
+    }else{
+      this.showDeactivate=false
+
+    }
+    
+    this.jsonToBeUsed=[]
+    this.hasLogin = window.localStorage.getItem("name");
+    // alert('=================='+this.hasLogin)
+    // this.ionViewDidLoad()
+    this.callgettagresult = this.utilservice.productCatalogInfo;
+    this.utilservice.callgettagresult=this.utilservice.productCatalogInfo;
+    console.log(this.callgettagresult);
+  
+    if (this.utilservice.callgettagresult.meta_data) {
+      // this.callgettagresult= this.callgettagresult
+      Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
+        this.jsonToBeUsed.push({
+          key: e,
+          value: this.utilservice.callgettagresult.meta_data[e]
+        })
+      );
+    } else {
+    }
+  
+   
+    console.log(this.jsonToBeUsed);
+    this.credKeys.key1 = "Product Name";
+    this.credKeys.key2 = "Model Number";
+    this.credKeys.key3 = "Serial Number";
+    this.credKeys.key4 = "Brand";
+  
+    this.credKeys.key5 = "Water Resistant";
+    this.credKeys.key6 = "Display Type";
+    this.credKeys.key7 = "Series";
+    this.credKeys.key8 = "Occassion";
+    this.credKeys.key9 = "Strap";
+    this.credKeys.key10 = "Manufactured";
+    this.credKeys.key11 = "Instructions";
+    this.credKeys.key12 = "Wine Information";
+    this.credKeys.key13 = "Verified";
+  
+    this.jsonToBeUsed.forEach(element => {
+      if (element.key == "brand_color") {
+        this.brand_color = element.value;
+      }
+    });
+  //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
+  //     'https://www.amazon.in/'
+  //   );
     // define the plugin to use
     const info = await Device.getInfo();
     if (info.platform === "ios" || info.platform === "android") {
@@ -351,6 +412,11 @@ export class VerifyitProductCatalogInfoPage {
     });
   }
 
+  ionViewDidLeave(){
+    // this.navCtrl.pop();
+
+  }
+
   // scanqrcode() {
   //   var context = this;
   //   // Optionally request the permission early
@@ -498,6 +564,7 @@ export class VerifyitProductCatalogInfoPage {
         text: element.text,
         // icon:data.icon,
         handler: () => {
+          
           // console.log('setting icon ' + this.data.icon);
           // const browser = this.iab.create(element.link);
           if (this.callgettagresult.brand == "RRC" && data.key == "review") {
@@ -527,14 +594,16 @@ export class VerifyitProductCatalogInfoPage {
   }
 
   async openInappBrowser(element) {
+    
     await Browser.open({
       url: element.link,
       windowName: "_self",
       toolbarColor: "	#FF0000"
     });
     Browser.addListener("browserPageLoaded", () => {
-     
+      // ;
       // alert("hello===========>");
+      // console.log("hello===========>")
     });
     // setTimeout(function() {
     //   window.opener.location.href = "http://redirect.address";
@@ -637,7 +706,7 @@ export class VerifyitProductCatalogInfoPage {
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
-      "https://pwa.nowverifyit.com?params=" +
+      "https://nowverifycap.web.app?params=" +
       window.localStorage.getItem("tagId") +
       "&source=" +
       window.localStorage.getItem("token").slice(-10);
@@ -869,7 +938,6 @@ export class VerifyitProductCatalogInfoPage {
       _this.trackingData.tag_id = window.localStorage.getItem("tagId");
       _this.trackingData.product_id = this.callgettagresult.product_id;
       (_this.trackingData.device_id = window.localStorage.getItem("device_id")),
-      _this.trackingData.meta_data.brand= this.callgettagresult.brand,
         // _this.trackingData.mobile_number = this.mobile_number
         (_this.trackingData.otype = "REVIEW_LINK_CLICK");
 
@@ -910,6 +978,17 @@ export class VerifyitProductCatalogInfoPage {
     );
   }
 
+  async openQuiz(){
+    const modal = await this.modalController.create({
+      component: QuizModalComponent,
+      cssClass: 'my-quiz-class'
+    });
+    return await modal.present();
+  }
+
+
+
+
 
   // otype:LAND_THROUGH_SOCIAL_SHARING
 
@@ -932,9 +1011,16 @@ export class VerifyitProductCatalogInfoPage {
       }
     );
   }
+
+
+  async openUserModal(){
+    let modal = await this.modalController.create({
+      component: Userrole5modalComponent,
+      cssClass: "user-modal",
+    });
+    return await modal.present();
+  }
+
+
 }
-
-
-
-
 

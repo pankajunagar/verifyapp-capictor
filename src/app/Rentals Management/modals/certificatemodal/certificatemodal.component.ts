@@ -28,7 +28,7 @@ export class CertificateModalComponent {
 
 
 
-  constructor(private nailaservice: NailaService,private utils:Utils, private router:Router) {
+  constructor(private nailaservice: NailaService,private utils:Utils, private router:Router, private mctrl:ModalController) {
 
   }
   searchTerm
@@ -70,5 +70,8 @@ export class CertificateModalComponent {
   showProductInfo(item){
     // this.utils.productCatalogInfo=item;
     // this.router.navigateByUrl('/verifyit-product-catalog-info')
+  }
+  closeModal(){
+    this.mctrl.dismiss();
   }
 }

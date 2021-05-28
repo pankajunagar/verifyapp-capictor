@@ -7,7 +7,8 @@ import {
   Platform,
   ModalController,
   ActionSheetController,
-  ToastController
+  ToastController,
+  NavController
 } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
@@ -135,6 +136,7 @@ showDeactivate
   constructor(
     private nfc: NFC,
     private ndef: Ndef,
+    private navCtrl: NavController,
     private platform: Platform,
     private iab: InAppBrowser,
     private ngZone: NgZone,
@@ -369,6 +371,11 @@ showDeactivate
     });
   }
 
+  ionViewDidLeave(){
+    // this.navCtrl.pop();
+
+  }
+
   // scanqrcode() {
   //   var context = this;
   //   // Optionally request the permission early
@@ -549,7 +556,7 @@ showDeactivate
     
     await Browser.open({
       url: element.link,
-      windowName: "_self",
+      windowName: "_blank",
       toolbarColor: "	#FF0000"
     });
     Browser.addListener("browserPageLoaded", () => {
@@ -557,9 +564,9 @@ showDeactivate
       // alert("hello===========>");
       // console.log("hello===========>")
     });
-    setTimeout(function() {
-      window.opener.location.href = "http://redirect.address";
-    }, 5000);
+    // setTimeout(function() {
+    //   window.opener.location.href = "http://redirect.address";
+    // }, 5000);
 
     //   const _this = this
       // this.browser = this.iab.create(element.link, "_blank", this.options);
@@ -658,7 +665,7 @@ showDeactivate
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
-      "https://pwa.nowverifyit.com?params=" +
+      "https://nowverifycap.web.app?params=" +
       window.localStorage.getItem("tagId") +
       "&source=" +
       window.localStorage.getItem("token").slice(-10);

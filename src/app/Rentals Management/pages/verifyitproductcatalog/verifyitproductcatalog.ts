@@ -16,7 +16,9 @@ import { ViewChild } from '@angular/core';
 import { NailaService } from '../../services/naila.service';
 import { Utils } from '../../services/utils.service';
 // import { Slides } from 'ionic-angular';
+import { Plugins } from "@capacitor/core";
 
+const { Share } = Plugins;
 @Component({
   selector: 'app-verifyitproductcatalog',
   templateUrl: './verifyitproductcatalog.html',
@@ -35,14 +37,16 @@ export class VerifyitProductCatalogPage {
   listbanner: any;
   groupedProducts = [];
   jsonToBeUsed = []
-
+brandName:any;
   ngOnInit() {
 
     if (this.route.snapshot.queryParams['brand']) {
      let brand = this.route.snapshot.queryParams['brand'];
-
+this.brandName=brand
      this.nailaservice.listRelatedProductsfrombrand(brand).subscribe(data=>{
       this.listbanner = data;
+      this.brandName=this.listbanner.data[0].brand
+
 
       if (this.listbanner.data[0].meta_data.category) {
         this.groupBy(this.listbanner.data, "category");
@@ -63,9 +67,39 @@ export class VerifyitProductCatalogPage {
       });
       console.log(this.listbanner);
      })
-    }else{
+    }else if(this.route.snapshot.queryParams['product_id']){
+
+      this.nailaservice.listRelatedProducts(this.route.snapshot.queryParams['product_id']).subscribe(data => {
+        this.listbanner = data;
+        this.brandName=this.listbanner.data[0].brand
+
+  
+        if (this.listbanner.data[0].meta_data.category) {
+          this.groupBy(this.listbanner.data, "category");
+  
+          console.log('=================================>===============')
+          this.groupedProducts.push(this.result)
+  
+  
+          Object.keys(this.result).forEach(e => this.jsonToBeUsed.push({ key: e, value: this.result[e] }))
+          console.log(this.jsonToBeUsed)
+          console.log('=================================>===============')
+        }
+  
+  
+        this.items = this.listbanner.data
+        this.listbanner.data.forEach(element => {
+          element.name = element.product_name
+        });
+        console.log(this.listbanner);
+      })
+    }
+    else{
+
       this.nailaservice.listRelatedProducts(this.utils.productId).subscribe(data => {
         this.listbanner = data;
+        this.brandName=this.listbanner.data[0].brand
+
   
         if (this.listbanner.data[0].meta_data.category) {
           this.groupBy(this.listbanner.data, "category");
@@ -114,8 +148,11 @@ export class VerifyitProductCatalogPage {
 
     this.utils.callgettagresult = item
     
-    this.utils.LoadPageOnrouteChange();
-    this.router.navigateByUrl('/verifyit-product-info')
+    // this.utils.LoadPageOnrouteChange();
+    // this.router.navigateByUrl('/verifyit-product-info')
+    this.router.navigateByUrl('/verifyit-product-catalog-info')
+
+    
   }
 
 
@@ -153,6 +190,23 @@ export class VerifyitProductCatalogPage {
   listGroupedProduct = []
   showProductFromGroup(value) {
     this.listGroupedProduct = value
+  }
+
+
+  catalog_link
+  async socialShare() {
+    // this.product_title = this.callgettagresult.product_name;
+    // this.brand = this.brandName
+    this.catalog_link =
+      "https://pwa.nowverifyit.com?product_id=" +
+      this.utils.productId
+    
+    let shareRet = await Share.share({
+      text: "Hey, Checkout catalogue" + " from " + this.brandName,
+
+      url: this.catalog_link
+    });
+    
   }
 
 }

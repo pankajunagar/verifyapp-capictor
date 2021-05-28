@@ -35,7 +35,7 @@ export class QuizModalComponent implements OnInit {
     'ischeckbox':false
   },
   {
-    'heading':"3. How likely are you to recommend Bajaj Almond Oil to your known?",
+    'heading':"3. How likely are you to recommend us to your known?",
     'title':'*Choose anyone from the options below',
     'option':[
       '1',2,3,4,5,6,7,8,9,10

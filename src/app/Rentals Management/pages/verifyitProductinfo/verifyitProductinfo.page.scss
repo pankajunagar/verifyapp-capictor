@@ -14,8 +14,11 @@ ion-list {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   padding: 0;
+  height: auto;
+    width: 100%;
+    max-height: 380px;
+    object-fit: contain;
   img {
     object-fit: cover;
     height: auto;
@@ -113,6 +116,13 @@ svg {
   content: ":";
   position: absolute;
   right: 6px;
+}
+
+
+.row .labelvideo:after {
+  content: ":";
+  position: absolute;
+  right: 4vw !important;
 }
 .row .description {
   flex: 1;

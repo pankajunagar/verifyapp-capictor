@@ -137,6 +137,7 @@ export class VerifyitDashboardPage implements OnInit {
   source_token
   hideDashboardScreen = true;
   ngOnInit() {
+    debugger
     // window.localStorage.setItem('product-link',this.router.url)
     if (this.router.url.includes("params") && !this.router.url.includes("source")) {
       this.hideDashboardScreen = false
@@ -146,6 +147,11 @@ export class VerifyitDashboardPage implements OnInit {
       let brand = ((this.router.url).split('=')[1])
       this.router.navigate(['/verifyit-product-catalog'], { queryParams: { brand: brand } })
 
+    } else if (this.router.url.includes("product_id")) {
+      this.hideDashboardScreen = false
+      let product_id = ((this.router.url).split('=')[1])
+      this.router.navigate(['/verifyit-product-catalog'], { queryParams: { product_id: product_id } })
+
     } else if (this.router.url.includes("params") && this.router.url.includes("source")) {
       this.hideDashboardScreen = false
       this.source_token = ((this.router.url).split('=')[2])
@@ -153,8 +159,8 @@ export class VerifyitDashboardPage implements OnInit {
       this.gettag((this.router.url).split('=')[1].split('&')[0])
       // this.router.navigateByUrl('/verifyit-product-info')
     }
-    // this.gettag('4507')
-
+    // this.gettag('4593')
+  
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -265,8 +271,6 @@ export class VerifyitDashboardPage implements OnInit {
           }
         )
       );
-
-
     }
 
 

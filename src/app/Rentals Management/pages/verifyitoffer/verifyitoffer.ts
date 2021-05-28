@@ -43,7 +43,7 @@ export class verifyitOffer {
 
   ngOnInit() {
 
-    this.scratchModal()
+    // this.scratchModal()
 
     // this.createNewScratchCard();
 
