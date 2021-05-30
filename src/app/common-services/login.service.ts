@@ -125,22 +125,30 @@ export class LoginService {
       
 
 
-      registeredUser(id): Observable<any> {
+      // registeredUser(id): Observable<any> {
 
-        return this.http.get(`${this.appSettings.getApi()}/login?email=${id.email}&password=${id.password}`,
-          {
-            headers: new HttpHeaders({
+      //   return this.http.get(`${this.appSettings.getApi()}/login?email=${id.email}&password=${id.password}`,
+      //     {
+      //       headers: new HttpHeaders({
               
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': 'true',
-              credentials: 'include',
-              Authorization: localStorage.getItem('token')
+      //         'Content-Type': 'application/json',
+      //         'Access-Control-Allow-Credentials': 'true',
+      //         credentials: 'include',
+      //         Authorization: localStorage.getItem('token')
               
-            }),
-            withCredentials:true,
+      //       }),
+      //       withCredentials:true,
 
-          }
-          );
+      //     }
+      //     );
+      // }
+
+
+
+      registeredUser(data:any): Observable<any> {
+        return this.http.post(
+          `${this.appSettings.getApi()}/login`,data,this.appSettings.getHttpHeades()
+        );
       }
 
       resendOtp(data:any): Observable<any> {

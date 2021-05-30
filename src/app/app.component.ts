@@ -671,19 +671,20 @@ export class AppComponent implements OnInit {
 
   generateToken() {
     let token = (window.localStorage.getItem('token'))
+    if (!token.length) {
     this.verifyitservice.genToken().subscribe(
       async (data: any) => {
         //debugger
-        if (!token.length) {
 
           window.localStorage.setItem('token', data.data.token)
-        }
+     
       },
       async err => {
         await this.loadingCtrl.dismiss();
         this.alertService.presentAlert("", "Error while logging out");
       }
     );
+      }
   }
 
 

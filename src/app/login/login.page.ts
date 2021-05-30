@@ -791,10 +791,10 @@ export class LoginPage implements OnInit {
       "fullname": this.loginData.name,
       "email": this.loginData.phoneNumber,
       "password": this.loginData.password,
-      "password_confirmation": this.loginData.passwordCheck,
+      "repassword": this.loginData.passwordCheck,
       "gender": this.loginData.gender,
-      "signupas": 'user',
-      "mobile": this.loginData.mobile
+      "signup-as": 'user',
+      "mobile": this.loginData.mobile,
 
     }
 
