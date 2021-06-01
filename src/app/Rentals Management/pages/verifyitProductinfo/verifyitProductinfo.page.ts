@@ -153,6 +153,8 @@ showDeactivate
     private actionSheetController: ActionSheetController
   ) {
 
+    this.hardwareBackbutton();
+
     this.showDeactivate=false
 
     this.sanitizer = sanitizer;
@@ -978,5 +980,20 @@ showDeactivate
       cssClass: "user-modal",
     });
     return await modal.present();
+  }
+
+
+  hardwareBackbutton(){
+
+    
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      // console.log('Handler was called!');
+      // alert("hi")
+      // this.router.navigateByUrl('/verifyit-product-info')
+      this._handlerExit = this._videoPlayer.addListener('jeepCapVideoPlayerExit', async (data:any) => {
+        console.log('Event jeepCapVideoPlayerExit ', data)
+        
+        }, false);
+    });
   }
 }

@@ -4,7 +4,7 @@ import { Component, OnInit, NgZone, AfterViewInit, HostListener } from "@angular
 import { Platform, NavController, LoadingController, AlertController } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationStart } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { StorageService } from "./common-services/storage-service.service";
 import { Storage } from "@ionic/storage";
@@ -28,6 +28,7 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed,
 } from '@capacitor/core';
+import { AutocloseOverlaysService } from "./Rentals Management/services/autoclose.service";
 
 const { PushNotifications } = Plugins;
 
@@ -314,6 +315,7 @@ export class AppComponent implements OnInit {
     private rentalsUserService: RentalsUserService,
     private alertService: AlertServiceService,
     private buildingUserService: BuildingUserService,
+    private autocloseOverlaysService:AutocloseOverlaysService,
     private utils: Utils,
     private verifyitservice: NailaService,
     private settings: SettingsService,
@@ -322,6 +324,13 @@ export class AppComponent implements OnInit {
   {
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
+    this.router.events.subscribe((event: any): void => {
+      if (event instanceof NavigationStart) {
+        if (event.navigationTrigger === 'popstate') {
+          this.autocloseOverlaysService.trigger();
+        }
+      }
+    });
   }
 
 

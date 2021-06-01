@@ -216,7 +216,7 @@ callGetTag(id){
 
 
 callRecordScan(data){
-  return this.http.get(`${this.appSettings.getApi()}/nfc/recordscan/${data.tagId}?location=${data.location}&lat=${data.lat}&long=${data.long}&pincode=${data.pincode}&city=${data.city}&state=${data.state}&country=${data.country}`,
+  return this.http.get(`${this.appSettings.getApi()}/nfc/recordscan/${data.tagId}?location=${data.location}&lat=${data.lat}&long=${data.long}&pincode=${data.pincode}&city=${data.city}&state=${data.state}&country=${data.country}&source_token=${data.source_token}`,
   {
     headers: new HttpHeaders({
       

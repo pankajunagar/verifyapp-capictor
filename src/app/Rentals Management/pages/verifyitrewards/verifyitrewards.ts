@@ -55,12 +55,25 @@ export class Verifyitrewards {
         
       //   element.name= element.product_name
       // });
+
+      let today = new Date();
+     let day= today.getDate();
       let obj = {}
       this.listbanner.data.forEach((item)=>{
-        if(obj[item.brand]){
+        // debugger
+        let splitdate= ( item["validity"])
+
+        this.checkExpiredCoupon(splitdate)
+
+        if(obj[item.brand] && this.hasExpired){
              obj[item.brand].loyalty_points = Number(obj[item.brand].loyalty_points) + Number (item.loyalty_points)
         }else{
             obj[item.brand] = item
+            let b= Object.values(obj)
+            let c = b[0]
+            debugger
+            this.items.push(c)
+            console.log(this.items)
         }
       })
       this.items=(Object.values(obj))
@@ -125,4 +138,20 @@ export class Verifyitrewards {
     // Init
     sc.init();
   }
+currentDate
+hasExpired=false
+substractDate
+
+checkExpiredCoupon(date){
+  debugger
+this.currentDate=new Date()
+this.substractDate=new Date(date * 1000).toISOString()
+this.substractDate= new Date(this.substractDate)
+
+if(this.currentDate < this.substractDate){
+this.hasExpired= true
+}else{
+this.hasExpired= false
+}
+}
 }

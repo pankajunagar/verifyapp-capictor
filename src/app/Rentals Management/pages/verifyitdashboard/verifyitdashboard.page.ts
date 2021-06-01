@@ -132,7 +132,9 @@ export class VerifyitDashboardPage implements OnInit {
   data = {
     lat: 0,
     long: 0,
-    tagId: ""
+    tagId: "",
+    source_token:""
+
   };
   source_token
   hideDashboardScreen = true;
@@ -156,6 +158,7 @@ export class VerifyitDashboardPage implements OnInit {
       this.hideDashboardScreen = false
       this.source_token = ((this.router.url).split('=')[2])
       window.localStorage.setItem('source_token', this.source_token)
+      this.data.source_token= this.source_token
       this.gettag((this.router.url).split('=')[1].split('&')[0])
       // this.router.navigateByUrl('/verifyit-product-info')
     }
