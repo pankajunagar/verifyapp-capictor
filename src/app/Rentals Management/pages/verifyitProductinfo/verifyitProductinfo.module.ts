@@ -12,6 +12,8 @@ import { Userrole5modalComponent } from '../../modals/userrole5modal/userrole5mo
 import { IonicSelectableModule } from 'ionic-selectable';
 import { UserroleinfoModalComponent } from '../../modals/userroleinfomodal/userroleinfomodal.component';
 import { QuizModalComponent } from 'src/app/quiz-modal/quiz-modal.component';
+import { WarrantycardComponent } from '../../modals/warrantycard/warrantycard.component';
+import { PanoimageComponent } from '../../modals/panoimage/panoimage.component';
 
 
 
@@ -23,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent,QuizModalComponent],
+  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent,QuizModalComponent],
   imports: [
     CommonModule,
     IonicSelectableModule,
@@ -34,8 +36,8 @@ const routes: Routes = [
   ],
   providers: [
     // BarcodeScanner
-    TellUsifyouBuyitComponent,CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent
+    TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent
   ],
-  declarations: [VerifyitProductInfoPage,TellUsifyouBuyitComponent,CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent,QuizModalComponent]
+  declarations: [VerifyitProductInfoPage,TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent,QuizModalComponent]
 })
 export class VerifyitProductInfoPageModule { }

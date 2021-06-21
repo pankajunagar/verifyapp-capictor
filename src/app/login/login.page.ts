@@ -6,6 +6,7 @@ import {
   AlertController,
   MenuController,
   PopoverController,
+  ToastController,
 } from '@ionic/angular';
 import * as _ from 'lodash';
 import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
@@ -64,6 +65,7 @@ export class LoginPage implements OnInit {
     private alertService: AlertServiceService,
     private modalCtrl: ModalController,
     private http: HTTP,
+    private toast:ToastController,
     public utils: Utils,
     private appSetting: MainAppSetting,
     public alertController: AlertController,
@@ -95,6 +97,11 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+
+
+    if(this.router.url.includes("regon")){
+this.toggleSignup()
+    }
     // this.mixpanel.track('User entered on login screen');
     // this.presentAddUserModal();
     // this.showProductSelectionPopup()
@@ -433,15 +440,11 @@ export class LoginPage implements OnInit {
   async login() {
     await this.presentLoading();
 
-    // if (this.loginData.accessCode1 && this.loginData.accessCode2 && this.loginData.accessCode3 && this.loginData.accessCode4) {
-    //   this.loginData.accessCode = this.loginData.accessCode1 + "" + this.loginData.accessCode2 + "" + this.loginData.accessCode3 + "" + this.loginData.accessCode4
-    // }
-
-
     this.loginService.login(this.loginData)
       .subscribe(async (data: any) => {
         await this.loading.dismiss();
         this.setValues(data);
+
       },
         async err => {
           await this.loading.dismiss();
@@ -804,7 +807,7 @@ export class LoginPage implements OnInit {
 
     this.loginService.registerUser(data).subscribe(data => {
 
-
+this.presentToast('Register successfully')
 
       let myCookie = Cookie.get('Cookies')
       console.log("===============>" + myCookie)
@@ -831,6 +834,8 @@ export class LoginPage implements OnInit {
       "password": this.loginData.password
     }
     this.loginService.registeredUser(data).subscribe(data => {
+
+      this.presentToast('Login successfully')
 
       console.log("============>>" + JSON.stringify(data.headers))
       // let headers = data.headers;
@@ -1039,5 +1044,13 @@ export class LoginPage implements OnInit {
   hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+  }
+
+  async presentToast(data) {
+    const toast = await this.toast.create({
+      message: data,
+      duration: 3000
+    });
+    toast.present();
   }
 }

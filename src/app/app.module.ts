@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-// import { Camera } from '@ionic-native/camera/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Push } from '@ionic-native/push/ngx';
 import { MainAppSetting } from './conatants/MainAppSetting';
@@ -47,18 +47,20 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { ScratchmodalComponent } from './Rentals Management/modals/scratchmodal/scratchmodal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OrgModalComponent,
+    OrgModalComponent,ScratchmodalComponent,
     CountrycodemodalComponent,
     PictureComponent,
     FilterPipe,
     ApprovalpopupComponent
   ],
-  entryComponents: [OrgModalComponent, CountrycodemodalComponent, PictureComponent,ApprovalpopupComponent],
+  entryComponents: [OrgModalComponent,ScratchmodalComponent, CountrycodemodalComponent, PictureComponent,ApprovalpopupComponent],
   imports: [
     // NgxQRCodeModule,
     IonicSelectableModule,
@@ -84,13 +86,16 @@ import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
       }
     }),
     // ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('combined-sw.js', { enabled: environment.production }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
   ],
   providers: [
     InAppBrowser,
     SocialSharing,
     Deeplinks,
     QRScanner,
+    Camera,
     // VideoPlayer,
     Screenshot,
     StreamingMedia,

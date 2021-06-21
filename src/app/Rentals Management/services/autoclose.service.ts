@@ -19,11 +19,14 @@ export class AutocloseOverlaysService {
     private toastController: ToastController
   ) { }
   async trigger() {
-    alert('backbutton triggered');
+    debugger
+    console.log('backbutton triggered');
     // close action sheet
     try {
       const element = await this.actionSheetCtrl.getTop();
       if (element) {
+        window.history.forward();
+
         element.dismiss();
         return;
       }
@@ -34,6 +37,7 @@ export class AutocloseOverlaysService {
     try {
       const element = await this.popoverCtrl.getTop();
       if (element) {
+        window.history.forward();
         element.dismiss();
         return;
       }
@@ -44,6 +48,7 @@ export class AutocloseOverlaysService {
     try {
       const element = await this.modalCtrl.getTop();
       if (element) {
+        window.history.forward();
         element.dismiss();
         return;
       }
@@ -56,6 +61,8 @@ export class AutocloseOverlaysService {
     try {
       const element = await this.menu.getOpen();
       if (element !== null) {
+        // window.history.forward();
+
         this.menu.close();
         return;
       }

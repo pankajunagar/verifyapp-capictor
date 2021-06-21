@@ -341,6 +341,19 @@ reviewTracking(data){
 }
 
 
+
+getHtml(data){
+  // return this.http.post(`${this.appSettings.getApi()}/tracking/review_tracking`, data,
+  return this.http.get(data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token')
+    })
+  });
+}
+
+
 getLoyaltyPointByuser(data){
 
   // http://develop.nowverifyit.com/loyaltypoints/getloyaltyofuser/{$user_id}/{$token_id}/{$mobile_number}

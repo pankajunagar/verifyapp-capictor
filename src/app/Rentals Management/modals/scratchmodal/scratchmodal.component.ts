@@ -58,6 +58,7 @@ hasLogin
     });
   }
   async closeModal() {
+    this.router.navigate(['/login'], { queryParams: { reg: 'regon' }})
     await this.modalController.dismiss();
   }
 
@@ -111,7 +112,7 @@ hasLogin
       // containerHeight: 200,
       imageForwardSrc: 'assets/scratch.png',
       //imageBackgroundSrc: './assets/images/scratchcard-background.svg',
-      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">30</div><div class="won-text">Points<br>Won!</div></div>',
+      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">Use this 6 Digit Number as a Pincode to unlock the padlock on your Gift</div><div class="won-text"><br> <b>123456</b>  </div></div>',
       clearZoneRadius: 40,
       nPoints: 30,
       pointSize: 4,
@@ -123,6 +124,8 @@ hasLogin
     sc.init();
     
   }
+
+
 }
 
 

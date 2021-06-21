@@ -14,7 +14,7 @@ import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
 import { Utils } from "../../services/utils.service";
 import { AlertServiceService } from "src/app/common-services/alert-service.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, NavigationStart, Router } from "@angular/router";
 import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 import { AlertController } from "@ionic/angular";
 import { TellUsifyouBuyitComponent } from "../../modals/tellusifyoubuyit/tellusifyoubuyit.component";
@@ -32,9 +32,22 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
 import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
+import { AutocloseOverlaysService } from "../../services/autoclose.service";
+import { WarrantycardComponent } from "../../modals/warrantycard/warrantycard.component";
+import { PanoimageComponent } from "../../modals/panoimage/panoimage.component";
 
+
+import { ScratchCard, SCRATCH_TYPE } from 'scratchcard-js'
+import { ScratchmodalComponent } from '../../modals/scratchmodal/scratchmodal.component';
 // import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
+
+
+const PhotoSphereViewer = require('photo-sphere-viewer');
+// import 'photo-sphere-viewer/dist/plugins/markers.css'
+
+
+import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
 
 @Component({
   selector: "app-verifyitProductinf",
@@ -43,7 +56,7 @@ const { Share } = Plugins;
 })
 export class VerifyitProductInfoPage implements OnInit {
   helpUrl: any;
-
+  haspano
   private _videoPlayer: any;
   private _url: string;
   private _handlerPlay: any;
@@ -110,7 +123,7 @@ export class VerifyitProductInfoPage implements OnInit {
 
   brand_color: any;
   browser;
-
+hasvideoPlay=false;
   canNFC = false;
   statusMessage: string;
   tag: any;
@@ -136,8 +149,10 @@ showDeactivate
   constructor(
     private nfc: NFC,
     private ndef: Ndef,
+    private autocloseOverlaysService:AutocloseOverlaysService,
     private navCtrl: NavController,
     private platform: Platform,
+    private route: ActivatedRoute,
     private iab: InAppBrowser,
     private ngZone: NgZone,
     private socialSharing: SocialSharing,
@@ -153,7 +168,23 @@ showDeactivate
     private actionSheetController: ActionSheetController
   ) {
 
-    this.hardwareBackbutton();
+this.haspano=false
+
+    this.router.events.subscribe((event: any): void => {
+      if (event instanceof NavigationStart) {
+        if (event.navigationTrigger === 'popstate') {
+          // this.autocloseOverlaysService.trigger();
+
+          if(this.hasvideoPlay){
+            window.history.forward();
+
+          }
+
+        }
+      }
+    });
+
+    // this.hardwareBackbutton();
 
     this.showDeactivate=false
 
@@ -164,6 +195,12 @@ showDeactivate
   }
   
   async ngOnInit() {
+
+    if(this.route.snapshot.queryParams['openquiz']){
+      this.openQuiz();
+    };
+
+
     if(window.localStorage.getItem('showDeactivate')=='4'){
       this.showDeactivate=true
     
@@ -230,6 +267,13 @@ showDeactivate
     // add listeners to the plugin
     this._addListenersToPlayerPlugin();
   }
+
+  async ionViewDidEnter(){
+    // this.openPanoImage()
+    this.showProductVideo('https://nowverityit-img.s3.ap-south-1.amazonaws.com/img/Personalized+Video+GoodWynTea.mp4')
+    
+
+  }	
 
   async showProductVideo(data) {
     const res: any = await this._videoPlayer.initPlayer({
@@ -498,7 +542,7 @@ showDeactivate
               // data.push('mobile_number')
               this.trackingReview(data);
             } else {
-              this.presentToast();
+              this.presentToast('Mobile number is not valid.');
               return false;
             }
           }
@@ -508,9 +552,9 @@ showDeactivate
     await alert.present();
   }
 
-  async presentToast() {
+  async presentToast(data) {
     const toast = await this.toastController.create({
-      message: "Mobile number is not valid.",
+      message: data,
       duration: 3000
     });
     toast.present();
@@ -561,6 +605,10 @@ showDeactivate
       windowName: "_blank",
       toolbarColor: "	#FF0000"
     });
+
+    Browser.addListener('browserFinished', () => {
+this.presentToast('Review submitted successfully.')
+    })
     Browser.addListener("browserPageLoaded", () => {
       // ;
       // alert("hello===========>");
@@ -667,7 +715,7 @@ showDeactivate
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
-      "https://nowverifycap.web.app?params=" +
+      "https://pwa.nowverifyit.com?params=" +
       window.localStorage.getItem("tagId") +
       "&source=" +
       window.localStorage.getItem("token").slice(-10);
@@ -732,6 +780,7 @@ showDeactivate
       "jeepCapVideoPlayerPlay",
       (data: any) => {
         // console.log('Event jeepCapVideoPlayerPlay ', data);
+        this.hasvideoPlay=true;
         this.trackingVideoCompletion("VIDEO_LINK_CLICK");
       },
       false
@@ -747,6 +796,14 @@ showDeactivate
       "jeepCapVideoPlayerEnded",
       async (data: any) => {
         console.log("Event jeepCapVideoPlayerEnded ", data);
+        this.hasvideoPlay=false;
+      //  await this.destroy()
+       
+       
+     
+
+
+        this.opena();
         this.trackingVideoCompletion("VIDEO_PLAY_COMPLETE");
 
         // alert('<=========================ended=========================>')
@@ -756,6 +813,7 @@ showDeactivate
     this._handlerExit = this._videoPlayer.addListener(
       "jeepCapVideoPlayerExit",
       async (data: any) => {
+        this.hasvideoPlay=false;
         console.log("Event jeepCapVideoPlayerExit ", data);
       },
       false
@@ -990,10 +1048,204 @@ showDeactivate
       // console.log('Handler was called!');
       // alert("hi")
       // this.router.navigateByUrl('/verifyit-product-info')
-      this._handlerExit = this._videoPlayer.addListener('jeepCapVideoPlayerExit', async (data:any) => {
-        console.log('Event jeepCapVideoPlayerExit ', data)
+      // this._handlerExit = this._videoPlayer.addListener('jeepCapVideoPlayerExit', async (data:any) => {
+      //   console.log('Event jeepCapVideoPlayerExit ', data)
         
-        }, false);
+        // }, false);
+        this.autocloseOverlaysService.trigger();
+
     });
   }
+
+  async generateEwarrantyCard(){
+    debugger
+    this.utilservice.warrantyInformation=this.callgettagresult
+    let modal = await this.modalController.create({
+      component: WarrantycardComponent
+    });
+    return await modal.present();
+  }
+
+  async openPanoImage(){
+    
+    this.utilservice.warrantyInformation=this.callgettagresult
+    let modal = await this.modalController.create({
+      component: PanoimageComponent
+    });
+    return await modal.present();
+  }
+
+
+
+
+    // 360 view image
+
+// panoramaimage
+
+    opena(){
+      
+
+      var viewer = new PhotoSphereViewer.Viewer({
+        panorama: 'assets/testp.jpg',
+        container: 'viewer',
+        loadingImg: 'https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif',
+        caption: 'GOODWYN TEA ESTATES',
+        defaultLat: 0.3,
+        touchmoveTwoFingers: true,
+        mousewheelCtrlKey: true,
+      
+        plugins: [
+          [MarkersPlugins, {
+            // list of markers
+            markers: [{
+                // image marker that opens the panel when clicked
+                id: 'image',
+                longitude: 0.32,
+                latitude: 0.11,
+                image: 'https://photo-sphere-viewer.js.org/assets/pin-blue.png',
+                width: 32,
+                height: 32,
+                anchor: 'bottom center',
+                tooltip: 'BLACK/RED TEA',
+                content: `Black tea – which Kasim Ali, Owner of Waterloo Tea and Founder of the Tea Brewers Cup, tells me is sold as “red tea” in the Chinese market – is the most oxidised of all teas. The moment the leaves are picked, they begin to wilt and oxidation begins. They are often then crushed or rolled to speed up the process.
+
+                The flavour profile is strong, with plenty of depth and body. As the most oxidised tea, you would also brew it at the highest temperatures. Kasim Ali recommends 95–100℃/203–212℉. And much like coffee, the greater the temperature, the more bitter you can expect the brew to taste.
+                
+                Some of the most famous black teas include the English Breakfast blend and Earl Grey, which is flavoured with bergamot.`
+              },
+              {
+                id: 'image2',
+                longitude: 1.42,
+                latitude: 0.21,
+                image: 'https://photo-sphere-viewer.js.org/assets/pin-blue.png',
+                width: 32,
+                height: 32,
+                anchor: 'bottom center',
+                tooltip: 'OOLONG/WULONG TEA',
+                content: `The only difference between oolong and wulong tea is the name. Oolong is the most recognised in Western countries, yet linguists would say that wulong is a more accurate romanisation of the original Chinese kanji.
+
+                Oolong tea is also perhaps one of the widest categories of tea: according to Max Falkowitz in Serious Eats, oxidation can run between 8 and 85%. This means you will also come across vastly different flavours.
+                
+                All oolong tea processing begins with some form of encouraging oxidation, such as bruising the edges of the leaves. It also ends with a form of “fixing”, the process by which oxidation is paused. This could be pan firing, steaming, baking, or some other way of adding heat. However, Gebely states that the process between the initial oxidation and the fixing will vary because of the different oxidation levels.
+                
+                When brewing, Kasim suggests that medium oxidised teas are brewed at 85℃/185℉, while lower oxidised teas should be brewed at 80℃/176℉.`
+              },
+              {
+                id: 'image3',
+                longitude: 2.82,
+                latitude: 0.11,
+                image: 'https://photo-sphere-viewer.js.org/assets/pin-blue.png',
+                width: 32,
+                height: 32,
+                anchor: 'bottom center',
+                tooltip: 'GREEN TEA',
+                content: `Green tea is only very lightly oxidised. After the initial withering, the leaves must be quickly fixed. This tends to give it a lighter profile, and it will also lose its flavour much quicker than black or oolong tea.
+
+                While associated with Asia, there are significant differences between the offerings from the different Asian countries. To start with, Mary Lou and Robert J. Heiss emphasise that Chinese and Japanese green tea tastes vastly different thanks to the varieties and terroir (The Tea Enthusiast’s Handbook: A Guide to the World’s Best Teas).
+                
+                Then you have the way the green teas are processed, prepared, and brewed. This results in categories such as sencha, matcha, longjing and bilochun.
+                
+                Matcha, which is ground into a powder, is perhaps the most well-known green tea thanks to Starbucks “matcha lattes”. Japan’s highest-quality green tea category, it is ground into a powder (meaning it quickly becomes stale). It’s consumed in the traditional Japanese tea ceremony.
+                
+                Ali recommends brewing Chinese green teas at 75℃/167℉, but Japanese green teas at 65℃/149℉. “Some Japanese greens will brew closer to 50℃ (122℉),” he adds.
+                
+                `
+              },
+              
+            ]
+          }]
+        ]
+      });
+      
+      var markersPlugin = viewer.getPlugin(MarkersPlugins);
+      
+      /**
+       * Create a new marker when the user clicks somewhere
+       */
+      viewer.on('click', function(e, data) {
+        if (!data.rightclick) {
+          markersPlugin.addMarker({
+            id: '#' + Math.random(),
+            longitude: data.longitude,
+            latitude: data.latitude,
+            image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
+            width: 32,
+            height: 32,
+            anchor: 'bottom center',
+            tooltip: 'Generated pin',
+            data: {
+              generated: true
+            }
+          });
+        }
+      });
+      
+      /**
+       * Delete a generated marker when the user double-clicks on it
+       * Or change the image if the user right-clicks on it
+       */
+      markersPlugin.on('select-marker', function(e, marker, data) {
+        if (marker.data && marker.data.generated) {
+          if (data.dblclick) {
+            markersPlugin.removeMarker(marker);
+          } else if (data.rightclick) {
+            markersPlugin.updateMarker({
+              id: marker.id,
+              image: 'https://photo-sphere-viewer.js.org/assets/pin-blue.png',
+            });
+          }
+        }
+      });
+      
+        
+      
+
+  
+
+      this.haspano=true
+    }
+
+
+    destroy(){
+      const viewer=  document.querySelector('#viewer')
+      // Viewer.destroy().css("display","none");
+      document.getElementById("viewer").style.display= 'none';
+      this.haspano=false
+      this.scratchModal()
+
+
+    }
+
+
+    createNewScratchCard() {
+      const scContainer = document.getElementById('js--sc--container')
+      const sc = new ScratchCard('#js--sc--container', {
+        scratchType: SCRATCH_TYPE.CIRCLE,
+        containerWidth: 300,//scContainer.offsetWidth,
+        containerHeight: 300,
+        imageForwardSrc: 'assets/scanqrcode.png',
+        //imageBackgroundSrc: './assets/images/scratchcard-background.svg',
+        htmlBackground: '<div class="cardamountcss"><div class="won-amnt">30</div><div class="won-text">Points<br>Won!</div></div>',
+        clearZoneRadius: 40,
+        nPoints: 30,
+        pointSize: 4,
+        callback: () => {
+          console.log('Now the window will reload !')
+        }
+      })
+      // Init
+      sc.init();
+    }
+
+
+    async scratchModal() {
+      debugger
+      // this.utils.royaltyData=data
+      let modal = await this.modalController.create({
+        component: ScratchmodalComponent,
+        cssClass: "scratch-modal",
+      });
+      return await modal.present();
+    }
+
 }

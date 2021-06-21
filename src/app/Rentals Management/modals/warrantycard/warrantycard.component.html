@@ -1,0 +1,157 @@
+<ion-content *ngIf="step1">
+    <ion-row>
+        <ion-col size="12">
+            <h5>Step1</h5>
+        </ion-col>
+    </ion-row>
+  <ion-row>
+      <ion-col>
+        
+            <ion-item>
+                <ion-label position="stacked">Product Name</ion-label>
+                <ion-input [(ngModel)]="productDetail.name" inputmode="text"
+                class="gotham  margin-left-10" readonly
+                placeholder="{{productDetail.name}}">
+              </ion-input>
+              </ion-item>
+          
+      </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col style=" position: absolute !important;
+    bottom: 0px !important;
+    justify-content: flex-end !important;
+    display: flex !important;">
+        <ion-button (click)="toggle2()">
+            Next
+        </ion-button>
+    </ion-col>
+</ion-row>
+</ion-content>
+<ion-content  *ngIf="step2">
+    <ion-row>
+        <ion-col>
+            <h5>Step 2</h5>
+        </ion-col>
+    </ion-row>
+  <ion-row>
+      <ion-col>
+        
+            <ion-item>
+                <ion-label position="stacked">Product Serial Number</ion-label>
+                <ion-input [(ngModel)]="productDetail.serial_number" inputmode="text"
+                class="gotham  margin-left-10" readonly
+                placeholder="{{productDetail.name}}">
+              </ion-input>
+              </ion-item>
+          
+      </ion-col>
+  </ion-row>
+  <ion-row>
+      <ion-col size="12">
+          <h5>
+              Warranty card
+          </h5>
+      </ion-col>
+      <ion-col class="capture-card">
+        <ion-card (click)="takePicture('warranty_image')">
+            <!-- <ion-card-header>
+              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              <ion-card-title>Card Title</ion-card-title>
+            </ion-card-header> -->
+          
+            <ion-card-content>
+                <ion-icon *ngIf="!warranty_image" ios="ios-camera" md="md-camera"></ion-icon>
+                <ion-img *ngIf="warranty_image" src={{warranty_image}} alt=""></ion-img>
+            </ion-card-content>
+          </ion-card>
+      </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+        <h5>
+            Product receipt
+        </h5>
+    </ion-col>
+    <ion-col class="capture-card">
+        <ion-card (click)="takePicture('product_receipt_image')">
+            <!-- <ion-card-header>
+              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              <ion-card-title>Card Title</ion-card-title>
+            </ion-card-header> -->
+          
+            <ion-card-content >
+                <ion-icon *ngIf="!product_receipt_image" ios="ios-camera" md="md-camera"></ion-icon>
+                <ion-img *ngIf="product_receipt_image" src={{product_receipt_image}} alt=""></ion-img>
+
+            </ion-card-content>
+          </ion-card>
+      </ion-col>
+</ion-row>
+  <ion-row>
+    <ion-col style=" position: absolute !important;
+    bottom: 0px !important;
+    justify-content: flex-end !important;
+    display: flex !important;">
+        <ion-button (click)="toggle3()">
+            Next
+        </ion-button>
+    </ion-col>
+</ion-row>
+
+
+</ion-content>
+
+<ion-content style="font-size: 11px !important;"  *ngIf="step3">
+    <ion-row>
+        <ion-col size="12">
+            <h5>
+                Currently 1 product in your system
+            </h5>
+        </ion-col>
+        <ion-col>
+    
+            <ion-card>
+                <img src={{productDetail.product_image}} />
+                <ion-card-header>
+                  <ion-card-subtitle style="color: violet; float: right;">1 Year 0 months left</ion-card-subtitle>
+                  <ion-card-title style="font-size: 11px !important;
+                  margin-top: 5vw;
+                  margin-bottom: 3vw;
+                  display: inline-flex;
+                  align-items: center;
+    margin-bottom: 5vw;
+              
+                  ">Product Name: <p>
+{{productDetail.name}}
+                  </p>
+                </ion-card-title>
+                  <ion-card-title style="font-size: 11px !important;
+                  margin-bottom: 3vw;
+                  display: inline-flex;
+                  align-items: center;">
+                  <p>
+
+                      Warranty coverage till: 1 July 2022
+                  </p>
+                  </ion-card-title>
+
+                </ion-card-header>
+                <ion-card-content style="    display: inline-flex;
+                justify-content: center;
+                width: 100%;">
+<ion-button style="font-size: 11px !important;
+">
+    view receipt
+</ion-button>
+
+<ion-button style="font-size: 11px !important;
+">
+    view Warranty card
+</ion-button>
+
+                </ion-card-content>
+              </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-content>

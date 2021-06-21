@@ -14,7 +14,7 @@ import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
 import { Utils } from "../../services/utils.service";
 import { AlertServiceService } from "src/app/common-services/alert-service.service";
-import { Router } from "@angular/router";
+import { NavigationStart, Router } from "@angular/router";
 import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 import { AlertController } from "@ionic/angular";
 import { TellUsifyouBuyitComponent } from "../../modals/tellusifyoubuyit/tellusifyoubuyit.component";
@@ -152,6 +152,22 @@ showDeactivate
     private modalController: ModalController,
     private actionSheetController: ActionSheetController
   ) {
+
+
+    // this.router.events.subscribe((event: any): void => {
+    //   if (event instanceof NavigationStart) {
+    //     if (event.navigationTrigger === 'popstate') {
+    //       // this.autocloseOverlaysService.trigger();
+    //       window.history.forward();
+
+    //     }
+    //   }
+    // });
+
+
+
+
+
     this.hasLogin = window.localStorage.getItem("name");
     // alert('=================='+this.hasLogin)
     // this.ionViewDidLoad()
