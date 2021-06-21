@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { Utils } from '../Rentals Management/services/utils.service';
+import { TrackingService } from '../services/tracking.service';
 
 @Component({
   selector: 'app-quiz-modal',
@@ -46,7 +48,7 @@ export class QuizModalComponent implements OnInit {
 
 ]
 
-  constructor(private modalController:ModalController,private router:Router) { }
+  constructor(private modalController:ModalController,private router:Router,private api:TrackingService,private utilservice:Utils) { }
 
   ngOnInit() {}
 
@@ -60,6 +62,21 @@ export class QuizModalComponent implements OnInit {
       });
       
     }
+        if(i==2){
+
+          const data={
+            user_id:localStorage.getItem('userid'),
+            tag_id:localStorage.getItem('tagId'),
+            product_id:this.utilservice.productId,
+            device_id:localStorage.getItem('device_id')
+          }
+
+          this.api.trackingApi(data).subscribe(res=>{
+            console.log(res,"track");
+            
+          })
+        }
+    
   }
 
 }
