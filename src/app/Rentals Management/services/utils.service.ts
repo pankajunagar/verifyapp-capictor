@@ -23,7 +23,7 @@ export class Utils {
     hidenfc
     userType:any;
     LoadPage:EventEmitter<boolean> = new EventEmitter();
-
+    warrantyInformation
   constructor(
     private http: HttpClient,
     private appSettings: MainAppSetting
@@ -31,6 +31,7 @@ export class Utils {
     this.cartitem=[];
     this.cartdata=0;
   }
+  
 
   
 

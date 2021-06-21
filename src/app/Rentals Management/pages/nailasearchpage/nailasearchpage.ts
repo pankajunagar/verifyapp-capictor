@@ -32,7 +32,7 @@ export class NailasearchPage {
   };
 
   sliderConfig2 = {
-    slidesPerView: 3.2,
+    slidesPerView: 1,
     spaceBetween: -50,
     // centeredSlides: true
   };

@@ -1,10 +1,10 @@
 import { Component, OnInit, NgZone, AfterViewInit, HostListener } from "@angular/core";
 // import { Device } from "@ionic-native/device/ngx";
 
-import { Platform, NavController, LoadingController, AlertController } from "@ionic/angular";
+import { Platform, NavController, LoadingController, AlertController, ToastController } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationStart } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { StorageService } from "./common-services/storage-service.service";
 import { Storage } from "@ionic/storage";
@@ -19,6 +19,7 @@ import { VerifyitAccountsPage } from './Rentals Management/pages/verifyitaccount
 import { NailaService } from './Rentals Management/services/naila.service';
 import { SettingsService } from "./settings.service";
 import { Plugins } from '@capacitor/core';
+// import { MessagingService } from '../services/messaging.service';
 
 const { Device } = Plugins;
 declare var wkWebView: any;
@@ -28,6 +29,8 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed,
 } from '@capacitor/core';
+import { AutocloseOverlaysService } from "./Rentals Management/services/autoclose.service";
+import { MessagingService } from "./services/messaging.service";
 
 const { PushNotifications } = Plugins;
 
@@ -260,6 +263,8 @@ export class AppComponent implements OnInit {
       });
   }
   ngOnInit() {
+
+    this.requestPermission();
    
     // if (localStorage.getItem('addtohomescreen') !== '1') {
     //   setTimeout(() => {
@@ -297,7 +302,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private zone: NgZone,
-
+    private messagingService: MessagingService,
     protected deeplinks: Deeplinks,
     private nfc: NFC,
     private ndef: Ndef,
@@ -305,6 +310,7 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     // private device:Device,
+    private toastCtrl: ToastController,
     private router: Router,
     private navCtrl: NavController,
     public translate: TranslateService,
@@ -314,14 +320,25 @@ export class AppComponent implements OnInit {
     private rentalsUserService: RentalsUserService,
     private alertService: AlertServiceService,
     private buildingUserService: BuildingUserService,
+    private autocloseOverlaysService:AutocloseOverlaysService,
     private utils: Utils,
     private verifyitservice: NailaService,
     private settings: SettingsService,
     private alertCtrl: AlertController
   ) // private push: Push
   {
+    // this.listenForMessages();
+    this.requestPermission()
+
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
+    this.router.events.subscribe((event: any): void => {
+      if (event instanceof NavigationStart) {
+        if (event.navigationTrigger === 'popstate') {
+          this.autocloseOverlaysService.trigger();
+        }
+      }
+    });
   }
 
 
@@ -575,6 +592,7 @@ export class AppComponent implements OnInit {
         async err => {
           await this.loadingCtrl.dismiss();
           this.alertService.presentAlert("", "Error while logging out");
+
         }
       );
     } else if (val == "building-management") {
@@ -671,19 +689,20 @@ export class AppComponent implements OnInit {
 
   generateToken() {
     let token = (window.localStorage.getItem('token'))
+    if (!token.length) {
     this.verifyitservice.genToken().subscribe(
       async (data: any) => {
         //debugger
-        if (!token.length) {
 
           window.localStorage.setItem('token', data.data.token)
-        }
+     
       },
       async err => {
         await this.loadingCtrl.dismiss();
         this.alertService.presentAlert("", "Error while logging out");
       }
     );
+      }
   }
 
 
@@ -710,25 +729,78 @@ export class AppComponent implements OnInit {
     );
 
     PushNotifications.addListener('registrationError', (error: any) => {
-      alert('Error on registration: ' + JSON.stringify(error));
+      // alert('Error on registration: ' + JSON.stringify(error));
     });
 
     PushNotifications.addListener(
       'pushNotificationReceived',
       (notification: PushNotification) => {
-        this.router.navigateByUrl('/verifyit-rewards')
-        alert('Push received: ' + JSON.stringify(notification));
+        // this.router.navigateByUrl('/verifyit-product-info' )
+        this.router.navigate(["/verifyit-product-info"], {
+          queryParams: { brand: 'openquiz' },
+        });
+        // alert('Push received: ' + JSON.stringify(notification));
       },
     );
 
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
-        this.router.navigateByUrl('/verifyit-rewards')
+        // this.router.navigateByUrl('/verifyit-rewards')
         // alert('Push action performed: ' + JSON.stringify(notification));
       },
     );
   }
   
+// pwa push notification
+
+
+
+
+
+listenForMessages() {
+  debugger
+  this.messagingService.getMessages().subscribe(async (msg: any) => {
+    const alert = await this.alertCtrl.create({
+      header: msg.notification.title,
+      subHeader: msg.notification.body,
+      message: msg.data.info,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  });
+}
+
+requestPermission() {
+  this.messagingService.requestPermission().subscribe(
+    async token => {
+      const toast = await this.toastCtrl.create({
+        message: 'Got your token',
+        duration: 2000
+      });
+      toast.present();
+    },
+    async (err) => {
+      const alert = await this.alertCtrl.create({
+        header: 'Error',
+        message: err,
+        buttons: ['OK'],
+      });
+
+      await alert.present();
+    }
+  );
+}
+
+
+async deleteToken() {
+  this.messagingService.deleteToken();
+  const toast = await this.toastCtrl.create({
+    message: 'Token removed',
+    duration: 2000
+  });
+  toast.present();
+}
 
 }

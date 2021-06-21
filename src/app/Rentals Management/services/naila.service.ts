@@ -216,7 +216,7 @@ callGetTag(id){
 
 
 callRecordScan(data){
-  return this.http.get(`${this.appSettings.getApi()}/nfc/recordscan/${data.tagId}?location=${data.location}&lat=${data.lat}&long=${data.long}&pincode=${data.pincode}&city=${data.city}&state=${data.state}&country=${data.country}`,
+  return this.http.get(`${this.appSettings.getApi()}/nfc/recordscan/${data.tagId}?location=${data.location}&lat=${data.lat}&long=${data.long}&pincode=${data.pincode}&city=${data.city}&state=${data.state}&country=${data.country}&source_token=${data.source_token}`,
   {
     headers: new HttpHeaders({
       
@@ -339,6 +339,20 @@ reviewTracking(data){
     })
   });
 }
+
+
+
+getHtml(data){
+  // return this.http.post(`${this.appSettings.getApi()}/tracking/review_tracking`, data,
+  return this.http.get(data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token')
+    })
+  });
+}
+
 
 getLoyaltyPointByuser(data){
 

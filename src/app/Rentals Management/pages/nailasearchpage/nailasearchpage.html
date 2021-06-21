@@ -73,16 +73,8 @@
     <ion-slides class="service" [options]="sliderConfig2">
       <ion-slide (click)="this.selectedCategory(slide);" *ngFor="let slide of categories" class="center-text">
         <ion-row>
-          <ion-card [style.background-color]="slide.name == cardName ? 'black' : 'white'" style="height: 65px;
-        background: black;
-        width: 75px;" class="margin-bottom-0" size="12">
-            <img style="position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 25px;
-          height: 25px;
-          margin-top: -11px;
-          margin-left: -13px;" src={{slide.image.url}} />
+          <ion-card [style.background-color]="slide.name == cardName ? 'black' : 'white'"  class="margin-bottom-0" size="12">
+            <img  src={{slide.image.url}} />
 
 
           </ion-card>
