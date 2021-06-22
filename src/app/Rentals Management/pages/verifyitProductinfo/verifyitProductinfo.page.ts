@@ -270,7 +270,7 @@ this.haspano=false
 
   async ionViewDidEnter(){
     // this.openPanoImage()
-    this.showProductVideo('https://nowverityit-img.s3.ap-south-1.amazonaws.com/img/Personalized+Video+GoodWynTea.mp4')
+    // this.showProductVideo('https://nowverityit-img.s3.ap-south-1.amazonaws.com/img/Personalized+Video+GoodWynTea.mp4')
     
 
   }	
@@ -803,7 +803,7 @@ this.presentToast('Review submitted successfully.')
      
 
 
-        this.opena();
+        // this.opena();
         this.trackingVideoCompletion("VIDEO_PLAY_COMPLETE");
 
         // alert('<=========================ended=========================>')
@@ -1211,7 +1211,7 @@ this.presentToast('Review submitted successfully.')
       // Viewer.destroy().css("display","none");
       document.getElementById("viewer").style.display= 'none';
       this.haspano=false
-      this.scratchModal()
+      // this.scratchModal()
 
 
     }

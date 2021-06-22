@@ -105,6 +105,21 @@
         </div>
 
 
+
+        <div text-capitalize
+          *ngIf="item.key!='Instruction' && item.key=='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          class="label">
+          {{item.key.split('_').join(' ')}}
+        </div>
+        <div text-capitalize
+          *ngIf="item.key!='Instruction' && item.key=='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          class="description">
+          <a style="text-decoration: underline; color: blue" (click)="scratchModal()">
+            Scratch card
+          </a>
+        </div>
+
+
         <div text-capitalize
         *ngIf="item.key!='Instruction' && item.key!='scratch_card' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='warranty' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
         class="label">
