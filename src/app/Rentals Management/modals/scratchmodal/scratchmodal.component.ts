@@ -58,7 +58,7 @@ hasLogin
     });
   }
   async closeModal() {
-    this.router.navigate(['/login'], { queryParams: { reg: 'regon' }})
+    // this.router.navigate(['/login'], { queryParams: { reg: 'regon' }})
     await this.modalController.dismiss();
   }
 
