@@ -1,0 +1,27 @@
+{
+  "projects": {
+    "develop": "nowverifycap",
+    "development": "nowverifycap",
+    "prod": "nowverifyit-f7758",
+    "dev": "nowverifycap",
+    "test": "noeverifycaptest",
+    "default": "noeverifycaptest",
+    "stage": "nowverifycap"
+  },
+  "targets": {
+    "nowverifycap": {
+      "hosting": {
+        "app": [
+          "nowverifycap"
+        ]
+      }
+    },
+    "noeverifycaptest": {
+      "hosting": {
+        "app": [
+          "noeverifycaptest"
+        ]
+      }
+    }
+  }
+}

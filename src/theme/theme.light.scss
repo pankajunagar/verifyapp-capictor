@@ -1,0 +1,11 @@
+.light-theme {
+    ion-content {
+      --background: #fff;
+      --color:#111;
+    }
+   
+    ion-toolbar.new-background-color{
+      --background: #111;
+      color:#fff;
+    }
+  }

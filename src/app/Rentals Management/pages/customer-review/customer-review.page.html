@@ -1,0 +1,83 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons> 
+    <ion-title>Product Review Page</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+
+    <ion-card>
+      <ion-card-header>
+          <ion-card-title>Product Rating</ion-card-title>
+      </ion-card-header>
+     
+    
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="3">
+            <img  src="{{ProductDetail.img1}}">
+          </ion-col>
+          <ion-col>
+           {{ProductDetail.product_name}}
+            <div class="rate-us">
+              <ion-buttons>
+                  <ion-button *ngFor="let item of rating;let i = index;" (click)="getrating(i+1)">
+                      <img *ngIf="item.isClicked" src="../../../assets/images/star-fill.svg">
+                      <img *ngIf="!item.isClicked" src="../../../assets/images/star-empty.svg">
+                  </ion-button>
+                  </ion-buttons>
+              </div>
+          </ion-col>
+        </ion-row>
+      
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-header>
+        
+        <ion-card-title>Review Title</ion-card-title>
+        <ion-card-subtitle>One Most Important thing About Your Product</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <input type="text" class="form-control " placeholder="Enter Review" aria-label="Username" aria-describedby="basic-addon1">
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-header>
+             <ion-card-title>Product Review</ion-card-title>
+             <ion-card-subtitle>Add Your Detailed Product Exprience Here</ion-card-subtitle>
+      </ion-card-header>
+   
+    
+      <ion-card-content>
+          <textarea id="form7" class="md-textarea form-control" rows="3"></textarea>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-header>
+             <ion-card-title>Product Images</ion-card-title>          
+      </ion-card-header>
+      
+    
+      <ion-card-content>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="reviewsubmit">
+    <button  ion-button type="button" class="btn btn-primary">Submit Review</button>
+    
+  </div>
+</ion-content>
+
+

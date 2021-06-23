@@ -1,0 +1,227 @@
+<ion-app [ngClass]="selectedTheme">
+  <ion-split-pane>
+    <ion-menu style="--width: 220px;" side="start" id="printToConsole">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-menu-toggle>
+            <ion-title style="margin-bottom: 50px;" class="">
+
+              <ion-col size="4">
+                <img style="width: 50px;
+              height: 50px;
+              margin-top: 20px;
+              border-radius: 50px;" src="assets/imgs/nailalogo.jpg" alt="assets/imgs/taps.png">
+              </ion-col>
+              <!-- <ion-col style="vertical-align: super;" size="8">
+
+                <ion-label>Naila</ion-label>
+              </ion-col> -->
+
+              <!-- <p class="font-14 margin-bottom-3 font-weight-600">{{appPages.name}}</p>
+              <p class="margin-top-0 font-14 font-weight-600">{{appPages.phoneNumber}}</p> -->
+            </ion-title>
+          </ion-menu-toggle>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content *ngIf="canNFC" style="--background: black;
+      --color: white;
+      --border-width: 0 0 0px 0;">
+        <ion-list style="background:black;">
+          <ion-item style="--background: black;
+        color: white;">
+            <ion-label *ngIf="!username" (click)="navigatetologinpage()">
+              Login/Signup
+            </ion-label>
+            <ion-label *ngIf="username" >
+              Hi {{username}}!
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list *ngIf="userrole=='1'" class="padding-bottom-0 padding-top-0 ">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages.pages">
+            <ion-item *ngIf="(p.userrole!='2' || p.userrole=='default') && userrole=='1' " style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="routeForword(p.url)"
+              (click)="toggleRole(p.userrole,p.title)">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}}
+              </ion-label>
+            </ion-item>
+
+
+            <!-- <ion-item *ngIf="p.title == 'Log Out' &&  p.userrole!=(userrole || this.utils.userType)" style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}}
+              </ion-label>
+            </ion-item> -->
+          </ion-menu-toggle>
+
+
+
+          <!-- <ion-menu-toggle>
+            <ion-item style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
+              <ion-label class="marginTop5">
+                {{translate.instant(appPages.logout.title)}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+        </ion-list>
+
+        <ion-list *ngIf="userrole=='2'" class="padding-bottom-0 padding-top-0 ">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages.pages">
+            
+            <ion-item *ngIf="p.userrole=='2' || p.userrole=='default'" style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="routeForword(p.url)"
+              (click)="toggleRole(p.userrole,p.title)">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}} 
+              </ion-label>
+            </ion-item>
+
+
+            <!-- <ion-item *ngIf="p.title == 'Log Out' &&  p.userrole!=(userrole || this.utils.userType)" style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}}
+              </ion-label>
+            </ion-item> -->
+          </ion-menu-toggle>
+
+
+
+          <!-- <ion-menu-toggle>
+            <ion-item style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
+              <ion-label class="marginTop5">
+                {{translate.instant(appPages.logout.title)}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+        </ion-list>
+      </ion-content>
+
+
+
+      <ion-content *ngIf="!canNFC" style="--background: black;
+      --color: white;
+      --border-width: 0 0 0px 0;">
+        <ion-list style="background:black;">
+          <ion-item style="--background: black;
+        color: white;">
+            <ion-label *ngIf="!username" (click)="navigatetologinpage()">
+              Login/Signup
+            </ion-label>
+            <ion-label *ngIf="username" >
+              Hi {{username}}!
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list *ngIf="userrole=='1'" class="padding-bottom-0 padding-top-0 ">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages2.pages">
+            <ion-item *ngIf="(p.userrole!='2' || p.userrole=='default') && userrole=='1' " style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="routeForword(p.url)"
+              (click)="toggleRole(p.userrole,p.title)">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}}
+              </ion-label>
+            </ion-item>
+
+
+            <!-- <ion-item *ngIf="p.title == 'Log Out' &&  p.userrole!=(userrole || this.utils.userType)" style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}}
+              </ion-label>
+            </ion-item> -->
+          </ion-menu-toggle>
+
+
+
+          <!-- <ion-menu-toggle>
+            <ion-item style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
+              <ion-label class="marginTop5">
+                {{translate.instant(appPages.logout.title)}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+        </ion-list>
+
+        <ion-list *ngIf="userrole=='2'" class="padding-bottom-0 padding-top-0 ">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages2.pages">
+            
+            <ion-item *ngIf="p.userrole=='2' || p.userrole=='default'" style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="routeForword(p.url)"
+              (click)="toggleRole(p.userrole,p.title)">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}} 
+              </ion-label>
+            </ion-item>
+         
+
+
+            <!-- <ion-item *ngIf="p.title == 'Log Out' &&  p.userrole!=(userrole || this.utils.userType)" style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
+                {{translate.instant(p.title)}}
+              </ion-label>
+            </ion-item> -->
+          </ion-menu-toggle>
+
+
+
+          <!-- <ion-menu-toggle>
+            <ion-item style="--background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
+              <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
+              <ion-label class="marginTop5">
+                {{translate.instant(appPages.logout.title)}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+        </ion-list>
+      </ion-content>
+
+      <!-- <ion-content style="--background: black;
+      --color: white;
+      --border-width: 0 0 0px 0;">
+      <ion-list style="background:black;">      
+        <ion-item style="--background: black;
+        color: white;">
+          <button (click)="addToHomeScreen()">Add NowVerifyIt to Your home screen</button>
+        </ion-item>
+      </ion-list>
+      </ion-content> -->
+
+
+    </ion-menu>
+    <!-- <button style="display:none" id="a2hs" (click)="addToHomeScreen()">Add NowVerifyIt to Your home screen</button> -->
+    <ion-router-outlet main id="container">
+    
+    </ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

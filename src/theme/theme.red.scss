@@ -1,0 +1,13 @@
+.dark-theme {
+    ion-content {
+      --background: red;
+      --color: #fff;
+    }
+    .toolbar-title {
+      --color: #fff;
+    }
+    ion-toolbar.new-background-color{
+      --background: blue;
+      color:#fff;
+    }
+  }  

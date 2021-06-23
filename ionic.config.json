@@ -1,0 +1,8 @@
+{
+  "name": "Nowverifyit",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

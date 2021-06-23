@@ -1,0 +1,67 @@
+<ion-content>
+  <ion-row>
+<ion-row>
+  <ion-col style="     margin-top: 5vw;   margin-left: 15px;">
+
+    <h5 style=" text-align: center;   text-decoration: underline;">
+      Deactivate Scanned Coupon
+    </h5 >
+    <small style="    margin-left: -1px;
+    margin-right: 1vw;
+    color: grey;">
+      *Clicking on Confirm & Deactivate will add up the denomination amount to the dealer name mentioned below. Kindly change if required.
+    </small>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col size="11">
+
+    <ion-item lines="none">
+      <p style="    width: 100%;">Dealer Name:</p>
+      <ionic-selectable
+      modalCssClass="harshuser"
+        [(ngModel)]="port1"
+        [items]="ports"
+        itemValueField="id"
+        itemTextField="name"
+        [canSearch]="true"
+        (onChange)="portChange($event)">
+      </ionic-selectable>
+    </ion-item>
+    
+  
+  </ion-col>
+  <ion-col (click)="presentPopover()" size='1'>
+   <p style="    display: inline-flex;
+   margin-top: 19px;
+   position: initial;
+   padding-right: 25vh;"><ion-icon name="information-circle-outline"></ion-icon></p>
+  </ion-col>
+</ion-row>
+<ion-row style="">
+  <ion-col style="    margin-left: 15px;">
+
+    <p>
+      Denomination amount: Rs.20
+    </p>
+  </ion-col>
+  
+
+
+</ion-row>
+<ion-row>
+
+  <ion-button (click)="presentAlertConfirm()" style="position: absolute;    margin-left: 5vh;
+  margin-right: 5vh;
+  bottom: 9vw;
+  left: 0;
+  right: 0;">
+    Process Credit
+  </ion-button>
+</ion-row>
+
+</ion-row>
+
+</ion-content>
+
+

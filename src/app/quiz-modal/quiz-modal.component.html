@@ -1,0 +1,32 @@
+<ion-content>
+  
+  <div *ngFor="let ques of ques;let ii=index">
+    <div *ngIf="count==ii">
+      <h2 style="padding: 0 10px;">{{ques.heading}}</h2>
+      <ion-label style="padding: 0 10px;">
+       {{ques.title}}
+      </ion-label>
+      <div >
+        <ng-container *ngIf="!ques.ischeckbox">
+          <ion-card *ngFor="let opt of ques.option;let i = index" class="ion-padding" (click)="dataChange(ii,ques.length)">
+            <div>
+              <span>
+                {{i+1}}{{']'}} </span><span>{{ques.option[i]}}
+              </span>
+            </div>
+          </ion-card>
+        </ng-container>
+        <ng-container *ngIf="ques.ischeckbox">
+          <div class="ion-padding ion-text-center">
+            <span *ngFor="let opt of ques.option;let i = index" style="padding: 10px 4px 10px 7px; border: 1px solid black;">
+         
+               <span (click)="dataChange(ii,ques.length)">{{ques.option[i]}}
+                </span>
+            </span>
+          </div>
+        </ng-container>
+        
+      </div>
+    </div>
+    </div>
+</ion-content>

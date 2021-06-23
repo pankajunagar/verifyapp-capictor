@@ -1,0 +1,40 @@
+{
+  "appId": "com.nowverifyit.empower",
+  "appName": "Nowverifyit",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
+    },
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "ScrollEnabled": "false",
+      "android-targetSdkVersion": "29",
+      "android-minSdkVersion": "19",
+      "BackupWebStorage": "none",
+      "loadUrlTimeoutValue": "7000000",
+      "ShowSplashScreenSpinner": "false",
+      "orientation": "portrait",
+      "SplashMaintainAspectRatio": "true",
+      "FadeSplashScreenDuration": "700",
+      "SplashShowOnlyFirstTime": "false",
+      "SplashScreen": "screen",
+      "SplashScreenDelay": "3000",
+      "GOOGLE_MAPS_ANDROID_API_KEY": "AIzaSyAH3tjUqRBphM-E6jLm0Va70Dr1uOoDNBA",
+      "GOOGLE_MAPS_IOS_API_KEY": "AIzaSyAH3tjUqRBphM-E6jLm0Va70Dr1uOoDNBA",
+      "WKWebViewOnly": "true",
+      "AndroidLaunchMode": "singleTask",
+      "CordovaWebViewEngine": "CDVWKWebViewEngine"
+    }
+  }
+}
