@@ -328,7 +328,7 @@ export class AppComponent implements OnInit {
   ) // private push: Push
   {
     // this.listenForMessages();
-    this.requestPermission()
+    // this.requestPermission()
 
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 

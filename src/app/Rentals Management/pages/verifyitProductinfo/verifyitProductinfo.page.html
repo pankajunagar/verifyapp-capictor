@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="callgettagresult" no-padding>
-  <div  class="viewer" id="viewer"></div>
+  <!-- <div  class="viewer" id="viewer"></div> -->
 
   <section [hidden]="haspano" [style.background-color]="this.brand_color">
     <!-- <ion-card class="mapp-card">
@@ -283,13 +283,13 @@
 </ion-content>
 <!-- <footer style="padding: 35px;" (click)="openQuiz()" class="my-footer" *ngIf="callgettagresult.meta_data?.pop_up=='1'"> -->
   <!-- <ion-toolbar> -->
-  <!-- <div (click)="destroy()" *ngIf="callgettagresult.meta_data?.pop_up=='1'" style="padding: 4vw;" class="ion-text-center">
+  <div (click)="destroy()" *ngIf="callgettagresult.meta_data?.pop_up=='1'" style="padding: 4vw;" class="ion-text-center">
     Win Rewards
-    </div> -->
+    </div>
 
-    <div (click)="destroy()" style="padding: 4vw;"  class="ion-text-center">
+    <!-- <div (click)="destroy()" style="padding: 4vw;"  class="ion-text-center">
 Close view
-    </div> 
+    </div>  -->
 
     <!-- <div   style="padding: 4vw;" class="ion-text-center">
      Generate E-warranty card
