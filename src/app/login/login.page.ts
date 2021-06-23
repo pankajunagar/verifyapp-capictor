@@ -1,3 +1,5 @@
+
+
 import { NailaService } from './../Rentals Management/services/naila.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -863,6 +865,7 @@ this.presentToast('Register successfully')
           return;
         }
         //**charu end */
+
         if(data.data.userType==4){
           debugger
           window.localStorage.setItem('showDeactivate', '4');
@@ -1030,6 +1033,7 @@ this.presentToast('Register successfully')
         if (res){
          
       this.enterotp = true;
+    this.enterotp = true;
     this.sendotpinput = true;
     this.newpassword = true;
     this.registereduser = false;

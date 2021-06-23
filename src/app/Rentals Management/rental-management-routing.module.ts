@@ -67,8 +67,7 @@ const routes: Routes = [
     
     { path: 'verifyit-rewards', loadChildren: '../Rentals Management/pages/verifyitrewards/verifyitrewards.module#VerifyitRewardsModule' },
     
-    { path: 'verifyit-offer', loadChildren: '../Rentals Management/pages/verifyitoffer/verifyitoffer.module#VerifyitOfferModule' },  { path: 'customer-review', loadChildren: './pages/customer-review/customer-review.module#CustomerReviewPageModule' },
-
+    { path: 'verifyit-offer', loadChildren: '../Rentals Management/pages/verifyitoffer/verifyitoffer.module#VerifyitOfferModule' },
 
     // VerifyitOfferModule
     

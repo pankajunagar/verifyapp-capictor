@@ -171,6 +171,7 @@ showDeactivate
     private modalController: ModalController,
     private actionSheetController: ActionSheetController,
     private loginService:LoginService
+    // private actionSheetController: ActionSheetController
   ) {
 
 this.haspano=false

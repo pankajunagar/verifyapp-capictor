@@ -993,20 +993,3 @@ ion-item{
   display: none;
   }
 }
-
-@mixin hideScrollbar {
-  &::-webkit-scrollbar {
-   // width: 0 !important
-  }
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
-}
-/* On Chrome */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none !important;
-}
-/* For Firefox and IE */
-.hide-scrollbar {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}

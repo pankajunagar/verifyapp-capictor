@@ -6,11 +6,7 @@
   "webDir": "www",
   "plugins": {
     "PushNotifications": {
-      "presentationOptions": [
-        "badge",
-        "sound",
-        "alert"
-      ]
+      "presentationOptions": ["badge", "sound", "alert"]
     },
     "SplashScreen": {
       "launchShowDuration": 0
