@@ -4,3 +4,17 @@
   margin: 0 auto;
   display: contents;
 }
+
+
+ion-button{
+  display: inline-flex;
+  justify-content: center;
+}
+ion-list{
+  display: inline-flex;
+  justify-content: center;
+}
+
+.transparentBody {
+  background: transparent !important;
+}

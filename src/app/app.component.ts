@@ -268,7 +268,7 @@ a2Hs=()=>{
   }
   ngOnInit() {
 
-    this.requestPermission();
+    // this.requestPermission();
    
   ///  window.addEventListener("load",function() {
       // Set a timeout...
