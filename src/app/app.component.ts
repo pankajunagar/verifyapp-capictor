@@ -243,13 +243,9 @@ export class AppComponent implements OnInit {
     e.preventDefault();
     // Stash the event so it can be triggered later.
     this.deferredPrompt = e;
-   // this.showButton = true;
-   setTimeout(function(){  document.getElementById("a2hs").click(); }, 3000);
-    
+    this.showButton = true;
   }
-a2Hs=()=>{
-  document.getElementById("a2hs").click();
-}
+
   addToHomeScreen() {
     // hide our user interface that shows our A2HS button
     this.showButton = false;
@@ -270,13 +266,12 @@ a2Hs=()=>{
 
     // this.requestPermission();
    
-  ///  window.addEventListener("load",function() {
-      // Set a timeout...
-      document.body.requestFullscreen();
-  //
+    // if (localStorage.getItem('addtohomescreen') !== '1') {
+    //   setTimeout(() => {
+    //     this.presentAlertConfirm();
+    //   }, 5000)
+    // }
     this.utils.LoadPage.subscribe(data => {
-      // let container=document.getElementById("container");
-      // container.requestFullscreen();
       if (window.localStorage.getItem("userType")) {
         this.userrole = window.localStorage.getItem("userType");
         this.username = window.localStorage.getItem("name");
@@ -333,7 +328,7 @@ a2Hs=()=>{
   ) // private push: Push
   {
     // this.listenForMessages();
-    this.requestPermission()
+    // this.requestPermission()
 
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
@@ -652,7 +647,6 @@ a2Hs=()=>{
 
   ngAfterViewInit() {
     this.platform.ready().then(async () => {
-      window.scrollTo(0,1);
       // await this.initDeepLinking();
       // await this.setupDeeplinks()
     });

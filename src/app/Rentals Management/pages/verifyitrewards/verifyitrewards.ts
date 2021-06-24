@@ -44,7 +44,6 @@ export class Verifyitrewards {
 
   ngOnInit() {
 
-debugger;
     // this.scratchModal()
 
     // this.createNewScratchCard();
@@ -146,18 +145,19 @@ debugger;
   async socialShare() {
     // this.e =product_titl this.callgettagresult.product_name;
     // this.brand = this.callgettagresult.brand;
-    // this.product_link =
-    //   "https://pwa.nowverifyit.com?params=" +
-    //   window.localStorage.getItem("tagId") +
-    //   "&source=" +
-    //   window.localStorage.getItem("token").slice(-10);
+    let product_link =
+      "https://pwa.nowverifyit.com?params=" +
+      window.localStorage.getItem("tagId") +
+      "&source=" +
+      window.localStorage.getItem("token").slice(-10);
    let points= this.listbanner.data[0].loyalty_points
    let brand = this.listbanner.data[0].brand
       let shareRet = await Share.share({
     
-      // url: this.product_link
+       
       title: "Congratulation ypu won ",
-      text: + points +" Loyalty Points" + " from " + brand,
+      text: "Congratulation ypu won " + points +" Loyalty Points" + " from " + brand,
+      url: product_link,
      
     });
     // this.shareTracking();
@@ -169,7 +169,7 @@ hasExpired=false
 substractDate
 
 checkExpiredCoupon(date){
-  debugger
+  // debugger
 this.currentDate=new Date()
 this.substractDate=new Date(date * 1000).toISOString()
 this.substractDate= new Date(this.substractDate)
