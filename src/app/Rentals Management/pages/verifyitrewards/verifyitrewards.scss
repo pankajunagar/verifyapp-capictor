@@ -38,7 +38,7 @@ ion-col{
   bottom: 0;
   display: flex;
   justify-content: center;
-  position: absolute;
+  // position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
@@ -63,5 +63,29 @@ ion-col{
   margin-top:20px;
   .card-bottom-text{
       font-size:1.2em;
+  }
+  
+  .btn-share {
+    // position: absolute;
+    // z-index: 9;
+    // top: 20px;
+    // right: 20px;
+    // width: 40px;
+    // height: 40px;
+    // background-color: #111d12;
+    // border-radius: 50%;
+    cursor: pointer !important;
+    /* position: absolute; */
+    z-index: 9;
+    /* top: -1px; */
+    /* right: 20px; */
+    width: 25px !important;
+    height: 25px !important;
+    background-color: #111d12 !important;
+    border-radius: 50% !important;
+    color: white !important;
+    margin-right: 7px !important;
+    margin-top: -7px !important;
+
   }
 }

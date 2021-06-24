@@ -220,7 +220,7 @@ this.haspano=false
     console.log(this.callgettagresult);
   
     if (this.utilservice.callgettagresult.meta_data) {
-      if(this.hasLogin==null){
+      if(this.hasLogin==null){//charu for login
 
         if(this.utilservice.callgettagresult.meta_data.login_required==1 || this.utilservice.callgettagresult.meta_data.login_required== undefined)
         {
