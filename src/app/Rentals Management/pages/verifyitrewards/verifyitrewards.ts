@@ -142,7 +142,7 @@ export class Verifyitrewards {
     // Init
     sc.init();
   }
-  async socialShare() {
+  async socialShare(points,brand) {
     // this.e =product_titl this.callgettagresult.product_name;
     // this.brand = this.callgettagresult.brand;
     let product_link =
@@ -150,13 +150,13 @@ export class Verifyitrewards {
       window.localStorage.getItem("tagId") +
       "&source=" +
       window.localStorage.getItem("token").slice(-10);
-   let points= this.listbanner.data[0].loyalty_points
-   let brand = this.listbanner.data[0].brand
+  //  points= this.listbanner.data[0].loyalty_points
+  //  brand = this.listbanner.data[0].brand
       let shareRet = await Share.share({
     
        
-      title: "Congratulation ypu won ",
-      text: "Congratulation ypu won " + points +" Loyalty Points" + " from " + brand,
+      title: "Congratulation you won ",
+      text: "Congratulation you won " + points +" Loyalty Points" + " from " + brand,
       url: product_link,
      
     });

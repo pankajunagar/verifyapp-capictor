@@ -191,7 +191,7 @@ export class VerifyitDashboardPage implements OnInit {
       this.gettag(this.router.url.split("=")[1].split("&")[0]);
       // this.router.navigateByUrl('/verifyit-product-info')
     }
-     // this.gettag('4516')
+     // this.gettag('4516') 4925
     //  for multiple image 4516
     // for vedio link      4573
     //for customer review  4517
