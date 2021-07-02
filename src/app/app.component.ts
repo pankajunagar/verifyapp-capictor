@@ -264,7 +264,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
 
-    // this.requestPermission();
+    this.requestPermission();
    
     // if (localStorage.getItem('addtohomescreen') !== '1') {
     //   setTimeout(() => {
@@ -779,6 +779,8 @@ requestPermission() {
         message: 'Got your token',
         duration: 2000
       });
+      alert(token)
+      console.log(token)
       toast.present();
     },
     async (err) => {
