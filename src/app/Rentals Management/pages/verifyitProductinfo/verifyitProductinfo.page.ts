@@ -1,5 +1,5 @@
 import { LoginService } from 'src/app/common-services/login.service';
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit, NgZone,ViewChild } from "@angular/core";
 
 import { Subscription } from "rxjs/Subscription";
 // import { Plugins } from '@capacitor/core';
@@ -26,6 +26,7 @@ import { Plugins } from "@capacitor/core";
 import * as WebVPPlugin from "capacitor-video-player";
 const { CapacitorVideoPlayer, Device } = Plugins;
 const { Browser } = Plugins;
+import { Content } from 'ionic-angular';
 import {
   InAppBrowser,
   InAppBrowserOptions,
@@ -48,8 +49,10 @@ const { Share } = Plugins;
 const PhotoSphereViewer = require('photo-sphere-viewer');
 // import 'photo-sphere-viewer/dist/plugins/markers.css'
 
+// import { IonContent } from '@ionic/angular';
 
 import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
+import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 
 @Component({
   selector: "app-verifyitProductinf",
@@ -57,6 +60,7 @@ import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
   styleUrls: ["./verifyitProductinfo.page.scss"]
 })
 export class VerifyitProductInfoPage implements OnInit {
+  @ViewChild("content") private Content: any;
   helpUrl: any;
   msg:string="Mobile number is not valid."
 
@@ -123,7 +127,7 @@ export class VerifyitProductInfoPage implements OnInit {
     key11: null,
     key13: null
   };
-
+  unsubscribeutilloadpage
   brand_color: any;
   browser;
 hasvideoPlay=false;
@@ -151,6 +155,7 @@ showDeactivate
   hasLogin;
   subscriptions: Array<Subscription> = new Array<Subscription>();
   constructor(
+    private appSettings: MainAppSetting,
     private nfc: NFC,
     private ndef: Ndef,
     private autocloseOverlaysService:AutocloseOverlaysService,
@@ -195,19 +200,26 @@ this.haspano=false
     this.showDeactivate=false
 
     this.sanitizer = sanitizer;
-    this.utilservice.LoadPage.subscribe(data => {
+
+    this.unsubscribeutilloadpage = this.utilservice.LoadPage.subscribe(data => {
+      
       this.ngOnInit();
     })
   }
   
+  
+  
   async ngOnInit() {
+    
+    
+    
     debugger
     if(window.localStorage.getItem('showDeactivate')=='4'){
       this.showDeactivate=true
-    
+      
     }else{
       this.showDeactivate=false
-
+      
     }
     
     this.jsonToBeUsed=[]
@@ -215,13 +227,13 @@ this.haspano=false
     // alert('=================='+this.hasLogin)
     // this.ionViewDidLoad()
     this.callgettagresult = this.utilservice.callgettagresult;
-  
+    
     // this.callgettagresult  =  JSON.parse(this.callgettagresult)
     console.log(this.callgettagresult);
-  
+    
     if (this.utilservice.callgettagresult.meta_data) {
       if(this.hasLogin==null){//charu for login
-
+        
         if(this.utilservice.callgettagresult.meta_data.login_required==1 || this.utilservice.callgettagresult.meta_data.login_required== undefined)
         {
           this.loginService.isProductInfo=true;
@@ -229,56 +241,58 @@ this.haspano=false
         }
       }
       // this.jsonToBeUsed.push({
-      //   key: "login_required ",
-      //   value: 1
-      // })
-      // this.callgettagresult= this.callgettagresult.
-      Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
-        this.jsonToBeUsed.push({
-          key: e,
-          value: this.utilservice.callgettagresult.meta_data[e]
-        })
-      );
-    } else {
-    }
-  
-   
-    console.log(this.jsonToBeUsed);
-    this.credKeys.key1 = "Product Name";
-    this.credKeys.key2 = "Model Number";
-    this.credKeys.key3 = "Serial Number";
-    this.credKeys.key4 = "Brand";
-  
-    this.credKeys.key5 = "Water Resistant";
-    this.credKeys.key6 = "Display Type";
-    this.credKeys.key7 = "Series";
-    this.credKeys.key8 = "Occassion";
-    this.credKeys.key9 = "Strap";
-    this.credKeys.key10 = "Manufactured";
-    this.credKeys.key11 = "Instructions";
-    this.credKeys.key12 = "Wine Information";
-    this.credKeys.key13 = "Verified";
-  
-    this.jsonToBeUsed.forEach(element => {
-      if (element.key == "brand_color") {
-        this.brand_color = element.value;
-      }
-    });
-  //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
-  //     'https://www.amazon.in/'
-  //   );
-    // define the plugin to use
-    const info = await Device.getInfo();
-    if (info.platform === "ios" || info.platform === "android") {
-      this._videoPlayer = CapacitorVideoPlayer;
-    } else {
-      this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
-    }
-    // define the video url
-    this._url =
-      "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
-    // add listeners to the plugin
-    this._addListenersToPlayerPlugin();
+        //   key: "login_required ",
+        //   value: 1
+        // })
+        // this.callgettagresult= this.callgettagresult.
+        Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
+          this.jsonToBeUsed.push({
+            key: e,
+            value: this.utilservice.callgettagresult.meta_data[e]
+          })
+          );
+        } else {
+        }
+        
+        
+        console.log(this.jsonToBeUsed);
+        this.credKeys.key1 = "Product Name";
+        this.credKeys.key2 = "Model Number";
+        this.credKeys.key3 = "Serial Number";
+        this.credKeys.key4 = "Brand";
+        
+        this.credKeys.key5 = "Water Resistant";
+        this.credKeys.key6 = "Display Type";
+        this.credKeys.key7 = "Series";
+        this.credKeys.key8 = "Occassion";
+        this.credKeys.key9 = "Strap";
+        this.credKeys.key10 = "Manufactured";
+        this.credKeys.key11 = "Instructions";
+        this.credKeys.key12 = "Wine Information";
+        this.credKeys.key13 = "Verified";
+        
+        this.jsonToBeUsed.forEach(element => {
+          if (element.key == "brand_color") {
+            this.brand_color = element.value;
+          }
+        });
+        //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
+          //     'https://www.amazon.in/'
+          //   );
+          // define the plugin to use
+          const info = await Device.getInfo();
+          if (info.platform === "ios" || info.platform === "android") {
+            this._videoPlayer = CapacitorVideoPlayer;
+          } else {
+            this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
+          }
+          // define the video url
+          this._url =
+          "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
+          // add listeners to the plugin
+          this.scrollToTopOnInit()
+          this._addListenersToPlayerPlugin();
+
   }
 
   async ionViewDidEnter(){
@@ -300,6 +314,7 @@ this.haspano=false
   }
 
   // ionViewDidLoad() {
+    
 
   //   this.platform.ready().then(() => {
   //     this.nfc.enabled().then((resolve) => {
@@ -452,6 +467,7 @@ this.haspano=false
   // }
 
   ionViewWillLeave() {
+    // this.unsubscribeutilloadpage.unsubscribe()
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
@@ -763,10 +779,11 @@ this.presentToast('Review submitted successfully.')
   product_link = "";
 
   async socialShare() {
+    debugger
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
-      "https://pwa.nowverifyit.com?params=" +
+    this.appSettings.getPWALink()+"?params=" +
       window.localStorage.getItem("tagId") +
       "&source=" +
       window.localStorage.getItem("token").slice(-10);
@@ -994,9 +1011,11 @@ this.presentToast('Review submitted successfully.')
         // this.openInappBrowser(data)
          //**charu Start */
         if (res){
+
+
          
-          this.msg=`Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
-          this.presentToast(this.msg)
+          // this.msg=`Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
+          // this.presentToast(this.msg)
         }
                  
       },
@@ -1059,8 +1078,8 @@ this.presentToast('Review submitted successfully.')
       
         // this.openInappBrowser(data)
           if (res){
-          this.msg=`Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
-          this.presentToast(this.msg)
+          // this.msg=`Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
+          // this.presentToast(this.msg)
        
         }
       },
@@ -1336,7 +1355,7 @@ this.presentToast('Review submitted successfully.')
 
 
     async scratchModal() {
-      debugger
+      
       // this.utils.royaltyData=data
       let modal = await this.modalController.create({
         component: ScratchmodalComponent,
@@ -1345,4 +1364,11 @@ this.presentToast('Review submitted successfully.')
       return await modal.present();
     }
 
+
+
+    scrollToTopOnInit() {
+      
+      this.Content.scrollToTop();
+
+    }
 }

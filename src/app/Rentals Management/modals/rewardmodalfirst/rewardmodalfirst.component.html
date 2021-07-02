@@ -17,7 +17,7 @@
 </ion-item >
           <ion-item class="font-12" lines="none">
              <p size="12">
-              It is valid till {{royaltyData.validity}}
+              It is valid till {{royaltyData["from_unixtime(validity,'%Y %D %M')"]}}
              </p>
              
 

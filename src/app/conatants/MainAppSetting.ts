@@ -92,10 +92,14 @@ export class MainAppSetting {
             this.platform = data
         })
 
+   
+
         let API = '';
         // console.log("pltform inapp setting " + this.platform);
 
         console.log("platform value in step post 7", this.platform)
+
+
 
         if (this.ORG == "Both") {
             if (window.localStorage.getItem('platform') == "rm") {
@@ -117,10 +121,15 @@ export class MainAppSetting {
 
             if (this.appFor == 'alpha') {
                 // API = 'https://www.nowverifyit.com';
+                // PWALink="https://pwa.nowverifyit.com" 
                 API = 'https://develop.nowverifyit.com'; //charu
+
+
+                
             } else if (this.appFor == 'production') {
-                // API = 'https://www.nowverifyit.com';
-                API = 'https://develop.nowverifyit.com';//charu
+               // API = 'https://www.nowverifyit.com';
+                // PWALink="https://pwa.nowverifyit.com" 
+                API = 'https://develop.nowverifyit.com'; //charu
             }
         } else if (this.ORG == "BM") {
             window.localStorage.setItem('appSrc', 'building-management');
@@ -139,7 +148,24 @@ export class MainAppSetting {
         return API;
     }
 
+    getPWALink(){
+        let PWALink = ''
+        if (this.ORG == "RM") {
+            // window.localStorage.setItem('appSrc', 'rentals');
+            this.storageService.storeDataToIonicStorage('appSrc', 'rentals');
 
+            if (this.appFor == 'alpha') {
+             
+              return  PWALink='https://nowverifycap.web.app/'
+
+
+                
+            } else if (this.appFor == 'production') {
+             
+             return   PWALink='https://nowverifycap.web.app/'
+            }
+        }
+    }
 
 
     // public API = API;

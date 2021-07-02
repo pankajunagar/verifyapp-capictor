@@ -162,9 +162,10 @@ this.brandName=brand
 
       this.utils.callgettagresult = item
       
+      this.router.navigate(['/verifyit-product-info'], { queryParams: { reg: 'catalogpage' }})        }
       this.utils.LoadPageOnrouteChange();
-      this.router.navigateByUrl('/verifyit-product-info')
-        }
+      // this.router.navigateByUrl('/verifyit-product-info')
+
                  
       },
        //**charu end */
@@ -180,7 +181,7 @@ this.brandName=brand
     
     // this.utils.LoadPageOnrouteChange();
     // this.router.navigateByUrl('/verifyit-product-info')
-    this.router.navigateByUrl('/verifyit-product-catalog-info')
+    // this.router.navigateByUrl('/verifyit-product-catalog-info')
 
     
   }
