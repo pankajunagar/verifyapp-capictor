@@ -224,13 +224,9 @@ this.haspano=false
     
     this.jsonToBeUsed=[]
     this.hasLogin = window.localStorage.getItem("name");
-    // alert('=================='+this.hasLogin)
-    // this.ionViewDidLoad()
+   
     this.callgettagresult = this.utilservice.callgettagresult;
-    
-    // this.callgettagresult  =  JSON.parse(this.callgettagresult)
-    console.log(this.callgettagresult);
-    
+   
     if (this.utilservice.callgettagresult.meta_data) {
       if(this.hasLogin==null){//charu for login
         
@@ -240,12 +236,7 @@ this.haspano=false
           this.router.navigateByUrl("/login");
         }
       }
-      // this.jsonToBeUsed.push({
-        //   key: "login_required ",
-        //   value: 1
-        // })
-        // this.callgettagresult= this.callgettagresult.
-        Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
+          Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
           this.jsonToBeUsed.push({
             key: e,
             value: this.utilservice.callgettagresult.meta_data[e]
