@@ -264,7 +264,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
 
-    this.requestPermission();
+    // this.requestPermission();
    
     // if (localStorage.getItem('addtohomescreen') !== '1') {
     //   setTimeout(() => {
