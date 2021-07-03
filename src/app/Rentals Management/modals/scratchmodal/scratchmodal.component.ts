@@ -112,7 +112,7 @@ hasLogin
       // containerHeight: 200,
       imageForwardSrc: 'assets/scratch.png',
       //imageBackgroundSrc: './assets/images/scratchcard-background.svg',
-      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">Use this 6 Digit Number as a Pincode to unlock the padlock on your Gift</div><div class="won-text"><br> <b>123456</b>  </div></div>',
+      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>You have won Rs. 20 Cashback <br> Head to your Rewards page and claim your cashback.</div><div class="won-text"><br> <b></b>  </div></div>',
       clearZoneRadius: 40,
       nPoints: 30,
       pointSize: 4,

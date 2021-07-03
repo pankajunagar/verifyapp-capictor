@@ -11,8 +11,7 @@ export class TrackingService {
   constructor(private http:HttpClient,private appSettings: MainAppSetting) { }
 
   trackingApi(data): Observable<any> {
-    // http://develop.nowverifyit.com/tracking/tracking"
-    return this.http.post(`${this.appSettings.getApi()}/tracking/tracking`, data,
+    return this.http.post(`${this.appSettings.getApi()}/api/tracking`, data,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

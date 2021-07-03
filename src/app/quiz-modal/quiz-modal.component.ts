@@ -13,7 +13,37 @@ export class QuizModalComponent implements OnInit {
   count = 0;
 
   questions = [
+  
+  ];
+  questionsvideo = [
     {
+      heading: "1. Would you like sharing your Age with us so we help you serve better?",
+      title: "**Choose anyone from the options below",
+      option: [
+        "<20",
+        "20-25",
+        "25-30",
+        "30-40",
+        "40+"
+        ],
+      ischeckbox: false,
+    }
+    
+  ];
+  ques: any = [];
+  callgettagresult: any;
+
+  constructor(
+    private modalController: ModalController,
+    private router: Router,
+    private api: TrackingService,
+    private utilservice: Utils,
+    private navParams: NavParams
+  ) {
+
+    console.log("this.navParams reward",this.navParams);
+    this.callgettagresult = this.utilservice.callgettagresult;
+    let qu=  [{
       heading: "1. What do you do for a living?",
       title: "*Choose anyone from the options below",
       option: [
@@ -27,58 +57,23 @@ export class QuizModalComponent implements OnInit {
       ischeckbox: false,
     },
     {
-      heading: "2. How many family members lives along with you? ",
-      title: "*Choose anyone from the options below",
-      option: ["1-2", "3-4", "5", "More than 5"],
-      ischeckbox: false,
+      'heading': "2. How many family members lives along with you? ",
+      'title': "*Choose anyone from the options below",
+      'option': ["1-2", "3-4", "5", "More than 5"],
+      'ischeckbox': false,
     },
     {
-      // 'heading':"3. How likely are you to recommend Bajaj Almond Oil to your known?",
-      heading: "3. Brand Name?",
+      'heading':`3. How likely are you to recommend ${this.callgettagresult.brand} to your known?`,
+     
 
-      title: "*Choose anyone from the options below",
-      option: ["1", 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      ischeckbox: true,
-    },
-  ];
-  questionsvideo = [
-    {
-      heading: "1. Video",
-      title: "*Would you like sharing your Age with us so we help you serve better?",
-      option: [
-        "<20",
-        "20-25",
-        "25-30",
-        "30-40",
-        "40+"
-        ],
-      ischeckbox: false,
-    }
-    // {
-    //   heading: "2. Video ",
-    //   title: "*Choose anyone from the options below",
-    //   option: ["1-2", "3-4", "5", "More than 5"],
-    //   ischeckbox: false,
-    // },
-    // {
-    //   // 'heading':"3. How likely are you to recommend Bajaj Almond Oil to your known?",
-    //   heading: "3. Video",
-
-    //   title: "*Choose anyone from the options below",
-    //   option: ["1", 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    //   ischeckbox: true,
-    // },
-  ];
-  ques: any = [];
-
-  constructor(
-    private modalController: ModalController,
-    private router: Router,
-    private api: TrackingService,
-    private utilservice: Utils,
-    private navParams: NavParams
-  ) {
-    console.log(this.navParams);
+      'title': "*Choose anyone from the options below",
+      'option': ["1", 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      'ischeckbox': true,
+    },];
+    this.questions=qu;
+    console.log("quiz callgettagresult",this.callgettagresult);
+    console.log("quiz callgettagresult brand",this.callgettagresult.brand);
+    
     this.ques =
       this.navParams.data["requestFrom"] == "win"
         ? this.questions

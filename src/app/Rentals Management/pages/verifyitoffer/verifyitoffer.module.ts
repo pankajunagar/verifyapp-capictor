@@ -11,7 +11,7 @@ import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.
 // import { NailasearchPage } from './nailasearchpage';
 // import { verifyitOffer } from './verifyitOffer';
 // import {  } from '../../modals/rewardmodalfirst/rewardmodalfirst.component';
-import { ScratchmodalComponent } from '../../modals/scratchmodal/scratchmodal.component';
+// import { ScratchmodalComponent } from '../../modals/scratchmodal/scratchmodal.component';
 import { verifyitOffer } from './verifyitoffer';
 
 
@@ -24,7 +24,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent,ScratchmodalComponent],
+  entryComponents: [CreateNoticeComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,10 +34,10 @@ const routes: Routes = [
   ],
   providers: [
     // BarcodeScanner,
-    ScratchmodalComponent
+  
     
   ],
-  declarations: [verifyitOffer,ScratchmodalComponent]
+  declarations: [verifyitOffer]
 })
 export class VerifyitOfferModule { }
 

@@ -559,6 +559,7 @@ export class VerifyitDashboardPage implements OnInit {
 
   async gettag(tagId) {
     window.localStorage.setItem("tagId", tagId);
+    let locationUrl = window.location.href;
 
     this.geolocation
       .getCurrentPosition()
@@ -583,7 +584,12 @@ export class VerifyitDashboardPage implements OnInit {
       this.data.tagId = tagId;
       this.apiSvc.callRecordScan(this.data).subscribe(
         (callrecordscanresult) => {
-          this.presentToast(["QR code scan successfully."]);
+          if(locationUrl.includes("pwa") || locationUrl.includes("nowverifycap") || locationUrl.includes("noeverifycaptest") ){
+
+          }else{
+
+            this.presentToast(["QR code scan successfully."]);
+          }
 
           console.log(callrecordscanresult);
           this.utilservice.callrecordscanresult = callrecordscanresult;
