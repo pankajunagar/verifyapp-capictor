@@ -779,6 +779,8 @@ requestPermission() {
         message: 'Got your token',
         duration: 2000
       });
+      alert(token)
+      console.log(token)
       toast.present();
     },
     async (err) => {
