@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
   allowedUsers = ['employee', 'admin', 'technician', 'housekeeper'];
 
   constructor(
-    private loginService: LoginService,
+    public loginService: LoginService,
     private loading: LoadingController,
     private router: Router,
     private alertService: AlertServiceService,
@@ -95,7 +95,12 @@ export class LoginPage implements OnInit {
 
   }
 
-
+  GoogleAuth=()=>{
+    this.loginService.GoogleAuth();
+  }
+  FacebookAuth=()=>{
+    this.loginService.FacebookAuth()
+  }
   ionViewDidLeave() {
     this.MenuController.enable(true)
   }

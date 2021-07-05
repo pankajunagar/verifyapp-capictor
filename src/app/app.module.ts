@@ -49,6 +49,8 @@ import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ScratchmodalComponent } from './Rentals Management/modals/scratchmodal/scratchmodal.component';
 
 @NgModule({
@@ -89,6 +91,8 @@ import { ScratchmodalComponent } from './Rentals Management/modals/scratchmodal/
     ServiceWorkerModule.register('combined-sw.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
   ],
   providers: [
     InAppBrowser,

@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import * as jsonFile from '../conatants/organization.json';
 import { MainAppSetting } from '../conatants/MainAppSetting.js';
 import {  HttpHeaders } from '@angular/common/http';
-
-
+import { AngularFireAuth } from "@angular/fire/auth";
+import { auth } from 'firebase/app';
 const appFor = jsonFile.connectTo;
 
 @Injectable({
@@ -16,7 +16,8 @@ export class LoginService {
 
   constructor(
     public http: HttpClient,
-    public appSettings: MainAppSetting
+    public appSettings: MainAppSetting,
+    public afAuth: AngularFireAuth,
   ) {
   }
   public appFor = appFor;
@@ -68,6 +69,20 @@ export class LoginService {
 
 
     
+  }
+  FacebookAuth() {
+    return this.AuthLogin(new auth.FacebookAuthProvider());
+    }
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
+  } 
+  AuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+    .then((result) => {
+        console.log('You have been successfully logged in!')
+    }).catch((error) => {
+        console.log(error)
+    })
   }
       confirmOtp(data:any): Observable<any> {
         return this.http.post(
