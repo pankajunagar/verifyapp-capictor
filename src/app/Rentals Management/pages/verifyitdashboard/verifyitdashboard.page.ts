@@ -510,7 +510,14 @@ export class VerifyitDashboardPage implements OnInit {
       this.videoElement.play();
       requestAnimationFrame(this.scan.bind(this));
     } else {
-      this.scanIOS();
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" },
+      });
+      this.videoElement.srcObject = stream;
+      this.videoElement.setAttribute("playsinline", true);
+      this.videoElement.play();
+      requestAnimationFrame(this.scan.bind(this));
+      // this.scanIOS();
     }
 
     // this.options = {
