@@ -316,8 +316,8 @@ listRelatedProductsfrombrand(data){
   })
 }
 
-genToken(){
-  return this.http.get(`${this.appSettings.getApi()}/login/gentoken`,{
+genToken(data){
+  return this.http.post(`${this.appSettings.getApi()}/login/gentoken`, data,{
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       // Authorization: localStorage.getItem('token'),

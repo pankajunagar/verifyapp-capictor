@@ -1,7 +1,19 @@
-import { Component, OnInit, NgZone, AfterViewInit, HostListener } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  NgZone,
+  AfterViewInit,
+  HostListener,
+} from "@angular/core";
 // import { Device } from "@ionic-native/device/ngx";
 
-import { Platform, NavController, LoadingController, AlertController, ToastController } from "@ionic/angular";
+import {
+  Platform,
+  NavController,
+  LoadingController,
+  AlertController,
+  ToastController,
+} from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Router, ActivatedRoute, NavigationStart } from "@angular/router";
@@ -12,13 +24,13 @@ import { RentalsUserService } from "./Rentals Management/services/rentals-user.s
 import { AlertServiceService } from "./common-services/alert-service.service";
 import { BuildingUserService } from "./Building-Management/services/building-user.service";
 import { Utils } from "./Rentals Management/services/utils.service";
-import { NFC, Ndef } from '@ionic-native/nfc/ngx';
-import { Deeplinks } from '@ionic-native/deeplinks/ngx';
-import { Console } from '@angular/core/src/console';
-import { VerifyitAccountsPage } from './Rentals Management/pages/verifyitaccountspage/verifyitaccountspage';
-import { NailaService } from './Rentals Management/services/naila.service';
+import { NFC, Ndef } from "@ionic-native/nfc/ngx";
+import { Deeplinks } from "@ionic-native/deeplinks/ngx";
+import { Console } from "@angular/core/src/console";
+import { VerifyitAccountsPage } from "./Rentals Management/pages/verifyitaccountspage/verifyitaccountspage";
+import { NailaService } from "./Rentals Management/services/naila.service";
 import { SettingsService } from "./settings.service";
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@capacitor/core";
 // import { MessagingService } from '../services/messaging.service';
 
 const { Device } = Plugins;
@@ -28,7 +40,7 @@ import {
   PushNotification,
   PushNotificationToken,
   PushNotificationActionPerformed,
-} from '@capacitor/core';
+} from "@capacitor/core";
 import { AutocloseOverlaysService } from "./Rentals Management/services/autoclose.service";
 import { MessagingService } from "./services/messaging.service";
 
@@ -39,13 +51,12 @@ interface DeeplinkMatch {
 }
 @Component({
   selector: "app-root",
-  templateUrl: "app.component.html"
+  templateUrl: "app.component.html",
 })
 export class AppComponent implements OnInit {
   userrole;
 
-  selectedTheme: String = 'red-theme';
-
+  selectedTheme: String = "red-theme";
 
   public appPages = {
     name: "",
@@ -62,13 +73,13 @@ export class AppComponent implements OnInit {
         title: "Read NFC/QR",
         url: `verifyit-dashboard`,
         src: "/assets/imgs/whitenfc.png",
-        userrole: 'default'
+        userrole: "default",
       },
       {
         title: "Write NFC/QR",
         url: `verifyit-dashboard`,
         src: "/assets/imgs/whitenfc.png",
-        userrole: '2'
+        userrole: "2",
       },
       // {
       //   title: "Read QR",
@@ -86,7 +97,7 @@ export class AppComponent implements OnInit {
         title: "Account",
         url: `verifyit-account`,
         src: "assets/imgs/profile1.svg",
-        userrole: "default"
+        userrole: "default",
       },
       // {
       //   title: 'Tickets',
@@ -115,29 +126,25 @@ export class AppComponent implements OnInit {
       //   src: '/assets/imgs/business.svg',
       //   userrole:'Beautician'
 
-
       {
-        title: 'Rewards',
+        title: "Rewards",
         url: `verifyit-rewards`,
-        src: '/assets/imgs/offers.svg',
-        userrole: 'default'
-
+        src: "/assets/imgs/offers.svg",
+        userrole: "default",
       },
       {
-        title: 'Offers',
+        title: "Offers",
         url: `verifyit-offer`,
-        src: '/assets/imgs/commerce-and-shopping.svg',
-        userrole: 'default'
-
+        src: "/assets/imgs/commerce-and-shopping.svg",
+        userrole: "default",
       },
       // {
       //   title: 'Log Out',
       //   // url: `rentals-naila-cart-page`,
       //   src: '/assets/imgs/logoutsearch.svg'
       // }
-    ]
+    ],
   };
-
 
   public appPages2 = {
     name: "",
@@ -154,13 +161,13 @@ export class AppComponent implements OnInit {
         title: "Read QR",
         url: `verifyit-dashboard`,
         src: "/assets/imgs/whiteqrcode.png",
-        userrole: 'default'
+        userrole: "default",
       },
       {
         title: "Write QR",
         url: `verifyit-dashboard`,
         src: "/assets/imgs/whiteqrcode.png",
-        userrole: '2'
+        userrole: "2",
       },
       // {
       //   title: "Read QR",
@@ -178,22 +185,20 @@ export class AppComponent implements OnInit {
         title: "Account",
         url: `verifyit-account`,
         src: "assets/imgs/profile1.svg",
-        userrole: "default"
+        userrole: "default",
       },
       {
-        title: 'Rewards',
+        title: "Rewards",
         url: `verifyit-rewards`,
-        src: '/assets/imgs/dollar.svg',
-        userrole: 'default'
-
+        src: "/assets/imgs/dollar.svg",
+        userrole: "default",
       },
-      
-      {
-        title: 'Offers',
-        url: `verifyit-offer`,
-        src: '/assets/imgs/commerce-and-shopping.svg',
-        userrole: 'default'
 
+      {
+        title: "Offers",
+        url: `verifyit-offer`,
+        src: "/assets/imgs/commerce-and-shopping.svg",
+        userrole: "default",
       },
       // {
       //   title: 'Tickets',
@@ -228,15 +233,20 @@ export class AppComponent implements OnInit {
       //   // url: `rentals-naila-cart-page`,
       //   src: '/assets/imgs/logoutsearch.svg'
       // }
-    ]
+    ],
   };
 
-  username = '';
+  fcmData = {
+    android_fcm: "",
+    ios_fcm: "",
+    js_fcm: "",
+  };
+  username = "";
   showMenulist;
 
   deferredPrompt: any;
   showButton = false;
-  @HostListener('window:beforeinstallprompt', ['$event'])
+  @HostListener("window:beforeinstallprompt", ["$event"])
   onbeforeinstallprompt(e) {
     console.log(e);
     // Prevent Chrome 67 and earlier from automatically showing the prompt
@@ -252,31 +262,37 @@ export class AppComponent implements OnInit {
     // Show the prompt
     this.deferredPrompt.prompt();
     // Wait for the user to respond to the prompt
-    this.deferredPrompt.userChoice
-      .then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
-        }
-        this.deferredPrompt = null;
-      });
+    this.deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the A2HS prompt");
+      } else {
+        console.log("User dismissed the A2HS prompt");
+      }
+      this.deferredPrompt = null;
+    });
   }
   ngOnInit() {
+<<<<<<< HEAD
 
     // this.requestPermission();
    
+=======
+    this.requestPermission();
+
+    // this.requestPermission();
+
+>>>>>>> devharsh
     // if (localStorage.getItem('addtohomescreen') !== '1') {
     //   setTimeout(() => {
     //     this.presentAlertConfirm();
     //   }, 5000)
     // }
-    this.utils.LoadPage.subscribe(data => {
+    this.utils.LoadPage.subscribe((data) => {
       if (window.localStorage.getItem("userType")) {
         this.userrole = window.localStorage.getItem("userType");
         this.username = window.localStorage.getItem("name");
         this.showMenulist = true;
-        this.ionViewDidLoad()
+        this.ionViewDidLoad();
       } else {
         this.showMenulist = false;
         this.ionViewDidLoad();
@@ -290,7 +306,6 @@ export class AppComponent implements OnInit {
     this.userrole = window.localStorage.getItem("userType");
     this.initializeApp();
   }
-
 
   public appSrc;
   // options: PushOptions = {
@@ -320,27 +335,26 @@ export class AppComponent implements OnInit {
     private rentalsUserService: RentalsUserService,
     private alertService: AlertServiceService,
     private buildingUserService: BuildingUserService,
-    private autocloseOverlaysService:AutocloseOverlaysService,
+    private autocloseOverlaysService: AutocloseOverlaysService,
     private utils: Utils,
     private verifyitservice: NailaService,
     private settings: SettingsService,
-    private alertCtrl: AlertController
-  ) // private push: Push
-  {
-    // this.listenForMessages();
-    // this.requestPermission()
+    private alertCtrl: AlertController // private push: Push
+  ) {
+    this.listenForMessages();
 
-    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
+    this.settings
+      .getActiveTheme()
+      .subscribe((val) => (this.selectedTheme = val));
 
     this.router.events.subscribe((event: any): void => {
       if (event instanceof NavigationStart) {
-        if (event.navigationTrigger === 'popstate') {
+        if (event.navigationTrigger === "popstate") {
           this.autocloseOverlaysService.trigger();
         }
       }
     });
   }
-
 
   // async presentAlertConfirm() {
   //   const alert = await this.alertCtrl.create({
@@ -369,13 +383,12 @@ export class AppComponent implements OnInit {
   //   await alert.present();
   // }
 
-
   // ionViewWillEnter(){
   //   this.toggleRole('');
   // }
   populatemenu = true;
   p = {
-    userrole: ""
+    userrole: "",
   };
   toggleRole(role, title) {
     // this.populatemenu=!this.populatemenu
@@ -389,59 +402,49 @@ export class AppComponent implements OnInit {
 
     //   this.utils.LoadPageOnrouteChange();
     // }else
-    if (title == 'Read NFC/QR') {
+    if (title == "Read NFC/QR") {
       // debugger
-      this.utils.menuTitle = 'Read NFC/QR'
+      this.utils.menuTitle = "Read NFC/QR";
       this.utils.LoadPageOnrouteChange();
-
-    } else if (title == 'Write NFC/QR') {
-      this.utils.menuTitle = 'Write NFC/QR'
+    } else if (title == "Write NFC/QR") {
+      this.utils.menuTitle = "Write NFC/QR";
       this.utils.LoadPageOnrouteChange();
-    } else if (title == 'Write QR') {
-      this.utils.menuTitle = 'Write NFC/QR'
+    } else if (title == "Write QR") {
+      this.utils.menuTitle = "Write NFC/QR";
       this.utils.LoadPageOnrouteChange();
-    } else if (title == 'Read QR') {
+    } else if (title == "Read QR") {
       // debugger
-      this.utils.menuTitle = 'Read NFC/QR'
+      this.utils.menuTitle = "Read NFC/QR";
       this.utils.LoadPageOnrouteChange();
-
     }
-
-
   }
 
   firstname;
   async ionViewDidLoad() {
-
     this.platform.ready().then(() => {
       this.nfc
         .enabled()
-        .then(resolve => {
+        .then((resolve) => {
           this.canNFC = true;
-
         })
-        .catch(reject => {
+        .catch((reject) => {
           this.canNFC = false;
-
         });
     });
-
-
-
   }
 
   async presentLoading() {
     await this.loadingCtrl
       .create({
-        spinner: "lines"
+        spinner: "lines",
       })
-      .then(loading => {
+      .then((loading) => {
         loading.present();
       });
   }
 
   async routeForword(url) {
-    await this.storageService.getDatafromIonicStorage("appSrc").then(val => {
+    await this.storageService.getDatafromIonicStorage("appSrc").then((val) => {
       this.appSrc = val;
       console.log("-----------------", val);
       this.router.navigateByUrl(`${url}`);
@@ -451,27 +454,23 @@ export class AppComponent implements OnInit {
   canNFC = false;
   async initializeApp() {
     const device = await Device.getInfo();
-    window.localStorage.setItem('device_id', device.uuid)
+    window.localStorage.setItem("device_id", device.uuid);
     // alert(device.uuid)
-    console.log("device id=================>"+ device.uuid)
+    console.log("device id=================>" + device.uuid);
 
-    if (!window.localStorage.getItem('token')) {
-
-      window.localStorage.setItem('token', '');
-      this.storageService.storeDataToIonicStorage('token', '');
+    if (!window.localStorage.getItem("token")) {
+      window.localStorage.setItem("token", "");
+      this.storageService.storeDataToIonicStorage("token", "");
     }
 
-    await this.ionViewDidLoad()
+    await this.ionViewDidLoad();
     let isLoggedIn: string;
     this.platform.ready().then(async () => {
-
-      this.setupDeeplinks()
-      this.generateToken()
+      this.setupDeeplinks();
+      // this.generateToken()
       // this.setupDeeplinks();
 
-
       // if (this.platform.is('ios')) {
-
 
       //   console.log('trueeeeeeeeeeeeeee====================================')
       //   wkWebView.injectCookie('http://www.nowverifyit.com/');
@@ -484,7 +483,6 @@ export class AppComponent implements OnInit {
       this.splashScreen.hide();
       this.statusBar.styleDefault();
       this.redirectToHomeOrLogin(isLoggedIn);
-
 
       // await this.storageService.getDatafromIonicStorage('isLoggedIn').then(val => {
       //   isLoggedIn = val;
@@ -589,10 +587,9 @@ export class AppComponent implements OnInit {
           await this.storage.clear();
           this.navCtrl.navigateRoot("/login");
         },
-        async err => {
+        async (err) => {
           await this.loadingCtrl.dismiss();
           this.alertService.presentAlert("", "Error while logging out");
-
         }
       );
     } else if (val == "building-management") {
@@ -603,7 +600,7 @@ export class AppComponent implements OnInit {
           await this.storage.clear();
           this.navCtrl.navigateRoot("/login");
         },
-        async err => {
+        async (err) => {
           await this.loadingCtrl.dismiss();
           this.alertService.presentAlert("", "Error while logging out");
         }
@@ -620,29 +617,30 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl("/login");
   }
 
-
   async setupDeeplinks() {
-    this.deeplinks.route('/').subscribe(
-      match => {
-        console.log('Successfully matched route', JSON.stringify(match));
-        console.log("=======================>")
-        console.log(match.$args)
-        console.log("=======================>")
+    this.deeplinks.route("/").subscribe(
+      (match) => {
+        console.log("Successfully matched route", JSON.stringify(match));
+        console.log("=======================>");
+        console.log(match.$args);
+        console.log("=======================>");
 
         // Create our internal Router path by hand
-        const internalPath = `/${match.$route}/${match.$args['slug']}`;
+        const internalPath = `/${match.$route}/${match.$args["slug"]}`;
 
         // Run the navigation in the Angular zone
         this.zone.run(() => {
           this.router.navigateByUrl(internalPath);
         });
       },
-      nomatch => {
+      (nomatch) => {
         // nomatch.$link - the full link data
-        console.error("Got a deeplink that didn't match", JSON.stringify(nomatch));
+        console.error(
+          "Got a deeplink that didn't match",
+          JSON.stringify(nomatch)
+        );
       }
     );
-
   }
 
   ngAfterViewInit() {
@@ -686,123 +684,117 @@ export class AppComponent implements OnInit {
   //   }
   // }
 
-
-  generateToken() {
-    let token = (window.localStorage.getItem('token'))
+  generateToken(fcmData) {
+    let token = window.localStorage.getItem("token");
     if (!token.length) {
-    this.verifyitservice.genToken().subscribe(
-      async (data: any) => {
-        //debugger
-
-          window.localStorage.setItem('token', data.data.token)
-     
-      },
-      async err => {
-        await this.loadingCtrl.dismiss();
-        this.alertService.presentAlert("", "Error while logging out");
-      }
-    );
-      }
+      this.verifyitservice.genToken(fcmData).subscribe(
+        async (data: any) => {
+          window.localStorage.setItem("token", data.data.token);
+        },
+        async (err) => {
+          await this.loadingCtrl.dismiss();
+          this.alertService.presentAlert("", "Error while logging out");
+        }
+      );
+    }
   }
 
-
-  pushNotificationInit(){
-    PushNotifications.requestPermission().then(result => {
+  pushNotificationInit() {
+    PushNotifications.requestPermission().then((result) => {
       if (result.granted) {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
       } else {
-        this.alertService.presentAlert("", 'Something went wrong in push notification registration')
+        this.alertService.presentAlert(
+          "",
+          "Something went wrong in push notification registration"
+        );
       }
     });
 
-
     PushNotifications.addListener(
-      'registration',
+      "registration",
       (token: PushNotificationToken) => {
         // alert('Push registration success, token: ' + token.value);
-        console.log('=====================>')
-        console.log('Push registration success, token: '+ token.value)
-        console.log('=====================>')
-
-      },
+        console.log("=====================>");
+        console.log("Push registration success, token: " + token.value);
+        console.log("=====================>");
+      }
     );
 
-    PushNotifications.addListener('registrationError', (error: any) => {
+    PushNotifications.addListener("registrationError", (error: any) => {
       // alert('Error on registration: ' + JSON.stringify(error));
     });
 
     PushNotifications.addListener(
-      'pushNotificationReceived',
+      "pushNotificationReceived",
       (notification: PushNotification) => {
         // this.router.navigateByUrl('/verifyit-product-info' )
         this.router.navigate(["/verifyit-product-info"], {
-          queryParams: { brand: 'openquiz' },
+          queryParams: { brand: "openquiz" },
         });
         // alert('Push received: ' + JSON.stringify(notification));
-      },
+      }
     );
 
     PushNotifications.addListener(
-      'pushNotificationActionPerformed',
+      "pushNotificationActionPerformed",
       (notification: PushNotificationActionPerformed) => {
         // this.router.navigateByUrl('/verifyit-rewards')
         // alert('Push action performed: ' + JSON.stringify(notification));
-      },
+      }
     );
   }
-  
-// pwa push notification
 
+  // pwa push notification
 
+  listenForMessages() {
+    console.log("==========new msg========>" + "111111");
 
+    this.messagingService.getMessages().subscribe(async (msg: any) => {
+      console.log("==========new msg========>" + msg);
 
-
-listenForMessages() {
-  debugger
-  this.messagingService.getMessages().subscribe(async (msg: any) => {
-    const alert = await this.alertCtrl.create({
-      header: msg.notification.title,
-      subHeader: msg.notification.body,
-      message: msg.data.info,
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-  });
-}
-
-requestPermission() {
-  this.messagingService.requestPermission().subscribe(
-    async token => {
-      const toast = await this.toastCtrl.create({
-        message: 'Got your token',
-        duration: 2000
-      });
-      alert(token)
-      console.log(token)
-      toast.present();
-    },
-    async (err) => {
       const alert = await this.alertCtrl.create({
-        header: 'Error',
-        message: err,
-        buttons: ['OK'],
+        header: msg.notification.title,
+        subHeader: msg.notification.body,
+        message: msg.data.info,
+        buttons: ["OK"],
       });
 
       await alert.present();
-    }
-  );
-}
+    });
+  }
 
+  requestPermission() {
+    this.messagingService.requestPermission().subscribe(
+      async (token) => {
+        this.fcmData.js_fcm = token;
+        this.generateToken(this.fcmData);
+        const toast = await this.toastCtrl.create({
+          message: "Got your token",
+          duration: 2000,
+        });
+        console.log(token);
+        toast.present();
+      },
+      async (err) => {
+        const alert = await this.alertCtrl.create({
+          header: "Error",
+          message: err,
+          buttons: ["OK"],
+        });
 
-async deleteToken() {
-  this.messagingService.deleteToken();
-  const toast = await this.toastCtrl.create({
-    message: 'Token removed',
-    duration: 2000
-  });
-  toast.present();
-}
+        await alert.present();
+      }
+    );
+  }
 
+  async deleteToken() {
+    this.messagingService.deleteToken();
+    const toast = await this.toastCtrl.create({
+      message: "Token removed",
+      duration: 2000,
+    });
+    toast.present();
+  }
 }
