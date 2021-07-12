@@ -63,6 +63,7 @@ export class QuizModalComponent implements OnInit {
       'ischeckbox': false,
     },
     {
+      //**change for dynamic brand */ 
       'heading':`3. How likely are you to recommend ${this.callgettagresult.brand} to your known?`,
      
 

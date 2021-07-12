@@ -1,3 +1,5 @@
+import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,9 +17,10 @@ export class LoginService {
   isProductInfo:boolean=false;
 
   constructor(
+    public navCtrl:NavController,
     public http: HttpClient,
     public appSettings: MainAppSetting,
-    public afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,   private router: Router,
   ) {
   }
   public appFor = appFor;
@@ -78,8 +81,21 @@ export class LoginService {
   } 
   AuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
-    .then((result) => {
-        console.log('You have been successfully logged in!')
+    .then((result:any) => {
+      debugger
+        console.log('You have been successfully logged in!' +result.additionalUserInfo.profile.name)
+       if (result){
+         alert('You have been successfully logged in!')
+         window.localStorage.setItem('name', result.additionalUserInfo.profile.name);
+         if(this.isProductInfo){
+          this.isProductInfo=false;
+          this.navCtrl.pop();//
+          return;
+        }
+         this.router.navigateByUrl("/verifyit-product-info");
+       } 
+        // this.router.navigateByUrl("/verifyit-product-info"); //charu
+
     }).catch((error) => {
         console.log(error)
     })
