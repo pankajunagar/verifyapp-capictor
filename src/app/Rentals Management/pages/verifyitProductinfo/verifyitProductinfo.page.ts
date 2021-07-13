@@ -53,7 +53,7 @@ const PhotoSphereViewer = require('photo-sphere-viewer');
 
 import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
 import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
-
+import { NgOneTapService } from 'ng-google-one-tap';
 @Component({
   selector: "app-verifyitProductinf",
   templateUrl: "./verifyitProductinfo.page.html",
@@ -154,7 +154,7 @@ showDeactivate
   ndefMsg: any;
   hasLogin;
   subscriptions: Array<Subscription> = new Array<Subscription>();
-  constructor(
+  constructor(private onetap: NgOneTapService,
     private appSettings: MainAppSetting,
     private nfc: NFC,
     private ndef: Ndef,
@@ -178,6 +178,25 @@ showDeactivate
     private loginService:LoginService
     // private actionSheetController: ActionSheetController
   ) {
+    this.onetap.tapInitialize(); //Initialize OneTap, At intial time you can pass config  like this.onetap.tapInitialize(conif) here config is optional.
+        this.onetap.promtMoment.subscribe(res => {  // Subscribe the Tap Moment. following response options all have self explanatory. If you want more info pls refer official document below attached link.
+           res.getDismissedReason(); 
+           res.getMomentType();
+           res.getNotDisplayedReason();
+           res.getSkippedReason();
+           res.isDismissedMoment();
+           res.isDisplayed();
+           res.isNotDisplayed();
+           res.isSkippedMoment();
+        });
+        this.onetap.oneTapCredentialResponse.subscribe(res => {
+          debugger // After continue with one tap JWT credentials response.
+            console.log(res);
+        });
+        this.onetap.authUserResponse.subscribe(res => {  
+          debugger// Use Auth validation by using google OAuth2 apis. Note: this one for testing and debugging purpose.
+           // this.userdetails = res;
+        });
 
 this.haspano=false
 
@@ -206,7 +225,9 @@ this.haspano=false
       this.ngOnInit();
     })
   }
-  
+  tapcancel() {
+    this.onetap.cancelTheTap();
+}
   
   
   async ngOnInit() {

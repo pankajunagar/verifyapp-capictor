@@ -85,7 +85,7 @@ export class LoginService {
       debugger
         console.log('You have been successfully logged in!' +result.additionalUserInfo.profile.name)
        if (result){
-         alert('You have been successfully logged in!')
+        //  alert('You have been successfully logged in!')
          window.localStorage.setItem('name', result.additionalUserInfo.profile.name);
          if(this.isProductInfo){
           this.isProductInfo=false;
