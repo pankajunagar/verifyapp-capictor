@@ -84,7 +84,7 @@ export class verifyitOffer {
 
 
   // async presentModal2(data) {
-  //   debugger
+  //    
   //   this.utils.royaltyData=data
   //   let modal = await this.modalController.create({
   //     component: RewardmodalfirstComponent,

@@ -369,5 +369,26 @@ getLoyaltyPointByuser(data){
   withCredentials:true,
   })
 }
+//charu
+get_reviews(data){
+      return this.http.post(`${this.appSettings.getApi()}/Reviews/get_reviews`,data,{
+       headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token'), 
+             
+  }),
+  withCredentials:true,
+  })
+}
+save_reviews(data){
+  return this.http.post(`${this.appSettings.getApi()}/Reviews/save_review`,data,{
+   headers: new HttpHeaders({
+  'Content-Type': 'application/json',
+  Authorization: localStorage.getItem('token'), 
+         
+}),
+withCredentials:true,
+})
+}
 
 }

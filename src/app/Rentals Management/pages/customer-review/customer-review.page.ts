@@ -1,3 +1,4 @@
+import { NailaService } from './../../services/naila.service';
 import { ActivatedRoute } from '@angular/router';
 
 import { Component, OnInit } from '@angular/core';
@@ -33,11 +34,11 @@ rating: any = [
     contentvalue: 5,
   },
 ];
-  constructor(private activatedRoute: ActivatedRoute) { 
+  constructor(private activatedRoute: ActivatedRoute,private apiSvc: NailaService) { 
   
 
    this.activatedRoute.params.subscribe((_res:any)=>{
-    //  debugger;
+    //   ;
          this.ProductDetail=JSON.parse(_res.callgettagresult)
     console.log(this.ProductDetail,"<<<<<<<<<<<this.ProductDetail");
     console.log("image>>", this.ProductDetail.img1);
@@ -63,4 +64,31 @@ rating: any = [
     });
   };
 
+
+  save_reviews() {
+      
+    let data=[{ 
+      product_id:1,
+      review_point:4,
+      review_title:'charu test review title',
+      review_images:['https://i.picsum.photos/id/326/200/300.jpg?hmac=SKzjQ5ycCVyISiOfq2m-GqpQ5zWT_J202KPYG7z0uB4','https://i.picsum.photos/id/100/200/200.jpg?hmac=-Ffd_UnIv9DLflvK15Fq_1gRuN8t2wWU4UiuwAu4Rqs'],
+      review:'charu test review description',
+      user_id:99
+  //  user_id: window.localStorage.getItem("userid"),
+  // product_id: this.callgettagresult.product_id,
+  
+  }];
+ this.apiSvc.save_reviews(data).subscribe(
+  (res:any) => {
+  if (res){
+    //  this.reviewList=res.data;
+     console.log(res)
+    }               
+  },
+  
+  err => {
+    alert(JSON.stringify(err));
+  }
+);
+}
 }

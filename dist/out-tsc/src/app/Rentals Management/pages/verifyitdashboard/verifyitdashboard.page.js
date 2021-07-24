@@ -89,7 +89,7 @@ var VerifyitDashboardPage = /** @class */ (function () {
         // this.alertService.presentthis.alertService.presentAlert(''," user info data",window.localStorage.getItem('userType'));
     }
     VerifyitDashboardPage.prototype.toggleAppTheme = function () {
-        debugger;
+        
         if (this.selectedTheme === 'dark-theme') {
             this.settings.setActiveTheme('light-theme');
         }
@@ -105,7 +105,7 @@ var VerifyitDashboardPage = /** @class */ (function () {
     };
     VerifyitDashboardPage.prototype.ngOnInit = function () {
         var _this = this;
-        debugger;
+        
         // window.localStorage.setItem('product-link',this.router.url)
         if (this.router.url.includes("params") && !this.router.url.includes("source")) {
             this.hideDashboardScreen = false;
@@ -144,7 +144,7 @@ var VerifyitDashboardPage = /** @class */ (function () {
             });
         });
         this.utilservice.LoadPage.subscribe(function (data) {
-            // debugger
+           
             // this.alertService.presentAlert('',this.utilservice.userType)
             // this.ionViewWillEnter();
             if (_this.utilservice.menuTitle == 'Write NFC/QR') {
@@ -406,9 +406,9 @@ var VerifyitDashboardPage = /** @class */ (function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        debugger;
+                        
                         locationUrl = window.location.href;
-                        debugger;
+                        
                         if (!(locationUrl.includes("pwa") || locationUrl.includes("nowverifycap"))) return [3 /*break*/, 2];
                         return [4 /*yield*/, navigator.mediaDevices.getUserMedia({
                                 video: { facingMode: 'environment' }
@@ -498,7 +498,7 @@ var VerifyitDashboardPage = /** @class */ (function () {
             var objStr = str.match(/\{(.)+\}/g);
             eval("obj =" + objStr);
         }
-        // debugger
+       
         return obj;
     };
     VerifyitDashboardPage.prototype.scanIOS = function () {
@@ -511,7 +511,7 @@ var VerifyitDashboardPage = /** @class */ (function () {
             // logic for existing and new qr code
             _this.tagId = (barcodeData.text).toString();
             if (_this.tagId.includes("myparam")) {
-                debugger;
+                
                 _this.tagId = _this.tagId.split('=')[1];
                 alert(_this.tagId);
                 _this.gettag(_this.tagId);
@@ -523,11 +523,11 @@ var VerifyitDashboardPage = /** @class */ (function () {
             _this.productData = _this.strToObj(_this.tagId);
             // let variabletype = typeof (this.tagId)
             // if (variabletype == "number") {
-            //   debugger
+          
             //   // alert('number')
             //   this.gettag(this.tagId);
             // } else {
-            //   debugger
+          
             //   this.gettag(this.productData.tagId);
             // alert('string')
             // }

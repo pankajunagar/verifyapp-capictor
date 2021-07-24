@@ -35,7 +35,7 @@ var NailasearchPage = /** @class */ (function () {
         });
     };
     NailasearchPage.prototype.ionViewWillEnter = function () {
-        debugger;
+      
         if (window.localStorage.getItem('cartitemcount')) {
             this.utils.cartdata = window.localStorage.getItem('cartitemcount');
         }
@@ -50,7 +50,7 @@ var NailasearchPage = /** @class */ (function () {
     };
     NailasearchPage.prototype.browseBycategory = function () {
         var _this = this;
-        debugger;
+      
         this.nailaService.browseBycategory().subscribe(function (data) {
             console.log(data);
             _this.categories = data;
@@ -144,7 +144,7 @@ var NailasearchPage = /** @class */ (function () {
     };
     // listofservices
     NailasearchPage.prototype.setDetailsofservice = function (data) {
-        debugger;
+      
         if (data.data) {
             this.utils.storage = data.data;
         }

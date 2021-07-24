@@ -18,10 +18,12 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
 import { Push } from '@ionic-native/push/ngx';
 import { ProfilePage } from './pages/profile/profile.page';
 
+
 @NgModule({
     declarations: [
         RentalsComponent,
         UserSearchPipe,
+        
     ],
     imports: [
         RentalsRoutingModule,

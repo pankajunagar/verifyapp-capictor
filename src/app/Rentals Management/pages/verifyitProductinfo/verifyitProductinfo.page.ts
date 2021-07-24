@@ -63,6 +63,7 @@ export class VerifyitProductInfoPage implements OnInit {
   @ViewChild("content") private Content: any;
   helpUrl: any;
   msg:string="Mobile number is not valid."
+  reviewList:any = [];
 
   private _videoPlayer: any;
   private _url: string;
@@ -178,6 +179,7 @@ showDeactivate
     private loginService:LoginService
     // private actionSheetController: ActionSheetController
   ) {
+    this. get_reviews()
     this.onetap.tapInitialize(); //Initialize OneTap, At intial time you can pass config  like this.onetap.tapInitialize(conif) here config is optional.
         this.onetap.promtMoment.subscribe(res => {  // Subscribe the Tap Moment. following response options all have self explanatory. If you want more info pls refer official document below attached link.
            res.getDismissedReason(); 
@@ -190,11 +192,11 @@ showDeactivate
            res.isSkippedMoment();
         });
         this.onetap.oneTapCredentialResponse.subscribe(res => {
-          debugger // After continue with one tap JWT credentials response.
+            // After continue with one tap JWT credentials response.
             console.log(res);
         });
         this.onetap.authUserResponse.subscribe(res => {  
-          debugger// Use Auth validation by using google OAuth2 apis. Note: this one for testing and debugging purpose.
+           // Use Auth validation by using google OAuth2 apis. Note: this one for testing and debugging purpose.
            // this.userdetails = res;
         });
 
@@ -231,10 +233,7 @@ this.haspano=false
   
   
   async ngOnInit() {
-    
-    
-    
-    debugger
+     
     if(window.localStorage.getItem('showDeactivate')=='4'){
       this.showDeactivate=true
       
@@ -629,7 +628,7 @@ this.haspano=false
   }
 
   async presentActionSheet(data) {
-    // debugger;
+    //  ;
     let buttons = [];
     const _this = this;
 
@@ -658,7 +657,7 @@ let buttonReview = {
   // icon:data.icon,
   handler: () => {
   this.router.navigate(['/customer-review',{callgettagresult:JSON.stringify(this.callgettagresult)}])
- }
+  }
 };
 buttons.push(buttonReview);
 //**Charu End */
@@ -791,7 +790,7 @@ this.presentToast('Review submitted successfully.')
   product_link = "";
 
   async socialShare() {
-    debugger
+     
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
@@ -1186,7 +1185,7 @@ this.presentToast('Review submitted successfully.')
   }
 
   async generateEwarrantyCard(){
-    debugger
+     
     this.utilservice.warrantyInformation=this.callgettagresult
     let modal = await this.modalController.create({
       component: WarrantycardComponent
@@ -1376,11 +1375,30 @@ this.presentToast('Review submitted successfully.')
       return await modal.present();
     }
 
-
-
     scrollToTopOnInit() {
-      
-      this.Content.scrollToTop();
+           this.Content.scrollToTop();
 
     }
+    //charu
+    get_reviews() {
+      
+          let shareData = {
+        //  user_id: window.localStorage.getItem("userid"),
+        // product_id: this.callgettagresult.product_id,
+        user_id: 99,
+        product_id: 1,
+        };
+       this.apiSvc.get_reviews(shareData).subscribe(
+        (res:any) => {
+        if (res){
+           this.reviewList=res.data;
+           console.table(this.reviewList)
+          }               
+        },
+        
+        err => {
+          alert(JSON.stringify(err));
+        }
+      );
+     }
 }

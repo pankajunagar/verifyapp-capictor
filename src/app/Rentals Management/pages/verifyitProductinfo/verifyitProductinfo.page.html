@@ -324,14 +324,16 @@ data-callback="authenticationResponse">
         <!-- Charu Open ==> Product Review Container -->
     <ion-row *ngIf="callgettagresult.meta_data.product_review == 1 || callgettagresult.meta_data.product_review ">
      
-    <ion-col>
+    <ion-col *ngFor="let review of reviewList;let i = index">
       <h3>Product Review</h3>
           <ion-card>
       
           <ion-row>
             <ion-col size="3">
-              <ion-avatar item-start  class="avatar">
-                <img  src="{{callgettagresult.img1}}">
+              <ion-avatar item-start  class="avatar" >
+               
+             
+              <img  src="{{callgettagresult.img1}}">
               </ion-avatar>
             
             </ion-col>
@@ -340,7 +342,7 @@ data-callback="authenticationResponse">
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>
+            <!-- <ion-col>
               <div class="rate-us">
                 <ion-buttons>
                     <ion-button >
@@ -349,13 +351,14 @@ data-callback="authenticationResponse">
                     </ion-button>
                     </ion-buttons>
                 </div>
-            </ion-col>
+            </ion-col> -->
           </ion-row>
-            <h3> product Review Title</h3>
+            <h3> {{review.review_title}}</h3>
             <img  src="{{callgettagresult.img1}}">
+            <!-- <img *ngFor="let img of review.review_images" src="{{img}}"> -->
       
         <ion-card-content>
-          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+          <p>{{review.review}}</p>
         </ion-card-content>
       
       </ion-card>

@@ -19,7 +19,7 @@ var AutocloseOverlaysService = /** @class */ (function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        debugger;
+                     
                         console.log('backbutton triggered');
                         _a.label = 1;
                     case 1:

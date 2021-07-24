@@ -268,7 +268,7 @@ export class NailaCartPage {
 
 
   //     if (manualcoupon && manualcoupon.coupon_type == 'percent' && serviceElement.service.coupons.length) {
-  //       debugger
+  //        
   //       serviceElement.service.coupons.forEach(element => {
   //         if (element.id == manualcoupon.id && element.name.toLowerCase() == manualcoupon.name.toLowerCase()) {
   //           this.foundcoupon = true
@@ -401,7 +401,7 @@ export class NailaCartPage {
   // slotdate: any;
   // getAvailabaleSlot(event) {
   //   this.beauticiandata = []
-  //   debugger
+  //    
   //   if (event.selected_date) {
 
   //     this.slotdate = event.selected_date.toDateString().split("T");
@@ -430,7 +430,7 @@ export class NailaCartPage {
   // selectedtime;
   // selectedBeauticiandata
   // selectedbeautician(data) {
-  //   debugger
+  //    
   //   console.log(data.target.value);
   //   this.selectedBeauticiandata = data.target.value
   //   this.scheduledondate = data.target.value.start_datetime;
@@ -537,7 +537,7 @@ export class NailaCartPage {
 
 
   // selectedApartment(event) {
-  //   debugger
+  //    
   //   this.selectedapartment = event.target.value.id;
   //   const slectedbuilding = window.localStorage.setItem('apartment_id', this.selectedapartment);
 

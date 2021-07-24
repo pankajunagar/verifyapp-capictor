@@ -130,7 +130,7 @@ export class PanoimageComponent implements OnInit {
   
 
   opena(){
-    debugger
+     
 
 
     // this.apiSvc.getHtml('https://develop.nowverifyit.com/welcome/goodwyntea').subscribe(

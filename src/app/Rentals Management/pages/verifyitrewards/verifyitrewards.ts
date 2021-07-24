@@ -61,7 +61,7 @@ export class Verifyitrewards {
      let day= today.getDate();
       let obj = {}
       this.listbanner.data.forEach((item)=>{
-        // debugger
+        //  
         let splitdate= ( item["validity"])
 
         this.checkExpiredCoupon(splitdate)
@@ -72,7 +72,7 @@ export class Verifyitrewards {
             obj[item.brand] = item
             let b= Object.values(obj)
             let c = b[0]
-            debugger
+             
             this.items.push(c)
             console.log(this.items)
         }
@@ -101,7 +101,7 @@ export class Verifyitrewards {
 
 
   async presentModal2(data) {
-    debugger
+     
     this.utils.royaltyData=data
     let modal = await this.modalController.create({
       component: RewardmodalfirstComponent,
@@ -112,7 +112,7 @@ export class Verifyitrewards {
 
 
   async scratchModal() {
-    debugger
+     
     // this.utils.royaltyData=data
     let modal = await this.modalController.create({
       component: ScratchmodalComponent,
@@ -169,7 +169,7 @@ hasExpired=false
 substractDate
 
 checkExpiredCoupon(date){
-  // debugger
+  //  
 this.currentDate=new Date()
 this.substractDate=new Date(date * 1000).toISOString()
 this.substractDate= new Date(this.substractDate)

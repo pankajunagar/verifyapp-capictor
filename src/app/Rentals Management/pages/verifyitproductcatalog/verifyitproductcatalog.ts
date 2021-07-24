@@ -141,7 +141,7 @@ this.brandName=brand
   }
 
   showProductInfo(item) {
-    debugger
+     
            let shareData = {
         user_id: localStorage.getItem("userid"),
         tag_id: localStorage.getItem("tagId"),
@@ -191,7 +191,7 @@ this.brandName=brand
   result = []
 
   groupBy(collection, property) {
-    debugger
+     
     // var i = 0, val, index
 
     // for (; i < collection.length; i++) {
@@ -220,7 +220,7 @@ this.brandName=brand
   }
   listGroupedProduct = []
   showProductFromGroup(value) {
-    debugger;
+     ;
     alert("hello");
     this.listGroupedProduct = value
   }

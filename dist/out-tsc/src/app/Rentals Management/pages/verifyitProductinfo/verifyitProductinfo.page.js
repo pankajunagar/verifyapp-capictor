@@ -966,7 +966,7 @@ var VerifyitProductInfoPage = /** @class */ (function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        debugger;
+                     
                         this.utilservice.warrantyInformation = this.callgettagresult;
                         return [4 /*yield*/, this.modalController.create({
                                 component: WarrantycardComponent

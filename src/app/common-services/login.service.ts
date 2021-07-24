@@ -82,7 +82,7 @@ export class LoginService {
   AuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result:any) => {
-      debugger
+      
         console.log('You have been successfully logged in!' +result.additionalUserInfo.profile.name)
        if (result){
         //  alert('You have been successfully logged in!')

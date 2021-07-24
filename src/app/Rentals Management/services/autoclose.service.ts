@@ -19,7 +19,7 @@ export class AutocloseOverlaysService {
     private toastController: ToastController
   ) { }
   async trigger() {
-    debugger
+     
     console.log('backbutton triggered');
     // close action sheet
     try {

@@ -31,7 +31,7 @@ var Verifyitrewards = /** @class */ (function () {
             var day = today.getDate();
             var obj = {};
             _this.listbanner.data.forEach(function (item) {
-                // debugger
+               
                 var splitdate = (item["validity"]);
                 _this.checkExpiredCoupon(splitdate);
                 if (obj[item.brand] && _this.hasExpired) {
@@ -41,7 +41,7 @@ var Verifyitrewards = /** @class */ (function () {
                     obj[item.brand] = item;
                     var b = Object.values(obj);
                     var c = b[0];
-                    debugger;
+                  
                     _this.items.push(c);
                     console.log(_this.items);
                 }
@@ -64,7 +64,7 @@ var Verifyitrewards = /** @class */ (function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        debugger;
+                      
                         this.utils.royaltyData = data;
                         return [4 /*yield*/, this.modalController.create({
                                 component: RewardmodalfirstComponent,
@@ -84,7 +84,7 @@ var Verifyitrewards = /** @class */ (function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        debugger;
+                      
                         return [4 /*yield*/, this.modalController.create({
                                 component: ScratchmodalComponent,
                                 cssClass: "scratch-modal",
@@ -117,7 +117,7 @@ var Verifyitrewards = /** @class */ (function () {
         sc.init();
     };
     Verifyitrewards.prototype.checkExpiredCoupon = function (date) {
-        debugger;
+      
         this.currentDate = new Date();
         this.substractDate = new Date(date * 1000).toISOString();
         this.substractDate = new Date(this.substractDate);

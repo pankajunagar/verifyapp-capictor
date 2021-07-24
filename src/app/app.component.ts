@@ -390,7 +390,7 @@ export class AppComponent implements OnInit {
     //   this.utils.LoadPageOnrouteChange();
     // }else
     if (title == 'Read NFC/QR') {
-      // debugger
+    
       this.utils.menuTitle = 'Read NFC/QR'
       this.utils.LoadPageOnrouteChange();
 
@@ -401,7 +401,7 @@ export class AppComponent implements OnInit {
       this.utils.menuTitle = 'Write NFC/QR'
       this.utils.LoadPageOnrouteChange();
     } else if (title == 'Read QR') {
-      // debugger
+    
       this.utils.menuTitle = 'Read NFC/QR'
       this.utils.LoadPageOnrouteChange();
 
@@ -692,9 +692,7 @@ export class AppComponent implements OnInit {
     if (!token.length) {
     this.verifyitservice.genToken().subscribe(
       async (data: any) => {
-        //debugger
-
-          window.localStorage.setItem('token', data.data.token)
+                 window.localStorage.setItem('token', data.data.token)
      
       },
       async err => {
@@ -759,7 +757,7 @@ export class AppComponent implements OnInit {
 
 
 listenForMessages() {
-  debugger
+  
   this.messagingService.getMessages().subscribe(async (msg: any) => {
     const alert = await this.alertCtrl.create({
       header: msg.notification.title,
