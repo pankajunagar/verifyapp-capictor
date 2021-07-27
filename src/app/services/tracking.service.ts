@@ -19,4 +19,17 @@ export class TrackingService {
         })
       });
   }
+
+  getQuestion(data){
+   
+    return this.http.post(`${this.appSettings.getApi()}/PopupQuestions/getQuestion`,data,{
+     headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('token'), 
+           
+}),
+withCredentials:true,
+})
+}
+
 }

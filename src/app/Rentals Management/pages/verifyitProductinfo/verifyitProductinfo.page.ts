@@ -179,7 +179,7 @@ showDeactivate
     private loginService:LoginService
     // private actionSheetController: ActionSheetController
   ) {
-    this. get_reviews()
+    
     this.onetap.tapInitialize(); //Initialize OneTap, At intial time you can pass config  like this.onetap.tapInitialize(conif) here config is optional.
         this.onetap.promtMoment.subscribe(res => {  // Subscribe the Tap Moment. following response options all have self explanatory. If you want more info pls refer official document below attached link.
            res.getDismissedReason(); 
@@ -246,7 +246,7 @@ this.haspano=false
     this.hasLogin = window.localStorage.getItem("name");
    
     this.callgettagresult = this.utilservice.callgettagresult;
-   
+    this. get_reviews();
     if (this.utilservice.callgettagresult.meta_data) {
       if(this.hasLogin==null){//charu for login
         
@@ -1379,14 +1379,12 @@ this.presentToast('Review submitted successfully.')
            this.Content.scrollToTop();
 
     }
-    //charu
+    //**charu Start  for get review */
     get_reviews() {
-      
-          let shareData = {
-        //  user_id: window.localStorage.getItem("userid"),
-        // product_id: this.callgettagresult.product_id,
-        user_id: 99,
-        product_id: 1,
+               let shareData = {
+         user_id: window.localStorage.getItem("userid"),
+        product_id: this.callgettagresult.product_id,
+     
         };
        this.apiSvc.get_reviews(shareData).subscribe(
         (res:any) => {
@@ -1401,4 +1399,5 @@ this.presentToast('Review submitted successfully.')
         }
       );
      }
+     //**Charu End */
 }

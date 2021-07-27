@@ -355,9 +355,7 @@ getHtml(data){
 
 
 getLoyaltyPointByuser(data){
-
-  // http://develop.nowverifyit.com/loyaltypoints/getloyaltyofuser/{$user_id}/{$token_id}/{$mobile_number}
-  
+ 
   return this.http.get(`${this.appSettings.getApi()}/loyaltypoints/getloyaltyofuser`,{
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -369,7 +367,7 @@ getLoyaltyPointByuser(data){
   withCredentials:true,
   })
 }
-//charu
+//Charu Start
 get_reviews(data){
       return this.http.post(`${this.appSettings.getApi()}/Reviews/get_reviews`,data,{
        headers: new HttpHeaders({
@@ -390,5 +388,5 @@ save_reviews(data){
 withCredentials:true,
 })
 }
-
+//**Charu End */
 }

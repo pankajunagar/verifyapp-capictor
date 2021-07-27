@@ -46,7 +46,7 @@
       </ion-card-header>
     
       <ion-card-content>
-        <input type="text" class="form-control " placeholder="Enter Review" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control " placeholder="Enter Review" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="data.review_title">
       </ion-card-content>
     </ion-card>
   
@@ -58,7 +58,7 @@
    
     
       <ion-card-content>
-          <textarea id="form7" class="md-textarea form-control" rows="3"></textarea>
+          <textarea id="form7" class="md-textarea form-control" rows="3"  [(ngModel)]="data.review"></textarea>
       </ion-card-content>
     </ion-card>
   
@@ -69,7 +69,7 @@
       
     
       <ion-card-content>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        <input type="file" class="form-control-file" id="exampleFormControlFile1" [(ngModel)]="data.review_images">
       </ion-card-content>
     </ion-card>
   </div>

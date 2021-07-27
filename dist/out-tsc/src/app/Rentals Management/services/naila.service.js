@@ -230,7 +230,7 @@ var NailaService = /** @class */ (function () {
         });
     };
     NailaService.prototype.getLoyaltyPointByuser = function (data) {
-        // http://develop.nowverifyit.com/loyaltypoints/getloyaltyofuser/{$user_id}/{$token_id}/{$mobile_number}
+
         return this.http.get(this.appSettings.getApi() + "/loyaltypoints/getloyaltyofuser", {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

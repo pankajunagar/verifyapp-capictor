@@ -322,7 +322,8 @@ data-callback="authenticationResponse">
 
 
         <!-- Charu Open ==> Product Review Container -->
-    <ion-row *ngIf="callgettagresult.meta_data.product_review == 1 || callgettagresult.meta_data.product_review ">
+    <!-- <ion-row *ngIf="callgettagresult.meta_data.product_review == 1 || callgettagresult.meta_data.product_review "> -->
+      <ion-row >
      
     <ion-col *ngFor="let review of reviewList;let i = index">
       <h3>Product Review</h3>
@@ -338,7 +339,7 @@ data-callback="authenticationResponse">
             
             </ion-col>
             <ion-col size="9">
-              <h5 >User Name</h5>
+              <h5 >{{review.user_name}}</h5>
             </ion-col>
           </ion-row>
           <ion-row>
