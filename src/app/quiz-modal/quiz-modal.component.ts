@@ -1,8 +1,10 @@
+import { Push } from "@ionic-native/push/ngx";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ModalController, NavParams } from "@ionic/angular";
 import { Utils } from "../Rentals Management/services/utils.service";
 import { TrackingService } from "../services/tracking.service";
+import { AlertServiceService } from "../common-services/alert-service.service";
 
 @Component({
   selector: "app-quiz-modal",
@@ -24,7 +26,9 @@ export class QuizModalComponent implements OnInit {
   ];
   ques: any = [];
   callgettagresult: any;
+  answer: any;
   constructor(
+    private alertService: AlertServiceService,
     private modalController: ModalController,
     private router: Router,
     private api: TrackingService,
@@ -64,12 +68,13 @@ export class QuizModalComponent implements OnInit {
     console.log("quiz callgettagresult", this.callgettagresult);
     console.log("quiz callgettagresult brand", this.callgettagresult.brand);
 
-    this.ques =
-      this.navParams.data["requestFrom"] == "win"
-        ? this.questions
-        : this.questionsvideo;
+    // this.ques =
+    //   this.navParams.data["requestFrom"] == "win"
+    //     ? this.questions
+    //     : this.questionsvideo;
 
     this.getQuestions();
+    this.createAnswer();
   }
 
   ngOnInit() {}
@@ -79,35 +84,72 @@ export class QuizModalComponent implements OnInit {
     await this.modalController.dismiss(this.navParams.data);
   }
 
-  dataChange(i, len) {
+  createAnswer = () => {
+    this.answer = {
+      device_id: window.localStorage.getItem("device_id"),
+      product_id: this.callgettagresult.id,
+      answers: [],
+    };
+  };
+  dataChange(i, qid, answer, ansid) {
     console.log(i);
     this.count++;
+    const answerobj = {
+      question_id: qid,
+      answer: answer,
+      answer_id: ansid,
+      brand_id: this.callgettagresult.id,
+    };
+    this.answer.answers.push(answerobj);
+    console.log("ANSWERRRRRRRRRRRRRRRRRRRRRRRRRR");
+    console.log(this.answer);
     if (i == this.questions.length - 1) {
       /** Charu  */
-      if (this.navParams.data["requestFrom"] == "win") {
-        this.router.navigate(["/verifyit-rewards"]);
-        this.closeModal();
-      } else if (this.navParams.data["requestFrom"] == "video") {
-        this.closeModal();
-      }
+      this.saveAnswers();
       /** Charu  */
-    }
-    else{
+    } else {
       const data = {
         user_id: localStorage.getItem("userid"),
         tag_id: localStorage.getItem("tagId"),
-        product_id:this.utilservice.productId,
+        product_id: this.utilservice.productId,
         // product_id: 10,
         device_id: localStorage.getItem("device_id"),
         otype: "DATA_FORM_ONE_SUBMITTED",
       };
+      //let quizObj=this.questions[i]
 
       this.api.trackingApi(data).subscribe((res) => {
         console.log(res, "track");
       });
     }
   }
-
+  saveAnswers = () => {
+    this.api.saveAnswers(this.answer).subscribe(
+      (_res: any) => {
+        if (_res.status_code == 200) {
+          this.alertService.presentAlert("", "Answer saved successfully.");
+          if (this.navParams.data["requestFrom"] == "win") {
+            this.router.navigate(["/verifyit-rewards"]);
+            this.closeModal();
+          } else if (this.navParams.data["requestFrom"] == "video") {
+            this.closeModal();
+          }
+        } else {
+          this.alertService.presentAlert(
+            "",
+            "Error Occurred.Please try again later."
+          );
+        }
+      },
+      (err) => {
+        this.alertService.presentAlert(
+          "",
+          "Error Occurred.Please try again later."
+        );
+        console.log(err);
+      }
+    );
+  };
   //**charu Start  for get Question */
   getQuestions() {
     let data = {

@@ -10,7 +10,7 @@
       <div >
 
         <ng-container >
-          <ion-card  class="ion-padding" *ngFor="let opt of ques.options.split('#||#');let i=index" (click)="dataChange(ii,questions.length)">
+          <ion-card  class="ion-padding" *ngFor="let opt of ques.options.split('#||#');let i=index" (click)="dataChange(ii,ques.id,opt,i+1)">
             <div>
               <span>
                 {{i+1}}{{']'}} </span><span>{{opt}}
