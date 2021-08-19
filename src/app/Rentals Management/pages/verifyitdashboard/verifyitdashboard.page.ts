@@ -208,6 +208,7 @@ export class VerifyitDashboardPage implements OnInit {
     //4507  //for scratchcard
     this.gettag('4507')
     
+    
 
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
