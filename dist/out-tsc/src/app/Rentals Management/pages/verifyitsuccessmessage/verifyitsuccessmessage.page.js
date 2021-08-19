@@ -115,7 +115,7 @@ var VerifyItSuccessMessagePage = /** @class */ (function () {
     };
     VerifyItSuccessMessagePage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        debugger;
+        
         this.userType = window.localStorage.getItem("userType");
         this.platform.ready().then(function () {
             _this.nfc

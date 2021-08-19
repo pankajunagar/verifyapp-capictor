@@ -38,7 +38,7 @@ export class CertificateModalComponent {
   ngOnInit() {
     this.items=this.utils.certificateData
     this.utils.certificateData.forEach(element => {
-      debugger
+      
       element.text= element.text
     });
 

@@ -872,7 +872,7 @@ this.presentToast('Register successfully')
         //**charu end */
 
         if(data.data.userType==4){
-          debugger
+          
           window.localStorage.setItem('showDeactivate', '4');
 
           data.data.userType=2
@@ -911,7 +911,7 @@ this.presentToast('Register successfully')
           console.log(err)
           console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>',err)
 
-          debugger
+          
           // this.alertService.presentAlert(" userinfo data error", err.error.errors[0]);
         })
       }
@@ -1096,7 +1096,7 @@ this.presentToast('Register successfully')
       "password": this.loginData.password
     }
     this.loginService.forgotPassword(data).subscribe(data => {
-      debugger
+      
       this.enterotp = true;
       this.sendotpinput = true;
       this.newpassword = true;
@@ -1106,7 +1106,7 @@ this.presentToast('Register successfully')
 
 
     }, err => {
-      debugger
+      
       this.alertService.presentAlert("", err.error.errors[0]);
 
     })

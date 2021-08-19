@@ -102,7 +102,7 @@ export class NailaBeauticianBookingPage {
       this.bookingList = bookingList
       this.upcomingbooking=[];
       this.bookingList.forEach(element => {
-        debugger
+         
         if (new Date(element.schedule_on).getTime() >= this.starttimeofday.getTime() && new Date (element.schedule_on).getTime() < this.endtimeofday.getTime()  ) {
           this.pastbooking.push(element)
         } else if (new Date(element.schedule_on).getTime() >= this.endtimeofday.getTime() && new Date (element.schedule_on).getTime() < this.endtimeoftomorrow.getTime()){
@@ -188,7 +188,7 @@ export class NailaBeauticianBookingPage {
 
 
   collectedCash(bookingdata){
-    debugger
+     
     const paymentdata={
       "apartment_id": bookingdata.apartment_id, 
       "user_id": bookingdata.user_id, 

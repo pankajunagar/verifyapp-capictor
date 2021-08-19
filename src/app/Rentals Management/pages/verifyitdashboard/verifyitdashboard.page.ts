@@ -201,7 +201,7 @@ export class VerifyitDashboardPage implements OnInit {
       // this.router.navigateByUrl('/verifyit-product')
     }
      // this.gettag('4516') 4925
-    //  for multiple image 4516
+    //  for multiple image ,scrach card 4516
     // for vedio link      4573
     //for customer review  4517
     // 4534 for reward

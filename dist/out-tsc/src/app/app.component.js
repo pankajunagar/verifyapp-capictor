@@ -295,7 +295,7 @@ var AppComponent = /** @class */ (function () {
         //   this.utils.LoadPageOnrouteChange();
         // }else
         if (title == 'Read NFC/QR') {
-            // debugger
+          
             this.utils.menuTitle = 'Read NFC/QR';
             this.utils.LoadPageOnrouteChange();
         }
@@ -308,7 +308,7 @@ var AppComponent = /** @class */ (function () {
             this.utils.LoadPageOnrouteChange();
         }
         else if (title == 'Read QR') {
-            // debugger
+          
             this.utils.menuTitle = 'Read NFC/QR';
             this.utils.LoadPageOnrouteChange();
         }
@@ -587,7 +587,7 @@ var AppComponent = /** @class */ (function () {
         if (!token.length) {
             this.verifyitservice.genToken().subscribe(function (data) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
                 return tslib_1.__generator(this, function (_a) {
-                    //debugger
+                   
                     window.localStorage.setItem('token', data.data.token);
                     return [2 /*return*/];
                 });

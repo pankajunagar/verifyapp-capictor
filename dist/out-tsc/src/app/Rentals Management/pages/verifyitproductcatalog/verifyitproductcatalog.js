@@ -91,7 +91,7 @@ var VerifyitProductCatalogPage = /** @class */ (function () {
         });
     };
     VerifyitProductCatalogPage.prototype.showProductInfo = function (item) {
-        debugger;
+       
         this.utils.productCatalogInfo = '';
         this.utils.productCatalogInfo = item;
         this.utils.callgettagresult = item;
@@ -101,7 +101,7 @@ var VerifyitProductCatalogPage = /** @class */ (function () {
     };
     VerifyitProductCatalogPage.prototype.groupBy = function (collection, property) {
         var _this = this;
-        debugger;
+       
         // var i = 0, val, index
         // for (; i < collection.length; i++) {
         //     val = collection[i].meta_data.category;

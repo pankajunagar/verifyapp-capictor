@@ -399,9 +399,9 @@ export class AppComponent implements OnInit {
 
     //   this.utils.LoadPageOnrouteChange();
     // }else
-    if (title == "Read NFC/QR") {
-      // debugger
-      this.utils.menuTitle = "Read NFC/QR";
+    if (title == 'Read NFC/QR') {
+    
+      this.utils.menuTitle = 'Read NFC/QR'
       this.utils.LoadPageOnrouteChange();
     } else if (title == "Write NFC/QR") {
       this.utils.menuTitle = "Write NFC/QR";
@@ -409,9 +409,9 @@ export class AppComponent implements OnInit {
     } else if (title == "Write QR") {
       this.utils.menuTitle = "Write NFC/QR";
       this.utils.LoadPageOnrouteChange();
-    } else if (title == "Read QR") {
-      // debugger
-      this.utils.menuTitle = "Read NFC/QR";
+    } else if (title == 'Read QR') {
+    
+      this.utils.menuTitle = 'Read NFC/QR'
       this.utils.LoadPageOnrouteChange();
     }
   }
@@ -502,7 +502,7 @@ export class AppComponent implements OnInit {
     //   // }
     // });
 
-    // this.pushNotificationInit()
+    //  this.pushNotificationInit()
   }
   redirectToHomeOrLogin(isLoggedIn) {
     window.localStorage.getItem("uid");

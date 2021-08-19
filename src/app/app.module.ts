@@ -52,7 +52,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ScratchmodalComponent } from './Rentals Management/modals/scratchmodal/scratchmodal.component';
-
+import { NgGoogleOneTapModule } from 'ng-google-one-tap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +64,10 @@ import { ScratchmodalComponent } from './Rentals Management/modals/scratchmodal/
   ],
   entryComponents: [OrgModalComponent,ScratchmodalComponent, CountrycodemodalComponent, PictureComponent,ApprovalpopupComponent],
   imports: [
+    NgGoogleOneTapModule.config(
+      {
+          client_id: '4748763519-h8qii9hnrgff3nkqnl4tu0pvf4fkm1gg.apps.googleusercontent.com',
+      }),
     // NgxQRCodeModule,
     IonicSelectableModule,
     FormsModule,

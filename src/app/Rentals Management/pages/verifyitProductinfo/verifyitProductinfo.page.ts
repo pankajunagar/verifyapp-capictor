@@ -60,6 +60,7 @@ import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
 import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 import { browser } from 'protractor';
 
+import { NgOneTapService } from 'ng-google-one-tap';
 @Component({
   selector: "app-verifyitProductinf",
   templateUrl: "./verifyitProductinfo.page.html",
@@ -69,6 +70,7 @@ export class VerifyitProductInfoPage implements OnInit {
   @ViewChild("content") private Content: any;
   helpUrl: any;
   msg:string="Mobile number is not valid."
+  reviewList:any = [];
 
   private _videoPlayer: any;
   private _url: string;
@@ -160,7 +162,7 @@ showDeactivate
   ndefMsg: any;
   hasLogin;
   subscriptions: Array<Subscription> = new Array<Subscription>();
-  constructor(
+  constructor(private onetap: NgOneTapService,
     private appSettings: MainAppSetting,
     private nfc: NFC,
     private ndef: Ndef,
@@ -184,6 +186,26 @@ showDeactivate
     private loginService:LoginService
     // private actionSheetController: ActionSheetController
   ) {
+    
+    this.onetap.tapInitialize(); //Initialize OneTap, At intial time you can pass config  like this.onetap.tapInitialize(conif) here config is optional.
+        this.onetap.promtMoment.subscribe(res => {  // Subscribe the Tap Moment. following response options all have self explanatory. If you want more info pls refer official document below attached link.
+           res.getDismissedReason(); 
+           res.getMomentType();
+           res.getNotDisplayedReason();
+           res.getSkippedReason();
+           res.isDismissedMoment();
+           res.isDisplayed();
+           res.isNotDisplayed();
+           res.isSkippedMoment();
+        });
+        this.onetap.oneTapCredentialResponse.subscribe(res => {
+            // After continue with one tap JWT credentials response.
+            console.log(res);
+        });
+        this.onetap.authUserResponse.subscribe(res => {  
+           // Use Auth validation by using google OAuth2 apis. Note: this one for testing and debugging purpose.
+           // this.userdetails = res;
+        });
 
 this.haspano=false
 
@@ -212,7 +234,9 @@ this.haspano=false
       this.ngOnInit();
     })
   }
-  
+  tapcancel() {
+    this.onetap.cancelTheTap();
+}
   
   
   async ngOnInit() {
@@ -220,6 +244,7 @@ this.haspano=false
     
     
     // debugger
+     
     if(window.localStorage.getItem('showDeactivate')=='4'){
       this.showDeactivate=true
       
@@ -232,7 +257,7 @@ this.haspano=false
     this.hasLogin = window.localStorage.getItem("name");
    
     this.callgettagresult = this.utilservice.callgettagresult;
-   
+    this. get_reviews();
     if (this.utilservice.callgettagresult.meta_data) {
       if(this.hasLogin==null){//charu for login
         
@@ -614,7 +639,7 @@ this.haspano=false
   }
 
   async presentActionSheet(data) {
-    // debugger;
+    //  ;
     let buttons = [];
     const _this = this;
 
@@ -643,7 +668,7 @@ let buttonReview = {
   // icon:data.icon,
   handler: () => {
   this.router.navigate(['/customer-review',{callgettagresult:JSON.stringify(this.callgettagresult)}])
- }
+  }
 };
 buttons.push(buttonReview);
 //**Charu End */
@@ -694,6 +719,7 @@ this.presentToast('Review submitted successfully.')
 
   async socialShare() {
     // debugger
+     
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
@@ -1089,6 +1115,7 @@ this.presentToast('Review submitted successfully.')
 
   async generateEwarrantyCard(){
     // debugger
+     
     this.utilservice.warrantyInformation=this.callgettagresult
     let modal = await this.modalController.create({
       component: WarrantycardComponent
@@ -1278,11 +1305,8 @@ this.presentToast('Review submitted successfully.')
       return await modal.present();
     }
 
-
-
     scrollToTopOnInit() {
-      
-      this.Content.scrollToTop();
+           this.Content.scrollToTop();
 
     }
 
@@ -1350,6 +1374,24 @@ this.presentToast('Review submitted successfully.')
 
 
     }
+    get_reviews() {
+      let shareData = {
+user_id: window.localStorage.getItem("userid"),
+product_id: this.callgettagresult.product_id,
 
+};
+this.apiSvc.get_reviews(shareData).subscribe(
+(res:any) => {
+if (res){
+  this.reviewList=res.data;
+  console.table(this.reviewList)
+ }               
+},
+
+err => {
+ alert(JSON.stringify(err));
+}
+);
+}
 
 }
