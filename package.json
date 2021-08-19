@@ -26,11 +26,14 @@
     "@angular/router": "^7.2.2",
     "@angular/service-worker": "^7.2.2",
     "@capacitor-community/facebook-login": "^3.0.0",
-    "@capacitor/android": "^2.4.7",
+    "@capacitor/android": "^3.1.2",
+    "@capacitor/browser": "^1.0.2",
     "@capacitor/camera": "^1.0.0",
-    "@capacitor/cli": "^2.4.7",
-    "@capacitor/core": "^2.4.7",
-    "@capacitor/ios": "^2.4.7",
+    "@capacitor/cli": "^3.1.2",
+    "@capacitor/core": "^3.1.2",
+    "@capacitor/device": "^1.0.2",
+    "@capacitor/ios": "^3.1.2",
+    "@capacitor/share": "^1.0.3",
     "@codetrix-studio/capacitor-google-auth": "^3.0.1",
     "@ionic-native/barcode-scanner": "^5.33.0",
     "@ionic-native/branch-io": "^5.31.1",
@@ -107,7 +110,6 @@
     "zone.js": "~0.8.29"
   },
   "devDependencies": {
-    "webpack-sources": "1.2.0",
     "@angular-devkit/architect": "^0.1200.4",
     "@angular-devkit/core": "^12.0.4",
     "@angular-devkit/schematics": "^12.0.4",
@@ -147,7 +149,9 @@
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "protractor": "~5.4.0",
     "ts-node": "~8.1.0",
-    "tslint": "~5.16.0"
+    "tslint": "~5.16.0",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-sources": "1.2.0"
   },
   "description": "An Ionic project",
   "cordova": {

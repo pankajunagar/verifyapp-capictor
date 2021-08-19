@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 // import { Device } from "@ionic-native/device/ngx";
 
+
 import {
   Platform,
   NavController,
@@ -36,15 +37,16 @@ import { Plugins } from "@capacitor/core";
 const { Device } = Plugins;
 declare var wkWebView: any;
 
-import {
-  PushNotification,
-  PushNotificationToken,
-  PushNotificationActionPerformed,
-} from "@capacitor/core";
+// import {
+//   ActionPerformed,
+//   PushNotificationSchema,
+//   PushNotifications,
+//   Token,
+// } from '@capacitor/push-notifications';
 import { AutocloseOverlaysService } from "./Rentals Management/services/autoclose.service";
 import { MessagingService } from "./services/messaging.service";
 
-const { PushNotifications } = Plugins;
+// const { PushNotifications } = Plugins;
 
 interface DeeplinkMatch {
   $myparam: string;
@@ -55,7 +57,8 @@ interface DeeplinkMatch {
 })
 export class AppComponent implements OnInit {
   userrole;
-
+  
+  firstname;
   selectedTheme: String = "red-theme";
 
   public appPages = {
@@ -272,7 +275,7 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.requestPermission();
+    // this.requestPermission();
 
     // this.requestPermission();
 
@@ -300,7 +303,7 @@ export class AppComponent implements OnInit {
     this.userrole = window.localStorage.getItem("userType");
     this.initializeApp();
   }
-
+  
   public appSrc;
   // options: PushOptions = {
   //   android: {},
@@ -413,7 +416,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  firstname;
   async ionViewDidLoad() {
     this.platform.ready().then(() => {
       this.nfc
@@ -447,52 +449,58 @@ export class AppComponent implements OnInit {
   }
   canNFC = false;
   async initializeApp() {
-    const device = await Device.getInfo();
-    window.localStorage.setItem("device_id", device.uuid);
-    // alert(device.uuid)
-    console.log("device id=================>" + device.uuid);
-
+    let isLoggedIn: string;
+    // const device = await Device.getInfo();
+    // window.localStorage.setItem("device_id", device.uuid);
+    // // alert(device.uuid)
+    // console.log("device id=================>" + device.uuid);
     if (!window.localStorage.getItem("token")) {
       window.localStorage.setItem("token", "");
       this.storageService.storeDataToIonicStorage("token", "");
     }
+    // this.generateToken(this.fcmData)
 
-    await this.ionViewDidLoad();
-    let isLoggedIn: string;
-    this.platform.ready().then(async () => {
-      this.setupDeeplinks();
-      // this.generateToken()
-      // this.setupDeeplinks();
+// this need to revert back
 
-      // if (this.platform.is('ios')) {
+       this.requestPermission()
 
-      //   console.log('trueeeeeeeeeeeeeee====================================')
-      //   wkWebView.injectCookie('http://www.nowverifyit.com/');
-      //   console.log('trueeeeeeeeeeeeeee====================================')
 
-      // }
-      this.statusBar.styleLightContent();
-      this.statusBar.backgroundColorByHexString("#ffffff");
-      this._initTranslate();
-      this.splashScreen.hide();
-      this.statusBar.styleDefault();
-      this.redirectToHomeOrLogin(isLoggedIn);
 
-      // await this.storageService.getDatafromIonicStorage('isLoggedIn').then(val => {
-      //   isLoggedIn = val;
-      //   console.log(typeof val);
+    // await this.ionViewDidLoad();
+    // this.platform.ready().then(async () => {
+    //   this.setupDeeplinks();
+      // this.generateToken(this.fcmData)
+    //   // this.setupDeeplinks();
 
-      // })
-      // await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
-      //   this.appSrc = val;
-      // })
-      // await isLoggedIn == 'true' ? this.navCtrl.navigateRoot('/rentals-naila-search-page') : this.navCtrl.navigateRoot('/login');
-      // await isLoggedIn == 'true' ? this.navCtrl.navigateRoot(`/${this.appSrc}-naila-search-page`) : this.navCtrl.navigateRoot('/login');
-      // if(isLoggedIn){
+    //   // if (this.platform.is('ios')) {
 
-      //   // this.redirectToHomeOrLogin(isLoggedIn);
-      // }
-    });
+    //   //   console.log('trueeeeeeeeeeeeeee====================================')
+    //   //   wkWebView.injectCookie('http://www.nowverifyit.com/');
+    //   //   console.log('trueeeeeeeeeeeeeee====================================')
+
+    //   // }
+    //   this.statusBar.styleLightContent();
+    //   this.statusBar.backgroundColorByHexString("#ffffff");
+    //   this._initTranslate();
+    //   this.splashScreen.hide();
+    //   this.statusBar.styleDefault();
+    //   this.redirectToHomeOrLogin(isLoggedIn);
+
+    //   // await this.storageService.getDatafromIonicStorage('isLoggedIn').then(val => {
+    //   //   isLoggedIn = val;
+    //   //   console.log(typeof val);
+
+    //   // })
+    //   // await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+    //   //   this.appSrc = val;
+    //   // })
+    //   // await isLoggedIn == 'true' ? this.navCtrl.navigateRoot('/rentals-naila-search-page') : this.navCtrl.navigateRoot('/login');
+    //   // await isLoggedIn == 'true' ? this.navCtrl.navigateRoot(`/${this.appSrc}-naila-search-page`) : this.navCtrl.navigateRoot('/login');
+    //   // if(isLoggedIn){
+
+    //   //   // this.redirectToHomeOrLogin(isLoggedIn);
+    //   // }
+    // });
 
     // this.pushNotificationInit()
   }
@@ -678,11 +686,11 @@ export class AppComponent implements OnInit {
   //   }
   // }
 
-  generateToken(fcmData) {
+  async generateToken(fcmData) {
     let token = window.localStorage.getItem("token");
     if (!token.length) {
-      this.verifyitservice.genToken(fcmData).subscribe(
-        async (data: any) => {
+     await this.verifyitservice.genToken(fcmData).subscribe(
+         (data: any) => {
           window.localStorage.setItem("token", data.data.token);
         },
         async (err) => {
@@ -693,57 +701,57 @@ export class AppComponent implements OnInit {
     }
   }
 
-  pushNotificationInit() {
-    PushNotifications.requestPermission().then((result) => {
-      if (result.granted) {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-      } else {
-        this.alertService.presentAlert(
-          "",
-          "Something went wrong in push notification registration"
-        );
-      }
-    });
+  // pushNotificationInit() {
+  //   PushNotifications.requestPermission().then((result) => {
+  //     if (result.granted) {
+  //       // Register with Apple / Google to receive push via APNS/FCM
+  //       PushNotifications.register();
+  //     } else {
+  //       this.alertService.presentAlert(
+  //         "",
+  //         "Something went wrong in push notification registration"
+  //       );
+  //     }
+  //   });
 
-    PushNotifications.addListener(
-      "registration",
-      (token: PushNotificationToken) => {
-        // alert('Push registration success, token: ' + token.value);
-        console.log("=====================>");
-        console.log("Push registration success, token: " + token.value);
-        console.log("=====================>");
-      }
-    );
+  //   PushNotifications.addListener(
+  //     "registration",
+  //     (token: PushNotificationToken) => {
+  //       // alert('Push registration success, token: ' + token.value);
+  //       console.log("=====================>");
+  //       console.log("Push registration success, token: " + token.value);
+  //       console.log("=====================>");
+  //     }
+  //   );
 
-    PushNotifications.addListener("registrationError", (error: any) => {
-      // alert('Error on registration: ' + JSON.stringify(error));
-    });
+  //   PushNotifications.addListener("registrationError", (error: any) => {
+  //     // alert('Error on registration: ' + JSON.stringify(error));
+  //   });
 
-    PushNotifications.addListener(
-      "pushNotificationReceived",
-      (notification: PushNotification) => {
-        // this.router.navigateByUrl('/verifyit-product-info' )
-        this.router.navigate(["/verifyit-product-info"], {
-          queryParams: { brand: "openquiz" },
-        });
-        // alert('Push received: ' + JSON.stringify(notification));
-      }
-    );
+  //   PushNotifications.addListener(
+  //     "pushNotificationReceived",
+  //     (notification: PushNotification) => {
+  //       // this.router.navigateByUrl('/verifyit-product-info' )
+  //       this.router.navigate(["/verifyit-product-info"], {
+  //         queryParams: { brand: "openquiz" },
+  //       });
+  //       // alert('Push received: ' + JSON.stringify(notification));
+  //     }
+  //   );
 
-    PushNotifications.addListener(
-      "pushNotificationActionPerformed",
-      (notification: PushNotificationActionPerformed) => {
-        // this.router.navigateByUrl('/verifyit-rewards')
-        // alert('Push action performed: ' + JSON.stringify(notification));
-      }
-    );
-  }
+  //   PushNotifications.addListener(
+  //     "pushNotificationActionPerformed",
+  //     (notification: PushNotificationActionPerformed) => {
+  //       // this.router.navigateByUrl('/verifyit-rewards')
+  //       // alert('Push action performed: ' + JSON.stringify(notification));
+  //     }
+  //   );
+  // }
 
   // pwa push notification
 
   listenForMessages() {
-    console.log("==========new msg========>" + "111111");
+  console.log("==========new msg========>" + "111111");
 
     this.messagingService.getMessages().subscribe(async (msg: any) => {
       console.log("==========new msg========>" + msg);
@@ -764,14 +772,15 @@ export class AppComponent implements OnInit {
       async (token) => {
         this.fcmData.js_fcm = token;
         this.generateToken(this.fcmData);
-        const toast = await this.toastCtrl.create({
-          message: "Got your token",
-          duration: 2000,
-        });
-        console.log(token);
-        toast.present();
+        // const toast = await this.toastCtrl.create({
+        //   message: "Got your token",
+        //   duration: 2000,
+        // });
+        // console.log(token);
+        // toast.present();
       },
       async (err) => {
+        this.generateToken(this.fcmData);
         const alert = await this.alertCtrl.create({
           header: "Error",
           message: err,

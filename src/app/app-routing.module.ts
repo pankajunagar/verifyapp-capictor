@@ -16,8 +16,8 @@ const routes: Routes = [
   // { path: 'posts/:slug', loadChildren: '../app/login/login.module#LoginPageModule' },
   
 
-  { path: 'verifyit-dashboard', loadChildren: '../app/Rentals Management/pages/verifyitdashboard/verifyitdashboard.module#VerifyitDashboardPageModule' },
-  { path: 'rentals', loadChildren: '../app/Rentals Management/rental-management.module#RentalsManagementModule' },
+  // { path: 'verifyit-dashboard', loadChildren: '../app/Rentals Management/pages/verifyitdashboard/verifyitdashboard.module#VerifyitDashboardPageModule' },
+  // { path: 'rentals', loadChildren: '../app/Rentals Management/rental-management.module#RentalsManagementModule' },
 
 
   
@@ -25,7 +25,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload' })
+    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })
   ],
   exports: [RouterModule]
 })

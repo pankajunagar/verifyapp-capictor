@@ -24,8 +24,9 @@ import { CertificateModalComponent } from "../../modals/certificatemodal/certifi
 // Userrole5modalComponent
 import { Plugins } from "@capacitor/core";
 import * as WebVPPlugin from "capacitor-video-player";
-const { CapacitorVideoPlayer, Device } = Plugins;
-const { Browser } = Plugins;
+// const { CapacitorVideoPlayer, Device } = Plugins;
+
+import { Browser } from '@capacitor/browser';
 import { Content } from 'ionic-angular';
 import {
   InAppBrowser,
@@ -43,7 +44,11 @@ import { PanoimageComponent } from "../../modals/panoimage/panoimage.component";
 import { ScratchCard, SCRATCH_TYPE } from 'scratchcard-js'
 import { ScratchmodalComponent } from '../../modals/scratchmodal/scratchmodal.component';
 // import { Plugins } from '@capacitor/core';
-const { Share } = Plugins;
+// const { Share } = Plugins;
+import { Share } from '@capacitor/share';
+import { Device } from '@capacitor/device';
+import { CapacitorVideoPlayer } from 'capacitor-video-player';
+
 
 
 const PhotoSphereViewer = require('photo-sphere-viewer');
@@ -53,6 +58,7 @@ const PhotoSphereViewer = require('photo-sphere-viewer');
 
 import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
 import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
+import { browser } from 'protractor';
 
 @Component({
   selector: "app-verifyitProductinf",
@@ -213,7 +219,7 @@ this.haspano=false
     
     
     
-    debugger
+    // debugger
     if(window.localStorage.getItem('showDeactivate')=='4'){
       this.showDeactivate=true
       
@@ -672,92 +678,9 @@ this.presentToast('Review submitted successfully.')
       // alert("hello===========>");
       // console.log("hello===========>")
     });
-    // setTimeout(function() {
-    //   window.opener.location.href = "http://redirect.address";
-    // }, 5000);
+      }
 
-    //   const _this = this
-      // this.browser = this.iab.create(element.link, "_blank", this.options);
-    //   this.browser = this.iab.create(element.link, "_self", this.options);//charu
-    //   this.browser.addEventListener('loadstop', function(){
-    //     alert('hello');
-    //     this.browser.close()
-    //     // this.browser.executeScript({code: "(function() { alert(123); })()"});
-    // })
 
-    //  let myWindow= this.browser.on("loadstart").subscribe((event: InAppBrowserEvent) => {
-
-    //     setInterval(function(){
-
-    //       let event=  window.location.href
-
-    //       myWindow.executeScript({
-    //         code: "(function() { alert('hello'); })()"
-    //     }
-
-    //       if (event.includes("thankyou")) {
-
-    //         alert('Review submitted succesfully')
-
-    //       }
-    //         alert("Hello"); }, 3000);
-
-    //     // setInterval(function () {
-    //       if (event.url.includes("thankyou")) {
-
-    //         alert('Review submitted succesfully')
-
-    // //       }
-
-    // //   });
-    //   this.browser.on("exit").subscribe(
-
-    //     async data => {
-
-    //       if (_this.routemessage == 'thankyou') {
-    //         _this.trackingData.user_id = window.localStorage.getItem('userid')
-    //         _this.trackingData.tag_id = window.localStorage.getItem('tagId');
-    //         _this.trackingData.product_id = this.callgettagresult.product_id;
-    //         _this.trackingData.device_id = "xxx"
-
-    //         this.apiSvc.reviewTracking(_this.trackingData).subscribe((res) => {
-
-    //         }, err => {
-    //           alert(JSON.stringify(err))
-    //         }
-    //         );
-
-    //         // _this.router.navigateByUrl('/verifyit-message')
-
-    //       } else {
-
-    //         // _this.router.navigateByUrl('/verifyit-account')
-    //         // alert('Review not submitted.')
-    //       }
-    //     },
-
-    //     err => {
-    //       // alert(err);
-    //     }
-    //   );
-    //   return true;
-  }
-
-  // createButtons(data) {
-  //   let buttons = [];
-  //   for (var index in data) {
-  //     let button = {
-  //       text: data.text,
-  //       // icon:data.icon,
-  //       handler: () => {
-  //         // console.log('setting icon ' + this.data.icon);
-  //         return true;
-  //       }
-  //     }
-  //     buttons.push(button);
-  //   }
-  //   return buttons;
-  // }
 
   async presentModal2() {
     let modal = await this.modalController.create({
@@ -770,7 +693,7 @@ this.presentToast('Review submitted successfully.')
   product_link = "";
 
   async socialShare() {
-    debugger
+    // debugger
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
@@ -1165,7 +1088,7 @@ this.presentToast('Review submitted successfully.')
   }
 
   async generateEwarrantyCard(){
-    debugger
+    // debugger
     this.utilservice.warrantyInformation=this.callgettagresult
     let modal = await this.modalController.create({
       component: WarrantycardComponent
@@ -1362,4 +1285,71 @@ this.presentToast('Review submitted successfully.')
       this.Content.scrollToTop();
 
     }
+
+
+
+   async secPlay(){
+      
+      let sequence=[
+        'scratch_card',
+        'certificates',
+        'product-video',
+
+      ]
+
+      // let obj = this.jsonToBeUsed.find(o => o.name === 'sequence');
+
+
+      sequence.forEach(element => {
+
+
+        switch (element) {
+          case 'scratch_card':
+            let obj = this.jsonToBeUsed.find(o => o.key == 'scratch_card');
+            console.log("seq play==================>"+ JSON.stringify(obj))
+            this.scratchModal()
+            
+            break;
+            case 'product-video':
+               obj = this.jsonToBeUsed.find(o => o.key == 'product-video');
+              this.showProductVideo(obj.value)
+              console.log("seq play2==================>"+ JSON.stringify(obj) )
+
+          default:
+            break;
+        }
+
+
+
+
+
+        // if(element=='scratch_card'){
+        //   let obj = this.jsonToBeUsed.find(o => o.key == 'scratch_card');
+        //   console.log("seq play==================>"+ JSON.stringify(obj))
+        //   this.scratchModal()
+        //   return;
+          
+        // }else if(element=='product-video'){
+        //   let obj = this.jsonToBeUsed.find(o => o.key == 'product-video');
+        //   this.showProductVideo(obj.value)
+        //   console.log("seq play2==================>"+ JSON.stringify(obj) )
+
+        // }else if(element=='certificates'){
+        //   let obj = this.jsonToBeUsed.find(o => o.key == 'certificates');
+        //   console.log("seq play3==================>"+ JSON.stringify(obj) )
+
+        // }else if(element=='x'){
+        //   let obj = this.jsonToBeUsed.find(o => o.key == 'certificates');
+        //   console.log("seq play3==================>"+ JSON.stringify(obj) )
+
+        // }
+      });
+
+
+
+
+
+    }
+
+
 }

@@ -9,6 +9,12 @@ import { translateService } from 'src/app/common-services/translate/translate-se
 import { TranslateServiceService } from 'src/app/common-services/translate_/translate-service.service';
 import { Utils } from '../../services/utils.service';
 import { ScratchCard, SCRATCH_TYPE } from 'scratchcard-js'
+import { Browser } from '@capacitor/browser';
+import {
+  InAppBrowser,
+  InAppBrowserOptions,
+  InAppBrowserEvent
+} from "@ionic-native/in-app-browser/ngx";
 // import { ScratchmodalComponent } from '../../modals/scratchmodal/scratchmodal.component';
 @Component({
   selector: 'app-scratchmodal',
@@ -59,6 +65,7 @@ hasLogin
   }
   async closeModal() {
     // this.router.navigate(['/login'], { queryParams: { reg: 'regon' }})
+    // this.openInappBrowser()
     await this.modalController.dismiss();
   }
 
@@ -112,7 +119,11 @@ hasLogin
       // containerHeight: 200,
       imageForwardSrc: 'assets/scratch.png',
       //imageBackgroundSrc: './assets/images/scratchcard-background.svg',
-      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>You have won Rs. 20 Cashback <br> Head to your Rewards page and claim your cashback.</div><div class="won-text"><br> <b></b>  </div></div>',
+      // htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>You have won Rs. 20 Cashback <br> Head to your Rewards page and claim your cashback.</div><div class="won-text"><br> <b></b>  </div></div>',
+
+
+
+      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>you won 10% discount coupon on FirstCare products. <br> <b> Coupon code: BABYCARE2021</b> </div><div > <br> <small></small></div></div>',
       clearZoneRadius: 40,
       nPoints: 30,
       pointSize: 4,
@@ -124,7 +135,14 @@ hasLogin
     sc.init();
     
   }
-
+  async openInappBrowser() {
+    
+    await Browser.open({
+      url: 'https://buddsbuddy.com/buddsbuddy-cucumber-based-skincare-baby-wet-wipes-80-pieces.html',
+      windowName: "_blank",
+      toolbarColor: "	#FF0000"
+    });
+  }
 
 }
 

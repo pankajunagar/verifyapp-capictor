@@ -113,27 +113,7 @@ export class LoginService {
         );
       }
 
-    
 
-      // "fullname": this.loginData.name,
-      // "email": this.loginData.phoneNumber,
-      // "password": this.loginData.password,
-      // "password_confirmation": this.loginData.passwordCheck,
-      // "gender": this.loginData.gender  ,
-      // "signup-as":'user',
-      // "mobile": this.loginData.mobile
-      // registeredUser(data:any): Observable<any> {
-      //   return this.http.post(
-      //     `${this.appSettings.getApi()}/api/v1/auth/sign_in`,data,this.appSettings.getHttpHeades()
-      //   );
-      // }
-
-
-      // registeredUser(data:any): Observable<any> {
-      //   return this.http.post(
-      //     `${this.appSettings.getApi()}/api/v1/auth/sign_in`,data,this.appSettings.getHttpHeades()
-      //   );
-      // }
 
 
       loginUserInfo(): Observable<any> {
@@ -206,3 +186,5 @@ export class LoginService {
       // }
       
 }
+
+

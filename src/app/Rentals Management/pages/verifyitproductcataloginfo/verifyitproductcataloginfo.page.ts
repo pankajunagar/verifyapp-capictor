@@ -22,7 +22,7 @@ import { CertificateModalComponent } from "../../modals/certificatemodal/certifi
 
 import { Plugins } from "@capacitor/core";
 import * as WebVPPlugin from "capacitor-video-player";
-const { CapacitorVideoPlayer, Device } = Plugins;
+// const { CapacitorVideoPlayer, Device } = Plugins;
 const { Browser } = Plugins;
 import {
   InAppBrowser,
@@ -34,7 +34,10 @@ import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
 import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
 
 // import { Plugins } from '@capacitor/core';
-const { Share } = Plugins;
+// const { Share } = Plugins;
+import { Share } from '@capacitor/share';
+import { Device } from '@capacitor/device';
+import { CapacitorVideoPlayer } from 'capacitor-video-player';
 
 @Component({
   selector: "app-verifyitproductcataloginfo",
@@ -1096,5 +1099,62 @@ showDeactivate
   }
 
 
+
+  showmore
+      
+showHide(){
+  this.showmore=!this.showmore
+}
+
+
+showmore2= false
+showHide2(){
+  this.showmore2=!this.showmore2
+}
+
+listofBanner=[]
+listbanner
+showRelatedProduct(){
+  this.apiSvc.listRelatedProducts(this.utilservice.callgettagresult.product_id).subscribe(data => {
+    this.listbanner = data;
+
+for(let i=0; i<= 10; i++){
+  this.listofBanner.push(this.listbanner.data[i])
+}
+
+    // this.listofBanner = this.listbanner.data[0];
+
+
+
+
+
+    // this.brandName=this.listbanner.data[0].brand
+
+
+    // if (this.listbanner.data[0].meta_data.category) {
+    //   this.groupBy(this.listbanner.data, "category");
+
+    //   console.log('=================================>===============')
+    //   this.groupedProducts.push(this.result)
+
+
+    //   Object.keys(this.result).forEach(e => this.jsonToBeUsed.push({ key: e, value: this.result[e] }))
+    //   console.log(this.jsonToBeUsed)
+    //   console.log('=================================>===============')
+    // }
+
+
+    // this.items = this.listbanner.data
+    // this.listbanner.data.forEach(element => {
+    //   element.name = element.product_name
+    // });
+    console.log('======================fast===========>===============')
+
+    console.log(this.listofBanner);
+
+    console.log('======================fast===========>===============')
+
+  })
+}
 }
 

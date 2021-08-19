@@ -174,6 +174,15 @@ export class VerifyitDashboardPage implements OnInit {
       this.router.navigate(["/verifyit-product-catalog"], {
         queryParams: { brand: brand },
       });
+
+
+      // this.gettag('4507')
+
+
+
+
+
+
     } else if (this.router.url.includes("product_id")) {
       this.hideDashboardScreen = false;
       let product_id = this.router.url.split("=")[1];
@@ -189,7 +198,7 @@ export class VerifyitDashboardPage implements OnInit {
       window.localStorage.setItem("source_token", this.source_token);
       this.data.source_token = this.source_token;
       this.gettag(this.router.url.split("=")[1].split("&")[0]);
-      // this.router.navigateByUrl('/verifyit-product-info')
+      // this.router.navigateByUrl('/verifyit-product')
     }
      // this.gettag('4516') 4925
     //  for multiple image 4516
@@ -197,7 +206,7 @@ export class VerifyitDashboardPage implements OnInit {
     //for customer review  4517
     // 4534 for reward
     //4507  //for scratchcard
-    // this.gettag('4516')
+    this.gettag('4507')
     
 
     this.platform.ready().then(() => {
@@ -350,7 +359,7 @@ export class VerifyitDashboardPage implements OnInit {
         (callrecordscanresult) => {
           this.utilservice.callrecordscanresult = callrecordscanresult;
           this.loading.dismiss();
-          this.router.navigateByUrl("/verifyit-product-info");
+          this.router.navigateByUrl("/verifyit-product");
           //location
         },
         (err) => {
@@ -601,7 +610,7 @@ export class VerifyitDashboardPage implements OnInit {
           console.log(callrecordscanresult);
           this.utilservice.callrecordscanresult = callrecordscanresult;
           this.loading.dismiss();
-          this.router.navigateByUrl("/verifyit-product-info");
+          this.router.navigateByUrl("/verifyit-product");
           //location
         },
         (err) => {

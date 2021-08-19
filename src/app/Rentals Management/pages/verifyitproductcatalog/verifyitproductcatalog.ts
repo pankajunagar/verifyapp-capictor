@@ -162,7 +162,7 @@ this.brandName=brand
 
       this.utils.callgettagresult = item
       
-      this.router.navigate(['/verifyit-product-info'], { queryParams: { reg: 'catalogpage' }})        }
+      this.router.navigate(['/verifyit-product'], { queryParams: { reg: 'catalogpage' }})        }
       this.utils.LoadPageOnrouteChange();
       // this.router.navigateByUrl('/verifyit-product-info')
 
@@ -221,7 +221,7 @@ this.brandName=brand
   listGroupedProduct = []
   showProductFromGroup(value) {
     debugger;
-    alert("hello");
+    // alert("hello");
     this.listGroupedProduct = value
   }
 

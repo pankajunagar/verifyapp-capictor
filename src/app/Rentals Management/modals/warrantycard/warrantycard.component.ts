@@ -19,10 +19,10 @@ import { Utils } from "../../services/utils.service";
 // import { Camera, CameraResultType } from '@capacitor/camera';
 // // import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
-import { Plugins, CameraResultType } from "@capacitor/core";
+import { Camera, CameraResultType } from '@capacitor/camera';
 import { DomSanitizer } from "@angular/platform-browser";
 
-const { Camera } = Plugins;
+// const { Camera } = Plugins;
 
 @Component({
   selector: "app-warrantycard",
