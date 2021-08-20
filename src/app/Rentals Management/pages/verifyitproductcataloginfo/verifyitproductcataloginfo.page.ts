@@ -30,7 +30,7 @@ import {
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
 import { DomSanitizer } from "@angular/platform-browser";
-import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
+// import { QuizModalComponent2 } from "src/app/quiz-modal2/quiz-modal.component";
 import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
 
 // import { Plugins } from '@capacitor/core';
@@ -38,6 +38,8 @@ import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5mo
 import { Share } from '@capacitor/share';
 import { Device } from '@capacitor/device';
 import { CapacitorVideoPlayer } from 'capacitor-video-player';
+import { QuizModalComponent2 } from "src/app/quiz-modal2/quiz-modal.component";
+// import { QuizModalComponent2 } from "../../modals/quiz-modal/quiz-modal.component";
 
 @Component({
   selector: "app-verifyitproductcataloginfo",
@@ -1057,7 +1059,7 @@ showDeactivate
 
   async openQuiz(){
     const modal = await this.modalController.create({
-      component: QuizModalComponent,
+      component: QuizModalComponent2,
       cssClass: 'my-quiz-class'
     });
     return await modal.present();

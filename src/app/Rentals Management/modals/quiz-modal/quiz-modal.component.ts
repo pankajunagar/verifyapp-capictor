@@ -2,9 +2,15 @@ import { Push } from "@ionic-native/push/ngx";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ModalController, NavParams } from "@ionic/angular";
-import { Utils } from "../Rentals Management/services/utils.service";
-import { TrackingService } from "../services/tracking.service";
-import { AlertServiceService } from "../common-services/alert-service.service";
+import { AlertServiceService } from "src/app/common-services/alert-service.service";
+import { TrackingService } from "src/app/services/tracking.service";
+import { Utils } from "../../services/utils.service";
+import { NailaService } from "../../services/naila.service";
+// import { Utils } from "../Rentals Management/services/utils.service";
+// import { TrackingService } from "../services/tracking.service";
+// import { AlertServiceService } from "../common-services/alert-service.service";
+// import { NailaservicePage } from "../Rentals Management/pages/nailaservicepage/nailaservicepage";
+// import {NailaService} from ""
 
 @Component({
   selector: "app-quiz-modal",
@@ -32,6 +38,7 @@ export class QuizModalComponent implements OnInit {
     private modalController: ModalController,
     private router: Router,
     private api: TrackingService,
+    private apisc: NailaService,
     private utilservice: Utils,
     private navParams: NavParams
   ) {
@@ -118,13 +125,13 @@ export class QuizModalComponent implements OnInit {
       };
       //let quizObj=this.questions[i]
 
-      this.api.trackingApi(data).subscribe((res) => {
+      this.apisc.trackingApi(data).subscribe((res) => {
         console.log(res, "track");
       });
     }
   }
   saveAnswers = () => {
-    this.api.saveAnswers(this.answer).subscribe(
+    this.apisc.saveAnswers(this.answer).subscribe(
       (_res: any) => {
         if (_res.status_code == 200) {
           this.alertService.presentAlert("", "Answer saved successfully.");
@@ -152,11 +159,12 @@ export class QuizModalComponent implements OnInit {
   };
   //**charu Start  for get Question */
   getQuestions() {
+    debugger
     let data = {
       brand_id: this.callgettagresult.id,
     };
 
-    this.api.getQuestion(data).subscribe(
+    this.apisc.getQuestion(data).subscribe(
       (res: any) => {
         if (res) {
           this.questions = res.data.question;

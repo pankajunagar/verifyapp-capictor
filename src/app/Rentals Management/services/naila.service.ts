@@ -388,5 +388,46 @@ save_reviews(data){
 withCredentials:true,
 })
 }
+
+
+
+
 //**Charu End */
+
+
+
+
+
+trackingApi(data): Observable<any> {
+  return this.http.post(`${this.appSettings.getApi()}/tracking/tracking`, data,
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      })
+    });
+}
+
+getQuestion(data){
+ 
+  return this.http.post(`${this.appSettings.getApi()}/PopupQuestions/getQuestion`,data,{
+   headers: new HttpHeaders({
+  'Content-Type': 'application/json',
+  Authorization: localStorage.getItem('token'), 
+         
+}),
+withCredentials:true,
+})
+}
+saveAnswers(data){
+ 
+return this.http.post(`${this.appSettings.getApi()}/PopupQuestions/saveAnswers`,data,{
+ headers: new HttpHeaders({
+'Content-Type': 'application/json',
+Authorization: localStorage.getItem('token'), 
+       
+}),
+withCredentials:true,
+})
+}
 }

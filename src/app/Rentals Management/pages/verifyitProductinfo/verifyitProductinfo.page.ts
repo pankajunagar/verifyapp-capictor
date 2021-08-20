@@ -35,7 +35,7 @@ import {
 } from "@ionic-native/in-app-browser/ngx";
 import { DomSanitizer } from '@angular/platform-browser';
 import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
-import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
+// import { QuizModalComponent } from "src/app/quiz-modal2/quiz-modal.component";
 import { AutocloseOverlaysService } from "../../services/autoclose.service";
 import { WarrantycardComponent } from "../../modals/warrantycard/warrantycard.component";
 import { PanoimageComponent } from "../../modals/panoimage/panoimage.component";
@@ -61,6 +61,8 @@ import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 import { browser } from 'protractor';
 
 import { NgOneTapService } from 'ng-google-one-tap';
+// import { QuizModalComponent } from '../../modals/quiz-modal/quiz-modal.component';
+import { QuizModalComponent2 } from 'src/app/quiz-modal2/quiz-modal.component';
 @Component({
   selector: "app-verifyitProductinf",
   templateUrl: "./verifyitProductinfo.page.html",
@@ -1033,7 +1035,7 @@ this.presentToast('Review submitted successfully.')
   async openQuiz(type,data?){
     let datarequest=type=='video' ? data : ''
     const modal = await this.modalController.create({
-      component: QuizModalComponent,
+      component: QuizModalComponent2,
       cssClass: 'my-quiz-class',
       componentProps:{
         requestFrom:type,

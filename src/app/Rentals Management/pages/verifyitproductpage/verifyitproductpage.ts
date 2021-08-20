@@ -35,7 +35,7 @@ import {
 } from "@ionic-native/in-app-browser/ngx";
 import { DomSanitizer } from '@angular/platform-browser';
 import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
-import { QuizModalComponent } from "src/app/quiz-modal/quiz-modal.component";
+// import { QuizModalComponent2 } from "src/app/quiz-modal2/quiz-modal.component";
 import { AutocloseOverlaysService } from "../../services/autoclose.service";
 import { WarrantycardComponent } from "../../modals/warrantycard/warrantycard.component";
 import { PanoimageComponent } from "../../modals/panoimage/panoimage.component";
@@ -59,6 +59,7 @@ const PhotoSphereViewer = require('photo-sphere-viewer');
 import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
 import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 import { browser } from 'protractor';
+import { QuizModalComponent } from '../../modals/quiz-modal/quiz-modal.component';
 
 @Component({
   selector: 'app-verifyitproductpage',
@@ -332,7 +333,7 @@ this.haspano=false
       mode: "fullscreen",
       url: data,
       playerId: "fullscreen",
-      componentTag: "app-verifyitProductinf"
+      componentTag: "app-verifyitproductpage"
     });
   }
 
@@ -1031,6 +1032,7 @@ this.presentToast('Review submitted successfully.')
   }
 
   async openQuiz(type,data?){
+    debugger
     let datarequest=type=='video' ? data : ''
     const modal = await this.modalController.create({
       component: QuizModalComponent,
@@ -1384,7 +1386,7 @@ showHide(){
 }
 
 
-showmore2= false
+showmore2= true
 showHide2(){
   this.showmore2=!this.showmore2
 }

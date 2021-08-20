@@ -344,14 +344,14 @@
 
 
     </ion-card-content>
-    <ion-row *ngIf="!showmore2">
-      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': !showmore2}" size="12" class="moredetail">
+    <ion-row *ngIf="showmore2">
+      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': showmore2}" size="12" class="moredetail">
         MORE DETAILS <img class="" src="../../../../assets/images/arrow-down.png" alt="">
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="showmore2">
-      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': showmore2}" size="12" class="moredetail">
+    <ion-row *ngIf="!showmore2">
+      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': !showmore2}" size="12" class="moredetail">
         LESS DETAILS <img class="" src="../../../../assets/images/arrow-down.png" alt="">
       </ion-col>
     </ion-row>
@@ -424,10 +424,10 @@
                   {{item.product_name}}
                 </div>
                 <!-- <div class="card-title">{{item.product_name}}</div> -->
-              </div>
+           </div>
             </ion-slide>
           </ng-container>
-          </ion-slides>
+          </ion-slides> 
 
       </ion-list>
 
@@ -516,6 +516,8 @@
     </ion-row>
 
   </section>
+  <div id="fullscreen" muted autoplay slot="fixed"></div>
+
 </ion-content>
 <!-- <ion-content >
   <p style="    text-align: center;

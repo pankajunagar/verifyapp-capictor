@@ -10,11 +10,12 @@ import { CertificateModalComponent } from '../../modals/certificatemodal/certifi
 import { Userrole5modalComponent } from '../../modals/userrole5modal/userrole5modal.component';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { UserroleinfoModalComponent } from '../../modals/userroleinfomodal/userroleinfomodal.component';
-import { QuizModalComponent } from 'src/app/quiz-modal/quiz-modal.component';
+// import { QuizModalComponent } from 'src/app/quiz-modal2/quiz-modal.component';
 import { HideHeaderDirective } from './../../../hide-header.directive';
 import { WarrantycardComponent } from '../../modals/warrantycard/warrantycard.component';
 import { PanoimageComponent } from '../../modals/panoimage/panoimage.component';
 import { Verifyitproductpage } from './verifyitproductpage';
+import { QuizModalComponent } from '../../modals/quiz-modal/quiz-modal.component';
 
 
 const routes: Routes = [
