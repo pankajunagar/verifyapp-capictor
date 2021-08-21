@@ -356,7 +356,7 @@
       </ion-col>
     </ion-row>
     </ion-card>
-    <ion-row class="participate">
+    <ion-row  class="participate">
       <ion-col (click)="openQuiz('win')" 
        size="12" class="participate_in">
         <span><img class="" src="../../../../assets/images/winner.png" alt="">Participate and Win Loyalty Points </span>
@@ -414,7 +414,7 @@
 
             <ion-slide >
               <ion-card class="myCard">
-                <img style="height: auto;
+                <img *ngIf="item.img1" style="height: auto;
                     width: 100%;" src={{item.img1}} />
               </ion-card>
 
@@ -423,7 +423,7 @@
                   <img class="" src="../../../../assets/images/horse.png" alt="">
                   {{item.product_name}}
                 </div>
-                <!-- <div class="card-title">{{item.product_name}}</div> -->
+               <!-- <div class="card-title">{{item.product_name}}</div> -->
            </div>
             </ion-slide>
           </ng-container>

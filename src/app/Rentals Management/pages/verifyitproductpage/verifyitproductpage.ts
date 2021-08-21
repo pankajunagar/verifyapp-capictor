@@ -1397,7 +1397,7 @@ showRelatedProduct(){
   this.apiSvc.listRelatedProducts(this.utilservice.callgettagresult.product_id).subscribe(data => {
     this.listbanner = data;
 
-for(let i=0; i<= 10; i++){
+for(let i=0; i<= 1; i++){
   this.listofBanner.push(this.listbanner.data[i])
 }
 

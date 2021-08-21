@@ -206,7 +206,8 @@ export class VerifyitDashboardPage implements OnInit {
     //for customer review  4517
     // 4534 for reward
     //4507  //for scratchcard
-    this.gettag('4516')
+    // 5013 first care product
+    // this.gettag('5013')
     
 
     this.platform.ready().then(() => {
