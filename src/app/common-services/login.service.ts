@@ -128,8 +128,14 @@ export class LoginService {
              this.navCtrl.pop();//
              return;
            }
-            this.router.navigateByUrl("/verifyit-product-info");
-           }
+         
+            // this.router.navigateByUrl("/verifyit-product"); 
+
+            // alert('You have been successfully logged in!')
+            this.router.navigateByUrl("/verifyit-account");
+ 
+
+            }
          })
         //  alert('You have been successfully logged in!')
    
