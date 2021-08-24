@@ -53,7 +53,7 @@ var NailabookingPage = /** @class */ (function () {
     // }
     NailabookingPage.prototype.filterpastandupcomingBooking = function (data) {
         var _this = this;
-        debugger;
+      
         var date = new Date();
         this.upcomingbooking = [];
         this.pastbooking = [];
@@ -68,13 +68,13 @@ var NailabookingPage = /** @class */ (function () {
         console.log("===================upcoming================", this.upcomingbooking, "==================================");
         console.log("-----------------past---------------", this.pastbooking, "---------------------------------------------");
         if (data == "upcoming") {
-            debugger;
+          
             // this.listbooking.splice(0,this.listbooking.length)
             this.listbooking = this.upcomingbooking;
             this.bookingname = "upcoming";
         }
         else {
-            debugger;
+          
             // this.listbooking.splice(0,this.listbooking.length)
             this.bookingname = "past";
             this.listbooking = this.pastbooking;
@@ -134,7 +134,7 @@ var NailabookingPage = /** @class */ (function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        debugger;
+                      
                         return [4 /*yield*/, this.alertController.create({
                                 cssClass: 'my-custom-invoice-class',
                                 header: "Tracking Id: " + item.unique_id,

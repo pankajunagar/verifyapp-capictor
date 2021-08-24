@@ -79,20 +79,60 @@ export class LoginService {
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider());
   } 
+  GoogleAuthDB(data) {
+    return this.http.post(
+      `${this.appSettings.getApi()}/UserSetting/google_login`,data,this.appSettings.getHttpHeades()
+    );
+  } 
   AuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result:any) => {
-      debugger
+      
         console.log('You have been successfully logged in!' +result.additionalUserInfo.profile.name)
        if (result){
-         alert('You have been successfully logged in!')
-         window.localStorage.setItem('name', result.additionalUserInfo.profile.name);
-         if(this.isProductInfo){
-          this.isProductInfo=false;
-          this.navCtrl.pop();//
-          return;
-        }
-         this.router.navigateByUrl("/verifyit-product-info");
+         debugger
+         let obj={
+          
+            "localId": result.additionalUserInfo.profile.id,
+            "email": result.additionalUserInfo.profile.email,
+            "displayName": result.additionalUserInfo.profile.name,
+            "photoUrl": result.additionalUserInfo.profile.picture,
+            "emailVerified": true,
+            "providerUserInfo": [
+              {
+                "providerId":  result.credential.idToken,
+                "displayName": result.additionalUserInfo.profile.name,
+                "photoUrl": result.additionalUserInfo.profile.picture,
+                "federatedId":  result.additionalUserInfo.providerId,
+                "email": result.additionalUserInfo.profile.email,
+                "rawId":  result.additionalUserInfo.profile.id,
+              }
+            ],
+            "validSince": "1625847485",
+            "lastLoginAt": "1627407260952",
+            "createdAt": "1625847485962",
+            "lastRefreshAt": "2021-07-27T17:34:20.952Z"
+         
+
+         }
+         this.GoogleAuthDB(obj).subscribe((data:any)=>{
+           if(data){
+            window.localStorage.setItem('name', data.data.name);
+            window.localStorage.setItem('email', data.data.email);
+            window.localStorage.setItem('mobile', data.data.mobile);
+            window.localStorage.setItem('userid', data.data.id);
+      
+            window.localStorage.setItem('token', data.data.token);
+            if(this.isProductInfo){
+             this.isProductInfo=false;
+             this.navCtrl.pop();//
+             return;
+           }
+            this.router.navigateByUrl("/verifyit-product-info");
+           }
+         })
+        //  alert('You have been successfully logged in!')
+   
        } 
         // this.router.navigateByUrl("/verifyit-product-info"); //charu
 

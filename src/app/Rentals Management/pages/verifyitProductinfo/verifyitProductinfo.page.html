@@ -12,7 +12,12 @@
     <ion-title>Product Information </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content #content no-padding [scrollEvents]="true">
+<ion-content  #content  no-padding [scrollEvents]="true" >
+  <!-- <div id="g_id_onload"
+data-client_id="4748763519-h8qii9hnrgff3nkqnl4tu0pvf4fkm1gg.apps.googleusercontent.com"
+data-cancel_on_tap_outside="false"
+data-callback="authenticationResponse">
+</div> -->
   <section style="height: 100% !important;" [style.background-color]="this.brand_color">
     <!-- <ion-card class="mapp-card">
     <ion-card-header  text-center>
@@ -275,47 +280,50 @@
     </ion-grid>
 
 
-    <!-- Charu Open ==> Product Review Container -->
-    <ion-row *ngIf="callgettagresult.meta_data.product_review == 1 || callgettagresult.meta_data.product_review ">
-
-      <ion-col>
-        <h3>Product Review</h3>
-        <ion-card>
-
+        <!-- Charu Open ==> Product Review Container -->
+    <!-- <ion-row *ngIf="callgettagresult.meta_data.product_review == 1 || callgettagresult.meta_data.product_review "> -->
+      <ion-row >
+     
+    <ion-col *ngFor="let review of reviewList;let i = index">
+      <h3>Product Review</h3>
+          <ion-card>
+      
           <ion-row>
             <ion-col size="3">
-              <ion-avatar item-start class="avatar">
-                <img src="{{callgettagresult.img1}}">
+              <ion-avatar item-start  class="avatar" >
+               
+             
+              <img  src="{{callgettagresult.img1}}">
               </ion-avatar>
 
             </ion-col>
             <ion-col size="9">
-              <h5>User Name</h5>
+              <h5 >{{review.user_name}}</h5>
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>
+            <!-- <ion-col>
               <div class="rate-us">
                 <ion-buttons>
-                  <ion-button>
-                    <img src="{{callgettagresult.img1}}">
-
-                  </ion-button>
-                </ion-buttons>
-              </div>
-            </ion-col>
+                    <ion-button >
+                      <img  src="{{callgettagresult.img1}}">
+                       
+                    </ion-button>
+                    </ion-buttons>
+                </div>
+            </ion-col> -->
           </ion-row>
-          <h3> product Review Title</h3>
-          <img src="{{callgettagresult.img1}}">
-
-          <ion-card-content>
-            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a
-              DeLorean?! Whoa. This is heavy.</p>
-          </ion-card-content>
-
-        </ion-card>
-
-      </ion-col>
+            <h3> {{review.review_title}}</h3>
+            <img  src="{{callgettagresult.img1}}">
+            <!-- <img *ngFor="let img of review.review_images" src="{{img}}"> -->
+      
+        <ion-card-content>
+          <p>{{review.review}}</p>
+        </ion-card-content>
+      
+      </ion-card>
+     
+    </ion-col>
     </ion-row>
     <!-- Charu Close -->
 

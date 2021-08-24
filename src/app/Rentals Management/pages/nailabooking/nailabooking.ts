@@ -96,7 +96,7 @@ export class NailabookingPage {
 
 
   // filterpastandupcomingBooking(data){
-  //   debugger
+  //    
   //   const date = new Date();
 
   //   this.upcomingbooking = [];
@@ -114,13 +114,13 @@ export class NailabookingPage {
   //   console.log("-----------------past---------------",this.pastbooking,"---------------------------------------------")
 
   //   if (data == "upcoming") {
-  //     debugger
+  //      
   //     // this.listbooking.splice(0,this.listbooking.length)
 
   //     this.listbooking = this.upcomingbooking;
   //     this.bookingname = "upcoming";
   //   } else {
-  //     debugger
+  //      
   //     // this.listbooking.splice(0,this.listbooking.length)
   //     this.bookingname = "past";
   //     this.listbooking = this.pastbooking;
@@ -172,7 +172,7 @@ export class NailabookingPage {
 
 
   // async presentInvoiceAlert(item) {
-  //   debugger
+  //    
   //   const alert = await this.alertController.create({
   //     cssClass: 'my-custom-invoice-class',
   //     header: "Tracking Id: "+item.unique_id,

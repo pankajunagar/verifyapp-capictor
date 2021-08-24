@@ -870,7 +870,7 @@ var LoginPage = /** @class */ (function () {
             window.localStorage.setItem('token', data.data.token);
             if (window.localStorage.getItem('name')) {
                 if (data.data.userType == 4) {
-                    debugger;
+                  
                     window.localStorage.setItem('showDeactivate', '4');
                     data.data.userType = 2;
                     window.localStorage.setItem('userType', data.data.userType);
@@ -896,7 +896,7 @@ var LoginPage = /** @class */ (function () {
                     console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>', err);
                     console.log(err);
                     console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>', err);
-                    debugger;
+                  
                     // this.alertService.presentAlert(" userinfo data error", err.error.errors[0]);
                 });
             }
@@ -994,7 +994,7 @@ var LoginPage = /** @class */ (function () {
             "password": this.loginData.password
         };
         this.loginService.forgotPassword(data).subscribe(function (data) {
-            debugger;
+          
             _this.enterotp = true;
             _this.sendotpinput = true;
             _this.newpassword = true;
@@ -1002,7 +1002,7 @@ var LoginPage = /** @class */ (function () {
             _this.enterpassword = true;
             _this.forgetpassword = true;
         }, function (err) {
-            debugger;
+          
             _this.alertService.presentAlert("", err.error.errors[0]);
         });
     };

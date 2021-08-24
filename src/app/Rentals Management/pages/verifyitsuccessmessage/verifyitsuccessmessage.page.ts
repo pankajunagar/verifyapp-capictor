@@ -121,7 +121,7 @@ export class VerifyItSuccessMessagePage implements OnInit {
   }
 
   ionViewDidLoad() {
-    debugger;
+     ;
     this.userType = window.localStorage.getItem("userType");
 
     this.platform.ready().then(() => {

@@ -56,7 +56,7 @@ var NailaBeauticianBookingPage = /** @class */ (function () {
             _this.bookingList = bookingList;
             _this.upcomingbooking = [];
             _this.bookingList.forEach(function (element) {
-                debugger;
+                
                 if (new Date(element.schedule_on).getTime() >= _this.starttimeofday.getTime() && new Date(element.schedule_on).getTime() < _this.endtimeofday.getTime()) {
                     _this.pastbooking.push(element);
                 }
@@ -134,7 +134,7 @@ var NailaBeauticianBookingPage = /** @class */ (function () {
         });
     };
     NailaBeauticianBookingPage.prototype.collectedCash = function (bookingdata) {
-        debugger;
+        
         var paymentdata = {
             "apartment_id": bookingdata.apartment_id,
             "user_id": bookingdata.user_id,

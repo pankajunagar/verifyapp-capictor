@@ -61,7 +61,7 @@ export class NailasearchPage {
   }
 
   ionViewWillEnter() {
-    debugger
+     
     if (window.localStorage.getItem('cartitemcount')) {
 
       this.utils.cartdata = window.localStorage.getItem('cartitemcount')
@@ -76,7 +76,7 @@ export class NailasearchPage {
     }
   }
   browseBycategory() {
-    debugger
+     
     this.nailaService.browseBycategory().subscribe(data => {
       console.log(data)
       this.categories = data;
@@ -204,7 +204,7 @@ export class NailasearchPage {
   // listofservices
   setDetailsofservice(data) {
 
-    debugger
+     
     if (data.data) {
 
       this.utils.storage = data.data

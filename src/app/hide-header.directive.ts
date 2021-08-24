@@ -16,7 +16,7 @@ export class HideHeaderDirective implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        debugger
+        
         this.header = this.header.el;
         this.domCtrl.write(() => {
             this.renderer.setStyle(this.header, 'transition', 'margin-top 700ms');

@@ -15,7 +15,7 @@ var CertificateModalComponent = /** @class */ (function () {
     CertificateModalComponent.prototype.ngOnInit = function () {
         this.items = this.utils.certificateData;
         this.utils.certificateData.forEach(function (element) {
-            debugger;
+          
             element.text = element.text;
         });
         // this.nailaservice.listRelatedProducts(this.utils.).subscribe(data => {

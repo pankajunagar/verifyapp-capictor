@@ -355,9 +355,7 @@ getHtml(data){
 
 
 getLoyaltyPointByuser(data){
-
-  // http://develop.nowverifyit.com/loyaltypoints/getloyaltyofuser/{$user_id}/{$token_id}/{$mobile_number}
-  
+ 
   return this.http.get(`${this.appSettings.getApi()}/loyaltypoints/getloyaltyofuser`,{
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -369,5 +367,67 @@ getLoyaltyPointByuser(data){
   withCredentials:true,
   })
 }
+//Charu Start
+get_reviews(data){
+      return this.http.post(`${this.appSettings.getApi()}/Reviews/get_reviews`,data,{
+       headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token'), 
+             
+  }),
+  withCredentials:true,
+  })
+}
+save_reviews(data){
+  return this.http.post(`${this.appSettings.getApi()}/Reviews/save_review`,data,{
+   headers: new HttpHeaders({
+  'Content-Type': 'application/json',
+  Authorization: localStorage.getItem('token'), 
+         
+}),
+withCredentials:true,
+})
+}
 
+
+
+
+//**Charu End */
+
+
+
+
+
+trackingApi(data): Observable<any> {
+  return this.http.post(`${this.appSettings.getApi()}/tracking/tracking`, data,
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      })
+    });
+}
+
+getQuestion(data){
+ 
+  return this.http.post(`${this.appSettings.getApi()}/PopupQuestions/getQuestion`,data,{
+   headers: new HttpHeaders({
+  'Content-Type': 'application/json',
+  Authorization: localStorage.getItem('token'), 
+         
+}),
+withCredentials:true,
+})
+}
+saveAnswers(data){
+ 
+return this.http.post(`${this.appSettings.getApi()}/PopupQuestions/saveAnswers`,data,{
+ headers: new HttpHeaders({
+'Content-Type': 'application/json',
+Authorization: localStorage.getItem('token'), 
+       
+}),
+withCredentials:true,
+})
+}
 }

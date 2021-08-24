@@ -344,19 +344,19 @@
 
 
     </ion-card-content>
-    <ion-row *ngIf="!showmore2">
-      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': !showmore2}" size="12" class="moredetail">
+    <ion-row *ngIf="showmore2">
+      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': showmore2}" size="12" class="moredetail">
         MORE DETAILS <img class="" src="../../../../assets/images/arrow-down.png" alt="">
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="showmore2">
-      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': showmore2}" size="12" class="moredetail">
+    <ion-row *ngIf="!showmore2">
+      <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': !showmore2}" size="12" class="moredetail">
         LESS DETAILS <img class="" src="../../../../assets/images/arrow-down.png" alt="">
       </ion-col>
     </ion-row>
     </ion-card>
-    <ion-row class="participate">
+    <ion-row  class="participate">
       <ion-col (click)="openQuiz('win')" 
        size="12" class="participate_in">
         <span><img class="" src="../../../../assets/images/winner.png" alt="">Participate and Win Loyalty Points </span>
@@ -414,7 +414,7 @@
 
             <ion-slide >
               <ion-card class="myCard">
-                <img style="height: auto;
+                <img *ngIf="item.img1" style="height: auto;
                     width: 100%;" src={{item.img1}} />
               </ion-card>
 
@@ -423,11 +423,11 @@
                   <img class="" src="../../../../assets/images/horse.png" alt="">
                   {{item.product_name}}
                 </div>
-                <!-- <div class="card-title">{{item.product_name}}</div> -->
-              </div>
+               <!-- <div class="card-title">{{item.product_name}}</div> -->
+           </div>
             </ion-slide>
           </ng-container>
-          </ion-slides>
+          </ion-slides> 
 
       </ion-list>
 
@@ -516,6 +516,8 @@
     </ion-row>
 
   </section>
+  <div id="fullscreen" muted autoplay slot="fixed"></div>
+
 </ion-content>
 <!-- <ion-content >
   <p style="    text-align: center;
