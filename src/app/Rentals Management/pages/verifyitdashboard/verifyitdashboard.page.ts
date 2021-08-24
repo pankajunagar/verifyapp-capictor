@@ -210,6 +210,7 @@ export class VerifyitDashboardPage implements OnInit {
     // this.gettag('5013')
     
     
+    
 
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
