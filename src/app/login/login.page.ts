@@ -96,7 +96,7 @@ export class LoginPage implements OnInit {
   }
 
   GoogleAuth=()=>{
-    this.loginService.GoogleAuth();
+    this.loginService.GoogleAuth()
   }
   FacebookAuth=()=>{
     this.loginService.FacebookAuth()
@@ -844,6 +844,9 @@ this.presentToast('Register successfully')
     }
     this.loginService.registeredUser(data).subscribe(data => {
 
+
+
+
       this.presentToast('Login successfully')
 
       console.log("============>>" + JSON.stringify(data.headers))
@@ -887,7 +890,18 @@ this.presentToast('Register successfully')
 
         this.utils.userType = window.localStorage.getItem('userType')
         window.localStorage.setItem('userType', data.data.userType);
-        this.router.navigateByUrl('/verifyit-dashboard')
+
+        
+
+
+        // this.router.navigateByUrl('/verifyit-dashboard')
+
+        // this need to be condition based
+
+        this.utils.LoadSurpriseModal();
+        this.navCtrl.pop()
+
+
       }
 
       this.utils.LoadPageOnrouteChange();
@@ -918,47 +932,6 @@ this.presentToast('Register successfully')
 
 
 
-
-
-
-
-      // if (data.role.name=='Customer') {
-
-      //   window.localStorage.setItem('uid', data.uid);
-      //   window.localStorage.setItem('registereduser', 'true');
-      //   window.localStorage.setItem('user_id', data.id);
-      //   window.localStorage.setItem('user_type', data.role.name);
-      //   window.localStorage.setItem('firstName', data.name);
-
-      //   this.firstname=window.localStorage.getItem('firstName')
-      //   this.firstname=this.firstname.split(" ")[0];
-      //   this.userrole = window.localStorage.getItem('user_type')
-      //   this.utils.userrole=this.userrole
-
-      //   this.enterotp = true;
-      //   this.sendotpinput = true;
-      //   this.newpassword=true;
-      //   this.registereduser = false;
-      //   this.enterpassword=true;
-
-      // }
-      // else{
-      //   window.localStorage.setItem('role_id', data.role_id);
-      //   window.localStorage.setItem('registereduser', 'true');
-      //   window.localStorage.setItem('beautician_id', data.id);
-      //   window.localStorage.setItem('user_type', data.role.name);
-      //   window.localStorage.setItem('firstName', data.name);
-      //   this.firstname=window.localStorage.getItem('firstName')
-      //   this.firstname=this.firstname.split(" ")[0];
-      //   this.userrole = window.localStorage.getItem('user_type')
-      //   this.utils.userrole=this.userrole
-      //   this.enterotp = true;
-      //   this.sendotpinput = true;
-      //   this.newpassword=true;
-      //   this.registereduser = false;
-      //   this.enterpassword=true;
-      //   this.router.navigateByUrl('/rentals-naila-beaut-booking-page')
-      // }
     }, err => {
       // alert('hello login'+ err.error.errors)
 

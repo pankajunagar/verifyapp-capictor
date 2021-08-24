@@ -23,6 +23,7 @@ export class Utils {
     hidenfc
     userType:any;
     LoadPage:EventEmitter<boolean> = new EventEmitter();
+    LoadModal: EventEmitter<boolean> = new EventEmitter();
     warrantyInformation
   constructor(
     private http: HttpClient,
@@ -40,5 +41,10 @@ export class Utils {
     this.LoadPage.next(true)
   }
 
+
+  LoadSurpriseModal(){
+    // console.log('ios working and verifyit')
+    this.LoadModal.next(true)
+  }
 
 }

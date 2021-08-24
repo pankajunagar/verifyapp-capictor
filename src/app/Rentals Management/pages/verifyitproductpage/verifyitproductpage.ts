@@ -60,6 +60,7 @@ import MarkersPlugins from 'photo-sphere-viewer/dist/plugins/markers';
 import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 import { browser } from 'protractor';
 import { QuizModalComponent } from '../../modals/quiz-modal/quiz-modal.component';
+import { SurpriseModalComponent } from '../../modals/surprisemodal/surprisemodal.component';
 
 @Component({
   selector: 'app-verifyitproductpage',
@@ -224,6 +225,11 @@ this.haspano=false
       
       this.ngOnInit();
     })
+
+
+    this.utilservice.LoadModal.subscribe(data => {
+      this.surpriseModal()
+    })
   }
   
   
@@ -267,6 +273,9 @@ this.haspano=false
         {
           this.loginService.isProductInfo=true;
           this.router.navigateByUrl("/login");
+        }else{
+          this.router.navigateByUrl("/login");
+
         }
       }
           Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
@@ -1434,5 +1443,14 @@ for(let i=0; i<= 1; i++){
     console.log('======================fast===========>===============')
 
   })
+}
+
+
+async surpriseModal(){
+  let modal = await this.modalController.create({
+    component: SurpriseModalComponent,
+    cssClass: "scratch-modal"
+  });
+  return await modal.present();
 }
 }

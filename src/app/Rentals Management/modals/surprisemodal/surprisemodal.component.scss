@@ -1,0 +1,44 @@
+ion-label{
+    font-weight: 500 !important;
+    font-size: 25px !important;
+    margin-bottom: 0vh !important;
+}
+.share-link {
+    padding-left: 10%;
+    padding-right: 10%;
+   
+  
+    button {
+      height: 35px;
+      border-radius: 1vh;
+      background-color: black;
+      width: 100%;
+      color: white;
+      font-family: Montserrat;
+      font-size: 18px;
+      outline: none;
+    }
+    
+  }
+      .sc__wrapper{
+        overflow: hidden;
+        margin-top: 2em;
+      }
+
+
+      .participate {
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: #FFFFFF;
+        margin: 0px 44px 0;
+        background: black;
+        bottom: 29px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+      }
