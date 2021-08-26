@@ -11,7 +11,8 @@ export class Utils {
     cartdata:any
     bookingdata:any;
     NFCsuccessmsg:any;
-    menuTitle
+    menuTitle;
+    isProductInfo;
     callgettagresult:any;
     callrecordscanresult:any
     certificateData:any;
@@ -22,8 +23,13 @@ export class Utils {
     productCatalogInfo;
     hidenfc
     userType:any;
+    flipsurprise_modal :EventEmitter<boolean> = new EventEmitter();;
     LoadPage:EventEmitter<boolean> = new EventEmitter();
     LoadModal: EventEmitter<boolean> = new EventEmitter();
+    share_product:EventEmitter<boolean> = new EventEmitter();
+    submit_upi:EventEmitter<boolean> = new EventEmitter();
+
+    
     warrantyInformation
   constructor(
     private http: HttpClient,
@@ -46,5 +52,15 @@ export class Utils {
     // console.log('ios working and verifyit')
     this.LoadModal.next(true)
   }
+  shareProduct(){
+    this.share_product.next(true)
+  }
 
+  submitUpi(){
+    this.submit_upi.next(true)
+
+  }
+  flipsurpriseModal(){
+    this.flipsurprise_modal.next(true)
+  }
 }

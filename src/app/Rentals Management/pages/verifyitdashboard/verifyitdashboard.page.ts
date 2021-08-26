@@ -176,20 +176,17 @@ export class VerifyitDashboardPage implements OnInit {
       });
 
 
-      // this.gettag('4507')
-
-
-
-
-
-
-    } else if (this.router.url.includes("product_id")) {
+      this.gettag('5000')
+      
+    }
+     else if (this.router.url.includes("product_id")) {
       this.hideDashboardScreen = false;
       let product_id = this.router.url.split("=")[1];
       this.router.navigate(["/verifyit-product-catalog"], {
         queryParams: { product_id: product_id },
       });
-    } else if (
+    }
+     else if (
       this.router.url.includes("params") &&
       this.router.url.includes("source")
     ) {
@@ -207,7 +204,7 @@ export class VerifyitDashboardPage implements OnInit {
     // 4534 for reward
     //4507  //for scratchcard
     // 5013 first care product
-    this.gettag('5013')
+    this.gettag('5020')
     
     
     

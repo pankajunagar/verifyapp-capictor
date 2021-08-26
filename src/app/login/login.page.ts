@@ -104,8 +104,9 @@ export class LoginPage implements OnInit {
   ionViewDidLeave() {
     this.MenuController.enable(true)
   }
-
+  hideloginbox
   ngOnInit() {
+   this.hideloginbox= this.utils.isProductInfo
 
 
     if(this.router.url.includes("regon")){
@@ -894,12 +895,11 @@ this.presentToast('Register successfully')
         
 
 
-        // this.router.navigateByUrl('/verifyit-dashboard')
+        this.router.navigateByUrl('/verifyit-dashboard')
 
         // this need to be condition based
 
-        this.utils.LoadSurpriseModal();
-        this.navCtrl.pop()
+
 
 
       }

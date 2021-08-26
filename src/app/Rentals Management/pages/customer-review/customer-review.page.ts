@@ -90,7 +90,7 @@ export class CustomerReviewPage implements OnInit {
       (res: any) => {
         if (res) {
           this.presentToast(this.msg);
-        //  this.router.navigateByUrl("/verifyit-product-info");
+        this.router.navigateByUrl("/verifyit-product");
         }
       },
 

@@ -25,6 +25,8 @@
             <p class="font-20 margin-bottom-10">Welcome,</p>
           </div>
         </ion-row>
+        <ng-container *ngIf="!hideloginbox">
+
         <ion-row class="width-80-percent">
           <div class="text-left">
             <p class="font-14 margin-top-0">Enter your email to continue</p>
@@ -49,6 +51,8 @@
           </ion-button>
         </ion-row>
         <br>
+      </ng-container>
+
         <ion-row class="width-80-percent center-text margin-top-10">
           
           <ion-button (click)="GoogleAuth()" class="full-button" expand="full" color="primary">Google Login
@@ -60,11 +64,15 @@
           <ion-button (click)="FacebookAuth()" class="full-button" expand="full" color="primary">facebook Login
           </ion-button>
         </ion-row> -->
-        <br>
-        <ion-row style="display: inline-table;"  size="12" class="width-80-percent">
-          <a style="float:left; text-decoration: underline;" size="6"  class="font-16" (click)="toggleSignup()">Sign up</a>
-          <a style="float:right; text-decoration: underline;"  size="6" class="font-16" (click)="togglereset()">Reset password</a>
-        </ion-row>
+<ng-container *ngIf="!hideloginbox">
+
+  <br>
+  <ion-row style="display: inline-table;"  size="12" class="width-80-percent">
+    <a style="float:left; text-decoration: underline;" size="6"  class="font-16" (click)="toggleSignup()">Sign up</a>
+    <a style="float:right; text-decoration: underline;"  size="6" class="font-16" (click)="togglereset()">Reset password</a>
+  </ion-row>
+</ng-container>
+
      
 
       </div>

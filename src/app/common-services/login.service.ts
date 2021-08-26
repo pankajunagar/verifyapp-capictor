@@ -8,6 +8,7 @@ import { MainAppSetting } from '../conatants/MainAppSetting.js';
 import {  HttpHeaders } from '@angular/common/http';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from 'firebase/app';
+import { Utils } from '../Rentals Management/services/utils.service';
 const appFor = jsonFile.connectTo;
 
 @Injectable({
@@ -19,6 +20,7 @@ export class LoginService {
   constructor(
     public navCtrl:NavController,
     public http: HttpClient,
+    private utils:Utils,
     public appSettings: MainAppSetting,
     public afAuth: AngularFireAuth,   private router: Router,
   ) {
@@ -124,12 +126,24 @@ export class LoginService {
       
             window.localStorage.setItem('token', data.data.token);
             if(this.isProductInfo){
-             this.isProductInfo=false;
-             this.navCtrl.pop();//
-             return;
-           }
-            this.router.navigateByUrl("/verifyit-product-info");
-           }
+
+              this.utils.LoadSurpriseModal();
+              this.isProductInfo=false;
+              this.utils.LoadPageOnrouteChange();
+
+              this.navCtrl.pop()
+            //  this.navCtrl.pop();//
+            return;
+          }
+         
+            // this.router.navigateByUrl("/verifyit-product"); 
+
+            // alert('You have been successfully logged in!')
+            // this.router.navigateByUrl("/verifyit-account");
+
+ 
+
+            }
          })
         //  alert('You have been successfully logged in!')
    

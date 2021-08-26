@@ -430,4 +430,18 @@ Authorization: localStorage.getItem('token'),
 withCredentials:true,
 })
 }
+
+
+checkWinStatus(data){
+  return this.http.post(`${this.appSettings.getApi()}/UserSetting/check_winner`,data,{
+    headers: new HttpHeaders({
+   'Content-Type': 'application/json',
+   Authorization: localStorage.getItem('token'), 
+          
+   }),
+   withCredentials:true,
+   })
+}
+
+
 }

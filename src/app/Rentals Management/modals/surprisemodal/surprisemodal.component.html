@@ -1,36 +1,63 @@
 
+  <div   *ngIf="flipmodal" class="sc__wrapper">
 
 
-  <!-- <ion-content> -->
-    <div class="sc__wrapper">
-      <h5 (click)="closeModal()" style="top: 0px;
-      right: 10px;
-      z-index: 3;
-      font-size: 30px;
-      position: absolute;">X</h5>
 
 
 <ion-grid>
   <ion-row>
+
+
     <ion-col>
-      <p>
-        You won a Cashback
+      <p class="surprise-text">
+        Customer is
+        rewarded with Cashback. User account details are collected
+        and cashback is
+        credited within
+        2-3 days.
       </p>
     </ion-col>
-  </ion-row>>
-</ion-grid>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="upi-label" position="stacked">Please enter your UPI Information</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row class="upi-submit">
+    <ion-col>
+      <ion-button  (click)="submitUPI()">
+        Submit 
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
-<!-- <ion-button (click)="closeModal()" style="    position: absolute;
-bottom: 18px;
-left: 11px;">
-  Apply This coupon
-</ion-button> -->
-<!-- <ion-row (click)="closeModal()" class="participate explore">
-  <ion-col  size="12" class="participate_in">
-    <span>  Apply This coupon
-    </span>
-  </ion-col>
-</ion-row> -->
-      
-    </div>
-  <!-- </ion-content> -->
+</ion-grid>
+  </div>
+<div  *ngIf="!flipmodal" class="sc__wrapper">
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <p class="surprise-text">Cashback is
+        credited in
+        customers account</p>
+    </ion-col>
+
+   
+  </ion-row>
+  <ion-row class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="socialShare();">
+        Share with friends
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</div>
+<!-- <ion-col>
+  <div class="btn-share" (click)="socialShare();">
+    <ion-icon ios="ios-share" md="md-share"></ion-icon>
+  </div>
+</ion-col> -->

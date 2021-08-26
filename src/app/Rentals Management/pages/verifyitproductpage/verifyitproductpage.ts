@@ -228,14 +228,34 @@ this.haspano=false
 
 
     this.utilservice.LoadModal.subscribe(data => {
-      this.surpriseModal()
+
+
+      this.checkWinnerStatus()
+
+
+
     })
+
+    this.utilservice.share_product.subscribe(data => {
+
+
+      this.socialShare()
+    })
+
+
+    
+    this.utilservice.submit_upi.subscribe(data => {
+
+
+      this.SubmitUPI()
+    })
+    
   }
   
   
   async ngOnInit() {
-    
-    
+    this.openQuizBigApple()
+
     
     // debugger
     if(window.localStorage.getItem('showDeactivate')=='4'){
@@ -273,7 +293,9 @@ this.haspano=false
         {
           this.loginService.isProductInfo=true;
           this.router.navigateByUrl("/login");
-        }else{
+        }else if(this.utilservice.callgettagresult.brand=="Dev" && !window.localStorage.getItem('name')){
+          this.loginService.isProductInfo=true;
+          this.utilservice.isProductInfo=true
           this.router.navigateByUrl("/login");
 
         }
@@ -323,7 +345,7 @@ this.haspano=false
           this._url =
           "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
           // add listeners to the plugin
-          this.scrollToTopOnInit()
+          // this.scrollToTopOnInit()
           this._addListenersToPlayerPlugin();
 
   }
@@ -1446,11 +1468,79 @@ for(let i=0; i<= 1; i++){
 }
 
 
+checkWinnerStatus(){
+
+  let winnerData={
+
+    product_id:this.callgettagresult.product_id,
+    user_id:window.localStorage.getItem('userid')
+  }
+  this.apiSvc.checkWinStatus(winnerData).subscribe(
+    //**charu Start */
+   (res:any) => {
+
+if(res.data.win==1){
+
+  console.log(res)
+  // alert(JSON.stringify(res))
+   this.surpriseModal()
+}else{
+
+this.openQuizBigApple()
+
+}
+    // {"success":1,"status_code":200,"message":"Success","data":{"win":0}}
+
+              
+   },
+   err => {
+     alert(JSON.stringify(err));
+   }
+ );
+}
+
+
+
 async surpriseModal(){
+
+
   let modal = await this.modalController.create({
     component: SurpriseModalComponent,
     cssClass: "scratch-modal"
   });
   return await modal.present();
+}
+
+
+
+
+
+SubmitUPI(){
+  this.apiSvc.callPostBoughtIt('1').subscribe(
+    //**charu Start */
+   (res:any) => {
+this.utilservice.flipsurpriseModal()
+
+
+  
+              
+   },
+   err => {
+     alert(JSON.stringify(err));
+   }
+ );
+}
+
+
+async openQuizBigApple(){
+  debugger
+  const modal = await this.modalController.create({
+    component: QuizModalComponent,
+    cssClass: 'my-quiz-class',
+    componentProps:{
+      requestFrom:'',
+      data:''
+    }
+  });
 }
 }

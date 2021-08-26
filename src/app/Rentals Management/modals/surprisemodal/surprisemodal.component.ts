@@ -23,6 +23,7 @@ import {
 })
 export class SurpriseModalComponent implements OnInit {
 hasLogin
+flipmodal:any;
   notice: any = {
     discussionBelongsTo: 'Project',
     discussionType: 'Notice',
@@ -48,11 +49,38 @@ hasLogin
    }
   royaltyData
   ngOnInit() { 
+
+    this.flipmodal=true
+
+    this.utils.flipsurprise_modal.subscribe(data => {
+
+
+      // this.checkWinnerStatus()
+
+    this.flipmodal =false
+
+
+    })
+
     this.createNewScratchCard()
     this.royaltyData=this.utils.royaltyData
     if(window.localStorage.getItem('name')){
       this.hasLogin=true;
     }
+  }
+
+
+  ionViewDidEnter(){
+
+
+    console.log('===============================')
+
+    // this.flipsurpriseModal =this.utils.flipsurpriseModal
+
+    // console.log(this.flipsurpriseModal)
+    console.log('===============================')
+
+
   }
 
   async presentLoading() {
@@ -142,6 +170,16 @@ hasLogin
       windowName: "_blank",
       toolbarColor: "	#FF0000"
     });
+  }
+
+
+  socialShare(){
+    this.utils.shareProduct();
+  }
+
+
+  submitUPI(){
+    this.utils.submitUpi();
   }
 
 }
