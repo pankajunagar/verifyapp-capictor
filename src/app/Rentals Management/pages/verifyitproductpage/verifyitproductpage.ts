@@ -298,6 +298,12 @@ this.haspano=false
           this.utilservice.isProductInfo=true
           this.router.navigateByUrl("/login");
 
+        }else if(this.utilservice.callgettagresult.brand=="Dev" && window.localStorage.getItem('name')){
+          this.loginService.isProductInfo=true;
+          this.utilservice.isProductInfo=true
+          // this.router.navigateByUrl("/login");
+          this.openQuizBigApple()
+
         }
       }
           Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
@@ -1486,7 +1492,7 @@ if(res.data.win==1){
    this.surpriseModal()
 }else{
 
-this.openQuizBigApple()
+// this.openQuizBigApple()
 
 }
     // {"success":1,"status_code":200,"message":"Success","data":{"win":0}}
@@ -1533,6 +1539,7 @@ this.utilservice.flipsurpriseModal()
 
 
 async openQuizBigApple(){
+  alert('hi')
   debugger
   const modal = await this.modalController.create({
     component: QuizModalComponent,
