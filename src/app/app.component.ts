@@ -5,7 +5,7 @@ import {
   AfterViewInit,
   HostListener,
 } from "@angular/core";
-// import { Device } from "@ionic-native/device/ngx";
+import { Device } from "@ionic-native/device/ngx";
 
 
 import {
@@ -34,7 +34,7 @@ import { SettingsService } from "./settings.service";
 import { Plugins } from "@capacitor/core";
 // import { MessagingService } from '../services/messaging.service';
 
-const { Device } = Plugins;
+// const { Device } = Plugins;
 declare var wkWebView: any;
 
 // import {
@@ -321,7 +321,7 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    // private device:Device,
+    private device:Device,
     private toastCtrl: ToastController,
     private router: Router,
     private navCtrl: NavController,
@@ -451,9 +451,9 @@ export class AppComponent implements OnInit {
   async initializeApp() {
     let isLoggedIn: string;
     // const device = await Device.getInfo();
-    // window.localStorage.setItem("device_id", device.uuid);
-    // // alert(device.uuid)
-    // console.log("device id=================>" + device.uuid);
+    window.localStorage.setItem("device_id", this.device.uuid);
+    // alert(device.uuid)
+    console.log("device id=================>" + this.device.uuid);
     if (!window.localStorage.getItem("token")) {
       window.localStorage.setItem("token", "");
       this.storageService.storeDataToIonicStorage("token", "");
@@ -751,6 +751,7 @@ export class AppComponent implements OnInit {
   // pwa push notification
 
   listenForMessages() {
+    debugger
   console.log("==========new msg========>" + "111111");
 
     this.messagingService.getMessages().subscribe(async (msg: any) => {
