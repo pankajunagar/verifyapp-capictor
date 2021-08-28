@@ -444,4 +444,18 @@ checkWinStatus(data){
 }
 
 
+submitBankDetail(data): Observable<any> {
+
+
+  return this.http.post(`${this.appSettings.getApi()}/UserSetting/save_user_bank_detail`, data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token'),
+    })
+  });
+
+}
+
+
 }

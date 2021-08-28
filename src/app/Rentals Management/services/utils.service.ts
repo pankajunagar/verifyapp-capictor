@@ -13,6 +13,7 @@ export class Utils {
     NFCsuccessmsg:any;
     menuTitle;
     isProductInfo;
+    user_upi;
     callgettagresult:any;
     callrecordscanresult:any
     certificateData:any;

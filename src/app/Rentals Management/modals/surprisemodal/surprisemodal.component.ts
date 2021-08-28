@@ -23,6 +23,7 @@ import {
 })
 export class SurpriseModalComponent implements OnInit {
 hasLogin
+upi_detail
 flipmodal:any;
   notice: any = {
     discussionBelongsTo: 'Project',
@@ -179,6 +180,7 @@ flipmodal:any;
 
 
   submitUPI(){
+    this.utils.user_upi= this.upi_detail
     this.utils.submitUpi();
   }
 

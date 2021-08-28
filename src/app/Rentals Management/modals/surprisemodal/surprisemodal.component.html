@@ -1,3 +1,5 @@
+<ion-content>
+
 
   <div   *ngIf="flipmodal" class="sc__wrapper">
 
@@ -5,36 +7,44 @@
 
 
 <ion-grid>
-  <ion-row>
 
 
-    <ion-col>
-      <p class="surprise-text">
-        Customer is
-        rewarded with Cashback. User account details are collected
-        and cashback is
-        credited within
-        2-3 days.
-      </p>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label class="upi-label" position="stacked">Please enter your UPI Information</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row class="upi-submit">
-    <ion-col>
-      <ion-button  (click)="submitUPI()">
-        Submit 
-      </ion-button>
-    </ion-col>
-  </ion-row>
+    <ion-row>
+  
+  
+      <ion-col>
+        <p class="surprise-text">
+          Customer is
+          rewarded with Cashback. User account details are collected
+          and cashback is
+          credited within
+          2-3 days.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label class="upi-label" position="stacked">Please enter your UPI Information</ion-label>
+          <ion-input [(ngModel)]="upi_detail" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="upi-submit">
+      <ion-col>
+        <ion-button  (click)="submitUPI()">
+          Submit 
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
 
 </ion-grid>
+
+
+
+
+
   </div>
 <div  *ngIf="!flipmodal" class="sc__wrapper">
 <ion-grid>
@@ -56,6 +66,9 @@
   </ion-row>
 </ion-grid>
 </div>
+
+
+</ion-content>
 <!-- <ion-col>
   <div class="btn-share" (click)="socialShare();">
     <ion-icon ios="ios-share" md="md-share"></ion-icon>

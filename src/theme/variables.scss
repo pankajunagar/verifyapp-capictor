@@ -134,7 +134,22 @@
   }
 }
 
+.surprise-modal {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  padding-left: 3em;
+  padding-right: 3em;
+  background: black;
+  // height: 800;
+  .modal-wrapper {
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+    height: 475px !important;
 
+  }
+}
 
 
 .user-modal{

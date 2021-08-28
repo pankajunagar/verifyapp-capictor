@@ -1,7 +1,7 @@
 import { Push } from "@ionic-native/push/ngx";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { ModalController, NavParams } from "@ionic/angular";
+import { ModalController, NavController, NavParams } from "@ionic/angular";
 import { AlertServiceService } from "src/app/common-services/alert-service.service";
 import { TrackingService } from "src/app/services/tracking.service";
 import { Utils } from "../../services/utils.service";
@@ -40,7 +40,8 @@ export class QuizModalComponent implements OnInit {
     private api: TrackingService,
     private apisc: NailaService,
     private utilservice: Utils,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private navCtrl:NavController
   ) {
     console.log("this.navParams reward", this.navParams);
     this.callgettagresult = this.utilservice.callgettagresult;
@@ -138,7 +139,10 @@ export class QuizModalComponent implements OnInit {
           if (this.navParams.data["requestFrom"] == "win") {
             this.router.navigate(["/verifyit-rewards"]);
             this.closeModal();
-          } else if (this.navParams.data["requestFrom"] == "video") {
+          } else if(this.navParams.data["requestFrom"] == "default"){
+            this.closeModal();
+          }
+          else if (this.navParams.data["requestFrom"] == "video") {
             this.closeModal();
           }
         } else {
@@ -154,6 +158,8 @@ export class QuizModalComponent implements OnInit {
           "Error Occurred.Please try again later."
         );
         console.log(err);
+        this.closeModal();
+
       }
     );
   };

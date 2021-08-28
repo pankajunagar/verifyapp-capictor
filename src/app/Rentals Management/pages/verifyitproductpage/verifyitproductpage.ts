@@ -254,10 +254,7 @@ this.haspano=false
   
   
   async ngOnInit() {
-    this.openQuizBigApple()
 
-    
-    // debugger
     if(window.localStorage.getItem('showDeactivate')=='4'){
       this.showDeactivate=true
       
@@ -298,13 +295,12 @@ this.haspano=false
           this.utilservice.isProductInfo=true
           this.router.navigateByUrl("/login");
 
-        }else if(this.utilservice.callgettagresult.brand=="Dev" && window.localStorage.getItem('name')){
-          this.loginService.isProductInfo=true;
-          this.utilservice.isProductInfo=true
-          // this.router.navigateByUrl("/login");
-          this.openQuizBigApple()
-
         }
+      }else if(this.utilservice.callgettagresult.brand=="Dev" && window.localStorage.getItem('name')){
+        this.loginService.isProductInfo=true;
+        this.utilservice.isProductInfo=true
+        // this.router.navigateByUrl("/login");
+        this.openQuiz('default')
       }
           Object.keys(this.utilservice.callgettagresult.meta_data).forEach(e =>
           this.jsonToBeUsed.push({
@@ -678,7 +674,6 @@ this.haspano=false
   }
 
   async presentActionSheet(data) {
-    // debugger;
     let buttons = [];
     const _this = this;
 
@@ -757,12 +752,21 @@ this.presentToast('Review submitted successfully.')
   product_link = "";
 
   async socialShare() {
-    // debugger
+    let pTagId
+
+    if(this.utilservice.callgettagresult.brand=="Dev" && window.localStorage.getItem('name')){
+      pTagId= 5019
+    }else{
+       pTagId= window.localStorage.getItem("tagId")
+
+    }
+
+   
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
     this.appSettings.getPWALink()+"?params=" +
-      window.localStorage.getItem("tagId") +
+      pTagId +
       "&source=" +
       window.localStorage.getItem("token").slice(-10);
 
@@ -1069,7 +1073,6 @@ this.presentToast('Review submitted successfully.')
   }
 
   async openQuiz(type,data?){
-    debugger
     let datarequest=type=='video' ? data : ''
     const modal = await this.modalController.create({
       component: QuizModalComponent,
@@ -1153,7 +1156,6 @@ this.presentToast('Review submitted successfully.')
   }
 
   async generateEwarrantyCard(){
-    // debugger
     this.utilservice.warrantyInformation=this.callgettagresult
     let modal = await this.modalController.create({
       component: WarrantycardComponent
@@ -1354,7 +1356,6 @@ this.presentToast('Review submitted successfully.')
 
 
    async secPlay(){
-      debugger
       let sequence=[
         'scratch_card'
         
@@ -1485,7 +1486,7 @@ checkWinnerStatus(){
     //**charu Start */
    (res:any) => {
 
-if(res.data.win==1){
+if(res.data.win==0){
 
   console.log(res)
   // alert(JSON.stringify(res))
@@ -1512,17 +1513,19 @@ async surpriseModal(){
 
   let modal = await this.modalController.create({
     component: SurpriseModalComponent,
-    cssClass: "scratch-modal"
+    cssClass: "surprise-modal"
   });
   return await modal.present();
 }
 
-
-
-
-
 SubmitUPI(){
-  this.apiSvc.callPostBoughtIt('1').subscribe(
+
+  let bankData={
+    user_upi: this.utilservice.user_upi,
+    user_id:window.localStorage.getItem('userid')
+  }
+
+  this.apiSvc.submitBankDetail(bankData).subscribe(
     //**charu Start */
    (res:any) => {
 this.utilservice.flipsurpriseModal()
@@ -1539,11 +1542,11 @@ this.utilservice.flipsurpriseModal()
 
 
 async openQuizBigApple(){
-  alert('hi')
-  debugger
   const modal = await this.modalController.create({
     component: QuizModalComponent,
     cssClass: 'my-quiz-class',
+
+
     componentProps:{
       requestFrom:'',
       data:''
