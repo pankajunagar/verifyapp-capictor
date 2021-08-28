@@ -1423,6 +1423,7 @@ for(let i=0; i<= 1; i++){
     // }
 
 
+    
     // this.items = this.listbanner.data
     // this.listbanner.data.forEach(element => {
     //   element.name = element.product_name
