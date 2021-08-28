@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content *ngIf="this.utils.usernotwon">
 
 
   <div   *ngIf="flipmodal" class="sc__wrapper">
@@ -74,3 +74,32 @@
     <ion-icon ios="ios-share" md="md-share"></ion-icon>
   </div>
 </ion-col> -->
+
+<ion-content *ngIf="!this.utils.usernotwon">
+<ion-grid>
+
+  <ion-row>
+    <ion-col>
+      <p class="surprise-text">
+        If customer shares with 5 Friends on whatsapp and will stand a
+      chance to win Bumper price.
+
+
+      </p>
+    </ion-col>
+
+   
+  </ion-row>
+
+
+
+  <ion-row class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="socialShare();">
+        Share with friends
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+</ion-content>

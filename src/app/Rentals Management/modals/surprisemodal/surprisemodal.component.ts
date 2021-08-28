@@ -25,6 +25,7 @@ export class SurpriseModalComponent implements OnInit {
 hasLogin
 upi_detail
 flipmodal:any;
+usernotwon:any;
   notice: any = {
     discussionBelongsTo: 'Project',
     discussionType: 'Notice',

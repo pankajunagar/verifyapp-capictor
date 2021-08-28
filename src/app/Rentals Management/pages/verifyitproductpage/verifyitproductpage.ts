@@ -1486,18 +1486,16 @@ checkWinnerStatus(){
     //**charu Start */
    (res:any) => {
 
-if(res.data.win==0){
+if(res.data.win==1){
 
   console.log(res)
-  // alert(JSON.stringify(res))
    this.surpriseModal()
 }else{
+  this.utilservice.usernotwon=false
+  this.surpriseModal()
 
-// this.openQuizBigApple()
 
 }
-    // {"success":1,"status_code":200,"message":"Success","data":{"win":0}}
-
               
    },
    err => {

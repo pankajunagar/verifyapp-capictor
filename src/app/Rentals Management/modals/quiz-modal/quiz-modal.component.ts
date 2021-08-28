@@ -140,6 +140,7 @@ export class QuizModalComponent implements OnInit {
             this.router.navigate(["/verifyit-rewards"]);
             this.closeModal();
           } else if(this.navParams.data["requestFrom"] == "default"){
+            this.utilservice.LoadSurpriseModal();
             this.closeModal();
           }
           else if (this.navParams.data["requestFrom"] == "video") {
@@ -165,7 +166,6 @@ export class QuizModalComponent implements OnInit {
   };
   //**charu Start  for get Question */
   getQuestions() {
-    debugger
     let data = {
       brand_id: this.callgettagresult.id,
     };
