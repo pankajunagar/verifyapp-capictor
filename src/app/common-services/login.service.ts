@@ -92,7 +92,7 @@ export class LoginService {
       
         console.log('You have been successfully logged in!' +result.additionalUserInfo.profile.name)
        if (result){
-         debugger
+         
          let obj={
           
             "localId": result.additionalUserInfo.profile.id,
@@ -134,8 +134,11 @@ export class LoginService {
               this.navCtrl.pop()
             //  this.navCtrl.pop();//
             return;
+          }else{
+
+            this.navCtrl.pop()
           }
-         
+
             // this.router.navigateByUrl("/verifyit-product"); 
 
             // alert('You have been successfully logged in!')

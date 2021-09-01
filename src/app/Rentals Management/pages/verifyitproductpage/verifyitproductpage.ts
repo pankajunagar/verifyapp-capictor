@@ -71,6 +71,8 @@ import { SurpriseModalComponent } from '../../modals/surprisemodal/surprisemodal
 
 export class Verifyitproductpage  {
   @ViewChild("content") private Content: any;
+  hassurpriseModal;
+  hasquizModal;
   helpUrl: any;
   msg:string="Mobile number is not valid."
 
@@ -81,7 +83,6 @@ export class Verifyitproductpage  {
   private _handlerEnded: any;
   private _handlerReady: any;
   private _handlerExit: any;
-
 
 
   sliderConfig = {
@@ -165,7 +166,9 @@ hasvideoPlay=false;
   };
 showDeactivate
 hideBrand=true
-
+subscription;
+subscription1;
+subscription2;
   readingTag: boolean = false;
   writingTag: boolean = false;
   haspano:boolean;
@@ -223,11 +226,12 @@ this.haspano=false
 
     this.unsubscribeutilloadpage = this.utilservice.LoadPage.subscribe(data => {
       
-      this.ngOnInit();
+      // this.ngOnInit();
     })
 
 
-    this.utilservice.LoadModal.subscribe(data => {
+    this.subscription= this.utilservice.LoadModal.subscribe(data => {
+
 
 
       this.checkWinnerStatus()
@@ -236,7 +240,7 @@ this.haspano=false
 
     })
 
-    this.utilservice.share_product.subscribe(data => {
+    this.subscription1= this.utilservice.share_product.subscribe(data => {
 
 
       this.socialShare()
@@ -244,7 +248,7 @@ this.haspano=false
 
 
     
-    this.utilservice.submit_upi.subscribe(data => {
+    this.subscription2= this.utilservice.submit_upi.subscribe(data => {
 
 
       this.SubmitUPI()
@@ -253,7 +257,7 @@ this.haspano=false
   }
   
   
-  async ngOnInit() {
+   ngOnInit() {
 
     if(window.localStorage.getItem('showDeactivate')=='4'){
       this.showDeactivate=true
@@ -290,13 +294,13 @@ this.haspano=false
         {
           this.loginService.isProductInfo=true;
           this.router.navigateByUrl("/login");
-        }else if(this.utilservice.callgettagresult.brand=="Dev" && !window.localStorage.getItem('name')){
+        }else if((this.utilservice.callgettagresult.brand=="Dev" ||this.utilservice.callgettagresult.brand== "Obuddys" )&& !window.localStorage.getItem('name')){
           this.loginService.isProductInfo=true;
           this.utilservice.isProductInfo=true
+          window.localStorage.setItem('hasquizModal','1')
           this.router.navigateByUrl("/login");
-
         }
-      }else if(this.utilservice.callgettagresult.brand=="Dev" && window.localStorage.getItem('name')){
+      }else if((this.utilservice.callgettagresult.brand=="Dev" ||this.utilservice.callgettagresult.brand== "Obuddys" ) && window.localStorage.getItem('name') && window.localStorage.getItem('hasquizModal')=='0'){
         this.loginService.isProductInfo=true;
         this.utilservice.isProductInfo=true
         // this.router.navigateByUrl("/login");
@@ -309,6 +313,7 @@ this.haspano=false
           })
           );
         } else {
+          
         }
         
         
@@ -337,8 +342,8 @@ this.haspano=false
           //     'https://www.amazon.in/'
           //   );
           // define the plugin to use
-          const info = await Device.getInfo();
-          if (info.platform === "ios" || info.platform === "android") {
+          // const info =  Device.getInfo();
+          if ("") {
             this._videoPlayer = CapacitorVideoPlayer;
           } else {
             this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
@@ -752,13 +757,15 @@ this.presentToast('Review submitted successfully.')
   product_link = "";
 
   async socialShare() {
+    this.subscription1.unsubscribe()
     let pTagId
-
-    if(this.utilservice.callgettagresult.brand=="Dev" && window.localStorage.getItem('name')){
+let referraltext
+    if((this.utilservice.callgettagresult.brand=="Dev" || this.utilservice.callgettagresult.brand== "Obuddys" ) && window.localStorage.getItem('name')){
       pTagId= 5019
+referraltext=window.localStorage.getItem('name')+" wants to recommend this product at NowVerifyIt and Inviting you to win either Silver Coin or Free Kaju Mitra pack or Discount Coupons on all Kaju Mitra Products "
     }else{
        pTagId= window.localStorage.getItem("tagId")
-
+referraltext= "Hey, Checkout" + " from " + this.callgettagresult.brand
     }
 
    
@@ -778,7 +785,7 @@ this.presentToast('Review submitted successfully.')
     // });
     let shareRet = await Share.share({
       title: this.product_title,
-      text: "Hey, Checkout" + " from " + this.brand,
+      text: referraltext,
 
       url: this.product_link
       // dialogTitle: 'Share with buddies'
@@ -1073,6 +1080,7 @@ this.presentToast('Review submitted successfully.')
   }
 
   async openQuiz(type,data?){
+    window.localStorage.setItem('hasquizModal','1')
     let datarequest=type=='video' ? data : ''
     const modal = await this.modalController.create({
       component: QuizModalComponent,
@@ -1488,9 +1496,11 @@ checkWinnerStatus(){
 
 if(res.data.win==1){
 
+  this.subscription.unsubscribe()
   console.log(res)
    this.surpriseModal()
-}else{
+  }else{
+  this.subscription.unsubscribe()
   this.utilservice.usernotwon=false
   this.surpriseModal()
 
@@ -1517,7 +1527,7 @@ async surpriseModal(){
 }
 
 SubmitUPI(){
-
+  this.subscription2.unsubscribe()
   let bankData={
     user_upi: this.utilservice.user_upi,
     user_id:window.localStorage.getItem('userid')

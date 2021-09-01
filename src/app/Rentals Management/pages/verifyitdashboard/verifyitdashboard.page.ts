@@ -204,7 +204,7 @@ export class VerifyitDashboardPage implements OnInit {
     // 4534 for reward
     //4507  //for scratchcard
     // 5013 first care product
-    this.gettag('5020')
+    this.gettag('5021')
     
     
     
@@ -610,6 +610,8 @@ export class VerifyitDashboardPage implements OnInit {
           console.log(callrecordscanresult);
           this.utilservice.callrecordscanresult = callrecordscanresult;
           this.loading.dismiss();
+          window.localStorage.setItem('hasquizModal','0')
+
           this.router.navigateByUrl("/verifyit-product");
           //location
         },
@@ -705,10 +707,5 @@ export class VerifyitDashboardPage implements OnInit {
     });
     toast.present();
   }
-
-
-
-
-
 
 }
