@@ -1443,7 +1443,7 @@ showRelatedProduct(){
   this.apiSvc.listRelatedProducts(this.utilservice.callgettagresult.product_id).subscribe(data => {
     this.listbanner = data;
 
-for(let i=0; i<= 1; i++){
+for(let i=0; i< this.listbanner.data.length; i++){
   this.listofBanner.push(this.listbanner.data[i])
 }
 
@@ -1498,6 +1498,8 @@ if(res.data.win==1){
 
   this.subscription.unsubscribe()
   console.log(res)
+  this.utilservice.usernotwon=true
+
    this.surpriseModal()
   }else{
   this.subscription.unsubscribe()

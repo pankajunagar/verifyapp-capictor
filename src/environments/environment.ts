@@ -17,12 +17,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBLyi69trc6HToB7IB9Id_odPAJbAWLLhg",
-    authDomain: "noeverifycaptest.firebaseapp.com",
-    projectId: "noeverifycaptest",
-    storageBucket: "noeverifycaptest.appspot.com",
-    messagingSenderId: "4748763519",
-    appId: "1:4748763519:web:18c2bf0af2d07b332f7a4a"
+    apiKey: "AIzaSyBWwl-fvDoiwidxf0hbXUlf6CpfP7tSap0",
+  authDomain: "nowverifyit-f7758.firebaseapp.com",
+  projectId: "nowverifyit-f7758",
+  storageBucket: "nowverifyit-f7758.appspot.com",
+  messagingSenderId: "182516696535",
+  appId: "1:182516696535:web:ad6e088a36b54a9e387792",
+  measurementId: "G-V4Y8C7JGRH"
   }
 };
 

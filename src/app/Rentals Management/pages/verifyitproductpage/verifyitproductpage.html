@@ -413,12 +413,12 @@
           <ng-container *ngFor="let item of listofBanner">
 
             <ion-slide >
-              <!-- <ion-card class="myCard">
+              <ion-card class="myCard">
                 <img *ngIf="item" style="height: auto;
                     width: 100%;" src={{item.img1}} />
-              </ion-card> -->
+              </ion-card>
 
-              <div class="myOverlay">
+              <div *ngIf="item" class="myOverlay">
                 <div class="slidetext">
                   <img class="" src="../../../../assets/images/horse.png" alt="">
                   {{item.product_name}}
