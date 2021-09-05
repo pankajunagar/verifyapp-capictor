@@ -120,16 +120,16 @@ export class MainAppSetting {
             this.storageService.storeDataToIonicStorage('appSrc', 'rentals');
 
             if (this.appFor == 'alpha') {
-                API = 'https://www.nowverifyit.com';
+                // API = 'https://www.nowverifyit.com';
                 // PWALink="https://pwa.nowverifyit.com" 
-                // API = 'https://develop.nowverifyit.com'; //charu
+                API = 'https://develop.nowverifyit.com'; //charu
 
 
                 
             } else if (this.appFor == 'production') {
-               API = 'https://www.nowverifyit.com';
+            //    API = 'https://www.nowverifyit.com';
                 // PWALink="https://pwa.nowverifyit.com" 
-                // API = 'https://develop.nowverifyit.com'; //charu
+                API = 'https://develop.nowverifyit.com'; //charu
             }
         } else if (this.ORG == "BM") {
             window.localStorage.setItem('appSrc', 'building-management');
