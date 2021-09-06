@@ -32,6 +32,24 @@
             style="border-radius: 12px;margin-top: -105px;">
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <img *ngIf="callgettagresult.verified=='Yes' " class="auth-logo" width="100" height="100"
+        src="assets/auth-logo.png" />
+
+      <img *ngIf="callgettagresult.verified=='No'" style="
+          margin-right: -15vh;
+          margin-top: 6vh;
+          position: absolute;
+          height: 100px;
+          width: 100px;
+        " src="assets/fake.png" />
+      <div class="btn-share" (click)="socialShare();">
+        <ion-icon ios="ios-share" md="md-share"></ion-icon>
+      </div>
+      </ion-row>
+
+
     </ion-card-content>
 
     <ion-card>
