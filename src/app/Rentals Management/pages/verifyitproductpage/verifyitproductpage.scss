@@ -344,3 +344,23 @@ ion-slide.md.swiper-slide.swiper-slide-next {
 .myCard {
   flex: none;
 }
+
+.auth-logo {
+  width: 100px !important;
+  height: 100px !important;
+  object-fit: cover;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.btn-share {
+  position: absolute;
+  z-index: 9;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+}

@@ -51,6 +51,7 @@ usernotwon:any;
     this.hasLogin=false
    }
   royaltyData
+  cashbackAmount
   ngOnInit() { 
 
     this.flipmodal=true
@@ -70,6 +71,9 @@ usernotwon:any;
     if(window.localStorage.getItem('name')){
       this.hasLogin=true;
     }
+
+    // this.cashbackAmount=this.utils.cashbackAmount
+
   }
 
 
