@@ -146,9 +146,24 @@
     border-top-right-radius: 1vh;
     border-bottom-right-radius: 1vh;
     border-bottom-left-radius: 1vh;
-    height: 475px !important;
+    /*height: 475px !important;*/
+    min-height:410px !important;
 
   }
+  .surprise-text {
+    font-size: 18px;
+    line-height: 26px;
+    margin-top: 10px;
+  }
+  .upi-submit.md.hydrated {
+    background: transparent;
+  }
+  .md.button.button-solid.ion-activatable.ion-focusable.hydrated {
+    width: 100%;
+    padding: 0;
+    height: 40px;
+}
+
 }
 
 
@@ -209,4 +224,45 @@ ion-footer.my-footer{
   --border-radius: 20px 20px 0 0
 
 }
+}
+
+
+.my-quiz-class_new{
+  .modal-wrapper.sc-ion-modal-md {
+    -webkit-transform: translate3d(0,40px,0);
+    transform: translate3d(0,40px,0);
+    opacity: .01;
+    height: 70%;
+    width: 80%;
+    max-width:600px;
+    border-radius: 10px;
+    margin: 0 auto;
+}   
+.ion-page {
+  padding: 0 10px;
+}
+.sc-ion-card-md-h.sc-ion-card-md-s {
+  cursor: pointer;
+}
+.sc-ion-label-md-h.sc-ion-label-md-s.md.hydrated {
+  color: #757272;
+  font-weight: 500;
+  font-size: 18px;
+  display: block;
+  margin-bottom: 15px;
+}
+.sc-ion-card-md-h.sc-ion-card-md-s div span:first-child {
+  font-weight: 600;
+  margin-right: 6px;
+}
+.sc-ion-card-md-h.sc-ion-card-md-s{
+  background: #f9fff6;
+}
+
+
+
+
+} 
+.item.ion-valid.hydrated.item-interactive.item-input {
+  border-bottom: 1px solid #808080;
 }

@@ -1084,7 +1084,7 @@ referraltext= "Hey, Checkout" + " from " + this.callgettagresult.brand
     let datarequest=type=='video' ? data : ''
     const modal = await this.modalController.create({
       component: QuizModalComponent,
-      cssClass: 'my-quiz-class',
+      cssClass: 'my-quiz-class_new',
       componentProps:{
         requestFrom:type,
         data:datarequest
