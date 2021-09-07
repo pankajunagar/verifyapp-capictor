@@ -13,7 +13,7 @@ import { AlertController, Platform, ToastController } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
 import { Utils } from "../../services/utils.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AlertServiceService } from "src/app/common-services/alert-service.service";
 import { LoadingController } from "@ionic/angular";
 // import { LoadingController } from 'ionic-angular';
@@ -110,6 +110,7 @@ export class VerifyitDashboardPage implements OnInit {
     private nfc: NFC,
     private ndef: Ndef,
     private platform: Platform,
+    private route: ActivatedRoute,
     private loading: LoadingController,
     private toast: ToastController,
     private ngZone: NgZone,
@@ -158,6 +159,20 @@ export class VerifyitDashboardPage implements OnInit {
   source_token;
   hideDashboardScreen = true;
   ngOnInit() {
+
+
+    this.route.queryParams.subscribe(params => {
+      console.log("=======================")
+      console.log(( params))
+      console.log("=======================")
+
+      // if (params) {
+      //   let queryParams = JSON.parse(params);
+      //   console.log(queryParams)
+      // }
+    });
+
+
     // window.localStorage.setItem('product-link',this.router.url)
     if (
       this.router.url.includes("params") &&
@@ -174,6 +189,7 @@ export class VerifyitDashboardPage implements OnInit {
       this.router.navigate(["/verifyit-product-catalog"], {
         queryParams: { brand: brand },
       });
+
 
 
       this.gettag('5000')
@@ -204,7 +220,7 @@ export class VerifyitDashboardPage implements OnInit {
     // 4534 for reward
     //4507  //for scratchcard
     // 5013 first care product
-    this.gettag('5020')
+    // this.gettag('5020')
     
     
     
