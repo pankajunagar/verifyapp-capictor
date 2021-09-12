@@ -174,9 +174,13 @@ export class QuizModalComponent implements OnInit {
 
     this.apisc.getQuestion(data).subscribe(
       (res: any) => {
-        if (res) {
+        if (res.message=='Success') {
           this.questions = res.data.question;
           console.table(this.questions);
+        }else if(this.navParams.data["requestFrom"] == "default"){
+          this.utilservice.LoadSurpriseModal();
+          this.closeModal();
+
         }
       },
 

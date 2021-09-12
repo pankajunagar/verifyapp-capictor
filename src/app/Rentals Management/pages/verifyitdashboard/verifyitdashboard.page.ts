@@ -158,10 +158,15 @@ export class VerifyitDashboardPage implements OnInit {
   };
   source_token;
   hideDashboardScreen = true;
+
+  url_parameter
   ngOnInit() {
 
 
     this.route.queryParams.subscribe(params => {
+
+
+      this.url_parameter=params
       console.log("=======================")
       console.log(( params))
       console.log("=======================")
@@ -179,13 +184,13 @@ export class VerifyitDashboardPage implements OnInit {
       !this.router.url.includes("source")
     ) {
       this.hideDashboardScreen = false;
-      this.gettag(this.router.url.split("=")[1]);
+      this.gettag(this.url_parameter.params);
     } else if (
       this.router.url.includes("brand") &&
       !this.router.url.includes("source")
     ) {
       this.hideDashboardScreen = false;
-      let brand = this.router.url.split("=")[1];
+      let brand = this.url_parameter.brand;
       this.router.navigate(["/verifyit-product-catalog"], {
         queryParams: { brand: brand },
       });
@@ -207,10 +212,11 @@ export class VerifyitDashboardPage implements OnInit {
       this.router.url.includes("source")
     ) {
       this.hideDashboardScreen = false;
-      this.source_token = this.router.url.split("=")[2];
+      this.source_token = this.url_parameter.source;
       window.localStorage.setItem("source_token", this.source_token);
       this.data.source_token = this.source_token;
-      this.gettag(this.router.url.split("=")[1].split("&")[0]);
+      this.utilservice.source_token=this.source_token
+      this.gettag(this.url_parameter.params);
       // this.router.navigateByUrl('/verifyit-product')
     }
      // this.gettag('4516') 4925
@@ -498,8 +504,11 @@ export class VerifyitDashboardPage implements OnInit {
           console.log(tagId);
           tagId.replace(/\s+/g, "");
           if (tagId.includes("params")) {
-            tagId = tagId.split("=")[1];
+            tagId = tagId.split("=")[1].split("&")[0];
             //  alert(tagId)
+// this need to be tested
+            // this.router.url.split("=")[1].split("&")[0]
+
             this.gettag(tagId);
             this.stopScan();
           } else {

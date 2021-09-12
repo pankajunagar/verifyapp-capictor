@@ -156,13 +156,17 @@ export class MainAppSetting {
 
             if (this.appFor == 'alpha') {
              
-              return  PWALink='https://nowverifycap.web.app/'
+            //   return  PWALink='https://nowverifycap.web.app/'
 
+              return  PWALink='https://pwa.nowverifyit.com/'
 
                 
             } else if (this.appFor == 'production') {
              
-             return   PWALink='https://nowverifycap.web.app/'
+            //  return   PWALink='https://nowverifycap.web.app/'
+
+              return  PWALink='https://pwa.nowverifyit.com/'
+
             }
         }
     }

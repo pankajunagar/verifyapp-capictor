@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content *ngIf="items.length" padding>
 
     <!-- <ion-searchbar placeholder="Browse products" mode="ios"
     [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"
@@ -58,4 +58,11 @@
 
 
 
+</ion-content>
+
+
+<ion-content *ngIf="!items.length">
+  <p class="loyalty-points">
+    You do not have no loyalty points right now.
+  </p>
 </ion-content>

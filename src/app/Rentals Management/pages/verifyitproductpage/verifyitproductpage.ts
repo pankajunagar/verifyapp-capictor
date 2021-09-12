@@ -1401,7 +1401,7 @@ export class Verifyitproductpage {
 
 
 
-        if (res.data.win == 1) {
+        if (res.data.win == 1 && !this.utilservice.source_token) {
           
           this.utilservice.cashbackAmount=res.data.price_money
           this.subscription.unsubscribe();

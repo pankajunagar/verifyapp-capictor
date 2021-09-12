@@ -15,6 +15,7 @@ export class Utils {
     isProductInfo;
     user_upi;
     cashbackAmount;
+    source_token;
     usernotwon
     callgettagresult:any;
     callrecordscanresult:any
