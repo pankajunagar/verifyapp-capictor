@@ -184,6 +184,7 @@ export class VerifyitDashboardPage implements OnInit {
       !this.router.url.includes("source")
     ) {
       this.hideDashboardScreen = false;
+      window.localStorage.setItem('params',this.url_parameter.params)
       this.gettag(this.url_parameter.params);
     } else if (
       this.router.url.includes("brand") &&
@@ -191,6 +192,7 @@ export class VerifyitDashboardPage implements OnInit {
     ) {
       this.hideDashboardScreen = false;
       let brand = this.url_parameter.brand;
+      window.localStorage.setItem('params',this.url_parameter.params)
       this.router.navigate(["/verifyit-product-catalog"], {
         queryParams: { brand: brand },
       });
@@ -213,6 +215,7 @@ export class VerifyitDashboardPage implements OnInit {
     ) {
       this.hideDashboardScreen = false;
       this.source_token = this.url_parameter.source;
+      window.localStorage.setItem('params',this.url_parameter.params)
       window.localStorage.setItem("source_token", this.source_token);
       this.data.source_token = this.source_token;
       this.utilservice.source_token=this.source_token
@@ -366,8 +369,12 @@ export class VerifyitDashboardPage implements OnInit {
     // this.utilservice.storage=tagId;
     window.localStorage.setItem("tagId", tagId);
     this.apiSvc.callGetTag(tagId).subscribe((callgettagresult) => {
+
+      
+      
       this.utilservice.callgettagresult = callgettagresult;
       this.res = callgettagresult;
+      // window.localStorage.setItem('brand_id',this.res.brand_id)
       this.loading.dismiss();
       this.presentLoading("Processing data from NFC Tag.");
 
@@ -617,6 +624,8 @@ export class VerifyitDashboardPage implements OnInit {
       this.utilservice.callgettagresult = callgettagresult;
 
       this.res = callgettagresult;
+      // window.localStorage.setItem('brand_id',this.res.brand_id)
+            window.localStorage.setItem('brand_id','0')
 
       this.cred.product_name = this.res.product_name;
       // this.alertService.presentAlert('',this.cred.product_name)

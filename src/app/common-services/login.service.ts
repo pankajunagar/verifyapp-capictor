@@ -1,4 +1,4 @@
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +21,7 @@ export class LoginService {
     public navCtrl:NavController,
     public http: HttpClient,
     private utils:Utils,
+    private loading:LoadingController,
     public appSettings: MainAppSetting,
     public afAuth: AngularFireAuth,   private router: Router,
   ) {
@@ -79,6 +80,7 @@ export class LoginService {
     return this.AuthLogin(new auth.FacebookAuthProvider());
     }
   GoogleAuth() {
+    this.presentLoading()
     return this.AuthLogin(new auth.GoogleAuthProvider());
   } 
   GoogleAuthDB(data) {
@@ -87,8 +89,11 @@ export class LoginService {
     );
   } 
   AuthLogin(provider) {
+
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result:any) => {
+
+      
       
         console.log('You have been successfully logged in!' +result.additionalUserInfo.profile.name)
        if (result){
@@ -113,7 +118,8 @@ export class LoginService {
             "validSince": "1625847485",
             "lastLoginAt": "1627407260952",
             "createdAt": "1625847485962",
-            "lastRefreshAt": "2021-07-27T17:34:20.952Z"
+            "lastRefreshAt": "2021-07-27T17:34:20.952Z",
+            "brand_id":window.localStorage.getItem('brand_id')
          
 
          }
@@ -131,10 +137,14 @@ export class LoginService {
               this.isProductInfo=false;
               this.utils.LoadPageOnrouteChange();
 
+              this.loading.dismiss()
+
               this.navCtrl.pop()
             //  this.navCtrl.pop();//
             return;
           }else{
+
+            this.loading.dismiss()
 
             this.navCtrl.pop()
           }
@@ -241,6 +251,14 @@ export class LoginService {
       //     `${this.appSettings.getApi()}/api/v1/auth/`,data,this.appSettings.getHttpHeades()
       //   );
       // }
+
+
+      async presentLoading() {
+        const loading = await this.loading.create({
+          message: 'Loading....',
+        });
+        await loading.present();
+      }
       
 }
 

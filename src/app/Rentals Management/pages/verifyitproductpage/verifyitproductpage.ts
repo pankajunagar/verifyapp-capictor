@@ -748,7 +748,7 @@ export class Verifyitproductpage {
     this.product_link =
       this.appSettings.getPWALink() +
       "?params=" +
-      pTagId +
+      window.localStorage.getItem('params') +
       "&source=" +
       window.localStorage.getItem("token").slice(-10);
 
