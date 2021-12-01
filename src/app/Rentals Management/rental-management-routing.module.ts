@@ -77,6 +77,8 @@ const routes: Routes = [
     { path: 'customer-review', loadChildren: './pages/customer-review/customer-review.module#CustomerReviewPageModule' },
     
     { path: 'brand', loadChildren: './pages/brand/brand.module#BrandPageModule'},
+    { path: 'ext-loading', loadChildren: '../Rentals Management/pages/verifyloadingextlink/verifyloadingextlink.module#VerifyloadingextlinkPageModule' },
+    
     
     // VerifyitOfferModule
     

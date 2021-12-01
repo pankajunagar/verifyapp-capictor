@@ -45,7 +45,8 @@ ion-label{
 
 
       .surprise-text{
-        text-align: center;
+        // text-align: center;
+        margin-left: 15px;
       }
       .upi-submit{
         text-align: center;
@@ -55,8 +56,8 @@ ion-label{
         color: #FFFFFF;
         margin: 0px 44px 0;
         background: black;
-        bottom: 29px;
-        position: absolute;
+        // bottom: 29px;
+        // position: absolute;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -72,3 +73,7 @@ ion-label{
 
    
 
+.paytm-num{
+  width: 100%;
+  display: inline-flex;
+}

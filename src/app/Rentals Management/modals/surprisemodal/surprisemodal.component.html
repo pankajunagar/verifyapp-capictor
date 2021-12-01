@@ -1,4 +1,69 @@
-<ion-content *ngIf="this.utils.usernotwon">
+
+
+<ion-content *ngIf="notShowPhoneInput && !hasLoginData">
+
+  <ion-row class="Paytm-num">
+
+    <ion-col>
+      <h5 style="text-align: center;
+      margin-top: 50px; font-size: 22px !important;">
+        You are just 1 step away from Participating in cashback program.
+      </h5>
+    </ion-col>
+
+    <ion-col size="12">
+
+      <p class="surprise-text">
+        Please share your details below. Your name and Paytm number to credit your cashback into your account.</p>
+    </ion-col>
+    <br>
+    <ion-col>
+      <ion-item>
+        <!-- <ion-label class="upi-label" position="stacked">Please enter your UPI ID and we assure you to credit you cashback in maximum 2-3 working days.</ion-label> -->
+        <ion-input placeholder="Enter Paytm Mobile No." [(ngModel)]="upi_detail" ></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+
+
+
+
+
+
+
+
+  <ion-row class="Paytm-num">
+    <ion-col size="12">
+      <p class="surprise-text">
+        Please enter your name.
+      </p>
+    </ion-col>
+    <br>
+    <ion-col>
+      <ion-item>
+        <!-- <ion-label class="upi-label" position="stacked">Please enter your UPI ID and we assure you to credit you cashback in maximum 2-3 working days.</ion-label> -->
+        <ion-input placeholder="Enter Your Name." [(ngModel)]="user_name" ></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <br>
+  
+  <ion-row class="upi-submit">
+    <ion-col>
+      <ion-button  [disabled]="upi_detail.length < 9 "  (click)="submitUPI()">
+        Submit 
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+
+
+
+<ion-content *ngIf="this.utils.usernotwon && showALgomessage">
 
 
   <div   *ngIf="flipmodal" class="sc__wrapper">
@@ -14,30 +79,37 @@
   
       <ion-col>
         <p class="surprise-text">
-          Congratulations! You have won a cashback reward of Rs. {{this.utils.cashbackAmount}} on this BigApple Product. 
-        </p>
+          <!-- Congratulations! You have won a cashback reward of Rs. {{this.utils.cashbackAmount}} on this BigApple Product. 
+
+
+        </p> -->
         
-        <p class="surprise-text">
-          Please enter your UPI ID and we assure you to credit you cashback in maximum 2-3 working days.
-        </p>
+        <!-- <p class="surprise-text">
+          Please enter your Paytm number and we assure you to credit you cashback within 7 working days.
+        </p> -->
       </ion-col>
     </ion-row>
-    <ion-row>
+    <!-- <ion-row>
+      <ion-col>
+        <p class="surprise-text">
+          Please enter your Paytm number.
+        </p>
+      </ion-col>
       <ion-col>
         <ion-item>
-          <!-- <ion-label class="upi-label" position="stacked">Please enter your UPI ID and we assure you to credit you cashback in maximum 2-3 working days.</ion-label> -->
-          <ion-input placeholder="Enter UPI id or Mobile No." [(ngModel)]="upi_detail" ></ion-input>
+        
+          <ion-input placeholder="Enter Paytm Mobile No." [(ngModel)]="upi_detail" ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
-    
-    <ion-row class="upi-submit">
+     -->
+    <!-- <ion-row class="upi-submit">
       <ion-col>
         <ion-button  (click)="submitUPI()">
           Submit 
         </ion-button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
 
 </ion-grid>
@@ -49,18 +121,41 @@
   </div>
 <div  *ngIf="!flipmodal" class="sc__wrapper">
 <ion-grid>
+
   <ion-row>
     <ion-col>
-      <p class="surprise-text">"Are you satisfied with just cashback? Excited about winning Silver coin on Diwali Bumper Lucky Draw?"</p>
-      <p>Share with your 5 Whatsapp Friends and Stand a chance to win "Silver Coin" on this Diwali</p>
+      <p class="surprise-text">
+      <!-- Congratulations! You have won a cashback reward of Rs. {{this.utils.cashbackAmount}} on this BigApple Product.  -->
+{{this.utils.winMessage}}
+
+    </p>
     </ion-col>
+  </ion-row>
+
+  <!-- <ion-row> -->
+    <!-- <ion-col>
+
+      <p class="surprise-text">"Are you satified with just cashback? You also hold a chance to win our lottery prize."</p>
+   <p>Share with your 5 Whatsapp friends and stand a chance to win "Silver coin".</p> -->
+    <!-- </ion-col>  -->
 
    
-  </ion-row>
-  <ion-row class="upi-submit" >
+  <!-- </ion-row> -->
+
+
+  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare== 'true'" class="upi-submit" >
     <ion-col>
       <ion-button (click)="socialShare();">
         Share
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+
+   <ion-row *ngIf="this.utils.winLossAlgoData.link_data.link" class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="openLink(this.utils.winLossAlgoData.link_data.link);">
+        {{this.utils.winLossAlgoData.link_data.text}}
       </ion-button>
     </ion-col>
   </ion-row>
@@ -75,14 +170,14 @@
   </div>
 </ion-col> -->
 
-<ion-content *ngIf="!this.utils.usernotwon">
+<ion-content *ngIf="!this.utils.usernotwon && showALgomessage">
 <ion-grid>
 
   <ion-row>
     <ion-col>
       <p class="surprise-text">
-        Oh you just missed cashback. Do not worry your details are with us. You still hold a chance to win silver coin in our lottery prize. Please share it with 5 of your friends on whatsapp.
-
+        <!-- Oh you just missed cashback. Do not worry your details are with us. You still hold a chance to win our lottery prize. -->
+        {{this.utils.winMessage}}
 
       </p>
     </ion-col>
@@ -92,10 +187,19 @@
 
 
 
-  <ion-row class="upi-submit" >
+  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare== 'true'" class="upi-submit" >
     <ion-col>
       <ion-button (click)="socialShare();">
         Share with friends
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.link" class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="openLink(this.utils.winLossAlgoData.link_data.link); trackingReview();">
+        {{this.utils.winLossAlgoData.link_data.text}}
       </ion-button>
     </ion-col>
   </ion-row>

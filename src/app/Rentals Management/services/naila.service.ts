@@ -458,4 +458,14 @@ submitBankDetail(data): Observable<any> {
 }
 
 
+getBrandDetail(data){
+  return this.http.post(`${this.appSettings.getApi()}/nfc/get_brand_datail/${data}`, data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token'),
+    })
+  });
+}
+
 }

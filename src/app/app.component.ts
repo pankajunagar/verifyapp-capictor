@@ -275,15 +275,7 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit() {
-    // this.requestPermission();
 
-    // this.requestPermission();
-
-    // if (localStorage.getItem('addtohomescreen') !== '1') {
-    //   setTimeout(() => {
-    //     this.presentAlertConfirm();
-    //   }, 5000)
-    // }
     this.utils.LoadPage.subscribe((data) => {
       if (window.localStorage.getItem("userType")) {
         this.userrole = window.localStorage.getItem("userType");
@@ -353,36 +345,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // async presentAlertConfirm() {
-  //   const alert = await this.alertCtrl.create({
-  //     cssClass: 'my-custom-class',
-  //     header: 'Add to home Screen',
-  //     // message: 'Message <strong>text</strong>!!!',
-  //     buttons: [
-  //       {
-  //         text: 'Cancel',
-  //         role: 'cancel',
-  //         cssClass: 'secondary',
-  //         handler: (blah) => {
-  //           console.log('Confirm Cancel: blah');
-  //         }
-  //       }, {
-  //         text: 'Add',
-  //         handler: () => {
-  //           console.log('Confirm Okay');
-  //           localStorage.setItem('addtohomescreen', '1');
-  //           this.addToHomeScreen();
-  //         }
-  //       }
-  //     ]
-  //   });
-
-  //   await alert.present();
-  // }
-
-  // ionViewWillEnter(){
-  //   this.toggleRole('');
-  // }
   populatemenu = true;
   p = {
     userrole: "",
@@ -458,51 +420,10 @@ export class AppComponent implements OnInit {
       window.localStorage.setItem("token", "");
       this.storageService.storeDataToIonicStorage("token", "");
     }
-    // this.generateToken(this.fcmData)
 
-// this need to revert back
-
-       this.requestPermission()
+      //  this.requestPermission()
 
 
-
-    // await this.ionViewDidLoad();
-    // this.platform.ready().then(async () => {
-    //   this.setupDeeplinks();
-      // this.generateToken(this.fcmData)
-    //   // this.setupDeeplinks();
-
-    //   // if (this.platform.is('ios')) {
-
-    //   //   console.log('trueeeeeeeeeeeeeee====================================')
-    //   //   wkWebView.injectCookie('http://www.nowverifyit.com/');
-    //   //   console.log('trueeeeeeeeeeeeeee====================================')
-
-    //   // }
-    //   this.statusBar.styleLightContent();
-    //   this.statusBar.backgroundColorByHexString("#ffffff");
-    //   this._initTranslate();
-    //   this.splashScreen.hide();
-    //   this.statusBar.styleDefault();
-    //   this.redirectToHomeOrLogin(isLoggedIn);
-
-    //   // await this.storageService.getDatafromIonicStorage('isLoggedIn').then(val => {
-    //   //   isLoggedIn = val;
-    //   //   console.log(typeof val);
-
-    //   // })
-    //   // await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
-    //   //   this.appSrc = val;
-    //   // })
-    //   // await isLoggedIn == 'true' ? this.navCtrl.navigateRoot('/rentals-naila-search-page') : this.navCtrl.navigateRoot('/login');
-    //   // await isLoggedIn == 'true' ? this.navCtrl.navigateRoot(`/${this.appSrc}-naila-search-page`) : this.navCtrl.navigateRoot('/login');
-    //   // if(isLoggedIn){
-
-    //   //   // this.redirectToHomeOrLogin(isLoggedIn);
-    //   // }
-    // });
-
-    //  this.pushNotificationInit()
   }
   redirectToHomeOrLogin(isLoggedIn) {
     window.localStorage.getItem("uid");
@@ -754,17 +675,20 @@ export class AppComponent implements OnInit {
   console.log("==========new msg========>" + "111111");
 
     this.messagingService.getMessages().subscribe(async (msg: any) => {
-      console.log("==========new msg========>" + msg);
+      console.log("==========new msg========>" + JSON.stringify( msg));
 
-      const alert = await this.alertCtrl.create({
-        header: msg.notification.title,
-        subHeader: msg.notification.body,
-        message: msg.data.info,
-        buttons: ["OK"],
-      });
+      // const alert = await this.alertCtrl.create({
+      //   header: '',
+      //   subHeader: '',
+      //   message: '',
+      //   buttons: ["OK"],
+      // });
 
-      await alert.present();
-    });
+      // await alert.present();
+    }, (err)=>{
+      // alert('hi')
+    }
+    );
   }
 
   requestPermission() {
@@ -781,13 +705,13 @@ export class AppComponent implements OnInit {
       },
       async (err) => {
         this.generateToken(this.fcmData);
-        const alert = await this.alertCtrl.create({
-          header: "Error",
-          message: err,
-          buttons: ["OK"],
-        });
+        // const alert = await this.alertCtrl.create({
+        //   header: "Error",
+        //   message: err,
+        //   buttons: ["OK"],
+        // });
 
-        await alert.present();
+        // await alert.present();
       }
     );
   }

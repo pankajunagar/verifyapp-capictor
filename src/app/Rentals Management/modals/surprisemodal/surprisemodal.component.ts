@@ -15,6 +15,8 @@ import {
   InAppBrowserOptions,
   InAppBrowserEvent
 } from "@ionic-native/in-app-browser/ngx";
+import { NailaService } from '../../services/naila.service';
+// import { ToastController } from 'ionic-angular';
 // import { surprisemodalComponent } from '../../modals/surprisemodal/surprisemodal.component';
 
 @Component({
@@ -24,6 +26,7 @@ import {
 })
 export class SurpriseModalComponent implements OnInit {
 hasLogin
+user_name=''
 upi_detail
 flipmodal:any;
 usernotwon:any;
@@ -34,13 +37,15 @@ usernotwon:any;
   };
   flag: boolean = false;
   public images: any[] = [];
-
+  hasLoginData=''
   constructor(
     private modalController: ModalController,
     private utils:Utils,
     private loadingCtrl: LoadingController,
     private noticeService: NoticeService,
+    private apiSvc:NailaService,
     private router: Router,
+    // private toast:ToastController,
     private alertCtrl:AlertController,
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
@@ -48,11 +53,24 @@ usernotwon:any;
     public transService: TranslateServiceService,
     private actionSheet: ActionSheetController
   ) {
-    this.hasLogin=false
+    this.hasLogin=false;
+
+this.user_name= window.localStorage.getItem('name')
+    this.hasLoginData=window.localStorage.getItem('user_upi')
+
+    if(window.localStorage.getItem('user_upi')){
+      this.showALgomessage=true;
+      this.notShowPhoneInput=false
+
+
+    }
+
+
    }
   royaltyData
   cashbackAmount
   ngOnInit() { 
+    this.upi_detail=''
 
     this.flipmodal=true
 
@@ -183,12 +201,87 @@ usernotwon:any;
   socialShare(){
     this.utils.shareProduct();
   }
-
-
+ 
+  showALgomessage=false;
+  notShowPhoneInput=true;
   submitUPI(){
+
+    this.showALgomessage=true
     this.utils.user_upi= this.upi_detail
+    window.localStorage.setItem('user_upi',this.upi_detail)
+    this.utils.user_name=this.user_name
     this.utils.submitUpi();
+    this.notShowPhoneInput=false
   }
+
+
+  async openLink(data){
+    await Browser.open({
+      url: data,
+      windowName: "_blank",
+      toolbarColor: "	#FF0000",
+    });
+
+    Browser.addListener("browserFinished", () => {
+      // this.presentToast("Review submitted successfully.");
+    });
+    Browser.addListener("browserPageLoaded", () => {
+      // ;
+      // alert("hello===========>");
+      // console.log("hello===========>")
+    });
+    this.closeModal();
+  }
+
+  msg
+  trackingData = {
+    user_id: "",
+    tag_id: "",
+    product_id: "",
+    device_id: "",
+    otype: "",
+    meta_data: {
+      mobile_number: "",
+    },
+  };
+  trackingReview() {
+    const _this = this;
+   
+      // this.trackingLinks(data)
+      _this.trackingData.user_id = window.localStorage.getItem("userid");
+      _this.trackingData.tag_id = window.localStorage.getItem("tagId");
+      _this.trackingData.product_id = this.utils.callgettagresult.product_id;
+      (_this.trackingData.device_id = window.localStorage.getItem("device_id")),
+        // _this.trackingData.mobile_number = this.mobile_number
+        (_this.trackingData.otype = "REVIEW_LINK_CLICK");
+
+      _this.trackingData.meta_data.mobile_number = '';
+      this.apiSvc.reviewTracking(_this.trackingData).subscribe(
+        //**charu Start */
+        (res: any) => {
+          if (res) {
+            this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
+            // this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
+            // this.presentToast(this.msg);
+            // this.openInappBrowser(data);
+          }
+        },
+        //**charu Start */
+        (err) => {
+          alert(JSON.stringify(err));
+        }
+      );
+    
+  }
+
+
+  // async presentToast(data) {
+  //   const toast = await this.toast.create({
+  //     message: data,
+  //     duration: 3000,
+  //   });
+  //   toast.present();
+  // }
 
 }
 

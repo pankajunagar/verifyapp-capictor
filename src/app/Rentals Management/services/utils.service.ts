@@ -16,6 +16,9 @@ export class Utils {
     user_upi;
     cashbackAmount;
     source_token;
+    user_name;
+    winMessage;
+    winLossAlgoData;
     usernotwon
     callgettagresult:any;
     callrecordscanresult:any
@@ -32,7 +35,7 @@ export class Utils {
     LoadModal: EventEmitter<boolean> = new EventEmitter();
     share_product:EventEmitter<boolean> = new EventEmitter();
     submit_upi:EventEmitter<boolean> = new EventEmitter();
-
+    trigger_location:EventEmitter<boolean> = new EventEmitter();
     
     warrantyInformation
   constructor(
@@ -66,5 +69,11 @@ export class Utils {
   }
   flipsurpriseModal(){
     this.flipsurprise_modal.next(true)
+  }
+
+  triggerLocation(){
+
+    this.trigger_location.next(true)
+
   }
 }

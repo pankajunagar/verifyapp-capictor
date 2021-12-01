@@ -14,6 +14,9 @@ export class MessagingService {
     return this.afMessaging.requestToken.pipe(
       tap(token => {
         console.log('Store token to server: ', token);
+      },
+      (err)=>{
+        // alert('hi')
       })
     );
   }

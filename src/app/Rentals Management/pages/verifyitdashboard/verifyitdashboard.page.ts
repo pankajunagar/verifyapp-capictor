@@ -18,6 +18,7 @@ import { AlertServiceService } from "src/app/common-services/alert-service.servi
 import { LoadingController } from "@ionic/angular";
 // import { LoadingController } from 'ionic-angular';
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 
 import {
   BarcodeScanner,
@@ -100,6 +101,7 @@ export class VerifyitDashboardPage implements OnInit {
   writtenInput = "";
   ndefMsg: any;
   scanData: {};
+  triggerLocation
   options: BarcodeScannerOptions;
   subscriptions: Array<Subscription> = new Array<Subscription>();
   canvasElement: any;
@@ -108,6 +110,7 @@ export class VerifyitDashboardPage implements OnInit {
   constructor(
     private iab: InAppBrowser,
     private nfc: NFC,
+    private diagnostic: Diagnostic,
     private ndef: Ndef,
     private platform: Platform,
     private route: ActivatedRoute,
@@ -126,6 +129,90 @@ export class VerifyitDashboardPage implements OnInit {
     private settings: SettingsService,
     private apiSvc: NailaService
   ) {
+
+    // window.localStorage.setItem('locationenabled','0')
+
+
+   let token = window.localStorage.getItem("token");
+   if (!token.length) {
+
+
+
+ 
+     this.messagingService.requestPermission().subscribe(
+       async (token) => {
+         this.fcmData.js_fcm = token;
+         this.generateToken(this.fcmData);
+         // const toast = await this.toastCtrl.create({
+         //   message: "Got your token",
+         //   duration: 2000,
+         // });
+         // console.log(token);
+         // toast.present();
+       },
+       async (err) => {
+
+         this.generateToken(this.fcmData);
+
+        //  const alert = await this.alertCtrl.create({
+        //    header: "Error",
+        //    message: err,
+        //    buttons: ["OK"],
+        //  });
+ 
+        //  await alert.present();
+       }
+     );
+   
+
+
+    //  this.triggerLocation = this.utilservice.trigger_location.subscribe((data) => {
+
+    //   this.hardwareDiagnostic()
+
+
+    // });
+
+
+
+
+
+   
+     // let token = window.localStorage.getItem("token");
+     // if (!token.length) {
+     //   this.apiSvc.genToken(fcmData).subscribe(
+     //      (data: any) => {
+     //       window.localStorage.setItem("token", data.data.token);
+     //     },
+     //      (err) => {
+     //       //  this.loadingCtrl.dismiss();
+     //       this.alertService.presentAlert("", "Error while logging out");
+     //     }
+     //   );
+     // }
+   
+
+
+
+   }
+  //  else{
+  //    this.showProductPage();
+
+  //  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     this.settings
       .getActiveTheme()
       .subscribe((val) => (this.selectedTheme = val));
@@ -133,6 +220,7 @@ export class VerifyitDashboardPage implements OnInit {
     this.ionViewDidLoad();
     this.userType = window.localStorage.getItem("userType");
     // this.alertService.presentthis.alertService.presentAlert(''," user info data",window.localStorage.getItem('userType'));
+
   }
 
   toggleAppTheme() {
@@ -160,104 +248,21 @@ export class VerifyitDashboardPage implements OnInit {
   hideDashboardScreen = true;
 
   url_parameter
+  fcmData = {
+    android_fcm: "",
+    ios_fcm: "",
+    js_fcm: "",
+  };
   ngOnInit() {
 
+ 
+      // this.showProductPage();
 
-    this.route.queryParams.subscribe(params => {
+      this.hardwareDiagnostic()
 
-
-      this.url_parameter=params
-      console.log("=======================")
-      console.log(( params))
-      console.log("=======================")
-
-      // if (params) {
-      //   let queryParams = JSON.parse(params);
-      //   console.log(queryParams)
-      // }
-    });
-
-
-    // window.localStorage.setItem('product-link',this.router.url)
-    if (
-      this.router.url.includes("params") &&
-      !this.router.url.includes("source")
-    ) {
-      this.hideDashboardScreen = false;
-      window.localStorage.setItem('params',this.url_parameter.params)
-      this.gettag(this.url_parameter.params);
-    } else if (
-      this.router.url.includes("brand") &&
-      !this.router.url.includes("source")
-    ) {
-      this.hideDashboardScreen = false;
-      let brand = this.url_parameter.brand;
-      window.localStorage.setItem('params',this.url_parameter.params)
-      this.router.navigate(["/verifyit-product-catalog"], {
-        queryParams: { brand: brand },
-      });
-
-
-
-      this.gettag('5000')
-      
-    }
-     else if (this.router.url.includes("product_id")) {
-      this.hideDashboardScreen = false;
-      let product_id = this.router.url.split("=")[1];
-      this.router.navigate(["/verifyit-product-catalog"], {
-        queryParams: { product_id: product_id },
-      });
-    }
-     else if (
-      this.router.url.includes("params") &&
-      this.router.url.includes("source")
-    ) {
-      this.hideDashboardScreen = false;
-      this.source_token = this.url_parameter.source;
-      window.localStorage.setItem('params',this.url_parameter.params)
-      window.localStorage.setItem("source_token", this.source_token);
-      this.data.source_token = this.source_token;
-      this.utilservice.source_token=this.source_token
-      this.gettag(this.url_parameter.params);
-      // this.router.navigateByUrl('/verifyit-product')
-    }
-     // this.gettag('4516') 4925
-    //  for multiple image ,scrach card 4516
-    // for vedio link      4573
-    //for customer review  4517
-    // 4534 for reward
-    //4507  //for scratchcard
-    // 5013 first care product
-    // this.gettag('5020')
-    
-    
     
 
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.geolocation
-        .getCurrentPosition()
-        .then((resp) => {
-          this.data.lat = resp.coords.latitude;
-          this.data.long = resp.coords.longitude;
-        })
-        .catch((error) => {
-          console.log("Error getting location", error);
-        });
-    });
 
-    this.utilservice.LoadPage.subscribe((data) => {
-      //
-      // this.alertService.presentAlert('',this.utilservice.userType)
-      // this.ionViewWillEnter();
-      if (this.utilservice.menuTitle == "Write NFC/QR") {
-        this.userType = 2;
-      } else if (this.utilservice.menuTitle == "Read NFC/QR") {
-        this.userType = 1;
-      }
-    });
   }
   async presentLoading(data) {
     const loading = await this.loading.create({
@@ -303,15 +308,15 @@ export class VerifyitDashboardPage implements OnInit {
   }
   res: any = {};
   tagListenerSuccess() {
-    this.geolocation
-      .getCurrentPosition()
-      .then((resp) => {
-        this.data.lat = resp.coords.latitude;
-        this.data.long = resp.coords.longitude;
-      })
-      .catch((error) => {
-        console.log("Error getting location", error);
-      });
+    // this.geolocation
+    //   .getCurrentPosition()
+    //   .then((resp) => {
+    //     this.data.lat = resp.coords.latitude;
+    //     this.data.long = resp.coords.longitude;
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error getting location", error);
+    //   });
 
     if (this.platform.is("ios")) {
       this.readAndWriteNFCIos();
@@ -604,28 +609,37 @@ export class VerifyitDashboardPage implements OnInit {
     //   }
     // );
   }
-
+  bdata
   async gettag(tagId) {
     window.localStorage.setItem("tagId", tagId);
     let locationUrl = window.location.href;
 
-    this.geolocation
-      .getCurrentPosition()
-      .then((resp) => {
-        this.data.lat = resp.coords.latitude;
-        this.data.long = resp.coords.longitude;
-      })
-      .catch((error) => {
-        console.log("Error getting location", error);
-      });
+    // this.geolocation
+    //   .getCurrentPosition()
+    //   .then((resp) => {
+    //     this.data.lat = resp.coords.latitude;
+    //     this.data.long = resp.coords.longitude;
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error getting location", error);
+    //   });
     await this.presentLoading("");
 
     this.apiSvc.callGetTag(tagId).subscribe((callgettagresult) => {
       this.utilservice.callgettagresult = callgettagresult;
 
       this.res = callgettagresult;
-      // window.localStorage.setItem('brand_id',this.res.brand_id)
-            window.localStorage.setItem('brand_id','0')
+
+      this.loading.dismiss();
+
+      this.apiSvc.getBrandDetail( this.res.product_id).subscribe((data)=>{
+
+          this.bdata= data
+        // window.localStorage.setItem('brand_id','0')
+        window.localStorage.setItem('brand_id',this.bdata.data.id)
+        this.loading.dismiss();
+
+      })
 
       this.cred.product_name = this.res.product_name;
       // this.alertService.presentAlert('',this.cred.product_name)
@@ -740,6 +754,313 @@ export class VerifyitDashboardPage implements OnInit {
       duration: 3000,
     });
     toast.present();
+  }
+
+
+
+  async generateToken(fcmData) {
+    let token = window.localStorage.getItem("token");
+    if (!token.length) {
+     await this.apiSvc.genToken(fcmData).subscribe(
+         (data: any) => {
+          window.localStorage.setItem("token", data.data.token);
+          
+          // this.showProductPage();
+
+
+        },
+        async (err) => {
+          await this.loading.dismiss();
+          this.alertService.presentAlert("", "Something went wrong.");
+        }
+      );
+    }
+  }
+
+
+
+
+
+  showProductPage(){
+    this.route.queryParams.subscribe(params => {
+
+
+      this.url_parameter=params
+      console.log("=======================")
+      console.log(( params))
+      console.log("=======================")
+
+      // if (params) {
+    //   let queryParams = JSON.parse(params);
+      //   console.log(queryParams)
+      // }
+    });
+
+
+    // window.localStorage.setItem('product-link',this.router.url)
+    if (
+      this.router.url.includes("params") &&
+      !this.router.url.includes("source")
+    ) {
+      this.hideDashboardScreen = false;
+      window.localStorage.setItem('params',this.url_parameter.params)
+      this.gettag(this.url_parameter.params);
+    } else if (
+      this.router.url.includes("brand") &&
+      !this.router.url.includes("source")
+    ) {
+      this.hideDashboardScreen = false;
+      let brand = this.url_parameter.brand;
+      window.localStorage.setItem('params',this.url_parameter.params)
+      this.router.navigate(["/verifyit-product-catalog"], {
+        queryParams: { brand: brand },
+      });
+
+
+
+      this.gettag('5000')
+      
+    }else if(this.router.url.includes("ext-loading")){
+      this.hideDashboardScreen = false;
+this.router.navigateByUrl('/ext-loading')
+    }
+     else if (this.router.url.includes("product_id")) {
+      this.hideDashboardScreen = false;
+      let product_id = this.router.url.split("=")[1];
+      this.router.navigate(["/verifyit-product-catalog"], {
+        queryParams: { product_id: product_id },
+      });
+    }
+     else if (
+      this.router.url.includes("params") &&
+      this.router.url.includes("source")
+    ) {
+      this.hideDashboardScreen = false;
+      this.source_token = this.url_parameter.source;
+      window.localStorage.setItem('params',this.url_parameter.params)
+      window.localStorage.setItem("source_token", this.source_token);
+      this.data.source_token = this.source_token;
+      this.utilservice.source_token=this.source_token
+      this.gettag(this.url_parameter.params);
+      // this.router.navigateByUrl('/verifyit-product')
+    }
+     // this.gettag('4516') 4925
+    //  for multiple image ,scrach card 4516
+    // for vedio link      4573
+    //for customer review  4517
+    // 4534 for reward
+    //4507  //for scratchcard
+    // 5013 first care product
+    // this.gettag('5020')
+    
+    
+    
+
+// ask for location
+
+// const alert = await this.alertCtrl.create({
+//   header: "Error",
+//   message: 'err',
+//   buttons: ["OK"],
+// });
+
+// await alert.present();
+// }
+
+
+// this.askLocation()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    this.utilservice.LoadPage.subscribe((data) => {
+      //
+      // this.alertService.presentAlert('',this.utilservice.userType)
+      // this.ionViewWillEnter();
+      if (this.utilservice.menuTitle == "Write NFC/QR") {
+        this.userType = 2;
+      } else if (this.utilservice.menuTitle == "Read NFC/QR") {
+        this.userType = 1;
+      }
+    });
+
+
+
+
+
+
+  }
+
+// hardwareDiagnostic(){
+//   debugger
+// //   let successCallback = (isAvailable) => { console.log('Is available? ' + isAvailable); }
+// // let errorCallback = (e) => console.error(e);
+
+
+
+// this.diagnostic.getLocationAuthorizationStatus()
+//   .then((state) => {
+//     alert(state)
+    
+
+//     this.showLocationAlert()
+//     if (this.diagnostic.isLocationAuthorized){
+//       // alert()
+//       // do something
+//     } else {
+//       // do something else
+//       this.showLocationAlert()
+//     }
+//   }).catch(e => console.error(e));
+// }
+
+
+
+
+
+ hardwareDiagnostic() {
+  this.hideDashboardScreen = false;
+
+  
+
+  if(window.localStorage.getItem('locationenabled')== '0' || window.localStorage.getItem('locationenabled')== undefined){
+    debugger
+    this.showLocationAlert()
+  }
+  else if(window.localStorage.getItem('locationenabled')=='1'){
+    this.showProductPage();
+  }
+  
+}
+
+
+
+async showLocationAlert(){
+
+  const alert = await this.alertCtrl.create({
+    cssClass: 'my-custom-class',
+    // header: 'Confirm!',
+    message: 'Allow Nowverifyit to access your location?',
+    buttons: [
+      {
+        text: 'No',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          window.localStorage.setItem('locationenabled','0')
+          console.log('Confirm Cancel: blah');
+          this.showProductPage();
+        }
+      }, {
+        text: 'Yes',
+        handler: () => {
+
+          this.askLocation()
+        }
+      }
+    ]
+  });
+  await alert.present();
+}
+
+
+
+
+
+
+msg
+trackingData = {
+  user_id: "",
+  tag_id: "",
+  product_id: "",
+  device_id: "",
+  otype: "",
+  lat :this.data.lat,
+  long: this.data.long,
+  meta_data: {
+    mobile_number: "",
+  },
+};
+askLocation(){
+  debugger
+    this.platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      this.geolocation
+        .getCurrentPosition()
+        .then((resp) => {
+          this.data.lat = resp.coords.latitude;
+          this.data.long = resp.coords.longitude;
+          console.log("==================================>")
+          console.log("==================================>")
+
+          this.trackingData.lat = resp.coords.latitude;
+          this.trackingData.long = resp.coords.longitude;
+          console.log(this.data.long)
+          console.log(this.data.lat)
+
+          console.log("==================================>")
+          console.log("==================================>")
+
+          window.localStorage.setItem('locationenabled','1')
+          this.trackingReview()
+        })
+       
+        // .catch((error) => {
+        //   // this.showProductPage();
+        //   // this.trackingReview()
+
+        //   console.log("Error getting location", error);
+        // });
+
+
+    });
+  }
+
+
+
+  trackingReview() {
+    const _this = this;
+   
+      // this.trackingLinks(data)
+      _this.trackingData.user_id = window.localStorage.getItem("userid");
+      _this.trackingData.tag_id = window.localStorage.getItem("tagId");
+      // _this.trackingData.product_id = this.utilservice.callgettagresult.product_id;
+      (_this.trackingData.device_id = window.localStorage.getItem("device_id")),
+        // _this.trackingData.mobile_number = this.mobile_number
+        (_this.trackingData.otype = "LOCATION_DATA");
+
+      _this.trackingData.meta_data.mobile_number = '';
+      this.apiSvc.reviewTracking(_this.trackingData).subscribe(
+        //**charu Start */
+        (res: any) => {
+          
+          if (res) {
+            this.showProductPage();
+            this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
+            // this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
+            // this.presentToast(this.msg);
+            // this.openInappBrowser(data);
+          }
+        },
+        //**charu Start */
+        (err) => {
+          // this.showProductPage();
+
+          alert(JSON.stringify(err));
+        }
+      );
+    
   }
 
 }

@@ -53,6 +53,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ScratchmodalComponent } from './Rentals Management/modals/scratchmodal/scratchmodal.component';
 import { NgGoogleOneTapModule } from 'ng-google-one-tap';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,6 +110,8 @@ import { NgGoogleOneTapModule } from 'ng-google-one-tap';
     Screenshot,
     StreamingMedia,
     Geolocation,
+    Diagnostic,
+    
     BarcodeScanner,
     Ndef,
     StatusBar,

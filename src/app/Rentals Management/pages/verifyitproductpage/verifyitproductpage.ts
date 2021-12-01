@@ -235,6 +235,10 @@ export class Verifyitproductpage {
     });
   }
 
+
+  hasScratchCard
+  hasPopup
+  hasProductCatalogue
   ngOnInit() {
     if (window.localStorage.getItem("showDeactivate") == "4") {
       this.showDeactivate = true;
@@ -246,7 +250,9 @@ export class Verifyitproductpage {
     this.hasLogin = window.localStorage.getItem("name");
 
     this.callgettagresult = this.utilservice.callgettagresult;
-
+this.hasScratchCard=this.utilservice.callgettagresult.meta_data.scratch_card
+this.hasPopup=this.utilservice.callgettagresult.meta_data.pop_up
+this.hasProductCatalogue=this.utilservice.callgettagresult.meta_data.product_catalogue
     // if(this.callgettagresult.brand == "RRC"){
     //   debugger
     //   this.hideBrand=true
@@ -261,6 +267,7 @@ export class Verifyitproductpage {
 
     if (this.utilservice.callgettagresult.meta_data) {
       if (this.hasLogin == null) {
+        // debugger
         //charu for login
 
         if (
@@ -271,8 +278,8 @@ export class Verifyitproductpage {
           this.loginService.isProductInfo = true;
           this.router.navigateByUrl("/login");
         } else if (
-          (this.utilservice.callgettagresult.brand == "Dev" ||
-            this.utilservice.callgettagresult.brand == "Obuddys") &&
+          (window.localStorage.getItem('brand_id')== '24' ||
+            window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
           !window.localStorage.getItem("name")
         ) {
           this.loginService.isProductInfo = true;
@@ -281,15 +288,19 @@ export class Verifyitproductpage {
           this.router.navigateByUrl("/login");
         }
       } else if (
-        (this.utilservice.callgettagresult.brand == "Dev" ||
-          this.utilservice.callgettagresult.brand == "Obuddys") &&
+        (window.localStorage.getItem('brand_id')== '24' ||
+          window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
         window.localStorage.getItem("name") &&
         window.localStorage.getItem("hasquizModal") == "0"
       ) {
         this.loginService.isProductInfo = true;
         this.utilservice.isProductInfo = true;
         // this.router.navigateByUrl("/login");
-        this.openQuiz("default");
+        // this.openQuiz("default");
+
+
+this.getQuestions()
+
       }
       Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
         this.jsonToBeUsed.push({
@@ -725,24 +736,25 @@ export class Verifyitproductpage {
   brand = this.callgettagresult.brand;
   product_link = "";
 
+
   async socialShare() {
     this.subscription1.unsubscribe();
     let pTagId;
     let referraltext;
     if (
-      (this.utilservice.callgettagresult.brand == "Dev" ||
-        this.utilservice.callgettagresult.brand == "Obuddys") &&
+      (window.localStorage.getItem('brand_id')== '24' ||
+        window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
       window.localStorage.getItem("name")
     ) {
       pTagId = 5019;
       referraltext =
         window.localStorage.getItem("name") +
-        " wants to recommend this product at NowVerifyIt and Inviting you to win either Silver Coin or Free Kaju Mitra pack or Discount Coupons on all Kaju Mitra Products ";
+        " " + this.utilservice.winLossAlgoData.link_data.msg;
     } else {
       pTagId = window.localStorage.getItem("tagId");
       referraltext = "Hey, Checkout" + " from " + this.callgettagresult.brand;
     }
-
+// whatsapp message
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
@@ -767,40 +779,7 @@ export class Verifyitproductpage {
     });
     this.shareTracking();
 
-    // let options: StreamingVideoOptions = {
-    //   successCallback: () => { console.log('=======================>Video played==================>') },
-    //   errorCallback: (e) => { console.log('Error streaming') },
-    //   orientation: 'portrait',
-    //   shouldAutoClose: true,
-    //   controls: false
-    // };
-    // this.streamingMedia.playVideo('https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4', options);
-
-    // console.log('kkkkkkk=================',this.brand_color)
-
-    // this.socialSharing
-    //   .share(
-    // "Hey, Checkout" +
-    // " " +
-    // this.product_title +
-    // " from " +
-    // this.brand +
-    // "." +
-    // "\n",
-    // "",
-    // "",
-    // this.product_link
-    //   )
-    //   .then(() => {
-    //     console.log(
-    //       "===============shared================== to whatsapp========"
-    //     );
-    //   })
-    //   .catch(() => {
-    //     console.log(
-    //       "===============shared===========not======= to whatsapp========"
-    //     );
-    //   });
+ 
   }
   async navigateTomsgPage() {
     this.router.navigateByUrl("/verifyit-message");
@@ -998,7 +977,8 @@ export class Verifyitproductpage {
         //**charu Start */
         (res: any) => {
           if (res) {
-            this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
+            this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
+            // this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
             this.presentToast(this.msg);
             this.openInappBrowser(data);
           }
@@ -1083,7 +1063,8 @@ export class Verifyitproductpage {
       (res: any) => {
         // this.openInappBrowser(data)
         if (res) {
-          this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
+          this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
+          // this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
           this.presentToast(this.msg);
         }
       },
@@ -1399,17 +1380,23 @@ export class Verifyitproductpage {
       //**charu Start */
       (res: any) => {
 
+        // this.utilservice.triggerLocation()
+
 
 
         if (res.data.win == 1 && !this.utilservice.source_token) {
           
           this.utilservice.cashbackAmount=res.data.price_money
+          this.utilservice.winMessage=res.data.res_message
+          this.utilservice.winLossAlgoData=res.data
           this.subscription.unsubscribe();
           console.log(res);
           this.utilservice.usernotwon = true;
 
           this.surpriseModal();
         } else {
+          this.utilservice.winMessage=res.data.res_message
+          this.utilservice.winLossAlgoData=res.data
           this.subscription.unsubscribe();
           this.utilservice.usernotwon = false;
           this.surpriseModal();
@@ -1434,6 +1421,7 @@ export class Verifyitproductpage {
     let bankData = {
       user_upi: this.utilservice.user_upi,
       user_id: window.localStorage.getItem("userid"),
+      name: this.utilservice.user_name
     };
 
     this.apiSvc.submitBankDetail(bankData).subscribe(
@@ -1457,5 +1445,41 @@ export class Verifyitproductpage {
         data: "",
       },
     });
+  }
+
+  purchaseOnline(data){
+
+    let linkData={
+link:data
+    }
+    this.openInappBrowser(linkData);
+  }
+
+
+
+
+
+  getQuestions() {
+    let data = {
+      brand_id: window.localStorage.getItem('brand_id'),
+    };
+
+    this.apiSvc.getQuestion(data).subscribe(
+      (res: any) => {
+        if (res.message=='Success') {
+          this.openQuiz("default");
+
+          // this.questions = res.data.question;
+          // console.table(this.questions);
+        }else{
+          this.utilservice.LoadSurpriseModal();
+
+        }
+      },
+
+      (err) => {
+        alert(JSON.stringify(err));
+      }
+    );
   }
 }

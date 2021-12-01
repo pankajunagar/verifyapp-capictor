@@ -98,16 +98,19 @@ export class QuizModalComponent implements OnInit {
       device_id: window.localStorage.getItem("device_id"),
       product_id: this.callgettagresult.id,
       answers: [],
+      user_brand_id: window.localStorage.getItem('brand_id')
     };
   };
-  dataChange(i, qid, answer, ansid) {
+  dataChange(i, qid, answer, ansid, brandId ) {
     console.log(i);
     this.count++;
     const answerobj = {
       question_id: qid,
       answer: answer,
-      answer_id: ansid,
-      brand_id: this.callgettagresult.id,
+      // answer_id: ansid,
+      answer_id: '',
+      brand_id: brandId,
+      
     };
     this.answer.answers.push(answerobj);
     console.log("ANSWERRRRRRRRRRRRRRRRRRRRRRRRRR");
@@ -169,7 +172,7 @@ export class QuizModalComponent implements OnInit {
   //**charu Start  for get Question */
   getQuestions() {
     let data = {
-      brand_id: 27,
+      brand_id: window.localStorage.getItem('brand_id'),
     };
 
     this.apisc.getQuestion(data).subscribe(

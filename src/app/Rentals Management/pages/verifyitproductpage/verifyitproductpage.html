@@ -111,23 +111,23 @@
 
         <div class="row" *ngFor="let item of jsonToBeUsed">
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='product-video-object'  && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='product-video-object'  && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="label">
             {{item.key.split('_').join(' ')}}
           </div>
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="description">
             {{item.value}}
           </div>
 
           <!-- <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="label">
             {{item.key.split('_').join(' ')}}
           </div>
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key=='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="description">
             <a style="text-decoration: underline; color: #4688C5" (click)="showCatalog(callgettagresult.product_id)">
               Show catalog
@@ -137,12 +137,12 @@
 
           <!-- 
         <div text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key=='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key=='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="label">
           {{item.key.split('_').join(' ')}}
         </div>
         <div text-capitalize
-          *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key=='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+          *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key=='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
           class="description">
           <a style="text-decoration: underline; color: #4688C5" (click)="scratchModal()">
             Claim Your Cashback 
@@ -151,12 +151,12 @@
 
 
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='warranty' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='warranty' && item.key!='certificates' && item.key!='purchase online'&& item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="label">
             {{item.key.split('_').join(' ')}}
           </div>
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='warranty' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='warranty' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="description">
             <a style="text-decoration: underline; color: #4688C5" (click)="generateEwarrantyCard()">
               Generate E-warranty card
@@ -164,7 +164,7 @@
           </div>
 
           <div class="p-l-r-5"
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video-object' && item.key!='review' && item.key!='brand_color'">
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video-object' && item.key!='review' && item.key!='brand_color'">
             <!-- {{item.key}} -->
 
             <ion-row size="12" *ngFor="let list of item.value">
@@ -186,12 +186,12 @@
           </div>
 
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="label">
             {{item.key.split('_').join(' ')}}:
           </div>
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key=='certificates' && item.key!='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="description">
             <a style="text-decoration: underline; color: #4688C5" (click)="showCertificates(item.value)">
               {{ item.value[0].text}}{{item.value[1]? ','+item.value[1].text+'...'
@@ -200,13 +200,13 @@
           </div>
 
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key=='purchase online' && item.key!='product-video' && item.key!='review' && item.key!='brand_color'"
             class="label">
             <!-- Purchase Online -->
             {{item.key.split('_').join(' ')}}:
           </div>
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && item.key!='review' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='product-video' && item.key=='purchase online' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && item.key!='review' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='product-video' && item.key=='purchase online' && item.key!='brand_color'"
             class="description">
             <a style="text-decoration: underline; color: #4688C5" (click)="presentActionSheet(item)">
 
@@ -215,13 +215,13 @@
           </div>
 
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
             class="label">
             <!-- Review -->
             {{item.key.split('_').join(' ')}}:
           </div>
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key=='review' && item.key!='brand_color'"
             class="description">
             <a style="text-decoration: underline; color: #4688C5" (click)="presentActionSheet(item)">
               <!-- Review Link -->
@@ -231,9 +231,31 @@
           </div>
 
 
+
+
+
+
+          <div text-capitalize
+          *ngIf="item.key!='Instruction'  && item.key!='login_required' && item.key=='Website' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key!='review' && item.key!='brand_color'"
+          class="label">
+          <!-- Website -->
+          {{item.key.split('_').join(' ')}}:
+        </div>
+        <div text-capitalize
+          *ngIf="item.key!='Instruction'  && item.key!='login_required' && item.key=='Website' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key!='product-video'  && item.key!='review' && item.key!='brand_color'"
+          class="description">
+          <a style="text-decoration: underline; color: #4688C5" (click)="purchaseOnline(item.value)">
+            <!-- Website -->
+            {{item.value}}
+          </a>
+        </div>
+
+
+
+
           <!-- <div
         text-capitalize
-        *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
+        *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='scratch_card' && item.key!='warranty' && item.key!='pop_up' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
         class="label"
       >{{item.key.split('_').join(' ')}}:
         <a
@@ -244,13 +266,13 @@
       </div> -->
 
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online'&& item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
             class="label">
             {{item.key.split('_').join(' ')}}
           </div>
 
           <div text-capitalize
-            *ngIf="item.key!='Instruction' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
+            *ngIf="item.key!='Instruction' && item.key!='Website' && item.key!='login_required' && item.key!='images' && item.key!='Description' && item.key!='product-video-object' && item.key!='Product-details' && item.key!='purchase_type' && jsonToBeUsed.length && item.key!='product_catalogue' && item.key!='certificates' && item.key!='purchase online' && item.key=='product-video' && item.key!='review' && item.key!='brand_color'"
             class="description">
             <a id="video" style="text-decoration: underline; color: #4688C5" (click)="openQuiz('video',item.value)">
               <!-- Show Video (click)="showProductVideo(item.value)"  -->
@@ -319,7 +341,7 @@
 </ion-row>
     </ion-card>
 
-    <ion-row class="">
+    <ion-row *ngIf="hasScratchCard == '1'" class="">
       <ion-col (click)="scratchModal()" size="12" class=" exciting-offers">
         <img class="img-responsive" src="../../../../assets/images/exciting-offers.png" alt="">
       </ion-col>
@@ -374,7 +396,7 @@
       </ion-col>
     </ion-row>
     </ion-card>
-    <ion-row  class="participate">
+    <ion-row  *ngIf="hasPopup == '1'" class="participate">
       <ion-col (click)="openQuiz('win')" 
        size="12" class="participate_in">
         <span><img class="" src="../../../../assets/images/winner.png" alt="">Participate and Win Loyalty Points </span>
@@ -503,7 +525,7 @@
     </div> -->
 
 
-    <ion-row class="participate explore">
+    <ion-row  *ngIf="hasProductCatalogue == 'Yes'" class="participate explore">
       <ion-col (click)="showCatalog(this.utilservice.callgettagresult.product_id)" size="12" class="participate_in">
         <span><img class="" src="../../../../assets/images/explor.png" alt="">Explore more about brand</span>
       </ion-col>
