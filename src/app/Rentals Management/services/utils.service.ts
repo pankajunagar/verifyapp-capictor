@@ -18,6 +18,8 @@ export class Utils {
     source_token;
     user_name;
     winMessage;
+    notification_id;
+    brand_id;
     winLossAlgoData;
     usernotwon
     callgettagresult:any;

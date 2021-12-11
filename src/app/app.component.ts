@@ -691,30 +691,30 @@ export class AppComponent implements OnInit {
     );
   }
 
-  requestPermission() {
-    this.messagingService.requestPermission().subscribe(
-      async (token) => {
-        this.fcmData.js_fcm = token;
-        this.generateToken(this.fcmData);
-        // const toast = await this.toastCtrl.create({
-        //   message: "Got your token",
-        //   duration: 2000,
-        // });
-        // console.log(token);
-        // toast.present();
-      },
-      async (err) => {
-        this.generateToken(this.fcmData);
-        // const alert = await this.alertCtrl.create({
-        //   header: "Error",
-        //   message: err,
-        //   buttons: ["OK"],
-        // });
+  // requestPermission() {
+  //   this.messagingService.requestPermission().subscribe(
+  //     async (token) => {
+  //       this.fcmData.js_fcm = token;
+  //       this.generateToken(this.fcmData);
+  //       // const toast = await this.toastCtrl.create({
+  //       //   message: "Got your token",
+  //       //   duration: 2000,
+  //       // });
+  //       // console.log(token);
+  //       // toast.present();
+  //     },
+  //     async (err) => {
+  //       this.generateToken(this.fcmData);
+  //       // const alert = await this.alertCtrl.create({
+  //       //   header: "Error",
+  //       //   message: err,
+  //       //   buttons: ["OK"],
+  //       // });
 
-        // await alert.present();
-      }
-    );
-  }
+  //       // await alert.present();
+  //     }
+  //   );
+  // }
 
   async deleteToken() {
     this.messagingService.deleteToken();

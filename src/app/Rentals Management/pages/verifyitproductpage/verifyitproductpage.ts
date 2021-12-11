@@ -240,6 +240,19 @@ export class Verifyitproductpage {
   hasPopup
   hasProductCatalogue
   ngOnInit() {
+    this.platform.ready().then((readysource)=>{
+console.log('===================brand=================')
+console.log('===================brand=================')
+
+   console.log(this.utilservice.brand_id)
+
+
+   console.log('===================brand=================')
+
+   console.log('===================brand=================')
+
+
+
     if (window.localStorage.getItem("showDeactivate") == "4") {
       this.showDeactivate = true;
     } else {
@@ -348,6 +361,9 @@ this.getQuestions()
     // add listeners to the plugin
     // this.scrollToTopOnInit()
     this._addListenersToPlayerPlugin();
+
+  })
+
   }
 
   async ionViewDidEnter() {

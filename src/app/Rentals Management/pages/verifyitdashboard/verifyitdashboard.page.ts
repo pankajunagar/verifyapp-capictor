@@ -130,75 +130,11 @@ export class VerifyitDashboardPage implements OnInit {
     private apiSvc: NailaService
   ) {
 
-    // window.localStorage.setItem('locationenabled','0')
-
-
-   let token = window.localStorage.getItem("token");
-   if (!token.length) {
-
+   
 
 
  
-     this.messagingService.requestPermission().subscribe(
-       async (token) => {
-         this.fcmData.js_fcm = token;
-         this.generateToken(this.fcmData);
-         // const toast = await this.toastCtrl.create({
-         //   message: "Got your token",
-         //   duration: 2000,
-         // });
-         // console.log(token);
-         // toast.present();
-       },
-       async (err) => {
-
-         this.generateToken(this.fcmData);
-
-        //  const alert = await this.alertCtrl.create({
-        //    header: "Error",
-        //    message: err,
-        //    buttons: ["OK"],
-        //  });
  
-        //  await alert.present();
-       }
-     );
-   
-
-
-    //  this.triggerLocation = this.utilservice.trigger_location.subscribe((data) => {
-
-    //   this.hardwareDiagnostic()
-
-
-    // });
-
-
-
-
-
-   
-     // let token = window.localStorage.getItem("token");
-     // if (!token.length) {
-     //   this.apiSvc.genToken(fcmData).subscribe(
-     //      (data: any) => {
-     //       window.localStorage.setItem("token", data.data.token);
-     //     },
-     //      (err) => {
-     //       //  this.loadingCtrl.dismiss();
-     //       this.alertService.presentAlert("", "Error while logging out");
-     //     }
-     //   );
-     // }
-   
-
-
-
-   }
-  //  else{
-  //    this.showProductPage();
-
-  //  }
 
 
 
@@ -257,8 +193,10 @@ export class VerifyitDashboardPage implements OnInit {
 
  
       // this.showProductPage();
+      // this.firebasePermission()
+      this.hasToken()
 
-      this.hardwareDiagnostic()
+    
 
     
 
@@ -611,6 +549,7 @@ export class VerifyitDashboardPage implements OnInit {
   }
   bdata
   async gettag(tagId) {
+    this.presentLoading("");
     window.localStorage.setItem("tagId", tagId);
     let locationUrl = window.location.href;
 
@@ -623,7 +562,7 @@ export class VerifyitDashboardPage implements OnInit {
     //   .catch((error) => {
     //     console.log("Error getting location", error);
     //   });
-    await this.presentLoading("");
+    // await this.presentLoading("");
 
     this.apiSvc.callGetTag(tagId).subscribe((callgettagresult) => {
       this.utilservice.callgettagresult = callgettagresult;
@@ -636,8 +575,27 @@ export class VerifyitDashboardPage implements OnInit {
 
           this.bdata= data
         // window.localStorage.setItem('brand_id','0')
+        this.utilservice.brand_id=this.bdata.data.id
+        console.log('======================dasboard brand==================')
+        console.log('======================dasboard brand==================')
+
+        console.log('======================dasboard brand==================')
+
+        console.log(this.bdata.data.id)
+        console.log(this.bdata.data)
+
+
+        console.log('======================dasboard brand==================')
+
+        console.log('======================dasboard brand==================')
+
+        console.log('======================dasboard brand==================')
+
         window.localStorage.setItem('brand_id',this.bdata.data.id)
+        
         this.loading.dismiss();
+        this.router.navigateByUrl("/verifyit-product");
+
 
       })
 
@@ -646,30 +604,30 @@ export class VerifyitDashboardPage implements OnInit {
       this.cred.verified = this.res.verified;
       this.cred.tagId = tagId;
       this.data.tagId = tagId;
-      this.apiSvc.callRecordScan(this.data).subscribe(
-        (callrecordscanresult) => {
-          if(locationUrl.includes("pwa") || locationUrl.includes("nowverifycap") || locationUrl.includes("noeverifycaptest") ){
+      // this.apiSvc.callRecordScan(this.data).subscribe(
+      //   (callrecordscanresult) => {
+      //     if(locationUrl.includes("pwa") || locationUrl.includes("nowverifycap") || locationUrl.includes("noeverifycaptest") ){
 
-          }else{
+      //     }else{
 
-            this.presentToast(["QR code scan successfully."]);
-          }
+      //       this.presentToast(["QR code scan successfully."]);
+      //     }
 
-          console.log(callrecordscanresult);
-          this.utilservice.callrecordscanresult = callrecordscanresult;
-          this.loading.dismiss();
-          window.localStorage.setItem('hasquizModal','0')
+      //     console.log(callrecordscanresult);
+      //     this.utilservice.callrecordscanresult = callrecordscanresult;
+      //     this.loading.dismiss();
+      //     window.localStorage.setItem('hasquizModal','0')
 
-          this.router.navigateByUrl("/verifyit-product");
-          //location
-        },
-        (err) => {
-          this.loading.dismiss();
-          this.presentToast(["QR code scan went wrong.."]);
+      //     this.router.navigateByUrl("/verifyit-product");
+      //     //location
+      //   },
+      //   (err) => {
+      //     this.loading.dismiss();
+      //     this.presentToast(["QR code scan went wrong.."]);
 
-          // this.alertService.presentAlert("", "call record scan went wrong");
-        }
-      );
+      //     // this.alertService.presentAlert("", "call record scan went wrong");
+      //   }
+      // );
 
       this.cred.model_number = this.res.model_number;
       this.cred.serial_number = this.res.serial_number;
@@ -692,8 +650,20 @@ export class VerifyitDashboardPage implements OnInit {
       this.credKeys.key12 = "Wine Information";
       this.credKeys.key13 = "Verified";
 
+      // setInterval(this.redirectProduct, 3000);
+      // setTimeout(this.redirectProduct.bind(this),2000);
+
+
+
       // this.helperSvc.hideLoading();
+    //   setInterval(function(){ 
+        
+    //     // alert("Hello"); 
+    //     this.redirectProduct()
+    
+    // }, 2000);
     });
+    
   }
 
   strToObj(str) {
@@ -704,7 +674,13 @@ export class VerifyitDashboardPage implements OnInit {
     }
     //
     return obj;
+    this.router.navigateByUrl("/verifyit-product");
   }
+
+  // redirectProduct(){
+  //   this.router.navigateByUrl("/verifyit-product");
+
+  // }
 
   scanIOS() {
     this.options = {
@@ -766,6 +742,11 @@ export class VerifyitDashboardPage implements OnInit {
           window.localStorage.setItem("token", data.data.token);
           
           // this.showProductPage();
+          // this.hardwareDiagnostic()
+
+
+
+          this.callRecordScan()
 
 
         },
@@ -774,6 +755,8 @@ export class VerifyitDashboardPage implements OnInit {
           this.alertService.presentAlert("", "Something went wrong.");
         }
       );
+    }else{
+          this.callRecordScan()
     }
   }
 
@@ -822,6 +805,7 @@ export class VerifyitDashboardPage implements OnInit {
       
     }else if(this.router.url.includes("ext-loading")){
       this.hideDashboardScreen = false;
+      this.utilservice.notification_id= this.url_parameter.not_id;
 this.router.navigateByUrl('/ext-loading')
     }
      else if (this.router.url.includes("product_id")) {
@@ -902,7 +886,7 @@ this.router.navigateByUrl('/ext-loading')
   }
 
 // hardwareDiagnostic(){
-//   debugger
+//   
 // //   let successCallback = (isAvailable) => { console.log('Is available? ' + isAvailable); }
 // // let errorCallback = (e) => console.error(e);
 
@@ -929,16 +913,24 @@ this.router.navigateByUrl('/ext-loading')
 
 
  hardwareDiagnostic() {
-  this.hideDashboardScreen = false;
+   
+   let a = window.localStorage.getItem('notification_enabled')
+   if(this.router.url.includes('?')){
 
-  
-
+     this.hideDashboardScreen = false;
+   }
+   
   if(window.localStorage.getItem('locationenabled')== '0' || window.localStorage.getItem('locationenabled')== undefined){
-    debugger
+    
     this.showLocationAlert()
-  }
-  else if(window.localStorage.getItem('locationenabled')=='1'){
-    this.showProductPage();
+  }else if(window.localStorage.getItem('locationenabled')=='1'){
+    if( a  == '1' ){
+
+      this.showProductPage();
+    }else{
+
+      this.showNotificationAlert()
+    }
   }
   
 }
@@ -950,7 +942,7 @@ async showLocationAlert(){
   const alert = await this.alertCtrl.create({
     cssClass: 'my-custom-class',
     // header: 'Confirm!',
-    message: 'Allow Nowverifyit to access your location?',
+    message: 'Increase your chances of winning the lucky prize by sharing location.',
     buttons: [
       {
         text: 'No',
@@ -959,7 +951,19 @@ async showLocationAlert(){
         handler: (blah) => {
           window.localStorage.setItem('locationenabled','0')
           console.log('Confirm Cancel: blah');
-          this.showProductPage();
+          // this.showProductPage();
+
+
+          let notification_enabled = window.localStorage.getItem("notification_enabled");
+          if(notification_enabled == '0' || notification_enabled== undefined){
+            
+            this.showNotificationAlert()
+          }else{
+            this.showProductPage()
+          }
+
+
+
         }
       }, {
         text: 'Yes',
@@ -978,6 +982,8 @@ async showLocationAlert(){
 
 
 
+
+
 msg
 trackingData = {
   user_id: "",
@@ -985,27 +991,32 @@ trackingData = {
   product_id: "",
   device_id: "",
   otype: "",
-  lat :this.data.lat,
-  long: this.data.long,
+  js_fcm:this.fcmData.js_fcm,
+  // lat :this.data.lat,
+  // long: this.data.long,
   meta_data: {
     mobile_number: "",
+    lat :this.data.lat,
+    long: this.data.long,
+    js_fcm:this.fcmData.js_fcm
   },
 };
 askLocation(){
-  debugger
+  this.presentLoading("");
+  
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.geolocation
-        .getCurrentPosition()
+        .getCurrentPosition() 
         .then((resp) => {
           this.data.lat = resp.coords.latitude;
           this.data.long = resp.coords.longitude;
           console.log("==================================>")
           console.log("==================================>")
 
-          this.trackingData.lat = resp.coords.latitude;
-          this.trackingData.long = resp.coords.longitude;
+          this.trackingData.meta_data.lat = resp.coords.latitude;
+          this.trackingData.meta_data.long = resp.coords.longitude;
           console.log(this.data.long)
           console.log(this.data.lat)
 
@@ -1013,15 +1024,18 @@ askLocation(){
           console.log("==================================>")
 
           window.localStorage.setItem('locationenabled','1')
-          this.trackingReview()
+          this.loading.dismiss();
+          this.trackingevents('LOCATION_DATA')
         })
        
-        // .catch((error) => {
-        //   // this.showProductPage();
-        //   // this.trackingReview()
+        .catch((error) => {
+          window.localStorage.setItem('locationenabled','1')
 
-        //   console.log("Error getting location", error);
-        // });
+          // this.showProductPage();
+          this.trackingevents('LOCATION_DATA')
+this.loading.dismiss();
+          console.log("Error getting location", error);
+        });
 
 
     });
@@ -1029,7 +1043,9 @@ askLocation(){
 
 
 
-  trackingReview() {
+  trackingevents(otype) {
+    this.presentLoading("");
+
     const _this = this;
    
       // this.trackingLinks(data)
@@ -1038,19 +1054,33 @@ askLocation(){
       // _this.trackingData.product_id = this.utilservice.callgettagresult.product_id;
       (_this.trackingData.device_id = window.localStorage.getItem("device_id")),
         // _this.trackingData.mobile_number = this.mobile_number
-        (_this.trackingData.otype = "LOCATION_DATA");
+        (_this.trackingData.otype = otype);
 
       _this.trackingData.meta_data.mobile_number = '';
+      _this.trackingData.meta_data.js_fcm=this.fcmData.js_fcm
       this.apiSvc.reviewTracking(_this.trackingData).subscribe(
         //**charu Start */
         (res: any) => {
           
-          if (res) {
+          if (res && otype=='NOTIFICATION_DATA') {
+
+
             this.showProductPage();
             this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
             // this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
             // this.presentToast(this.msg);
             // this.openInappBrowser(data);
+          }else{
+            let notification_enabled = window.localStorage.getItem("notification_enabled");
+if(notification_enabled=='0' || notification_enabled==undefined){
+this.loading.dismiss()
+  this.showNotificationAlert()
+}else{
+  this.loading.dismiss()
+  this.showProductPage();
+
+}
+
           }
         },
         //**charu Start */
@@ -1062,5 +1092,139 @@ askLocation(){
       );
     
   }
+
+
+
+
+
+
+
+  hasToken(){
+    let token = window.localStorage.getItem("token");
+    this.generateToken(this.fcmData);
+    // if (!token.length) {
+ 
+ 
+    // }else{
+    //   // this.hardwareDiagnostic()
+    //   this.generateToken(this.fcmData);
+
+
+    // }
+  }
+
+
+  callRecordScan(){
+    let locationUrl = window.location.href;
+    this.route.queryParams.subscribe(params => {
+
+
+      this.url_parameter=params.params
+      this.data.tagId= this.url_parameter
+      console.log("=======================")
+      console.log(( params))
+      console.log("=======================")
+
+      // if (params) {
+    //   let queryParams = JSON.parse(params);
+      //   console.log(queryParams)
+      // }
+    });
+    this.apiSvc.callRecordScan(this.data).subscribe(
+      (callrecordscanresult) => {
+        window.localStorage.setItem('hasquizModal','0')
+        this.presentToast(["QR code scan successfully."]);
+      
+        this.hardwareDiagnostic()
+
+        console.log(callrecordscanresult);
+        this.utilservice.callrecordscanresult = callrecordscanresult;
+        // this.loading.dismiss();
+
+        // this.router.navigateByUrl("/verifyit-product");
+        //location
+      },
+      (err) => {
+        this.loading.dismiss();
+        this.presentToast(["QR code scan went wrong.."]);
+
+        // this.alertService.presentAlert("", "call record scan went wrong");
+      }
+    );
+  }
+
+
+
+  async showNotificationAlert(){
+
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      // header: 'Confirm!',
+      message: 'Increase your chances of winning the lucky prize by allowing notification.',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            window.localStorage.setItem('notification_enabled','0')
+            console.log('Confirm Cancel: blah');
+            // window.localStorage.setItem('locationenabled','0')
+
+            this.showProductPage();
+            // this.firebasePermission()
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+  
+            // this.askLocation()
+            window.localStorage.setItem('notification_enabled','1')
+
+            this.firebasePermission()
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  
+
+  firebasePermission(){
+    this.presentLoading("");
+    // window.localStorage.setItem('notification_enabled','0')
+
+    
+    // let token = window.localStorage.getItem("token");
+
+   
+
+   
+  
+
+      this.messagingService.requestPermission().subscribe(
+        async (token) => {
+          this.fcmData.js_fcm = token;
+          // this.generateToken(this.fcmData);
+window.localStorage.setItem('notification_enabled','1')
+          this.trackingevents('NOTIFICATION_DATA');
+          this.loading.dismiss()
+          
+        },
+        async (err) => {
+ 
+          // this.generateToken(this.fcmData);
+          this.trackingevents('NOTIFICATION_DATA')
+          this.loading.dismiss()
+
+ 
+      
+        }
+      );
+ 
+    
+  
+}
 
 }

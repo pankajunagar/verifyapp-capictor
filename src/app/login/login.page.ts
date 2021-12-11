@@ -106,6 +106,19 @@ export class LoginPage implements OnInit {
   }
   hideloginbox
   ngOnInit() {
+
+
+    console.log('=======================')
+    console.log('=======================')
+    console.log('=======================')
+
+    console.log(this.utils.isProductInfo)
+    console.log('=======================')
+
+    console.log('=======================')
+
+    console.log('=======================')
+
    this.hideloginbox= this.utils.isProductInfo
 
 
