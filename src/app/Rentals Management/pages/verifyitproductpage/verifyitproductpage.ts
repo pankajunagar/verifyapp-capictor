@@ -11,6 +11,7 @@ import {
   ActionSheetController,
   ToastController,
   NavController,
+  LoadingController,
 } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
@@ -78,6 +79,7 @@ export class Verifyitproductpage {
   private _handlerEnded: any;
   private _handlerReady: any;
   private _handlerExit: any;
+
 
   sliderConfig = {
     slidesPerView: 2,
@@ -161,6 +163,8 @@ export class Verifyitproductpage {
   showDeactivate;
   hideBrand = true;
   subscription;
+  subscription4;
+  subscription3;
   subscription1;
   subscription2;
   readingTag: boolean = false;
@@ -192,7 +196,8 @@ export class Verifyitproductpage {
     private apiSvc: NailaService,
     private modalController: ModalController,
     private actionSheetController: ActionSheetController,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private loading: LoadingController
   ) // private actionSheetController: ActionSheetController
   {
     this.showRelatedProduct();
@@ -233,6 +238,17 @@ export class Verifyitproductpage {
     this.subscription2 = this.utilservice.submit_upi.subscribe((data) => {
       this.SubmitUPI();
     });
+
+
+    this.subscription3 = this.utilservice.otpScreen.subscribe((data) => {
+      // this.SubmitUPI();
+      this.presentModal2()
+    });
+
+    this.subscription4 = this.utilservice.scratchModal.subscribe((data) => {
+      // this.SubmitUPI();
+      this.scratchModal()
+    });
   }
 
 
@@ -240,129 +256,155 @@ export class Verifyitproductpage {
   hasPopup
   hasProductCatalogue
   ngOnInit() {
-    this.platform.ready().then((readysource)=>{
-console.log('===================brand=================')
-console.log('===================brand=================')
+    this.platform.ready().then((readysource) => {
+      console.log('===================brand=================')
+      console.log('===================brand=================')
 
-   console.log(this.utilservice.brand_id)
-
-
-   console.log('===================brand=================')
-
-   console.log('===================brand=================')
+      console.log(this.utilservice.brand_id)
 
 
+      console.log('===================brand=================')
 
-    if (window.localStorage.getItem("showDeactivate") == "4") {
-      this.showDeactivate = true;
-    } else {
-      this.showDeactivate = false;
-    }
+      console.log('===================brand=================')
 
-    this.jsonToBeUsed = [];
-    this.hasLogin = window.localStorage.getItem("name");
 
-    this.callgettagresult = this.utilservice.callgettagresult;
-this.hasScratchCard=this.utilservice.callgettagresult.meta_data.scratch_card
-this.hasPopup=this.utilservice.callgettagresult.meta_data.pop_up
-this.hasProductCatalogue=this.utilservice.callgettagresult.meta_data.product_catalogue
-    // if(this.callgettagresult.brand == "RRC"){
-    //   debugger
-    //   this.hideBrand=true
-    //   // this.secPlay()
 
-    // }else{
-    //   debugger
-    //   this.hideBrand=false
-    //   // this.secPlay()
+      if (window.localStorage.getItem("showDeactivate") == "4") {
+        this.showDeactivate = true;
+      } else {
+        this.showDeactivate = false;
+      }
 
-    // }
+      this.jsonToBeUsed = [];
+      this.hasLogin = window.localStorage.getItem("name");
 
-    if (this.utilservice.callgettagresult.meta_data) {
-      if (this.hasLogin == null) {
-        // debugger
-        //charu for login
+      this.callgettagresult = this.utilservice.callgettagresult;
+      this.hasScratchCard = this.utilservice.callgettagresult.meta_data.scratch_card
+      this.hasPopup = this.utilservice.callgettagresult.meta_data.pop_up
+      this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
+      // if(this.callgettagresult.brand == "RRC"){
+      //   debugger
+      //   this.hideBrand=true
+      //   // this.secPlay()
 
-        if (
-          this.utilservice.callgettagresult.meta_data.login_required == 1 ||
-          this.utilservice.callgettagresult.meta_data.login_required ==
-            undefined
-        ) {
-          this.loginService.isProductInfo = true;
-          this.router.navigateByUrl("/login");
+      // }else{
+      //   debugger
+      //   this.hideBrand=false
+      //   // this.secPlay()
+
+      // }
+
+      if (this.utilservice.callgettagresult.meta_data) {
+        debugger
+        if (this.hasLogin == null) {
+          // debugger
+          //charu for login
+
+          if (
+            this.utilservice.callgettagresult.meta_data.login_required == 1 ||
+            this.utilservice.callgettagresult.meta_data.login_required == 0
+            // undefined
+          ) {
+            this.loginService.isProductInfo = true;
+            this.router.navigateByUrl("/login");
+          } else if (
+            (window.localStorage.getItem('brand_id') == '24' ||
+              window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
+            !window.localStorage.getItem("name")
+          ) {
+            this.loginService.isProductInfo = true;
+            this.utilservice.isProductInfo = true;
+            window.localStorage.setItem("hasquizModal", "1");
+            this.router.navigateByUrl("/login");
+          } else if(window.localStorage.getItem('params') == '4595'){
+
+
+
+            this.loginService.isProductInfo = true;
+            this.utilservice.isProductInfo = true;
+            this.platform.ready().then((a) => {
+              this.loading.dismiss()
+              this.showProductVideo('https://nowverityit-img.s3.ap-south-1.amazonaws.com/img/Personalized+Video+GoodWynTea.mp4')
+            })
+  
+  
+          }
+
+
+
+
+
         } else if (
-          (window.localStorage.getItem('brand_id')== '24' ||
-            window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
-          !window.localStorage.getItem("name")
+          (window.localStorage.getItem('brand_id') == '24' ||
+            window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
+          window.localStorage.getItem("name") &&
+          window.localStorage.getItem("hasquizModal") == "0"
         ) {
           this.loginService.isProductInfo = true;
           this.utilservice.isProductInfo = true;
-          window.localStorage.setItem("hasquizModal", "1");
-          this.router.navigateByUrl("/login");
+          // this.router.navigateByUrl("/login");
+          // this.openQuiz("default");
+
+
+          this.getQuestions()
+
+        } else if (window.localStorage.getItem('params') == '4595' ) {
+          this.loginService.isProductInfo = true;
+          this.utilservice.isProductInfo = true;
+          this.platform.ready().then((a) => {
+            this.loading.dismiss()
+            this.showProductVideo('https://nowverityit-img.s3.ap-south-1.amazonaws.com/img/Personalized+Video+GoodWynTea.mp4')
+          })
+
+
+        } 
+        Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
+          this.jsonToBeUsed.push({
+            key: e,
+            value: this.utilservice.callgettagresult.meta_data[e],
+          })
+        );
+      }
+
+      console.log(this.jsonToBeUsed);
+      this.credKeys.key1 = "Product Name";
+      this.credKeys.key2 = "Model Number";
+      this.credKeys.key3 = "Serial Number";
+      this.credKeys.key4 = "Brand";
+
+      this.credKeys.key5 = "Water Resistant";
+      this.credKeys.key6 = "Display Type";
+      this.credKeys.key7 = "Series";
+      this.credKeys.key8 = "Occassion";
+      this.credKeys.key9 = "Strap";
+      this.credKeys.key10 = "Manufactured";
+      this.credKeys.key11 = "Instructions";
+      this.credKeys.key12 = "Wine Information";
+      this.credKeys.key13 = "Verified";
+
+      this.jsonToBeUsed.forEach((element) => {
+        if (element.key == "brand_color") {
+          this.brand_color = element.value;
         }
-      } else if (
-        (window.localStorage.getItem('brand_id')== '24' ||
-          window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
-        window.localStorage.getItem("name") &&
-        window.localStorage.getItem("hasquizModal") == "0"
-      ) {
-        this.loginService.isProductInfo = true;
-        this.utilservice.isProductInfo = true;
-        // this.router.navigateByUrl("/login");
-        // this.openQuiz("default");
-
-
-this.getQuestions()
-
+      });
+      //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
+      //     'https://www.amazon.in/'
+      //   );
+      // define the plugin to use
+      // const info =  Device.getInfo();
+      if ("") {
+        this._videoPlayer = CapacitorVideoPlayer;
+      } else {
+        this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
       }
-      Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
-        this.jsonToBeUsed.push({
-          key: e,
-          value: this.utilservice.callgettagresult.meta_data[e],
-        })
-      );
-    } else {
-    }
+      // define the video url
+      this._url =
+        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
+      // add listeners to the plugin
+      // this.scrollToTopOnInit()
+      this._addListenersToPlayerPlugin();
 
-    console.log(this.jsonToBeUsed);
-    this.credKeys.key1 = "Product Name";
-    this.credKeys.key2 = "Model Number";
-    this.credKeys.key3 = "Serial Number";
-    this.credKeys.key4 = "Brand";
-
-    this.credKeys.key5 = "Water Resistant";
-    this.credKeys.key6 = "Display Type";
-    this.credKeys.key7 = "Series";
-    this.credKeys.key8 = "Occassion";
-    this.credKeys.key9 = "Strap";
-    this.credKeys.key10 = "Manufactured";
-    this.credKeys.key11 = "Instructions";
-    this.credKeys.key12 = "Wine Information";
-    this.credKeys.key13 = "Verified";
-
-    this.jsonToBeUsed.forEach((element) => {
-      if (element.key == "brand_color") {
-        this.brand_color = element.value;
-      }
-    });
-    //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
-    //     'https://www.amazon.in/'
-    //   );
-    // define the plugin to use
-    // const info =  Device.getInfo();
-    if ("") {
-      this._videoPlayer = CapacitorVideoPlayer;
-    } else {
-      this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
-    }
-    // define the video url
-    this._url =
-      "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
-    // add listeners to the plugin
-    // this.scrollToTopOnInit()
-    this._addListenersToPlayerPlugin();
-
-  })
+    })
 
   }
 
@@ -758,8 +800,8 @@ this.getQuestions()
     let pTagId;
     let referraltext;
     if (
-      (window.localStorage.getItem('brand_id')== '24' ||
-        window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
+      (window.localStorage.getItem('brand_id') == '24' ||
+        window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
       window.localStorage.getItem("name")
     ) {
       pTagId = 5019;
@@ -770,7 +812,7 @@ this.getQuestions()
       pTagId = window.localStorage.getItem("tagId");
       referraltext = "Hey, Checkout" + " from " + this.callgettagresult.brand;
     }
-// whatsapp message
+    // whatsapp message
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
@@ -795,7 +837,7 @@ this.getQuestions()
     });
     this.shareTracking();
 
- 
+
   }
   async navigateTomsgPage() {
     this.router.navigateByUrl("/verifyit-message");
@@ -828,6 +870,12 @@ this.getQuestions()
 
         // this.opena();
         this.trackingVideoCompletion("VIDEO_PLAY_COMPLETE");
+        if(!window.localStorage.getItem("name")){
+
+          this.router.navigateByUrl('/login')
+        }else{
+          this.presentModal2()
+        }
 
         // alert('<=========================ended=========================>')
       },
@@ -1042,9 +1090,9 @@ this.getQuestions()
     const modal = await this.modalController.create({
       component: QuizModalComponent,
       cssClass: 'my-quiz-class_new',
-      componentProps:{
-        requestFrom:type,
-        data:datarequest
+      componentProps: {
+        requestFrom: type,
+        data: datarequest
       }
     });
     /** Charu  */
@@ -1079,9 +1127,9 @@ this.getQuestions()
       (res: any) => {
         // this.openInappBrowser(data)
         if (res) {
-          this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
+          // this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
           // this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
-          this.presentToast(this.msg);
+          // this.presentToast(this.msg);
         }
       },
       //**charu end */
@@ -1401,18 +1449,18 @@ this.getQuestions()
 
 
         if (res.data.win == 1 && !this.utilservice.source_token) {
-          
-          this.utilservice.cashbackAmount=res.data.price_money
-          this.utilservice.winMessage=res.data.res_message
-          this.utilservice.winLossAlgoData=res.data
+
+          this.utilservice.cashbackAmount = res.data.price_money
+          this.utilservice.winMessage = res.data.res_message
+          this.utilservice.winLossAlgoData = res.data
           this.subscription.unsubscribe();
           console.log(res);
           this.utilservice.usernotwon = true;
 
           this.surpriseModal();
         } else {
-          this.utilservice.winMessage=res.data.res_message
-          this.utilservice.winLossAlgoData=res.data
+          this.utilservice.winMessage = res.data.res_message
+          this.utilservice.winLossAlgoData = res.data
           this.subscription.unsubscribe();
           this.utilservice.usernotwon = false;
           this.surpriseModal();
@@ -1463,10 +1511,10 @@ this.getQuestions()
     });
   }
 
-  purchaseOnline(data){
+  purchaseOnline(data) {
 
-    let linkData={
-link:data
+    let linkData = {
+      link: data
     }
     this.openInappBrowser(linkData);
   }
@@ -1482,12 +1530,12 @@ link:data
 
     this.apiSvc.getQuestion(data).subscribe(
       (res: any) => {
-        if (res.message=='Success') {
+        if (res.message == 'Success') {
           this.openQuiz("default");
 
           // this.questions = res.data.question;
           // console.table(this.questions);
-        }else{
+        } else {
           this.utilservice.LoadSurpriseModal();
 
         }

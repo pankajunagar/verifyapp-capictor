@@ -16,6 +16,7 @@ export class Utils {
     user_upi;
     cashbackAmount;
     source_token;
+    // scratchModal;
     user_name;
     winMessage;
     notification_id;
@@ -38,6 +39,8 @@ export class Utils {
     share_product:EventEmitter<boolean> = new EventEmitter();
     submit_upi:EventEmitter<boolean> = new EventEmitter();
     trigger_location:EventEmitter<boolean> = new EventEmitter();
+    otpScreen: EventEmitter<boolean> = new EventEmitter();
+    scratchModal: EventEmitter<boolean> = new EventEmitter();
     
     warrantyInformation
   constructor(
@@ -76,6 +79,18 @@ export class Utils {
   triggerLocation(){
 
     this.trigger_location.next(true)
+
+  }
+
+  loadOtpScreen(){
+
+    this.otpScreen.next(true)
+
+  }
+
+  loadScratchModal(){
+
+    this.scratchModal.next(true)
 
   }
 }

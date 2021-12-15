@@ -123,7 +123,9 @@ hasLogin
 
 
 
-      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>it is your lucky day!! Get 25% discount on your next purchase with coupon code <br> <b> Coupon code: SALE2021</b> </div><div > <br> <small></small></div></div>',
+      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>Your Padlock key is <br> <b> 120324 :) </b> </div><div> <br> <small></small></div></div>',
+
+
       clearZoneRadius: 40,
       nPoints: 30,
       pointSize: 4,

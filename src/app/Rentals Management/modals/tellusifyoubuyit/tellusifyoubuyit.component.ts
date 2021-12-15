@@ -62,7 +62,8 @@ export class TellUsifyouBuyitComponent implements OnInit {
 
 
     if (window.localStorage.getItem('mobile')) {
-      this.usercontactNumber = window.localStorage.getItem('mobile')
+      // this.usercontactNumber = window.localStorage.getItem('mobile')
+      this.usercontactNumber = ''
     } else {
       this.usercontactNumber = ''
 
@@ -162,6 +163,11 @@ export class TellUsifyouBuyitComponent implements OnInit {
 
 
 
+
+    },err=>{
+
+      this.utils.loadScratchModal()
+      this.modalController.dismiss();
 
     });
   }

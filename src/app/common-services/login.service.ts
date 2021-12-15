@@ -133,11 +133,12 @@ export class LoginService {
             window.localStorage.setItem('token', data.data.token);
             if(this.isProductInfo){
 
-              this.utils.LoadSurpriseModal();
+              // this.utils.LoadSurpriseModal();
               this.isProductInfo=false;
               this.utils.LoadPageOnrouteChange();
 
               this.loading.dismiss()
+              this.utils.loadOtpScreen()
 
               this.navCtrl.pop()
             //  this.navCtrl.pop();//
