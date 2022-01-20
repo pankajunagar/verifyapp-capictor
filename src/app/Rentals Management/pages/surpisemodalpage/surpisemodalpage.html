@@ -1,5 +1,3 @@
-
-
 <ion-content *ngIf="notShowPhoneInput && !hasLoginData">
 
   <ion-row class="Paytm-num">
@@ -13,8 +11,7 @@
 
     <ion-col size="12">
 
-      <p class="surprise-text">
-        Please share your Paytm number to credit your winning amount to your account.</p>
+      <p class="surprise-text">Please share your Paytm number to credit your winning amount to your account. Please ensure your Paytm number should have KYC done.</p>
     </ion-col>
     <br>
     <ion-col>
@@ -63,8 +60,8 @@
 
 
 
-<ion-content *ngIf="this.utils.usernotwon && showALgomessage">
-
+<ion-content *ngIf="this.utils.usernotwon && showALgomessage && false">
+<p (click)="closeModal()" class="cross-win-algo">X</p>
 
   <div   *ngIf="flipmodal" class="sc__wrapper">
 
@@ -143,7 +140,7 @@
   <!-- </ion-row> -->
 
 
-  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare== 'true'" class="upi-submit" >
+  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare == 'true'" class="upi-submit" >
     <ion-col>
       <ion-button (click)="socialShare();">
         Share
@@ -164,6 +161,65 @@
 
 
 </ion-content>
+<!-- 
+// trevv -->
+
+
+
+ 
+
+
+
+
+
+  <!-- new trevv -->
+
+
+
+
+<ion-content  *ngIf="this.utils.usernotwon && showALgomessage" [fullscreen]="true" class="animate" style="position: relative;">
+  <p (click)="closeModalPage()" class="cross-btn">X</p>
+  <canvas id="canvas"></canvas>
+  <canvas id="canvas2"></canvas>
+  <ion-grid class="main-grid">
+    <ion-row style="width: 100%; height: 100%;">
+      <ion-col size-md="6" offset-md="3" style="width: 100%; height: 100%;">
+        <ion-card color="light" style="top: 85px; height: 600px;">
+          <div style="display: flex; justify-content: center">
+            <ion-img class="img2"  src="../../../../assets/images/trophy.png"></ion-img>
+          </div>
+
+          <div style="text-align: center">
+            <strong><h3> Congrats! </h3></strong>
+            <strong></strong>
+            <!-- <h5>Quiz Completed Successfully.</h5> -->
+              <h6 style="text-align: justify;
+              margin-left: 15px;
+              margin-right: 15px;" *ngIf="this.utils.winMessage"> {{this.utils.winMessage}}</h6>
+
+
+
+              <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.link" (click)="openLink(this.utils.winLossAlgoData.link_data.link);"  fill="outline">{{this.utils.winLossAlgoData.link_data.text}}</ion-button>
+
+
+
+              <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare == 'true'"  ((click)="socialShare();"  fill="outline">Share</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+<!-- 
+// trevv -->
+
+
+
+
+
 <!-- <ion-col>
   <div class="btn-share" (click)="socialShare();">
     <ion-icon ios="ios-share" md="md-share"></ion-icon>
@@ -171,7 +227,8 @@
 </ion-col> -->
 
 <ion-content *ngIf="!this.utils.usernotwon && showALgomessage">
-<ion-grid>
+  <p (click)="closeModal()" class="cross-win-algo">X</p>
+<ion-grid style="    margin-top: 100px;">
 
   <ion-row>
     <ion-col>
@@ -206,3 +263,9 @@
 </ion-grid>
 
 </ion-content>
+
+
+<!-- <ion-content>
+  <ng-adsense></ng-adsense>
+
+</ion-content> -->

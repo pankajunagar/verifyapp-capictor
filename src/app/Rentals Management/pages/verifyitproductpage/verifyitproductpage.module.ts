@@ -16,7 +16,7 @@ import { WarrantycardComponent } from '../../modals/warrantycard/warrantycard.co
 import { PanoimageComponent } from '../../modals/panoimage/panoimage.component';
 import { Verifyitproductpage } from './verifyitproductpage';
 import { QuizModalComponent } from '../../modals/quiz-modal/quiz-modal.component';
-import { SurpriseModalComponent } from '../../modals/surprisemodal/surprisemodal.component';
+// import { SurpriseModalComponent } from '../../modals/surprisemodal/surprisemodal.component';
 
 
 const routes: Routes = [
@@ -26,7 +26,7 @@ const routes: Routes = [
   }
 ];
 @NgModule({
-  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,SurpriseModalComponent,Userrole5modalComponent,UserroleinfoModalComponent,QuizModalComponent],
+  entryComponents: [CreateNoticeComponent,TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent,QuizModalComponent],
   imports: [
     CommonModule,
     IonicSelectableModule,
@@ -37,9 +37,9 @@ const routes: Routes = [
   ],
   providers: [
     // BarcodeScanner
-    TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,SurpriseModalComponent,Userrole5modalComponent,UserroleinfoModalComponent
+    TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent
   ],
-  declarations: [PanoimageComponent,WarrantycardComponent,Verifyitproductpage,TellUsifyouBuyitComponent,CertificateModalComponent,SurpriseModalComponent,Userrole5modalComponent,HideHeaderDirective,
+  declarations: [PanoimageComponent,WarrantycardComponent,Verifyitproductpage,TellUsifyouBuyitComponent,CertificateModalComponent,Userrole5modalComponent,HideHeaderDirective,
     UserroleinfoModalComponent,QuizModalComponent]
   //declarations: [VerifyitProductInfoPage,TellUsifyouBuyitComponent,WarrantycardComponent,PanoimageComponent, CertificateModalComponent,Userrole5modalComponent,UserroleinfoModalComponent,QuizModalComponent]
 })

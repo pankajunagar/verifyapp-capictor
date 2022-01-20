@@ -38,6 +38,12 @@ export class Utils {
     share_product:EventEmitter<boolean> = new EventEmitter();
     submit_upi:EventEmitter<boolean> = new EventEmitter();
     trigger_location:EventEmitter<boolean> = new EventEmitter();
+
+    
+    showNotification:EventEmitter<boolean> = new EventEmitter();
+
+    celebration:EventEmitter<boolean> = new EventEmitter();
+
     
     warrantyInformation
   constructor(
@@ -76,6 +82,17 @@ export class Utils {
   triggerLocation(){
 
     this.trigger_location.next(true)
+
+  }
+
+  popNotification(){
+
+    this.showNotification.next(true)
+
+  }
+
+  showConfetti(){
+    this.celebration.next(true)
 
   }
 }

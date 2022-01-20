@@ -57,7 +57,7 @@ import MarkersPlugins from "photo-sphere-viewer/dist/plugins/markers";
 import { MainAppSetting } from "src/app/conatants/MainAppSetting";
 import { browser } from "protractor";
 import { QuizModalComponent } from "../../modals/quiz-modal/quiz-modal.component";
-import { SurpriseModalComponent } from "../../modals/surprisemodal/surprisemodal.component";
+// import { SurpriseModalComponent } from "../../modals/surprisemodal/surprisemodal.component";
 
 @Component({
   selector: "app-verifyitproductpage",
@@ -83,6 +83,13 @@ export class Verifyitproductpage {
     slidesPerView: 2,
     spaceBetween: 5,
     // centeredSlides: true
+  };
+
+  sliderConfig2 = {
+    slidesPerView: 1.1,
+    spaceBetween: 10,
+
+    pagination: true
   };
   showmore = true;
 
@@ -235,134 +242,137 @@ export class Verifyitproductpage {
     });
   }
 
-
+  hasComingsoon
   hasScratchCard
   hasPopup
   hasProductCatalogue
   ngOnInit() {
-    this.platform.ready().then((readysource)=>{
-console.log('===================brand=================')
-console.log('===================brand=================')
 
-   console.log(this.utilservice.brand_id)
+    
+    this.platform.ready().then((readysource) => {
+      console.log('===================brand=================')
+      console.log('===================brand=================')
 
-
-   console.log('===================brand=================')
-
-   console.log('===================brand=================')
+      console.log(this.utilservice.brand_id)
 
 
+      console.log('===================brand=================')
 
-    if (window.localStorage.getItem("showDeactivate") == "4") {
-      this.showDeactivate = true;
-    } else {
-      this.showDeactivate = false;
-    }
+      console.log('===================brand=================')
 
-    this.jsonToBeUsed = [];
-    this.hasLogin = window.localStorage.getItem("name");
 
-    this.callgettagresult = this.utilservice.callgettagresult;
-this.hasScratchCard=this.utilservice.callgettagresult.meta_data.scratch_card
-this.hasPopup=this.utilservice.callgettagresult.meta_data.pop_up
-this.hasProductCatalogue=this.utilservice.callgettagresult.meta_data.product_catalogue
-    // if(this.callgettagresult.brand == "RRC"){
-    //   debugger
-    //   this.hideBrand=true
-    //   // this.secPlay()
 
-    // }else{
-    //   debugger
-    //   this.hideBrand=false
-    //   // this.secPlay()
+      if (window.localStorage.getItem("showDeactivate") == "4") {
+        this.showDeactivate = true;
+      } else {
+        this.showDeactivate = false;
+      }
 
-    // }
+      this.jsonToBeUsed = [];
+      this.hasLogin = window.localStorage.getItem("name");
 
-    if (this.utilservice.callgettagresult.meta_data) {
-      if (this.hasLogin == null) {
-        // debugger
-        //charu for login
+      this.callgettagresult = this.utilservice.callgettagresult;
+      this.hasScratchCard = this.utilservice.callgettagresult.meta_data.scratch_card
+      this.hasPopup = this.utilservice.callgettagresult.meta_data.pop_up
+      this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
+      this.hasComingsoon = this.utilservice.callgettagresult.meta_data.coming_soon
+      // if(this.callgettagresult.brand == "RRC"){
+      //   debugger
+      //   this.hideBrand=true
+      //   // this.secPlay()
 
-        if (
-          this.utilservice.callgettagresult.meta_data.login_required == 1 ||
-          this.utilservice.callgettagresult.meta_data.login_required ==
+      // }else{
+      //   debugger
+      //   this.hideBrand=false
+      //   // this.secPlay()
+
+      // }
+
+      if (this.utilservice.callgettagresult.meta_data) {
+        if (this.hasLogin == null) {
+          // debugger
+          //charu for login
+
+          if (
+            this.utilservice.callgettagresult.meta_data.login_required == 1 ||
+            this.utilservice.callgettagresult.meta_data.login_required ==
             undefined
-        ) {
-          this.loginService.isProductInfo = true;
-          this.router.navigateByUrl("/login");
+          ) {
+            this.loginService.isProductInfo = true;
+            this.router.navigateByUrl("/login");
+          } else if (
+            (window.localStorage.getItem('brand_id') == '24' ||
+              window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
+            !window.localStorage.getItem("name")
+          ) {
+            this.loginService.isProductInfo = true;
+            this.utilservice.isProductInfo = true;
+            window.localStorage.setItem("hasquizModal", "1");
+            this.router.navigateByUrl("/login");
+          }
         } else if (
-          (window.localStorage.getItem('brand_id')== '24' ||
-            window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
-          !window.localStorage.getItem("name")
+          (window.localStorage.getItem('brand_id') == '24' ||
+            window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
+          window.localStorage.getItem("name") &&
+          window.localStorage.getItem("hasquizModal") == "0"
         ) {
           this.loginService.isProductInfo = true;
           this.utilservice.isProductInfo = true;
-          window.localStorage.setItem("hasquizModal", "1");
-          this.router.navigateByUrl("/login");
+          // this.router.navigateByUrl("/login");
+          // this.openQuiz("default");
+
+
+          this.getQuestions()
+
         }
-      } else if (
-        (window.localStorage.getItem('brand_id')== '24' ||
-          window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
-        window.localStorage.getItem("name") &&
-        window.localStorage.getItem("hasquizModal") == "0"
-      ) {
-        this.loginService.isProductInfo = true;
-        this.utilservice.isProductInfo = true;
-        // this.router.navigateByUrl("/login");
-        // this.openQuiz("default");
-
-
-this.getQuestions()
-
+        Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
+          this.jsonToBeUsed.push({
+            key: e,
+            value: this.utilservice.callgettagresult.meta_data[e],
+          })
+        );
+      } else {
       }
-      Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
-        this.jsonToBeUsed.push({
-          key: e,
-          value: this.utilservice.callgettagresult.meta_data[e],
-        })
-      );
-    } else {
-    }
 
-    console.log(this.jsonToBeUsed);
-    this.credKeys.key1 = "Product Name";
-    this.credKeys.key2 = "Model Number";
-    this.credKeys.key3 = "Serial Number";
-    this.credKeys.key4 = "Brand";
+      console.log(this.jsonToBeUsed);
+      this.credKeys.key1 = "Product Name";
+      this.credKeys.key2 = "Model Number";
+      this.credKeys.key3 = "Serial Number";
+      this.credKeys.key4 = "Brand";
 
-    this.credKeys.key5 = "Water Resistant";
-    this.credKeys.key6 = "Display Type";
-    this.credKeys.key7 = "Series";
-    this.credKeys.key8 = "Occassion";
-    this.credKeys.key9 = "Strap";
-    this.credKeys.key10 = "Manufactured";
-    this.credKeys.key11 = "Instructions";
-    this.credKeys.key12 = "Wine Information";
-    this.credKeys.key13 = "Verified";
+      this.credKeys.key5 = "Water Resistant";
+      this.credKeys.key6 = "Display Type";
+      this.credKeys.key7 = "Series";
+      this.credKeys.key8 = "Occassion";
+      this.credKeys.key9 = "Strap";
+      this.credKeys.key10 = "Manufactured";
+      this.credKeys.key11 = "Instructions";
+      this.credKeys.key12 = "Wine Information";
+      this.credKeys.key13 = "Verified";
 
-    this.jsonToBeUsed.forEach((element) => {
-      if (element.key == "brand_color") {
-        this.brand_color = element.value;
+      this.jsonToBeUsed.forEach((element) => {
+        if (element.key == "brand_color") {
+          this.brand_color = element.value;
+        }
+      });
+      //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
+      //     'https://www.amazon.in/'
+      //   );
+      // define the plugin to use
+      // const info =  Device.getInfo();
+      if ("") {
+        this._videoPlayer = CapacitorVideoPlayer;
+      } else {
+        this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
       }
-    });
-    //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
-    //     'https://www.amazon.in/'
-    //   );
-    // define the plugin to use
-    // const info =  Device.getInfo();
-    if ("") {
-      this._videoPlayer = CapacitorVideoPlayer;
-    } else {
-      this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
-    }
-    // define the video url
-    this._url =
-      "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
-    // add listeners to the plugin
-    // this.scrollToTopOnInit()
-    this._addListenersToPlayerPlugin();
+      // define the video url
+      this._url =
+        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
+      // add listeners to the plugin
+      // this.scrollToTopOnInit()
+      this._addListenersToPlayerPlugin();
 
-  })
+    })
 
   }
 
@@ -758,8 +768,8 @@ this.getQuestions()
     let pTagId;
     let referraltext;
     if (
-      (window.localStorage.getItem('brand_id')== '24' ||
-        window.localStorage.getItem('brand_id')== '9' || window.localStorage.getItem('brand_id')== '3' || window.localStorage.getItem('brand_id')== '4' || window.localStorage.getItem('brand_id')== '7' || window.localStorage.getItem('brand_id')== '38' || window.localStorage.getItem('brand_id')== '30' || window.localStorage.getItem('brand_id')== '32') &&
+      (window.localStorage.getItem('brand_id') == '24' ||
+        window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
       window.localStorage.getItem("name")
     ) {
       pTagId = 5019;
@@ -770,7 +780,7 @@ this.getQuestions()
       pTagId = window.localStorage.getItem("tagId");
       referraltext = "Hey, Checkout" + " from " + this.callgettagresult.brand;
     }
-// whatsapp message
+    // whatsapp message
     this.product_title = this.callgettagresult.product_name;
     this.brand = this.callgettagresult.brand;
     this.product_link =
@@ -795,7 +805,7 @@ this.getQuestions()
     });
     this.shareTracking();
 
- 
+
   }
   async navigateTomsgPage() {
     this.router.navigateByUrl("/verifyit-message");
@@ -1042,9 +1052,9 @@ this.getQuestions()
     const modal = await this.modalController.create({
       component: QuizModalComponent,
       cssClass: 'my-quiz-class_new',
-      componentProps:{
-        requestFrom:type,
-        data:datarequest
+      componentProps: {
+        requestFrom: type,
+        data: datarequest
       }
     });
     /** Charu  */
@@ -1401,21 +1411,46 @@ this.getQuestions()
 
 
         if (res.data.win == 1 && !this.utilservice.source_token) {
-          
-          this.utilservice.cashbackAmount=res.data.price_money
-          this.utilservice.winMessage=res.data.res_message
-          this.utilservice.winLossAlgoData=res.data
+
+          this.utilservice.cashbackAmount = res.data.price_money
+          this.utilservice.winMessage = res.data.res_message
+          this.utilservice.winLossAlgoData = res.data
           this.subscription.unsubscribe();
           console.log(res);
           this.utilservice.usernotwon = true;
 
-          this.surpriseModal();
+          
+          // setTimeout(function(){
+          //   // that.messageSuccess = false;
+          // },3000);
+          
+          
+          this.utilservice.showConfetti();
+          this.router.navigateByUrl('/surprise-modal')
+          
+
+
+
+
+          // this.utilservice.showConfetti()
+          // this.utilservice.popNotification()
         } else {
-          this.utilservice.winMessage=res.data.res_message
-          this.utilservice.winLossAlgoData=res.data
-          this.subscription.unsubscribe();
+          this.utilservice.winMessage = res.data.res_message
+          this.utilservice.winLossAlgoData = res.data
           this.utilservice.usernotwon = false;
-          this.surpriseModal();
+          
+          // this.surpriseModal();
+          // setTimeout(function(){
+            //   // that.messageSuccess = false;
+            // },3000);
+            // this.utilservice.showConfetti();
+            if(this.utilservice.winLossAlgoData){
+
+              this.router.navigateByUrl('/surprise-modal')
+            }
+            
+            this.subscription.unsubscribe();
+          // this.utilservice.popNotification()
         }
       },
       (err) => {
@@ -1424,13 +1459,13 @@ this.getQuestions()
     );
   }
 
-  async surpriseModal() {
-    let modal = await this.modalController.create({
-      component: SurpriseModalComponent,
-      cssClass: "surprise-modal",
-    });
-    return await modal.present();
-  }
+  // async surpriseModal() {
+  //   let modal = await this.modalController.create({
+  //     component: SurpriseModalComponent,
+  //     cssClass: "surprise-modal",
+  //   });
+  //   return await modal.present();
+  // }
 
   SubmitUPI() {
     this.subscription2.unsubscribe();
@@ -1463,10 +1498,10 @@ this.getQuestions()
     });
   }
 
-  purchaseOnline(data){
+  purchaseOnline(data) {
 
-    let linkData={
-link:data
+    let linkData = {
+      link: data
     }
     this.openInappBrowser(linkData);
   }
@@ -1482,12 +1517,15 @@ link:data
 
     this.apiSvc.getQuestion(data).subscribe(
       (res: any) => {
-        if (res.message=='Success') {
+        if (res.message == 'Success') {
           this.openQuiz("default");
+          // this.checkWinnerStatus()
+
 
           // this.questions = res.data.question;
           // console.table(this.questions);
-        }else{
+        } else {
+          // this.router.navigateByUrl('/surprise-modal')
           this.utilservice.LoadSurpriseModal();
 
         }

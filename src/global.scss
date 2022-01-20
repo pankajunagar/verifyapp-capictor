@@ -289,6 +289,7 @@
 .img-responsive {
   width: 100% !important;
   height: auto !important;
+  // height: 400px !important;
 }
 
 .height-70 {
@@ -993,4 +994,16 @@ ion-item{
   .toolbar-title-default{
   display: none;
   }
+}
+.sc-ion-modal-md-h{
+  z-index: 0 !important;
+}
+
+
+.swiper-container-horizontal > .swiper-pagination
+{
+    bottom          : 50%; //Change accordingly
+    z-index         : 99 !important;
+    color: black;
+    background:black
 }

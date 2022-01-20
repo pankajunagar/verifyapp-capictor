@@ -131,11 +131,20 @@ export class QuizModalComponent implements OnInit {
       //let quizObj=this.questions[i]
 
       this.apisc.trackingApi(data).subscribe((res) => {
+        this.hideContent=true
+
         console.log(res, "track");
+      },err=>{
+        this.hideContent=true
+
       });
     }
   }
   saveAnswers = () => {
+    this.utilservice.showConfetti()
+
+
+
     this.apisc.saveAnswers(this.answer).subscribe(
       (_res: any) => {
         if (_res.status_code == 200) {
@@ -201,6 +210,61 @@ export class QuizModalComponent implements OnInit {
       duration: 3000
     });
     toast.present();
+  }
+
+
+
+  //trev new code
+
+
+
+  test()
+  {
+    console.log("hhihihi");
+    this.frame();
+
+    
+  }
+
+    randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  
+  frame() {
+    // confetti.create()({
+    //   angle: this.randomInRange(20, 125),
+    //   spread: this.randomInRange(100, 100),
+    //   particleCount: this.randomInRange(300, 100),
+    //   origin: { y:0, }
+    // });
+
+    // confetti.create()({
+    //   angle: this.randomInRange(20, 125),
+    //   spread: this.randomInRange(100, 100),
+    //   particleCount: this.randomInRange(300, 100),
+    //   origin: { y:1 }
+    // });
+
+    
+    // confetti.create()({
+    //   resize: true,
+    //   particleCount: 500,
+    //   angle: 120,
+    //   spread: 200,
+    //   origin: { x:1 },
+    //   gravity: 5
+    // });
+
+  }
+  hideContent=true
+  
+  delayText(){
+    this.hideContent=false
+    // setTimeout(function(){
+    //   // console.log(i);
+
+    // }, 1000);
   }
 
 }

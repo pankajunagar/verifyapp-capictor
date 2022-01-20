@@ -1,16 +1,209 @@
-.box_icon {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #ccc;
-    position: absolute;
-    border-radius: 3px;
-    box-shadow: 0px 1px 1px 1px #e3e3e3;
+
+
+
+//@at-root
+
+
+.toolbar{
+    background: var(--ion-color-light);
+  }
+  
+  
+  
+ 
+  
+  .card{
+    height: 608px;
+    padding-bottom: 100px;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 40px;
+    transform-style: preserve-3d;
+  }
+  
+  .buttons{
+    padding: 10px;
+  
+  
+  }
+  
+  .button1{
+    padding-top: 20px;
+  }
+  
+
+
+  ion-button {
+    --background: white !important;
 }
-.ans_wrapper {
-    position: relative;
+  
+  
+
+
+/// trev new code
+
+.maincontainer{
+  position: absolute;
+  width: 80%;
+  height:  80%;
+  background: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.qans {
-    padding-left: 31px;
-    font-size: 14px;
-    font-weight: 500;
+
+
+
+/* THE CARD HOLDS THE FRONT AND BACK FACES */
+.thecard{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
+ 
+}
+
+/* THE PSUEDO CLASS CONTROLS THE FLIP ON MOUSEOVER AND MOUSEOUT */
+.thecard:hover{
+  transform: rotateY(180deg);
+}
+
+
+
+.chip{
+  width: 30px;
+  background-color:#ffffff;
+  color: #000000;
+  position: relative;
+  left: 15%;
+
+}
+
+.chip-div{
+   padding-bottom: 2%;
+}
+
+
+/* THE FRONT FACE OF THE CARD, WHICH SHOWS BY DEFAULT */
+ .thefront{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  color: #000;
+  padding-bottom: 100px;
+  border-radius: 30px;
+  background-color: rgb(255, 255, 255);
+}
+
+/* THE BACK FACE OF THE CARD, WHICH SHOWS ON MOUSEOVER */
+.theback{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background: #fafafa;
+  color: #333;
+  text-align: center;
+  transform: rotateY(180deg);
+}
+
+
+/*This block (starts here) is merely styling for the flip card, and is NOT an essential part of the flip code */
+.thefront h1, .theback h1{
+  font-family: 'zilla slab', sans-serif;
+  padding: 30px;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+
+.thefront p, .theback p{
+  font-family: 'zilla slab', sans-serif;
+  padding: 30px;
+  font-weight: normal;
+  font-size: 12px;
+  text-align: center;
+}
+
+
+.question{
+  color: #000000;
+ padding-left: 5%;
+}
+
+ion-button{
+ height: 44px;
+}
+
+.button-native{
+    background-color: black;
+}
+
+
+
+.font-style{
+  color: #000000;
+ text-transform: capitalize;
+
+}
+
+.buttons{
+  padding: 10px;
+
+
+}
+
+.button1{
+  padding-top: 20px;
+}
+
+.img1{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  margin-top:10%
+  
+}
+
+.img2{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-top:10%
+}
+
+.card-content {
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+// .second-que {
+//   animation: animatezoom 1s;
+// }
+
+@keyframes animatezoom {
+  from {
+    transform: rotateY(180deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
 }

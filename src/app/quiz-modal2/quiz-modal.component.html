@@ -1,16 +1,17 @@
-<ion-content>
+<ion-content *ngIf="not">
   <div *ngFor="let ques of questions;let ii=index">
     <div *ngIf="count==ii">
       <h2 style="padding: 0 10px;">{{ques.heading}}</h2>
       <ion-label style="padding: 0 10px;">
-       <!-- {{ques.title}} -->
-       {{ii+1}}{{')'}}  {{ques.question}}
-       
-      </ion-label>
-      <div >
+        <!-- {{ques.title}} -->
+        {{ii+1}}{{')'}} {{ques.question}}
 
-        <ng-container >
-          <ion-card  class="ion-padding" *ngFor="let opt of ques.options.split('#||#');let i=index" (click)="dataChange(ii,ques.id,opt,i+1)">
+      </ion-label>
+      <div>
+
+        <ng-container>
+          <ion-card class="ion-padding" *ngFor="let opt of ques.options.split('#||#');let i=index"
+            (click)="dataChange(ii,ques.id,opt,i+1)">
             <div>
               <span>
                 {{i+1}}{{']'}} </span><span>{{opt}}
@@ -39,5 +40,106 @@
          -->
       </div>
     </div>
-    </div>
+  </div>
+</ion-content>
+
+
+<ion-content [fullscreen]="true">
+
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+
+        <div>
+
+          <ion-chip style="width: 30px; background-color:#000000; position: relative;">
+            <ion-label>1</ion-label>
+          </ion-chip>
+
+          <ion-chip style="width: 30px; background-color:#000000; ">
+            <ion-label>2</ion-label>
+          </ion-chip>
+
+          <ion-chip style="width: 30px; background-color:#000000; ">
+            <ion-label>3</ion-label>
+          </ion-chip>
+
+          <ion-chip style="width: 30px; background-color:#000000; ">
+            <ion-label>4</ion-label>
+          </ion-chip>
+
+          <ion-chip style="width: 30px; background-color:#000000; ">
+            <ion-label>5</ion-label>
+          </ion-chip>
+
+          <ion-chip style="width: 30px; background-color:#000000; ">
+            <ion-label>6</ion-label>
+          </ion-chip>
+
+
+        </div>
+
+
+
+
+
+        <ion-card class="card">
+
+          <ng-container *ngFor="let ques of questions;let ii=index">
+
+            <ng-container *ngIf="count==ii">
+
+              <ion-item size-md="6" offset-md="3">
+                <ion-label slot="start">
+                  <h1 style="font-family: 'Arima Madurai', cursive;">
+                    {{ii+1}}{{')'}}
+                  </h1>
+                </ion-label>
+
+              </ion-item>
+
+              <ion-item size-md="6" offset-md="3">
+                <h3 style="font-family: 'Fredoka One', cursive;"><strong> {{ques.question}}</strong></h3>
+              </ion-item>
+
+            </ng-container>
+
+          </ng-container>
+
+
+
+
+          <div class="button-div" *ngFor="let opt of ques.options.split('#||#');let i=index"
+            (click)="dataChange(ii,ques.id,opt,i+1)">
+
+            <div class="buttons , button1">
+              <ion-button color="light" shape="round" expand="full" expand="full" fill="outline"> {{i+1}}{{']'}}.
+                {{opt}}
+                <!-- <input class="pricing" type="checkbox" id="pricing" name="pricing" style="visibility: hidden;"> -->
+                <!-- <label for="pricing"><span class="block-diff">1. ALMOND</span></label> -->
+              </ion-button>
+            </div>
+
+
+
+
+
+
+          </div>
+
+
+        </ion-card>
+
+
+
+
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
 </ion-content>

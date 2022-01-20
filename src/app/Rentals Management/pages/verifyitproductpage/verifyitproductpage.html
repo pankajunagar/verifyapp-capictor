@@ -13,7 +13,89 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="main-section" fullscreen>
+
+<ion-content *ngIf="hasComingsoon == '1'" class="main-section">
+
+  <section style=" background-color: #E5E5E5;" class="main-section_wapper">
+
+    <ion-row
+    style="background-image: url('../../assets/images/multicolor-bg.png');position:absolute; width:100%;  padding: 20px 10px 10px; height: 200px;background-size: 100% 100%;color: #fff;font-size: 24px;line-height: 31px;">
+    <ion-col size="12" class="banner-text">
+      <!-- INDIGO Mettalic Emulsion <br>(Platinum Series) (24K Gold) -->
+      {{callgettagresult.product_name}}
+    </ion-col>
+  </ion-row>
+
+
+    <ion-card-content
+    style="width: 100%;    box-shadow: none;    border: 0;    height: auto;    padding: 0 5px;    margin-top: 208px;">
+    <ion-row>
+      <ion-col size="12">
+        <img class="img-responsive" src="{{callgettagresult.img1}}" alt=""
+          style="border-radius: 12px;margin-top: -105px;">
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <!-- <img *ngIf="callgettagresult.verified=='Yes' " class="auth-logo" width="100" height="100"
+      src="assets/auth-logo.png" /> -->
+
+    <!-- <img *ngIf="callgettagresult.verified=='No'" style="
+        margin-right: -15vh;
+        margin-top: 6vh;
+        position: absolute;
+        height: 100px;
+        width: 100px;
+      " src="assets/fake.png" /> -->
+    <!-- <div class="btn-share" (click)="socialShare();"> -->
+      <!-- <ion-icon ios="ios-share" md="md-share"></ion-icon> -->
+    <!-- </div> -->
+    </ion-row>
+
+
+  </ion-card-content>
+
+  
+  <ion-card>
+    <ion-card-header class="underlinehead">
+      <ion-card-title class="product_hdr">Product Details</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="name_wraper">
+      
+      <div [ngClass]="{ 'showHide': showmore}"  >
+
+      <div class="row">
+        <div class="label">{{credKeys.key4}}</div>
+        <div class="description">{{callgettagresult.brand}}</div>
+      </div>
+
+
+      <div class="coming-soon">
+       <h1>COMING SOON</h1>
+      </div>
+
+
+
+     
+
+
+</div>
+</ion-card-content>
+
+  </ion-card>
+
+
+
+  </section>
+
+
+
+</ion-content>
+
+
+
+<ion-content *ngIf="hasComingsoon != '1'" class="main-section" fullscreen>
   <section style=" background-color: #E5E5E5;" class="main-section_wapper">
 
     <ion-row
@@ -25,17 +107,47 @@
     </ion-row>
 
     <ion-card-content
-      style="width: 100%;    box-shadow: none;    border: 0;    height: auto;    padding: 0 5px;    margin-top: 208px;">
+      style="width: 100%;    box-shadow: none;    border: 0;    height: auto;    padding: 0 5px;    margin-top: 80px;">
       <ion-row>
         <ion-col size="12">
-          <img class="img-responsive" src="{{callgettagresult.img1}}" alt=""
-            style="border-radius: 12px;margin-top: -105px;">
+
+
+          <ion-slides [options]="sliderConfig2"  *ngIf="callgettagresult.meta_data.images" pager="true">
+
+            <ng-container *ngFor=" let item of callgettagresult.meta_data.images">
+
+              <ion-slide>
+                <img class="img-responsive" src="{{item}}" />
+                <img *ngIf="callgettagresult.verified=='Yes' &&(callgettagresult.meta_data.images) " style="     right: 6px !important;
+                bottom: 9px !important;" class="auth-logo" width="100" height="100"
+                src="assets/auth-logo.png" />
+              </ion-slide>
+              
+
+            </ng-container>
+          </ion-slides>
+
+
+
+          <img *ngIf ="!callgettagresult.meta_data.images" class="img-responsive" src="{{callgettagresult.img1}}" alt=""
+            style="border-radius: 12px;margin-top: 0px;">
+
+
         </ion-col>
       </ion-row>
 
+
+
+
+
       <ion-row>
-        <img *ngIf="callgettagresult.verified=='Yes' " class="auth-logo" width="100" height="100"
+        <img *ngIf="callgettagresult.verified=='Yes' && !(callgettagresult.meta_data.images) " class="auth-logo" width="100" height="100"
         src="assets/auth-logo.png" />
+
+   
+
+
+       
 
       <img *ngIf="callgettagresult.verified=='No'" style="
           margin-right: -15vh;
@@ -293,35 +405,6 @@
 
 
 
-        <!-- 
-
-      <ion-row>
-        <ion-col size="4" class="name">
-          Product Review 
-        </ion-col>
-        <ion-col size="8" class="value" style="text-align: left;">
-          : <a href="#">Review & Get Discounts</a>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="4" class="name">
-          Product Video
-        </ion-col>
-        <ion-col size="8" class="value" style="text-align: left;">
-          : <a href="#">See Video Ads</a>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="4" class="name">
-          Purchase Link
-        </ion-col>
-        <ion-col size="8" class="value" style="text-align: left;">
-          : <a href="#">Buy Product Online</a>
-        </ion-col>
-      </ion-row>
-
-
- -->
 
 
 </div>
@@ -343,7 +426,8 @@
 
     <ion-row *ngIf="hasScratchCard == '1'" class="">
       <ion-col (click)="scratchModal()" size="12" class=" exciting-offers">
-        <img class="img-responsive" src="../../../../assets/images/exciting-offers.png" alt="">
+        <img class="img-responsive" style="    width: 100% !important;
+        height: 100% !important;" src="../../../../assets/images/exciting-offers.png" alt="">
       </ion-col>
     </ion-row>
     <ion-card>
@@ -460,69 +544,6 @@
 
 
 
-    <!-- <div class="container">
-      <h2>Carousel Example</h2>
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <div class="carousel-inner">
-          <div class="item active">
-            <div class="slidewrp">
-              <div class="slideimage">
-                <img class="" src="../../../../assets/images/indigo.png" alt="">
-              </div>
-              <div class="slidetext">
-                <img class="" src="../../../../assets/images/horse.png" alt="">
-                Luxury Interior
-                Emulsion (Platinum
-                Series)
-              </div>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="slidewrp">
-              <div class="slideimage">
-                <img class="" src="../../../../assets/images/indigo.png" alt="">
-              </div>
-              <div class="slidetext">
-                <img class="" src="../../../../assets/images/horse.png" alt="">
-                Luxury Interior
-                Emulsion (Platinum
-                Series)
-              </div>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="slidewrp">
-              <div class="slideimage">
-                <img class="" src="../../../../assets/images/indigo.png" alt="">
-              </div>
-              <div class="slidetext">
-                <img class="" src="../../../../assets/images/horse.png" alt="">
-                Luxury Interior
-                Emulsion (Platinum
-                Series)
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div> -->
 
 
     <ion-row  *ngIf="hasProductCatalogue == 'Yes'" class="participate explore">

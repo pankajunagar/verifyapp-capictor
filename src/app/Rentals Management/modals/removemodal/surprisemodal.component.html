@@ -1,0 +1,271 @@
+
+
+<ion-content *ngIf="notShowPhoneInput && !hasLoginData">
+
+  <ion-row class="Paytm-num">
+
+    <ion-col>
+      <h5 style="text-align: center;
+      margin-top: 50px; font-size: 22px !important;">
+        Hurry, You are just 1 step away from Participating in cashback program.
+      </h5>
+    </ion-col>
+
+    <ion-col size="12">
+
+      <p class="surprise-text">
+        Please share your Paytm number to credit your winning amount to your account. Please ensure your Paytm number should have KYC done.</p>
+    </ion-col>
+    <br>
+    <ion-col>
+      <ion-item>
+        <!-- <ion-label class="upi-label" position="stacked">Please enter your UPI ID and we assure you to credit you cashback in maximum 2-3 working days.</ion-label> -->
+        <ion-input placeholder="Enter Paytm Mobile No." [(ngModel)]="upi_detail" ></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+
+
+
+
+
+
+
+
+  <!-- <ion-row class="Paytm-num">
+    <ion-col size="12">
+      <p class="surprise-text">
+        Please enter your name.
+      </p>
+    </ion-col>
+    <br>
+    <ion-col>
+      <ion-item>
+       <ion-label class="upi-label" position="stacked">Please enter your UPI ID and we assure you to credit you cashback in maximum 2-3 working days.</ion-label> -->
+        <!-- <ion-input placeholder="Enter Your Name." [(ngModel)]="user_name" ></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>  -->
+
+  <br>
+  
+  <ion-row class="upi-submit">
+    <ion-col>
+      <ion-button  [disabled]="upi_detail.length < 9 "  (click)="submitUPI()">
+        Submit 
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+
+
+
+<ion-content *ngIf="this.utils.usernotwon && showALgomessage && false">
+<p (click)="closeModal()" class="cross-win-algo">X</p>
+
+  <div   *ngIf="flipmodal" class="sc__wrapper">
+
+
+
+
+<ion-grid>
+
+
+    <ion-row>
+  
+  
+      <ion-col>
+        <p class="surprise-text">
+          <!-- Congratulations! You have won a cashback reward of Rs. {{this.utils.cashbackAmount}} on this BigApple Product. 
+
+
+        </p> -->
+        
+        <!-- <p class="surprise-text">
+          Please enter your Paytm number and we assure you to credit you cashback within 7 working days.
+        </p> -->
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col>
+        <p class="surprise-text">
+          Please enter your Paytm number.
+        </p>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+        
+          <ion-input placeholder="Enter Paytm Mobile No." [(ngModel)]="upi_detail" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+     -->
+    <!-- <ion-row class="upi-submit">
+      <ion-col>
+        <ion-button  (click)="submitUPI()">
+          Submit 
+        </ion-button>
+      </ion-col>
+    </ion-row> -->
+
+
+</ion-grid>
+
+
+
+
+
+  </div>
+<div  *ngIf="!flipmodal" class="sc__wrapper">
+<ion-grid>
+
+  <ion-row>
+    <ion-col>
+      <p class="surprise-text">
+      <!-- Congratulations! You have won a cashback reward of Rs. {{this.utils.cashbackAmount}} on this BigApple Product.  -->
+{{this.utils.winMessage}}
+
+    </p>
+    </ion-col>
+  </ion-row>
+
+  <!-- <ion-row> -->
+    <!-- <ion-col>
+
+      <p class="surprise-text">"Are you satified with just cashback? You also hold a chance to win our lottery prize."</p>
+   <p>Share with your 5 Whatsapp friends and stand a chance to win "Silver coin".</p> -->
+    <!-- </ion-col>  -->
+
+   
+  <!-- </ion-row> -->
+
+
+  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare == 'true'" class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="socialShare();">
+        Share
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+
+   <ion-row *ngIf="this.utils.winLossAlgoData.link_data.link" class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="openLink(this.utils.winLossAlgoData.link_data.link);">
+        {{this.utils.winLossAlgoData.link_data.text}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</div>
+
+
+</ion-content>
+<!-- 
+// trevv -->
+
+
+
+ 
+
+
+
+
+
+  <!-- new trevv -->
+
+
+
+
+<ion-content  *ngIf="!this.utils.usernotwon && showALgomessage" [fullscreen]="true" class="animate" style="position: relative;">
+  <canvas id="canvas"></canvas>
+  <canvas id="canvas2"></canvas>
+  <ion-grid class="main-grid">
+    <ion-row style="width: 100%; height: 100%;">
+      <ion-col size-md="6" offset-md="3" style="width: 100%; height: 100%;">
+        <ion-card color="light" style="position: absolute;top: calc(50% - 40px);transform: translateY(-50%);">
+          <div style="display: flex; justify-content: center">
+            <ion-img class="img2"  src="../../../../assets/images/trophy.png"></ion-img>
+          </div>
+
+          <div style="text-align: center">
+            <strong><h3 style="font-family: FredokaOne-Regular;"> Congrats! </h3></strong>
+            <strong></strong>
+            <h5>Quiz Completed Successfully.</h5>
+              <h6>  {{this.utils.winMessage}} </h6>
+
+
+
+              <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.link" (click)="openLink(this.utils.winLossAlgoData.link_data.link);" shape="round" fill="outline">{{this.utils.winLossAlgoData.link_data.text}}</ion-button>
+
+
+
+              <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare == 'true'"  ((click)="socialShare();" shape="round" fill="outline">Share</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+<!-- 
+// trevv -->
+
+
+
+
+
+<!-- <ion-col>
+  <div class="btn-share" (click)="socialShare();">
+    <ion-icon ios="ios-share" md="md-share"></ion-icon>
+  </div>
+</ion-col> -->
+
+<ion-content *ngIf="this.utils.usernotwon && showALgomessage">
+  <p (click)="closeModal()" class="cross-win-algo">X</p>
+<ion-grid>
+
+  <ion-row>
+    <ion-col>
+      <p class="surprise-text">
+        <!-- Oh you just missed cashback. Do not worry your details are with us. You still hold a chance to win our lottery prize. -->
+        {{this.utils.winMessage}}
+
+      </p>
+    </ion-col>
+
+   
+  </ion-row>
+
+
+
+  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare== 'true'" class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="socialShare();">
+        Share with friends
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.link" class="upi-submit" >
+    <ion-col>
+      <ion-button (click)="openLink(this.utils.winLossAlgoData.link_data.link); trackingReview();">
+        {{this.utils.winLossAlgoData.link_data.text}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+</ion-content>
+
+
+<!-- <ion-content>
+  <ng-adsense></ng-adsense>
+
+</ion-content> -->

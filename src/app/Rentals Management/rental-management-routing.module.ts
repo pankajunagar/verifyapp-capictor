@@ -79,6 +79,11 @@ const routes: Routes = [
     { path: 'brand', loadChildren: './pages/brand/brand.module#BrandPageModule'},
     { path: 'ext-loading', loadChildren: '../Rentals Management/pages/verifyloadingextlink/verifyloadingextlink.module#VerifyloadingextlinkPageModule' },
     
+
+
+
+    { path: 'surprise-modal', loadChildren: '../Rentals Management/pages/surpisemodalpage/surpisemodalpage.module#surpiseModalPageModule' },
+    
     
     // VerifyitOfferModule
     

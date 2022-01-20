@@ -120,7 +120,7 @@ export class MainAppSetting {
             this.storageService.storeDataToIonicStorage('appSrc', 'rentals');
 
             if (this.appFor == 'alpha') {
-                API = 'https://www.nowverifyit.com';
+                // API = 'https://www.nowverifyit.com';
                 // PWALink="https://pwa.nowverifyit.com" 
                 // API = 'https://develop.nowverifyit.com'; //charu
 

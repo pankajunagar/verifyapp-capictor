@@ -10,6 +10,12 @@ import { TranslateServiceService } from 'src/app/common-services/translate_/tran
 import { Utils } from '../../services/utils.service';
 import { ScratchCard, SCRATCH_TYPE } from 'scratchcard-js'
 import { Browser } from '@capacitor/browser';
+import * as confetti from 'canvas-confetti';
+
+// import "../../../../assets/js/bubblefile";
+// /assets/js/bubblefile
+
+
 import {
   InAppBrowser,
   InAppBrowserOptions,
@@ -53,6 +59,7 @@ usernotwon:any;
     public transService: TranslateServiceService,
     private actionSheet: ActionSheetController
   ) {
+    this.frame();
     this.hasLogin=false;
 
 this.user_name= window.localStorage.getItem('name')
@@ -70,6 +77,10 @@ this.user_name= window.localStorage.getItem('name')
   royaltyData
   cashbackAmount
   ngOnInit() { 
+
+    // $('head').append('<script async src="assets/js/search.js"></script>');
+
+
     this.upi_detail=''
 
     this.flipmodal=true
@@ -282,6 +293,50 @@ this.user_name= window.localStorage.getItem('name')
   //   });
   //   toast.present();
   // }
+  frame() {
+    var myConfetti = confetti.create(document.getElementById('canvas'), {
+      resize: true,
+      useWorker: true
+    });
+
+    myConfetti({
+      particleCount: 400,
+      spread: 200,
+      angle: 135,
+      origin: { x: 0 },
+    });
+    
+
+    var myConfetti2 = confetti.create(document.getElementById('canvas2'), {
+      resize: true,
+      useWorker: true
+    });
+
+    myConfetti2({
+      particleCount: 400,
+      spread: 200,
+      angle: 45,
+      origin: { x: 1 },
+    });
+
+    // confetti.create(document.getElementById('canvas'), {
+    //   resize: true,
+    //   useWorker: true,
+    //   particleCount: 500,
+    //   angle: 90,
+    //   spread: 500,
+    //   // origin: { x: 0, y: 1 },
+    // });
+    // confetti.create(document.getElementById('canvas'), {
+    //   resize: true,
+    //   particleCount: 500,
+    //   angle: 75,
+    //   spread: 1000000,
+    //   origin: { x: 1, y: 1 },
+    // });
+  }
+
+
 
 }
 

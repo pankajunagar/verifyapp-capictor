@@ -1,0 +1,48 @@
+.toolbar{
+    background: var(--ion-color-light);
+  }
+  
+  
+  
+  body{
+    // background: #0c0c0c;
+    // background: -webkit-linear-gradient(to top, #4d4b4b 41%, #0a0a0a 93%);
+    // background: -moz-linear-gradient(to top, #b4b4b4 41%, #020202 93%);
+    // background: linear-gradient(to top, #6e6e6e 41%, #1a1b1d 93%);
+    --background: linear-gradient(#4786ef, #f4f5f8);
+  
+  
+  
+  }
+  
+  .card{
+    padding-bottom: 100px;
+    border-radius: 30px;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .buttons{
+    padding: 10px;
+  
+  
+  }
+  
+  .button1{
+    padding-top: 20px;
+  }
+
+  .second-que {
+    animation: animatezoom 1s;
+  }
+  
+  @keyframes animatezoom {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(180deg);
+    }
+  }
+  
+  
+  
