@@ -610,7 +610,7 @@ export class AppComponent implements OnInit {
   async generateToken(fcmData) {
     let token = window.localStorage.getItem("token");
     if (!token.length) {
-     await this.verifyitservice.genToken(fcmData).subscribe(
+     await this.verifyitservice.genToken(fcmData,'').subscribe(
          (data: any) => {
           window.localStorage.setItem("token", data.data.token);
         },

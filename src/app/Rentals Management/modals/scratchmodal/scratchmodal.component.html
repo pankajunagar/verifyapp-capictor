@@ -3,24 +3,31 @@
 
   <!-- <ion-content> -->
     <div class="sc__wrapper">
-      <h5 (click)="closeModal()" style="top: 0px;
+      <h5 *ngIf="crossbtn" (click)="closeModal2()" style="top: 0px;
       right: 10px;
       z-index: 3;
       font-size: 30px;
       position: absolute;">X</h5>
 
 
-<!-- <ion-button (click)="closeModal()" style="    position: absolute;
-bottom: 18px;
-left: 11px;">
-  Apply This coupon
-</ion-button> -->
 <!-- <ion-row (click)="closeModal()" class="participate explore">
   <ion-col  size="12" class="participate_in">
     <span>  Apply This coupon
     </span>
   </ion-col>
 </ion-row> -->
-      <div id="js--sc--container"></div>
+<div id="js--sc--container">
+  
+
+  <ion-button *ngIf="showBtn" (click)="closeModal()" style="position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  margin-left: 15px;
+  margin-right: 15px;">
+  {{this.utils.winLossAlgoData.link_data.text}}
+  </ion-button>
+
+      </div>
     </div>
   <!-- </ion-content> -->

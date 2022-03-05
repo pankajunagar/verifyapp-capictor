@@ -10,6 +10,8 @@ ion-item {
   --padding-end: 0px;
   --padding-start: 0px;
   --padding-top: 0px;
+  margin-bottom: 1vh;
+  border-bottom: none !important;
 }
 ion-modal {
   position: absolute;
@@ -105,4 +107,54 @@ small{
 .login-win{
   font-size: 20px;
   margin-bottom: 50px;
+  font-weight: normal;
+  color: black;
+  margin-top: 0px;
+}
+.register-padding{
+  margin-top: 10px !important;
+}
+.register-btn-new{
+  margin-top:40px;
+}
+
+.paytm-msg{
+  font-weight: 500;
+  font-size: 30px;
+  text-align: left;
+}
+.google-login{
+  width: 100%;
+  border-radius: 25px !important;
+  box-shadow: 8px 6px 18px rgba(0, 0, 0, 0.36), -6px -4px 18px rgba(255, 255, 255, 0.16);
+  --background: black !important;
+  .full-button{
+    background: linear-gradient(144.37deg, #5163E0 4.87%, #8893F0 93.04%) !important;
+    width: 100%;
+  }
+
+.welcome-text{
+  font-weight: bold;
+}
+}
+
+
+ion-input{
+  box-shadow:  inset -4px -4px 12px rgba(255, 255, 255, 0.1), inset 4px 4px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 54px;
+}
+
+.paytm-msg-para{
+  // font-size: 16px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.ion-select-email{
+  position: absolute;
+  right: 3px;
+  align-items: center;
+  box-shadow: -3px -3px 5px rgba(0, 0, 0, 0.1), 3px 2px 4px rgba(26, 27, 30, 0.6), inset 2px 2px 6px rgba(255, 255, 255, 0.08), inset -4px -4px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  height: 38px;
 }

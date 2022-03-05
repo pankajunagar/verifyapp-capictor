@@ -18,6 +18,8 @@ export class Utils {
     source_token;
     user_name;
     winMessage;
+    newpassword;
+    newflow;
     notification_id;
     brand_id;
     winLossAlgoData;
@@ -39,11 +41,11 @@ export class Utils {
     submit_upi:EventEmitter<boolean> = new EventEmitter();
     trigger_location:EventEmitter<boolean> = new EventEmitter();
 
-    
+    presentLoader :EventEmitter<boolean> = new EventEmitter();
     showNotification:EventEmitter<boolean> = new EventEmitter();
 
     celebration:EventEmitter<boolean> = new EventEmitter();
-
+    signUp: EventEmitter<boolean> = new EventEmitter();
     
     warrantyInformation
   constructor(
@@ -94,5 +96,14 @@ export class Utils {
   showConfetti(){
     this.celebration.next(true)
 
+  }
+
+  toggleSignup(){
+    this.signUp.next(true)
+
+  }
+
+  openLoader(){
+    this.presentLoader.next(true)
   }
 }

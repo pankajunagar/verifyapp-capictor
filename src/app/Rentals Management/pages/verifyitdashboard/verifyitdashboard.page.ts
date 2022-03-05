@@ -94,6 +94,7 @@ export class VerifyitDashboardPage implements OnInit {
   decodedTagId: string;
   readedMsg: string;
   userType;
+  generateTokenParams;
   // trying
   readingTag: boolean = false;
   writingTag: boolean = false;
@@ -129,6 +130,27 @@ export class VerifyitDashboardPage implements OnInit {
     private settings: SettingsService,
     private apiSvc: NailaService
   ) {
+
+
+    this.route.queryParams.subscribe(params => {
+
+
+      this.generateTokenParams = params
+      console.log("=======================")
+      console.log((params))
+      console.log("=======================")
+
+      // if (params) {
+      //   let queryParams = JSON.parse(params);
+      //   console.log(queryParams)
+      // }
+    });
+
+
+    if (this.router.url.includes('?')) {
+
+      this.hideDashboardScreen = false;
+    }
 
     this.settings
       .getActiveTheme()
@@ -557,8 +579,9 @@ export class VerifyitDashboardPage implements OnInit {
     // await this.presentLoading("");
 
     this.apiSvc.callGetTag(tagId).subscribe((callgettagresult) => {
+      debugger
       this.utilservice.callgettagresult = callgettagresult;
-
+window.localStorage.setItem('scan_flow',this.utilservice.callgettagresult.scan_flow)
       this.res = callgettagresult;
 
       this.loading.dismiss();
@@ -676,7 +699,7 @@ export class VerifyitDashboardPage implements OnInit {
 
   scanIOS() {
     this.options = {
-      prompt: "Scan your barcode ",
+      prompt: "Scan your barcode",
     };
     this.barcodeScanner.scan(this.options).then(
       (barcodeData) => {
@@ -729,7 +752,7 @@ export class VerifyitDashboardPage implements OnInit {
   async generateToken(fcmData) {
     let token = window.localStorage.getItem("token");
     if (!token.length) {
-      await this.apiSvc.genToken(fcmData).subscribe(
+      await this.apiSvc.genToken(fcmData, this.generateTokenParams.params).subscribe(
         (data: any) => {
           window.localStorage.setItem("token", data.data.token);
 
@@ -771,7 +794,7 @@ export class VerifyitDashboardPage implements OnInit {
       // }
     });
 
-
+debugger
     // window.localStorage.setItem('product-link',this.router.url)
     if (
       this.router.url.includes("params") &&

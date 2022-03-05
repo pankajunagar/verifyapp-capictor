@@ -1,11 +1,16 @@
 <ion-content *ngIf="notShowPhoneInput && !hasLoginData">
-
-  <ion-row class="Paytm-num">
+<div  class="paytm-num">
+  <ion-row >
 
     <ion-col>
-      <h5 style="text-align: center;
-      margin-top: 50px; font-size: 22px !important;">
-        Hurry, You are just 1 step away from Participating in cashback program.
+      <h5 style="    text-align: left;
+      margin-top: 50px;
+      font-size: 30px !important;">
+        Hurry, 
+        <br>
+       <p class="step-1-away">
+        You are just 1 step away from Participating in cashback program.
+       </p> 
       </h5>
     </ion-col>
 
@@ -15,10 +20,10 @@
     </ion-col>
     <br>
     <ion-col>
-      <ion-item>
+      <!-- <ion-item> -->
         <!-- <ion-label class="upi-label" position="stacked">Please enter your UPI ID and we assure you to credit you cashback in maximum 2-3 working days.</ion-label> -->
         <ion-input placeholder="Enter Paytm Mobile No." [(ngModel)]="upi_detail" ></ion-input>
-      </ion-item>
+      <!-- </ion-item> -->
     </ion-col>
   </ion-row>
 
@@ -48,13 +53,15 @@
 
   <br>
   
-  <ion-row class="upi-submit">
-    <ion-col>
+  <ion-item class="upi-submit-paytm">
+    
       <ion-button  [disabled]="upi_detail.length < 9 "  (click)="submitUPI()">
         Submit 
       </ion-button>
-    </ion-col>
-  </ion-row>
+  </ion-item>
+
+
+</div>
 </ion-content>
 
 
@@ -197,13 +204,15 @@
               margin-left: 15px;
               margin-right: 15px;" *ngIf="this.utils.winMessage"> {{this.utils.winMessage}}</h6>
 
+<ion-item class="upi-submit-surprise">
 
-
-              <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.link" (click)="openLink(this.utils.winLossAlgoData.link_data.link);"  fill="outline">{{this.utils.winLossAlgoData.link_data.text}}</ion-button>
-
-
-
-              <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare == 'true'"  ((click)="socialShare();"  fill="outline">Share</ion-button>
+  
+                <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.link" (click)="openLink(this.utils.winLossAlgoData.link_data.link);"  fill="outline">{{this.utils.winLossAlgoData.link_data.text}}</ion-button>
+  
+  
+  
+                <ion-button class="algoSharerev" *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare == 'true'"  ((click)="socialShare();"  fill="outline">Share</ion-button>
+</ion-item>
           </div>
         </ion-card>
       </ion-col>
@@ -244,22 +253,22 @@
 
 
 
-  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare== 'true'" class="upi-submit" >
-    <ion-col>
+  <ion-item *ngIf="this.utils.winLossAlgoData.link_data.whatsappshare== 'true'" class="upi-submit" >
+   
       <ion-button (click)="socialShare();">
         Share with friends
       </ion-button>
-    </ion-col>
-  </ion-row>
+
+  </ion-item>
 
 
-  <ion-row *ngIf="this.utils.winLossAlgoData.link_data.link" class="upi-submit" >
-    <ion-col>
+  <ion-item *ngIf="this.utils.winLossAlgoData.link_data.link" class="upi-submit" >
+   
       <ion-button (click)="openLink(this.utils.winLossAlgoData.link_data.link); trackingReview();">
         {{this.utils.winLossAlgoData.link_data.text}}
       </ion-button>
-    </ion-col>
-  </ion-row>
+  
+  </ion-item>
 </ion-grid>
 
 </ion-content>

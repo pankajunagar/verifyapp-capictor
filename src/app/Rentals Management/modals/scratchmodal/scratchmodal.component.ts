@@ -53,6 +53,11 @@ hasLogin
     if(window.localStorage.getItem('name')){
       this.hasLogin=true;
     }
+
+
+
+
+
   }
 
   async presentLoading() {
@@ -66,10 +71,17 @@ hasLogin
   async closeModal() {
     // this.router.navigate(['/login'], { queryParams: { reg: 'regon' }})
     // this.openInappBrowser()
+
+    this.utils.openLoader();
+
+    this.utils.newflow=true
+    this.router.navigateByUrl('/login')
     await this.modalController.dismiss();
   }
 
-
+  async closeModal2(){
+    await this.modalController.dismiss();
+  }
 
   redeemNow(){
     // alert('Coming soon.')
@@ -107,32 +119,108 @@ hasLogin
     await alert.present();
   }
 
-  LoginNow(){
-    this.modalController.dismiss();
-    this.router.navigateByUrl('/login')
-  }
+  // LoginNow(){
+  //   this.utils.newflow=true
+  //   this.router.navigateByUrl('/login')
+  //   this.modalController.dismiss();
+  // }
+showBtn=false;
+
+
+crossbtn=true
+
+
   createNewScratchCard() {
+    
+    if(!this.utils.winLossAlgoData?.res_message?.length){
+      this.showBtn=false
+
+      this.utils.winLossAlgoData={
+        res_message:''
+      }
+
+      this.utils.winLossAlgoData.res_message="You have won Rs. 20 Cashback <br> Head to your Rewards page and claim your cashback."
+    }else{
+      this.crossbtn=false
+    }
+
+
     const scContainer = document.getElementById('js--sc--container')
     const sc = new ScratchCard('#js--sc--container', {
       scratchType: SCRATCH_TYPE.CIRCLE,
-      // containerWidth: 200,//scContainer.offsetWidth,
-      // containerHeight: 200,
+      containerWidth: 200,//scContainer.offsetWidth,
+      containerHeight: 200,
       imageForwardSrc: 'assets/scratch.png',
-      //imageBackgroundSrc: './assets/images/scratchcard-background.svg',
+
+
+
+
+
+
+      // imageBackgroundSrc: './assets/images/scratchcard-background.svg',
       // htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>You have won Rs. 20 Cashback <br> Head to your Rewards page and claim your cashback.</div><div class="won-text"><br> <b></b>  </div></div>',
 
 
 
-      htmlBackground: '<div class="cardamountcss"><div class="won-amnt">  Hurray! <br>it is your lucky day!! Get 25% discount on your next purchase with coupon code <br> <b> Coupon code: SALE2021</b> </div><div > <br> <small></small></div></div>',
-      clearZoneRadius: 40,
-      nPoints: 30,
-      pointSize: 4,
+      htmlBackground: `<div *ngIf="this.utils.winLossAlgoData?.res_message" class="cardamountcss"><div class="won-amnt"> Hurray!
+      <br>
+      
+      
+      ${this.utils.winLossAlgoData?.res_message}
+      
+      <br>
+      
+      
+      <b>
+      
+     
+
+      </b>
+      
+      </div>
+      
+      <div> 
+      
+      
+      <br> 
+      
+      <small></small></div></div>
+      
+      
+      `
+      
+      ,
+
+
+
+      clearZoneRadius: 50,
+      // nPoints: 30,
+      // pointSize: 4,
+
+      cursor: {
+        // png: 'piece.png',
+        // cur: 'piece.cur',
+        x: '20',
+        y: '17'
+    },
+    radius: 20,
+    nPoints: 100,
+    percent: 50,
+
+
+    pointSize: { x: 3, y: 3},
+
+
+
+
       callback: () => {
         console.log('Now the window will reload!')
+        this.showBtn=true
       }
     })
     // Init
     sc.init();
+
     
   }
   async openInappBrowser() {
@@ -142,6 +230,15 @@ hasLogin
       windowName: "_blank",
       toolbarColor: "	#FF0000"
     });
+  }
+
+
+  login(){
+
+
+    this.closeModal()
+    this.router.navigateByUrl('/login')
+    // alert('hi')
   }
 
 }

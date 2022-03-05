@@ -1,7 +1,7 @@
 import { Push } from "@ionic-native/push/ngx";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { ModalController, NavController, NavParams, ToastController } from "@ionic/angular";
+import { AlertController, LoadingController, ModalController, NavController, NavParams, ToastController } from "@ionic/angular";
 import { AlertServiceService } from "src/app/common-services/alert-service.service";
 import { TrackingService } from "src/app/services/tracking.service";
 import { Utils } from "../../services/utils.service";
@@ -33,17 +33,20 @@ export class QuizModalComponent implements OnInit {
   ques: any = [];
   callgettagresult: any;
   answer: any;
+  selectdate
   constructor(
     private alertService: AlertServiceService,
     private modalController: ModalController,
     private router: Router,
-    private toast:ToastController,
+    private toast: ToastController,
     private api: TrackingService,
     private apisc: NailaService,
     private utilservice: Utils,
     private navParams: NavParams,
-    private navCtrl:NavController
+    private navCtrl: NavController,
+    private loadingController:LoadingController
   ) {
+    this.selectdate = '';
     console.log("this.navParams reward", this.navParams);
     this.callgettagresult = this.utilservice.callgettagresult;
     // let qu=  [{
@@ -86,7 +89,7 @@ export class QuizModalComponent implements OnInit {
     this.createAnswer();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async closeModal() {
     const onClosedData: string = "Wrapped Up!";
@@ -101,18 +104,26 @@ export class QuizModalComponent implements OnInit {
       user_brand_id: window.localStorage.getItem('brand_id')
     };
   };
-  dataChange(i, qid, answer, ansid, brandId ) {
+  dataChange(i, qid, answer, ansid, brandId, questionType) {
+    this.showHideAutoLoader()
     console.log(i);
-    this.count++;
+
     const answerobj = {
       question_id: qid,
       answer: answer,
       // answer_id: ansid,
       answer_id: '',
       brand_id: brandId,
-      
+
     };
-    this.answer.answers.push(answerobj);
+    if (questionType == '0') {
+      this.count++;
+      this.answer.answers.push(answerobj);
+    }
+    if (questionType == '2') {
+      i--
+    }
+
     console.log("ANSWERRRRRRRRRRRRRRRRRRRRRRRRRR");
     console.log(this.answer);
     if (i == this.questions.length - 1) {
@@ -131,13 +142,15 @@ export class QuizModalComponent implements OnInit {
       //let quizObj=this.questions[i]
 
       this.apisc.trackingApi(data).subscribe((res) => {
-        this.hideContent=true
+        this.hideContent = true
 
         console.log(res, "track");
-      },err=>{
-        this.hideContent=true
+      }, err => {
+        this.hideContent = true
 
       });
+      // this.alctrl.dismiss()
+      this.loadingController.dismiss()
     }
   }
   saveAnswers = () => {
@@ -147,15 +160,27 @@ export class QuizModalComponent implements OnInit {
 
     this.apisc.saveAnswers(this.answer).subscribe(
       (_res: any) => {
+        window.localStorage.setItem('save_answer','true')
         if (_res.status_code == 200) {
           // this.alertService.presentAlert("", "Answer saved successfully.");
           this.presentToast("Answer saved successfully.")
           if (this.navParams.data["requestFrom"] == "win") {
             this.router.navigate(["/verifyit-rewards"]);
             this.closeModal();
-          } else if(this.navParams.data["requestFrom"] == "default"){
-            this.utilservice.LoadSurpriseModal();
-            this.closeModal();
+          } else if (this.navParams.data["requestFrom"] == "default") {
+
+            if (window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') {
+              window.localStorage.setItem('hasquizModal', '1')
+              // this.utilservice.LoadSurpriseModal();
+              this.closeModal();
+
+            } else {
+
+              this.utilservice.LoadSurpriseModal();
+              this.closeModal();
+
+            }
+
           }
           else if (this.navParams.data["requestFrom"] == "video") {
             this.closeModal();
@@ -178,6 +203,52 @@ export class QuizModalComponent implements OnInit {
       }
     );
   };
+
+  selectedDate(event, i, qid, answer, ansid, brandId, questionType) {
+    debugger
+
+    const answerobj = {
+      question_id: qid,
+      answer: this.selectdate,
+      // answer_id: ansid,
+      answer_id: '',
+      brand_id: brandId,
+
+    };
+    this.answer.answers.push(answerobj);
+    this.count++;
+  }
+  selectName='';
+  selectedName(event, i, qid, answer, ansid, brandId, questionType) {
+    debugger
+    
+
+    const answerobj = {
+      question_id: qid,
+      answer: this.selectName,
+      // answer_id: ansid,
+      answer_id: '',
+      brand_id: brandId,
+
+    };
+    this.answer.answers.push(answerobj);
+    this.count++;
+    // i=i+1
+
+
+    if (i == this.questions.length - 1) {
+      /** Charu  */
+      this.saveAnswers();
+      /** Charu  */
+    }
+    // this.dataChange(i, qid, answer, ansid, brandId, questionType)
+  }
+
+
+
+
+
+
   //**charu Start  for get Question */
   getQuestions() {
     let data = {
@@ -186,11 +257,18 @@ export class QuizModalComponent implements OnInit {
 
     this.apisc.getQuestion(data).subscribe(
       (res: any) => {
-        if (res.message=='Success') {
+        if (res.message == 'Success') {
           this.questions = res.data.question;
           console.table(this.questions);
-        }else if(this.navParams.data["requestFrom"] == "default"){
-          this.utilservice.LoadSurpriseModal();
+        } else if (this.navParams.data["requestFrom"] == "default") {
+
+          //new flow change
+
+          // this.utilservice.LoadSurpriseModal();
+
+
+          //new flow change
+
           this.closeModal();
 
         }
@@ -218,19 +296,18 @@ export class QuizModalComponent implements OnInit {
 
 
 
-  test()
-  {
+  test() {
     console.log("hhihihi");
     this.frame();
 
-    
+
   }
 
-    randomInRange(min, max) {
+  randomInRange(min, max) {
     return Math.random() * (max - min) + min;
   }
 
-  
+
   frame() {
     // confetti.create()({
     //   angle: this.randomInRange(20, 125),
@@ -246,7 +323,7 @@ export class QuizModalComponent implements OnInit {
     //   origin: { y:1 }
     // });
 
-    
+
     // confetti.create()({
     //   resize: true,
     //   particleCount: 500,
@@ -257,14 +334,24 @@ export class QuizModalComponent implements OnInit {
     // });
 
   }
-  hideContent=true
-  
-  delayText(){
-    this.hideContent=false
+  hideContent = true
+
+  delayText() {
+    this.hideContent = false
     // setTimeout(function(){
     //   // console.log(i);
 
     // }, 1000);
+  }
+
+  showHideAutoLoader() {
+    
+    this.loadingController.create({
+      message: '........',
+     
+    
+    });
+
   }
 
 }

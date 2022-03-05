@@ -361,15 +361,17 @@ ion-slide.md.swiper-slide.swiper-slide-next {
   top: 20px;
   right: 20px;
   width: 40px;
+  color: white;
+  z-index: 11;
   height: 40px;
-  background-color: #FFFFFF;
+  // background-color: #FFFFFF;
   border-radius: 50%;
 }
 .swiper-slide img {
   margin: 0 auto;
 }
 .btn-share {
-  top: -120px !important;
+  top: -128px !important;
   text-align: center;
   line-height: 44px;
   font-size: 22px;
@@ -388,3 +390,4 @@ ion-slide.md.swiper-slide.swiper-slide-next {
 template {
 display: block !important;
 }
+

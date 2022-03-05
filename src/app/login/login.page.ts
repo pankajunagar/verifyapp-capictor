@@ -26,6 +26,7 @@ import { HTTP } from '@ionic-native/http/ngx'
 import { Utils } from '../Rentals Management/services/utils.service';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { element } from 'protractor';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class LoginPage implements OnInit {
   enterpassword;
   enterotp;
   newpassword;
-
+  email_end_selected;
   // To store the form data
   loginData: any = {
     countryCode: '+91',
@@ -52,7 +53,7 @@ export class LoginPage implements OnInit {
   timeLeft: number = 60;
   interval;
   eventCopy: any;
-
+  showLogo
   /* This variable will decide which input block is visible on screen
   values are ['phoneInput', 'passwordInput', 'otpInput', 'passwordSetInput', 'sendOtpInput']
   */
@@ -60,7 +61,7 @@ export class LoginPage implements OnInit {
 
   // Only these user types are allowd to use this app
   allowedUsers = ['employee', 'admin', 'technician', 'housekeeper'];
-
+  brand_id
   constructor(
     public loginService: LoginService,
     private loading: LoadingController,
@@ -68,7 +69,7 @@ export class LoginPage implements OnInit {
     private alertService: AlertServiceService,
     private modalCtrl: ModalController,
     private http: HTTP,
-    private toast:ToastController,
+    private toast: ToastController,
     public utils: Utils,
     private apiSvc: NailaService,
     private appSetting: MainAppSetting,
@@ -88,6 +89,13 @@ export class LoginPage implements OnInit {
     this.enterotp = true;
     this.newpassword = true;
 
+    this.showLogo= true
+
+
+this.email_end_selected="@gmail.com"
+
+
+// this.brand_id
 
     // this.mixpanel.init('1350cf4808c3adbdd9ef79625d091dc7').then(success => {
     // }).catch(err => {
@@ -95,17 +103,37 @@ export class LoginPage implements OnInit {
 
   }
 
-  GoogleAuth=()=>{
+  GoogleAuth = () => {
     this.loginService.GoogleAuth()
   }
-  FacebookAuth=()=>{
+  FacebookAuth = () => {
     this.loginService.FacebookAuth()
   }
   ionViewDidLeave() {
     this.MenuController.enable(true)
   }
   hideloginbox
+  subscription1
   ngOnInit() {
+
+    if (this.utils.newflow == true) {
+      this.toggleSignup()
+    }
+
+let config=['42' , '10' , '11' , '32' , '12' , '13' , '15' , '19' , '20']
+
+
+config.forEach(element => {
+  
+  if(window.localStorage.getItem('brand_id')==element){
+  
+    debugger
+      this.showLogo= false
+    
+    }
+});
+
+    // this.newpassword=this.utils.newpassword
 
 
     console.log('=======================')
@@ -119,11 +147,11 @@ export class LoginPage implements OnInit {
 
     console.log('=======================')
 
-   this.hideloginbox= this.utils.isProductInfo
+    this.hideloginbox = this.utils.isProductInfo
 
 
-    if(this.router.url.includes("regon")){
-this.toggleSignup()
+    if (this.router.url.includes("regon")) {
+      this.toggleSignup()
     }
     // this.mixpanel.track('User entered on login screen');
     // this.presentAddUserModal();
@@ -196,7 +224,7 @@ this.toggleSignup()
             //   "userdata": this.loginData
             // })
 
-          }, async  err => {
+          }, async err => {
             await this.loading.dismiss();
             // this.mixpanel.track(' checkplatform service error', {
             //   "userdata": this.loginData
@@ -415,7 +443,7 @@ this.toggleSignup()
     }
   }
 
-  async  setValues(data) {
+  async setValues(data) {
 
     await this.storageService.getDatafromIonicStorage('appSrc').then(data => {
       this.appSrc = data
@@ -495,7 +523,7 @@ this.toggleSignup()
         //   "userdata": this.loginData,
         // });
       },
-        async  err => {
+        async err => {
           await this.loading.dismiss();
           // this.mixpanel.track('verify otp service error', {
           //   "userdata": this.loginData,
@@ -811,16 +839,17 @@ this.toggleSignup()
     })
   }
   registerUser() {
-
+    debugger
     const data = {
 
       "fullname": this.loginData.name,
-      "email": this.loginData.phoneNumber,
-      "password": this.loginData.password,
-      "repassword": this.loginData.passwordCheck,
+      "email": this.loginData.phoneNumber+this.email_end_selected ,
+      "password": '123',
+      "repassword": '123',
       "gender": this.loginData.gender,
       "signup-as": 'user',
       "mobile": this.loginData.mobile,
+      "brand_id": window.localStorage.getItem('brand_id')
 
     }
 
@@ -829,8 +858,23 @@ this.toggleSignup()
 
 
     this.loginService.registerUser(data).subscribe(data => {
+      this.utils.newflow = false
 
-this.presentToast('Register successfully')
+      // this.registeredUsernewFlow()
+
+
+      window.localStorage.setItem('name', data.data.name);
+      window.localStorage.setItem('email', data.data.email);
+      window.localStorage.setItem('mobile', data.data.mobile);
+      window.localStorage.setItem('user_upi', data.data.mobile);
+      
+      window.localStorage.setItem('userid', data.data.uid);
+      this.utils.LoadPageOnrouteChange();
+      this.presentToast("We have received your details, you will receive your Paytm cashback back in 7-10 working days")
+
+      this.navCtrl.pop()
+      // this.navCtrl.pop()
+
 
       let myCookie = Cookie.get('Cookies')
       console.log("===============>" + myCookie)
@@ -842,14 +886,26 @@ this.presentToast('Register successfully')
         this.newpassword = true;
         this.registereduser = false;
       }
+
+
+
     }, err => {
+      this.utils.newflow = false
+
+
+      // this.registeredUsernewFlow()
+
+      // this.navCtrl.pop()
+
       this.alertService.presentAlert("", err.error.errors[0]);
 
     })
+
+
   }
   firstname
   userrole
-  
+
   registeredUser() {
 
     const data = {
@@ -877,27 +933,32 @@ this.presentToast('Register successfully')
       window.localStorage.setItem('mobile', data.data.mobile);
       window.localStorage.setItem('userid', data.data.id);
 
-      window.localStorage.setItem('token', data.data.token);
+      // newbrandflow flow change
+
+
+      // window.localStorage.setItem('token', data.data.token);
+
+      // new brand flow change
 
       if (window.localStorage.getItem('name')) {
         //**charu start */
-        if(this.loginService.isProductInfo){
-          this.loginService.isProductInfo=false;
+        if (this.loginService.isProductInfo) {
+          this.loginService.isProductInfo = false;
           this.navCtrl.pop();//
           return;
         }
         //**charu end */
 
-        if(data.data.userType==4){
-          
+        if (data.data.userType == 4) {
+
           window.localStorage.setItem('showDeactivate', '4');
 
-          data.data.userType=2
+          data.data.userType = 2
           window.localStorage.setItem('userType', data.data.userType);
 
-          
 
-        }else{
+
+        } else {
 
           window.localStorage.setItem('userType', data.data.userType);
         }
@@ -905,7 +966,7 @@ this.presentToast('Register successfully')
         this.utils.userType = window.localStorage.getItem('userType')
         window.localStorage.setItem('userType', data.data.userType);
 
-        
+
 
 
         this.router.navigateByUrl('/verifyit-dashboard')
@@ -934,11 +995,11 @@ this.presentToast('Register successfully')
 
         }, err => {
           // alert('helloooooo2')
-          console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>',err)
+          console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>', err)
           console.log(err)
-          console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>',err)
+          console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>', err)
 
-          
+
           // this.alertService.presentAlert(" userinfo data error", err.error.errors[0]);
         })
       }
@@ -974,27 +1035,27 @@ this.presentToast('Register successfully')
     let shareData = {
       user_id: localStorage.getItem("userid"),
       tag_id: localStorage.getItem("tagId"),
-      product_id:this.utils.productId,
-     
+      product_id: this.utils.productId,
+
       device_id: localStorage.getItem("device_id"),
       otype: "Login",
-      
+
     };
     this.apiSvc.reviewTracking(shareData).subscribe(
-      (res:any) => {
-       
-        if (res){
-         
-    this.enterotp = true;
-    this.sendotpinput = true;
-    this.newpassword = true;
-    this.registereduser = true;
-    this.enterpassword = false;
-    this.forgetpassword = true;
+      (res: any) => {
+
+        if (res) {
+
+          this.enterotp = true;
+          this.sendotpinput = true;
+          this.newpassword = true;
+          this.registereduser = true;
+          this.enterpassword = false;
+          this.forgetpassword = true;
         }
-                 
+
       },
-       //**charu end */
+      //**charu end */
       err => {
         alert(JSON.stringify(err));
       }
@@ -1012,29 +1073,29 @@ this.presentToast('Register successfully')
     let shareData = {
       user_id: localStorage.getItem("userid"),
       tag_id: localStorage.getItem("tagId"),
-      product_id:this.utils.productId,
-     
+      product_id: this.utils.productId,
+
       device_id: localStorage.getItem("device_id"),
       otype: "Login",
-      
+
     };
     this.apiSvc.reviewTracking(shareData).subscribe(
-      (res:any) => {
-       
-        if (res){
-         
-      this.enterotp = true;
-    this.enterotp = true;
-    this.sendotpinput = true;
-    this.newpassword = true;
-    this.registereduser = false;
-    this.enterpassword = true;
-    this.forgetpassword = true;
-   
+      (res: any) => {
+
+        if (res) {
+
+          this.enterotp = true;
+          this.enterotp = true;
+          this.sendotpinput = true;
+          this.newpassword = true;
+          this.registereduser = false;
+          this.enterpassword = true;
+          this.forgetpassword = true;
+
         }
-                 
+
       },
-       //**charu end */
+      //**charu end */
       err => {
         alert(JSON.stringify(err));
       }
@@ -1082,7 +1143,7 @@ this.presentToast('Register successfully')
       "password": this.loginData.password
     }
     this.loginService.forgotPassword(data).subscribe(data => {
-      
+
       this.enterotp = true;
       this.sendotpinput = true;
       this.newpassword = true;
@@ -1092,7 +1153,7 @@ this.presentToast('Register successfully')
 
 
     }, err => {
-      
+
       this.alertService.presentAlert("", err.error.errors[0]);
 
     })
@@ -1111,8 +1172,51 @@ this.presentToast('Register successfully')
   async presentToast(data) {
     const toast = await this.toast.create({
       message: data,
-      duration: 3000
+      duration: 5000
     });
     toast.present();
+  }
+
+
+  registeredUsernewFlow() {
+
+    this.loginService.loginUserInfo().subscribe((data) => {
+      // alert('helloooooo1')
+      console.log('fhgfhgfghfghfhgfhgfhg========================')
+
+      console.log(data)
+
+      console.log('fhgfhgfghfghfhgfhgfhg========================')
+
+
+
+      window.localStorage.setItem('name', 'nnhjhkjhj');
+      window.localStorage.setItem('email', 'ghfghfghfh');
+      window.localStorage.setItem('mobile', 'ghfghfghfgh');
+      // this.alertService.presentAlert(" user info data", this.utils.userType=window.localStorage.getItem('userType'));
+
+
+      // this.router.navigateByUrl('/verifyit-dashboard')
+
+
+    }, err => {
+
+      window.localStorage.setItem('name', 'nnhjhkjhj');
+      window.localStorage.setItem('email', 'ghfghfghfh');
+      window.localStorage.setItem('mobile', 'ghfghfghfgh');
+      // alert('helloooooo2')
+      console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>', err)
+      console.log(err)
+      console.log('errorrrrrr===========================>>>>>>>>>>>>>>>>>>>>', err)
+
+
+      // this.alertService.presentAlert(" userinfo data error", err.error.errors[0]);
+    })
+  }
+
+  changeEmailEnd(event){
+    debugger
+    this.email_end_selected=event.detail.value
+    // alert(value)
   }
 }

@@ -11,6 +11,7 @@ import {
   ActionSheetController,
   ToastController,
   NavController,
+  LoadingController,
 } from "@ionic/angular";
 import { NailaService } from "../../services/naila.service";
 import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
@@ -86,10 +87,16 @@ export class Verifyitproductpage {
   };
 
   sliderConfig2 = {
-    slidesPerView: 1.1,
-    spaceBetween: 10,
-
-    pagination: true
+    initialSlide: 0,
+    slidesPerView: 1,
+    // autoplay:true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + '">' + (index + 1) + '</span>';
+      },
+    }
   };
   showmore = true;
 
@@ -177,6 +184,7 @@ export class Verifyitproductpage {
   writtenInput = "";
   ndefMsg: any;
   hasLogin;
+  subscription3
   subscriptions: Array<Subscription> = new Array<Subscription>();
   constructor(
     private appSettings: MainAppSetting,
@@ -190,6 +198,7 @@ export class Verifyitproductpage {
     private ngZone: NgZone,
     private socialSharing: SocialSharing,
     private qrScanner: QRScanner,
+    private loadingCtrl:LoadingController,
     private utilservice: Utils,
     private alertService: AlertServiceService,
     private toastController: ToastController,
@@ -202,6 +211,11 @@ export class Verifyitproductpage {
     private loginService: LoginService
   ) // private actionSheetController: ActionSheetController
   {
+
+    window.localStorage.setItem('flow','flow3')
+    // window.localStorage.setItem('save_answer','false')
+    window.localStorage.setItem('user_upi','false')
+
     this.showRelatedProduct();
     this.haspano = false;
 
@@ -230,7 +244,17 @@ export class Verifyitproductpage {
     );
 
     this.subscription = this.utilservice.LoadModal.subscribe((data) => {
-      this.checkWinnerStatus();
+      
+
+      if(window.localStorage.getItem('flow')=='flow3'   && (window.localStorage.getItem('save_answer') !='true')||(window.localStorage.getItem('save_answer')==undefined)){
+        // this.openQuiz("default");
+        this.getQuestions()
+      }else{
+        // this.checkWinnerStatus()
+
+        this.checkWinnerStatus();
+      }
+
     });
 
     this.subscription1 = this.utilservice.share_product.subscribe((data) => {
@@ -240,6 +264,17 @@ export class Verifyitproductpage {
     this.subscription2 = this.utilservice.submit_upi.subscribe((data) => {
       this.SubmitUPI();
     });
+
+
+    this.subscription3 = this.utilservice.presentLoader.subscribe((data) => {
+      // this.SubmitUPI();
+      if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20' && !window.localStorage.getItem('name')){
+        this.loginService.presentLoading()
+        
+            }
+      
+    });
+    
   }
 
   hasComingsoon
@@ -247,7 +282,7 @@ export class Verifyitproductpage {
   hasPopup
   hasProductCatalogue
   ngOnInit() {
-
+debugger
     
     this.platform.ready().then((readysource) => {
       console.log('===================brand=================')
@@ -302,17 +337,34 @@ export class Verifyitproductpage {
             this.router.navigateByUrl("/login");
           } else if (
             (window.localStorage.getItem('brand_id') == '24' ||
-              window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
+              window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '18' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') &&
             !window.localStorage.getItem("name")
           ) {
             this.loginService.isProductInfo = true;
             this.utilservice.isProductInfo = true;
             window.localStorage.setItem("hasquizModal", "1");
-            this.router.navigateByUrl("/login");
+
+            debugger
+            if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20'){
+              
+              // new flow coding
+              
+              // this.loginService.isProductInfo = false;
+              // this.utilservice.isProductInfo = false;
+
+
+              this.getQuestions()
+
+
+            }else{
+             
+
+              this.router.navigateByUrl("/login");
+            }
           }
         } else if (
           (window.localStorage.getItem('brand_id') == '24' ||
-            window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
+            window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '18' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') &&
           window.localStorage.getItem("name") &&
           window.localStorage.getItem("hasquizModal") == "0"
         ) {
@@ -321,6 +373,10 @@ export class Verifyitproductpage {
           // this.router.navigateByUrl("/login");
           // this.openQuiz("default");
 
+
+          this.getQuestions()
+
+        } else if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20'){
 
           this.getQuestions()
 
@@ -374,6 +430,18 @@ export class Verifyitproductpage {
 
     })
 
+  }
+
+
+//   ionViewWillEnter(){
+//     if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20' && this.utilservice.newflow ==true && !window.localStorage.getItem('name')){
+// this.loginService.presentLoading()
+
+//     }
+//   }
+  ionViewDidLeave() {
+    // this.navCtrl.pop();
+    this.loadingCtrl.dismiss()
   }
 
   async ionViewDidEnter() {
@@ -525,6 +593,7 @@ export class Verifyitproductpage {
   //     this.alertService.presentAlert('','NFC is not supported by your Device');
   //   }
   // }
+  
 
   // boughtIt(tagId){
   //       this.apiSvc.callPostBoughtIt(tagId).subscribe((res) => {
@@ -543,9 +612,6 @@ export class Verifyitproductpage {
     });
   }
 
-  ionViewDidLeave() {
-    // this.navCtrl.pop();
-  }
 
   // scanqrcode() {
   //   var context = this;
@@ -769,7 +835,7 @@ export class Verifyitproductpage {
     let referraltext;
     if (
       (window.localStorage.getItem('brand_id') == '24' ||
-        window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '32') &&
+        window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '18' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') &&
       window.localStorage.getItem("name")
     ) {
       pTagId = 5019;
@@ -1276,7 +1342,7 @@ export class Verifyitproductpage {
       scratchType: SCRATCH_TYPE.CIRCLE,
       containerWidth: 300, //scContainer.offsetWidth,
       containerHeight: 300,
-      imageForwardSrc: "assets/scanqrcode.png",
+      imageForwardSrc: "assets/scratch.png",
       //imageBackgroundSrc: './assets/images/scratchcard-background.svg',
       htmlBackground:
         '<div class="cardamountcss"><div class="won-amnt">30</div><div class="won-text">Points<br>Won!</div></div>',
@@ -1296,7 +1362,9 @@ export class Verifyitproductpage {
     let modal = await this.modalController.create({
       component: ScratchmodalComponent,
       cssClass: "scratch-modal",
-    });
+      backdropDismiss:false
+    }
+    );
     return await modal.present();
   }
 
@@ -1423,13 +1491,24 @@ export class Verifyitproductpage {
           // setTimeout(function(){
           //   // that.messageSuccess = false;
           // },3000);
-          
-          
-          this.utilservice.showConfetti();
-          this.router.navigateByUrl('/surprise-modal')
-          
 
 
+
+          // new flow change
+          
+
+          if((window.localStorage.getItem('brand_id')== '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') && !window.localStorage.getItem('name')){
+this.scratchModal()
+
+          }else{
+
+            
+            this.utilservice.showConfetti();
+            this.router.navigateByUrl('/surprise-modal')
+          }
+          
+
+       // new flow change
 
 
           // this.utilservice.showConfetti()
@@ -1511,6 +1590,7 @@ export class Verifyitproductpage {
 
 
   getQuestions() {
+    // this.subscription.unsubscribe();
     let data = {
       brand_id: window.localStorage.getItem('brand_id'),
     };
@@ -1518,7 +1598,34 @@ export class Verifyitproductpage {
     this.apiSvc.getQuestion(data).subscribe(
       (res: any) => {
         if (res.message == 'Success') {
-          this.openQuiz("default");
+
+         let loginInfo= window.localStorage.getItem('name')
+          // new flow coding
+
+          if((window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20' )&& !window.localStorage.getItem('name')){
+
+            window.localStorage.setItem('user_upi','xxxxxxx')
+            // this.utilservice.LoadSurpriseModal();
+
+            // this.scratchModal()
+
+            this.checkWinnerStatus()
+            // if(window.localStorage.getItem('flow')=='flow3'){
+            //   this.openQuiz("default");
+            // }else{
+
+            // }
+
+
+// newflow coding
+          }else {
+
+            this.openQuiz("default");
+
+
+          }
+
+
           // this.checkWinnerStatus()
 
 
@@ -1526,7 +1633,29 @@ export class Verifyitproductpage {
           // console.table(this.questions);
         } else {
           // this.router.navigateByUrl('/surprise-modal')
-          this.utilservice.LoadSurpriseModal();
+
+          let brand=window.localStorage.getItem('brand_id')
+
+          let config=['42' , '10' , '11' , '32' , '12' , '13' , '15' , '19' , '20']
+
+          if( config.indexOf(brand) > -1){
+
+          }else{
+            this.utilservice.LoadSurpriseModal();
+          }
+
+         
+
+
+
+
+          // if(window.localStorage.getItem('brand_id') != "42" || window.localStorage.getItem('brand_id') != "10" || window.localStorage.getItem('brand_id') != "11" || window.localStorage.getItem('brand_id') != "32" || window.localStorage.getItem('brand_id') != "12" || window.localStorage.getItem('brand_id') != "13" || window.localStorage.getItem('brand_id') != "15" || window.localStorage.getItem('brand_id') != "19" || window.localStorage.getItem('brand_id') != "20"){
+
+          //   this.utilservice.LoadSurpriseModal();
+          // }else{
+
+          // }
+
 
         }
       },

@@ -3,13 +3,13 @@
 
     <div class="webkit-center login-page-padding loginWrapper">
 
-      <div>
+      <!-- <div>
         <ion-row class="width-80-percent">
-          <ion-col class="image-align">
-            <img style="width: 130px; margin: 40px 0;" src="assets/imgs/nailalogo.jpg" />
+          <ion-col *ngIf="showLogo" class="image-align">
+            <img  style="width: 130px; margin: 40px 0;" src="assets/imgs/nailalogo.jpg" />
           </ion-col>
         </ion-row>
-      </div>
+      </div> -->
 
       <!-- <ion-row class="width-80-percent">
         <div class="text-left">
@@ -22,7 +22,7 @@
       <div [hidden]="registereduser">
         <ion-row class="width-80-percent">
           <div class="text-left">
-            <p class="font-20 margin-bottom-10">Welcome,</p>
+            <p class="font-30 margin-bottom-10 welcome-text">Welcome,</p>
           </div>
         </ion-row>
         <ng-container *ngIf="!hideloginbox">
@@ -53,16 +53,18 @@
         <br>
       </ng-container>
 
-        <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-row class="width-80-percent text-left margin-top-10">
           
           <ion-row>
             <h3 class="login-win">
               You are just 2 steps away from Participating in cashback program.
             </h3>
           </ion-row>
+<ion-item class="google-login">
 
-          <ion-button (click)="GoogleAuth()" class="full-button" expand="full" color="primary">Google Login
-          </ion-button>
+  <ion-button (click)="GoogleAuth()" class="full-button" expand="full" >Google Login
+  </ion-button>
+</ion-item>
         </ion-row>
         <br>
         <!-- <ion-row class="width-80-percent center-text margin-top-10">
@@ -297,32 +299,56 @@
         </ion-row> -->
       </div>
 
-      <div [hidden]="newpassword">
+      <div class="register-padding" [hidden]="newpassword">
 
-          <ion-row class="width-80-percent text-left margin-negative">
+
+        <ion-row class="width-80-percent">
+          <ion-col>
+            <h6 class="paytm-msg">
+              Awesome,<br>
+             <p class="paytm-msg-para">
+              You are just one step away from your cashback. Provide your details so that your cashback can be credited to your Paytm number.
+             </p> 
+            </h6>
+          </ion-col>
+        </ion-row>
+
+          <ion-row class="width-80-percent text-left ">
               <ion-col>
-                <ion-item>
-                  <ion-label position="stacked" class="font-20 margin-bottom-10">Enter Your name<small>*</small></ion-label>
-                  <ion-input type="text" placeholder="" [(ngModel)]="loginData.name">
+                <ion-item lines="none">
+                  <ion-label position="stacked" class="font-20 margin-left-22 margin-bottom-10">Enter Your name<small>*</small></ion-label>
+                  <ion-input type="text" placeholder="name" [(ngModel)]="loginData.name">
                   </ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
-          <ion-row class="width-80-percent">
+          <!-- <ion-row class="width-80-percent">
               <div class="text-left">
-                <p class="font-14">Enter your email<small>*</small></p>
-              </div>
-            </ion-row>
+
+                <ion-label position="stacked" class="font-20 margin-left-22 margin-bottom-10">Enter your email<small>*</small></ion-label>
+
+
+
+                <!-- <p class="font-14">Enter your email<small>*</small></p> -->
+              <!-- </div>
+            </ion-row>  -->
             <ion-row style="margin-top: -5%;" class="width-80-percent text-left">
               <!-- <ion-col size="3">
-                <ion-item (click)="showCountryCodeModal()">
+                <ion-item lines="none" (click)="showCountryCodeModal()">
                   <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
                   <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
                 </ion-item>
               </ion-col> -->
               <ion-col size="12">
-                <ion-item>
-                  <ion-input inputmode="text" placeholder=" " [(ngModel)]="loginData.phoneNumber"> </ion-input>
+                <ion-item lines="none">
+                  <ion-label position="stacked" class="font-20 margin-left-22 margin-bottom-10">Enter your email<small>*</small></ion-label>
+
+                  <ion-input inputmode="text" placeholder="email" [(ngModel)]="loginData.phoneNumber">
+                    <ion-select interface="popover" [(ngModel)]="email_end_selected" (ionChange)="changeEmailEnd($event)" class="ion-select-email" placeholder="Select One">
+                      <ion-select-option value="@gmail.com">@gmail.com</ion-select-option>
+                      <ion-select-option value="@yahoo.com">@yahoo.com</ion-select-option>
+                    </ion-select>  
+                  </ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -339,15 +365,15 @@
 
         <ion-row class="width-80-percent text-left">
             <ion-col>
-              <ion-item>
-                <ion-label position="stacked" class="font-20 margin-bottom-10">Mobile</ion-label>
-                <ion-input type="text" placeholder="" [(ngModel)]="loginData.mobile">
+              <ion-item lines="none">
+                <ion-label position="stacked" class="font-20 margin-left-22 margin-bottom-10">Mobile<small>*</small></ion-label>
+                <ion-input type="text" placeholder="Enter your Paytm number" [(ngModel)]="loginData.mobile">
                 </ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
 
-        <ion-row class="width-80-percent text-left">
+        <!-- <ion-row class="width-80-percent text-left">
             <ion-col>
                 <ion-item>
                     <ion-label>Gender</ion-label>
@@ -382,20 +408,29 @@
             </ion-item>
           </ion-col>
           <p class="font-14 txt-warm-grey margin-top-0">Password needs to be at least 4 characters in length </p>
-        </ion-row>
+        </ion-row> -->
 
-        <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
+        <!-- <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p> -->
 
-        <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button class="full-button " expand="full" color="primary" [hidden]="loginData.action === 'resetPassword'"
-            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || !loginData.phoneNumber ||loginData.passwordCheck.length < 3 || passwordMismatch"
-            (click)="registerUser()">Register</ion-button>
+        <ion-row class="width-80-percent center-text register-btn-new">
+
+
+          <ion-item class="google-login">
+
+
+
+            <ion-button class="full-button" expand="full" color="primary"
+              (click)="registerUser()">Register</ion-button>
+          </ion-item>
+
+
+
         </ion-row>
-        <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action !== 'resetPassword'">
+        <!-- <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action !== 'resetPassword'">
           <ion-button class="full-button " expand="full" color="primary" (click)="resetPassword()"
             [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || !loginData.phoneNumber ||loginData.passwordCheck.length < 3 || passwordMismatch"
             (click)="registerUser()">Register</ion-button>
-        </ion-row>
+        </ion-row> -->
 
 
         <!-- 
