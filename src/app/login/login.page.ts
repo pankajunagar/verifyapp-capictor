@@ -120,12 +120,14 @@ this.email_end_selected="@gmail.com"
       this.toggleSignup()
     }
 
-let config=['42' , '10' , '11' , '32' , '12' , '13' , '15' , '19' , '20']
+    // let brand=window.localStorage.getItem('scan_flow')
+
+          let config=['2']
 
 
 config.forEach(element => {
   
-  if(window.localStorage.getItem('brand_id')==element){
+  if(window.localStorage.getItem('scan_flow')==element){
   
     debugger
       this.showLogo= false

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController, AlertController, NavController } from '@ionic/angular';
-import { Router ,ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
 import * as moment from 'moment';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
@@ -30,63 +30,63 @@ export class VerifyitProductCatalogPage {
 
 
 
-  constructor(private nailaservice: NailaService, private utils: Utils, private router: Router,private route: ActivatedRoute, ) {
+  constructor(private nailaservice: NailaService, private utils: Utils, private router: Router, private route: ActivatedRoute,) {
 
   }
   searchTerm
   listbanner: any;
   groupedProducts = [];
   jsonToBeUsed = []
-brandName:any;
+  brandName: any;
   ngOnInit() {
 
     if (this.route.snapshot.queryParams['brand']) {
-     let brand = this.route.snapshot.queryParams['brand'];
-this.brandName=brand
-     this.nailaservice.listRelatedProductsfrombrand(brand).subscribe(data=>{
-      this.listbanner = data;
-      this.brandName=this.listbanner.data[0].brand
-
-
-      if (this.listbanner.data[0].meta_data.category) {
-        this.groupBy(this.listbanner.data, "category");
-
-        console.log('=================================>===============')
-        this.groupedProducts.push(this.result)
-
-
-        Object.keys(this.result).forEach(e => this.jsonToBeUsed.push({ key: e, value: this.result[e] }))
-        console.log(this.jsonToBeUsed)
-        console.log('=================================>===============')
-      }
-
-
-      this.items = this.listbanner.data
-      this.listbanner.data.forEach(element => {
-        element.name = element.product_name
-      });
-      console.log(this.listbanner);
-     })
-    }else if(this.route.snapshot.queryParams['product_id']){
-
-      this.nailaservice.listRelatedProducts(this.route.snapshot.queryParams['product_id']).subscribe(data => {
+      let brand = this.route.snapshot.queryParams['brand'];
+      this.brandName = brand
+      this.nailaservice.listRelatedProductsfrombrand(brand).subscribe(data => {
         this.listbanner = data;
-        this.brandName=this.listbanner.data[0].brand
+        this.brandName = this.listbanner.data[0].brand
 
-  
+
         if (this.listbanner.data[0].meta_data.category) {
           this.groupBy(this.listbanner.data, "category");
-  
+
           console.log('=================================>===============')
           this.groupedProducts.push(this.result)
-  
-  
+
+
           Object.keys(this.result).forEach(e => this.jsonToBeUsed.push({ key: e, value: this.result[e] }))
           console.log(this.jsonToBeUsed)
           console.log('=================================>===============')
         }
-  
-  
+
+
+        this.items = this.listbanner.data
+        this.listbanner.data.forEach(element => {
+          element.name = element.product_name
+        });
+        console.log(this.listbanner);
+      })
+    } else if (this.route.snapshot.queryParams['product_id']) {
+
+      this.nailaservice.listRelatedProducts(this.route.snapshot.queryParams['product_id']).subscribe(data => {
+        this.listbanner = data;
+        this.brandName = this.listbanner.data[0].brand
+
+
+        if (this.listbanner.data[0].meta_data.category) {
+          this.groupBy(this.listbanner.data, "category");
+
+          console.log('=================================>===============')
+          this.groupedProducts.push(this.result)
+
+
+          Object.keys(this.result).forEach(e => this.jsonToBeUsed.push({ key: e, value: this.result[e] }))
+          console.log(this.jsonToBeUsed)
+          console.log('=================================>===============')
+        }
+
+
         this.items = this.listbanner.data
         this.listbanner.data.forEach(element => {
           element.name = element.product_name
@@ -94,26 +94,26 @@ this.brandName=brand
         console.log(this.listbanner);
       })
     }
-    else{
+    else {
 
       this.nailaservice.listRelatedProducts(this.utils.productId).subscribe(data => {
         this.listbanner = data;
-        this.brandName=this.listbanner.data[0].brand
+        this.brandName = this.listbanner.data[0].brand
 
-  
+
         if (this.listbanner.data[0].meta_data.category) {
           this.groupBy(this.listbanner.data, "category");
-  
+
           console.log('=================================>===============')
           this.groupedProducts.push(this.result)
-  
-  
+
+
           Object.keys(this.result).forEach(e => this.jsonToBeUsed.push({ key: e, value: this.result[e] }))
           console.log(this.jsonToBeUsed)
           console.log('=================================>===============')
         }
-  
-  
+
+
         this.items = this.listbanner.data
         this.listbanner.data.forEach(element => {
           element.name = element.product_name
@@ -122,7 +122,7 @@ this.brandName=brand
       })
     }
     // 
-    
+
 
 
 
@@ -141,34 +141,35 @@ this.brandName=brand
   }
 
   showProductInfo(item) {
-     
-           let shareData = {
-        user_id: localStorage.getItem("userid"),
-        tag_id: localStorage.getItem("tagId"),
-        product_id:this.utils.productId,
-        // product_id: 10,
-        device_id: localStorage.getItem("device_id"),
-        otype: "PRODUCT_CATALOGPAGE_SHOW_CATALOG_CLICK",
-      
+
+    let shareData = {
+      user_id: localStorage.getItem("userid"),
+      tag_id: localStorage.getItem("tagId"),
+      product_id: this.utils.productId,
+      // product_id: 10,
+      device_id: localStorage.getItem("device_id"),
+      otype: "PRODUCT_CATALOGPAGE_SHOW_CATALOG_CLICK",
+
     };
     this.nailaservice.reviewTracking(shareData).subscribe(
-      (res:any) => {
-       
-        if (res){
-         
-      this.utils.productCatalogInfo = '';
+      (res: any) => {
 
-      this.utils.productCatalogInfo = item;
+        if (res) {
 
-      this.utils.callgettagresult = item
-      
-      this.router.navigate(['/verifyit-product'], { queryParams: { reg: 'catalogpage' }})        }
-      this.utils.LoadPageOnrouteChange();
-      // this.router.navigateByUrl('/verifyit-product-info')
+          this.utils.productCatalogInfo = '';
 
-                 
+          this.utils.productCatalogInfo = item;
+
+          this.utils.callgettagresult = item
+
+          this.router.navigate(['/verifyit-product'], { queryParams: { reg: 'catalogpage' } })
+        }
+        this.utils.LoadPageOnrouteChange();
+        // this.router.navigateByUrl('/verifyit-product-info')
+
+
       },
-       //**charu end */
+      //**charu end */
       err => {
         alert(JSON.stringify(err));
       }
@@ -178,12 +179,12 @@ this.brandName=brand
     this.utils.productCatalogInfo = item;
 
     this.utils.callgettagresult = item
-    
+
     // this.utils.LoadPageOnrouteChange();
     // this.router.navigateByUrl('/verifyit-product-info')
     // this.router.navigateByUrl('/verifyit-product-catalog-info')
 
-    
+
   }
 
 
@@ -191,7 +192,7 @@ this.brandName=brand
   result = []
 
   groupBy(collection, property) {
-     
+
     // var i = 0, val, index
 
     // for (; i < collection.length; i++) {
@@ -215,7 +216,7 @@ this.brandName=brand
       // this.result.push(acc);
     }, {
 
-      })
+    })
 
   }
   listGroupedProduct = []
@@ -233,13 +234,13 @@ this.brandName=brand
     this.catalog_link =
       "https://pwa.nowverifyit.com?product_id=" +
       this.utils.productId
-    
+
     let shareRet = await Share.share({
       text: "Hey, Checkout catalogue" + " from " + this.brandName,
 
       url: this.catalog_link
     });
-    
+
   }
 
 }

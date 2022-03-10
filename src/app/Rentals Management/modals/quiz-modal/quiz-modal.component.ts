@@ -140,10 +140,9 @@ export class QuizModalComponent implements OnInit {
         otype: "DATA_FORM_ONE_SUBMITTED",
       };
       //let quizObj=this.questions[i]
-
+      
       this.apisc.trackingApi(data).subscribe((res) => {
         this.hideContent = true
-
         console.log(res, "track");
       }, err => {
         this.hideContent = true
@@ -169,7 +168,7 @@ export class QuizModalComponent implements OnInit {
             this.closeModal();
           } else if (this.navParams.data["requestFrom"] == "default") {
 
-            if (window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') {
+            if (window.localStorage.getItem('scan_flow') == '2') {
               window.localStorage.setItem('hasquizModal', '1')
               // this.utilservice.LoadSurpriseModal();
               this.closeModal();
@@ -234,6 +233,7 @@ export class QuizModalComponent implements OnInit {
     this.answer.answers.push(answerobj);
     this.count++;
     // i=i+1
+    this.selectName=''
 
 
     if (i == this.questions.length - 1) {

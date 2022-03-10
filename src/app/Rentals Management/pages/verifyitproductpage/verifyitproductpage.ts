@@ -212,7 +212,7 @@ export class Verifyitproductpage {
   ) // private actionSheetController: ActionSheetController
   {
 
-    window.localStorage.setItem('flow','flow3')
+    // window.localStorage.setItem('flow','flow3')
     // window.localStorage.setItem('save_answer','false')
     window.localStorage.setItem('user_upi','false')
 
@@ -244,9 +244,9 @@ export class Verifyitproductpage {
     );
 
     this.subscription = this.utilservice.LoadModal.subscribe((data) => {
-      
+      debugger
 
-      if(window.localStorage.getItem('flow')=='flow3'   && (window.localStorage.getItem('save_answer') !='true')||(window.localStorage.getItem('save_answer')==undefined)){
+      if(window.localStorage.getItem('scan_flow')=="3"   &&( (window.localStorage.getItem('save_answer') !='true')||(window.localStorage.getItem('save_answer')==undefined))){
         // this.openQuiz("default");
         this.getQuestions()
       }else{
@@ -268,7 +268,7 @@ export class Verifyitproductpage {
 
     this.subscription3 = this.utilservice.presentLoader.subscribe((data) => {
       // this.SubmitUPI();
-      if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20' && !window.localStorage.getItem('name')){
+      if(window.localStorage.getItem('scan_flow') == "2" && !window.localStorage.getItem('name')){
         this.loginService.presentLoading()
         
             }
@@ -280,6 +280,7 @@ export class Verifyitproductpage {
   hasComingsoon
   hasScratchCard
   hasPopup
+  brandFlow
   hasProductCatalogue
   ngOnInit() {
 debugger
@@ -322,6 +323,7 @@ debugger
       //   // this.secPlay()
 
       // }
+      this.brandFlow=window.localStorage.getItem('scan_flow');
 
       if (this.utilservice.callgettagresult.meta_data) {
         if (this.hasLogin == null) {
@@ -336,8 +338,7 @@ debugger
             this.loginService.isProductInfo = true;
             this.router.navigateByUrl("/login");
           } else if (
-            (window.localStorage.getItem('brand_id') == '24' ||
-              window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '18' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') &&
+            (this.brandFlow == "1" || this.brandFlow == "3" || this.brandFlow == "2") &&
             !window.localStorage.getItem("name")
           ) {
             this.loginService.isProductInfo = true;
@@ -345,7 +346,7 @@ debugger
             window.localStorage.setItem("hasquizModal", "1");
 
             debugger
-            if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20'){
+            if(this.brandFlow == "2"){
               
               // new flow coding
               
@@ -363,8 +364,7 @@ debugger
             }
           }
         } else if (
-          (window.localStorage.getItem('brand_id') == '24' ||
-            window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '18' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') &&
+          (this.brandFlow == "1" || this.brandFlow == "3") &&
           window.localStorage.getItem("name") &&
           window.localStorage.getItem("hasquizModal") == "0"
         ) {
@@ -376,7 +376,7 @@ debugger
 
           this.getQuestions()
 
-        } else if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20'){
+        } else if(this.brandFlow == "2"){
 
           this.getQuestions()
 
@@ -834,8 +834,7 @@ debugger
     let pTagId;
     let referraltext;
     if (
-      (window.localStorage.getItem('brand_id') == '24' ||
-        window.localStorage.getItem('brand_id') == '9' || window.localStorage.getItem('brand_id') == '3' || window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '4' || window.localStorage.getItem('brand_id') == '7' || window.localStorage.getItem('brand_id') == '38' || window.localStorage.getItem('brand_id') == '30' || window.localStorage.getItem('brand_id') == '18' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') &&
+      (window.localStorage.getItem('scan_flow') == "1" || window.localStorage.getItem('scan_flow') == "3") &&
       window.localStorage.getItem("name")
     ) {
       pTagId = 5019;
@@ -1497,7 +1496,7 @@ debugger
           // new flow change
           
 
-          if((window.localStorage.getItem('brand_id')== '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20') && !window.localStorage.getItem('name')){
+          if((window.localStorage.getItem('scan_flow')=="2") && !window.localStorage.getItem('name')){
 this.scratchModal()
 
           }else{
@@ -1602,7 +1601,7 @@ this.scratchModal()
          let loginInfo= window.localStorage.getItem('name')
           // new flow coding
 
-          if((window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20' )&& !window.localStorage.getItem('name')){
+          if((window.localStorage.getItem('scan_flow') == "2" )&& !window.localStorage.getItem('name')){
 
             window.localStorage.setItem('user_upi','xxxxxxx')
             // this.utilservice.LoadSurpriseModal();
@@ -1634,9 +1633,9 @@ this.scratchModal()
         } else {
           // this.router.navigateByUrl('/surprise-modal')
 
-          let brand=window.localStorage.getItem('brand_id')
+          let brand=window.localStorage.getItem('scan_flow')
 
-          let config=['42' , '10' , '11' , '32' , '12' , '13' , '15' , '19' , '20']
+          let config=["2"]
 
           if( config.indexOf(brand) > -1){
 

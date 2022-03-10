@@ -262,7 +262,7 @@ export class surpiseModalPage implements OnInit {
 
       debugger
 
-      if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20'){
+      if(window.localStorage.getItem('scan_flow') == '2'){
         // this.loginService.isProductInfo = false;
         // this.utils.isProductInfo = false;
         this.utils.newflow=true

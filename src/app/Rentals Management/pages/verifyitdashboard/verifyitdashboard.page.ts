@@ -816,7 +816,7 @@ debugger
 
 
 
-      this.gettag('5000')
+      // this.gettag('5000')
 
     } else if (this.router.url.includes("ext-loading")) {
       this.hideDashboardScreen = false;
