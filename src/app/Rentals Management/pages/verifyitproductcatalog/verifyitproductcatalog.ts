@@ -109,6 +109,7 @@ export class VerifyitProductCatalogPage {
         this.brandName = this.listbanner.data[0]?.brand
 
 
+        
         if (this.listbanner.data[0].meta_data.category) {
           this.groupBy(this.listbanner.data, "category");
 

@@ -28,7 +28,7 @@ import * as WebVPPlugin from "capacitor-video-player";
 // const { CapacitorVideoPlayer, Device } = Plugins;
 
 import { Browser } from "@capacitor/browser";
-import { Content } from "ionic-angular";
+// import { Content } from "ionic-angular";
 import {
   InAppBrowser,
   InAppBrowserOptions,
@@ -38,18 +38,18 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Userrole5modalComponent } from "../../modals/userrole5modal/userrole5modal.component";
 // import { QuizModalComponent2 } from "src/app/quiz-modal2/quiz-modal.component";
 import { AutocloseOverlaysService } from "../../services/autoclose.service";
-import { WarrantycardComponent } from "../../modals/warrantycard/warrantycard.component";
-import { PanoimageComponent } from "../../modals/panoimage/panoimage.component";
+// import { WarrantycardComponent } from "../../modals/warrantycard/warrantycard.component";
+// import { PanoimageComponent } from "../../modals/panoimage/panoimage.component";
 
 import { ScratchCard, SCRATCH_TYPE } from "scratchcard-js";
 import { ScratchmodalComponent } from "../../modals/scratchmodal/scratchmodal.component";
 // import { Plugins } from '@capacitor/core';
 // const { Share } = Plugins;
 import { Share } from "@capacitor/share";
-import { Device } from "@capacitor/device";
+// import { Device } from "@capacitor/device";
 import { CapacitorVideoPlayer } from "capacitor-video-player";
 
-const PhotoSphereViewer = require("photo-sphere-viewer");
+// const PhotoSphereViewer = require("photo-sphere-viewer");
 // import 'photo-sphere-viewer/dist/plugins/markers.css'
 
 // import { IonContent } from '@ionic/angular';
@@ -237,11 +237,11 @@ export class Verifyitproductpage {
 
     this.sanitizer = sanitizer;
 
-    this.unsubscribeutilloadpage = this.utilservice.LoadPage.subscribe(
-      (data) => {
-        // this.ngOnInit();
-      }
-    );
+    // this.unsubscribeutilloadpage = this.utilservice.LoadPage.subscribe(
+    //   (data) => {
+    //     // this.ngOnInit();
+    //   }
+    // );
 
     this.subscription = this.utilservice.LoadModal.subscribe((data) => {
       debugger
@@ -283,6 +283,38 @@ export class Verifyitproductpage {
   brandFlow
   hasProductCatalogue
   ngOnInit() {
+
+      // new logic for flow construct
+debugger
+
+      switch (window.localStorage.getItem('scan_flow')) {
+        case "0":
+  
+          break;
+        case "1":
+          this.flowOperation1("1")
+          // code block
+          break;
+        case "2":
+          this.flowOperation2("2")
+          break;
+        case "3":
+          this.flowOperation3("3")
+  
+        case "4":
+          this.flowOperation4("4")
+            
+        default:
+        // code block
+      }
+
+      Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
+        this.jsonToBeUsed.push({
+          key: e,
+          value: this.utilservice.callgettagresult.meta_data[e],
+        })
+      );
+    
 debugger
     
     this.platform.ready().then((readysource) => {
@@ -325,70 +357,7 @@ debugger
       // }
       this.brandFlow=window.localStorage.getItem('scan_flow');
 
-      if (this.utilservice.callgettagresult.meta_data) {
-        if (this.hasLogin == null) {
-          // debugger
-          //charu for login
-
-          if (
-            this.utilservice.callgettagresult.meta_data.login_required == 1 ||
-            this.utilservice.callgettagresult.meta_data.login_required ==
-            undefined
-          ) {
-            this.loginService.isProductInfo = true;
-            this.router.navigateByUrl("/login");
-          } else if (
-            (this.brandFlow == "1" || this.brandFlow == "3" || this.brandFlow == "2") &&
-            !window.localStorage.getItem("name")
-          ) {
-            this.loginService.isProductInfo = true;
-            this.utilservice.isProductInfo = true;
-            window.localStorage.setItem("hasquizModal", "1");
-
-            debugger
-            if(this.brandFlow == "2"){
-              
-              // new flow coding
-              
-              // this.loginService.isProductInfo = false;
-              // this.utilservice.isProductInfo = false;
-
-
-              this.getQuestions()
-
-
-            }else{
-             
-
-              this.router.navigateByUrl("/login");
-            }
-          }
-        } else if (
-          (this.brandFlow == "1" || this.brandFlow == "3") &&
-          window.localStorage.getItem("name") &&
-          window.localStorage.getItem("hasquizModal") == "0"
-        ) {
-          this.loginService.isProductInfo = true;
-          this.utilservice.isProductInfo = true;
-          // this.router.navigateByUrl("/login");
-          // this.openQuiz("default");
-
-
-          this.getQuestions()
-
-        } else if(this.brandFlow == "2"){
-
-          this.getQuestions()
-
-        }
-        Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
-          this.jsonToBeUsed.push({
-            key: e,
-            value: this.utilservice.callgettagresult.meta_data[e],
-          })
-        );
-      } else {
-      }
+ 
 
       console.log(this.jsonToBeUsed);
       this.credKeys.key1 = "Product Name";
@@ -411,21 +380,16 @@ debugger
           this.brand_color = element.value;
         }
       });
-      //  return  this.sanitizer.bypassSecurityTrustResourceUrl(
-      //     'https://www.amazon.in/'
-      //   );
-      // define the plugin to use
-      // const info =  Device.getInfo();
+
       if ("") {
         this._videoPlayer = CapacitorVideoPlayer;
       } else {
         this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
       }
-      // define the video url
+     
       this._url =
         "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
-      // add listeners to the plugin
-      // this.scrollToTopOnInit()
+     
       this._addListenersToPlayerPlugin();
 
     })
@@ -433,21 +397,15 @@ debugger
   }
 
 
-//   ionViewWillEnter(){
-//     if(window.localStorage.getItem('brand_id') == '42' || window.localStorage.getItem('brand_id') == '10' || window.localStorage.getItem('brand_id') == '11' || window.localStorage.getItem('brand_id') == '32' || window.localStorage.getItem('brand_id') == '12' || window.localStorage.getItem('brand_id') == '13' || window.localStorage.getItem('brand_id') == '15' || window.localStorage.getItem('brand_id') == '19' || window.localStorage.getItem('brand_id') == '20' && this.utilservice.newflow ==true && !window.localStorage.getItem('name')){
-// this.loginService.presentLoading()
-
-//     }
-//   }
   ionViewDidLeave() {
     // this.navCtrl.pop();
     this.loadingCtrl.dismiss()
   }
 
-  async ionViewDidEnter() {
-    // this.openPanoImage()
-    // this.showProductVideo('https://nowverityit-img.s3.ap-south-1.amazonaws.com/img/Personalized+Video+GoodWynTea.mp4')
-  }
+  // async ionViewDidEnter() {
+  //   // this.openPanoImage()
+  //   // this.showProductVideo('https://nowverityit-img.s3.ap-south-1.amazonaws.com/img/Personalized+Video+GoodWynTea.mp4')
+  // }
 
   async showProductVideo(data) {
     // alert("hello")
@@ -460,66 +418,9 @@ debugger
     });
   }
 
-  // ionViewDidLoad() {
 
-  //   this.platform.ready().then(() => {
-  //     this.nfc.enabled().then((resolve) => {
-  //       this.canNFC = true;
-  //       this.setStatus('NFC Compatable.');
-  //       this.tagListenerSuccess();
-  //     }).catch((reject) => {
-  //       this.canNFC = false;
-  //       this.alertService.presentAlert('',JSON.stringify("NFC is not supported by your Device"));
-  //       this.setStatus('NFC Not Compatable.');
-  //     });
-
-  //   });
-  // }
   res: any = {};
-  // tagListenerSuccess() {
-  //   this.subscriptions.push(this.nfc.addNdefListener()
-  //     .subscribe(data => {
-  //       if (this.readingTag) {
-  //         let payload = data.tag.ndefMessage[0].payload;
-  //         let tagId = this.nfc.bytesToString(payload).substring(3);
-  //         this.readingTag = false;
-  //         this.apiSvc.callGetTag(tagId).subscribe((res) => {
-  //           this.res = res
-  //           this.cred.product_name = this.res.product_name;
-  //           this.alertService.presentAlert('',this.cred.product_name)
-  //           this.cred.verified = this.res.verified;
-  //           this.cred.tagId = tagId;
-  //           // this.apiSvc.callRecordScan(tagId).subscribe((res) => {
-  //           // });
-  //           this.cred.model_number = this.res.model_number;
-  //           this.cred.serial_number = this.res.serial_number;
-  //           this.cred.brand = this.res.brand;
-  //           this.cred.img = this.res.img;
-  //           this.cred.product_details = this.res.product_details;
-  //           this.cred.how_to_use_it = this.res.how_to_use_it;
-  //           this.cred.manufactured = this.res.manufactured;
-  //           this.credKeys.key1 = "Product Name";
-  //           this.credKeys.key2 = "Model Number";
-  //           this.credKeys.key3 = "Serial Number";
-  //           this.credKeys.key4 = "Brand";
-  //           this.credKeys.key5 = "Water Resistant";
-  //           this.credKeys.key6 = "Display Type";
-  //           this.credKeys.key7 = "Series";
-  //           this.credKeys.key8 = "Occassion";
-  //           this.credKeys.key9 = "Strap";
-  //           this.credKeys.key10 = "Manufactured";
-  //           this.credKeys.key11 = "Instructions";
-  //           this.credKeys.key12 = "Wine Information";
-  //           this.credKeys.key13 = "Verified";
-  //           // this.helperSvc.hideLoading();
-  //         });
-  //       }
-  //     },
-  //       err => {
 
-  //       })
-  //   );
-  // }
 
   setStatus(message) {
     this.alertService.presentAlert("", message);
@@ -581,78 +482,15 @@ debugger
       }
     );
   }
-  // readTag() {
-  //   if (this.canNFC) {
-  //     setTimeout(() => {
-  //       this.alertService.presentAlert('','Connecting with Server..');
-  //       this.readingTag = true;
-  //       this.tagListenerSuccess();
-  //     }, 100);
-
-  //   } else {
-  //     this.alertService.presentAlert('','NFC is not supported by your Device');
-  //   }
-  // }
-  
-
-  // boughtIt(tagId){
-  //       this.apiSvc.callPostBoughtIt(tagId).subscribe((res) => {
-  //         this.alertService.presentAlert('',res);
-  //         // this.helperSvc.hideLoading();
-  //   });
-  //   // this.navCtrl.push(ThankyouPage,{})
-  //   this.alertService.presentAlert('','thank you')
-
-  // }
 
   ionViewWillLeave() {
-    // this.unsubscribeutilloadpage.unsubscribe()
     this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
 
 
-  // scanqrcode() {
-  //   var context = this;
-  //   // Optionally request the permission early
-  //   this.qrScanner.prepare()
-  //     .then((status: QRScannerStatus) => {
-
-  //       if (status.authorized) {
-  //         // camera permission was granted
-  //         this.alertService.presentAlert('',"scanning");
-  //         var ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
-  //         // start scanning
-  //         let scanSub = this.qrScanner.scan().subscribe((scannedAddress: string) => {
-  //           this.alertService.presentAlert('',scannedAddress);
-  //           // this.friendAddress = scannedAddress;
-  //           this.qrScanner.hide(); // hide camera preview
-  //           scanSub.unsubscribe(); // stop scanning
-  //           ionApp.style.display = "block";
-  //           // this.friendAddressInput.setFocus();
-  //         });
-
-  //         // show camera preview
-  //         ionApp.style.display = "none";
-  //         context.qrScanner.show();
-  //         // setTimeout(() => {
-  //         //   ionApp.style.display = "block";
-  //         //   scanSub.unsubscribe(); // stop scanning
-  //         //   // context.friendAddressInput.setFocus();
-  //         //   context.qrScanner.hide();
-  //         // }, 500000);
-  //         // wait for user to scan something, then the observable callback will be called
-
-  //       } else if (status.denied) {
-  //         this.alertService.presentAlert('',"Denied permission to access camera");
-  //       } else {
-  //         this.alertService.presentAlert('',"Something else is happening with the camera");
-  //       }
-  //     })
-  //     .catch((e: any) => console.log('Error is', e));
-
-  // }
+ 
   async boughtIt(tagId) {
     this.apiSvc.callPostBoughtIt(tagId).subscribe((res) => {
       console.log(res);
@@ -1187,153 +1025,11 @@ debugger
     });
   }
 
-  async generateEwarrantyCard() {
-    this.utilservice.warrantyInformation = this.callgettagresult;
-    let modal = await this.modalController.create({
-      component: WarrantycardComponent,
-    });
-    return await modal.present();
-  }
 
-  async openPanoImage() {
-    this.utilservice.warrantyInformation = this.callgettagresult;
-    let modal = await this.modalController.create({
-      component: PanoimageComponent,
-    });
-    return await modal.present();
-  }
 
-  // 360 view image
 
-  // panoramaimage
 
-  opena() {
-    var viewer = new PhotoSphereViewer.Viewer({
-      panorama: "assets/testp.jpg",
-      container: "viewer",
-      loadingImg:
-        "https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif",
-      caption: "GOODWYN TEA ESTATES",
-      defaultLat: 0.3,
-      touchmoveTwoFingers: true,
-      mousewheelCtrlKey: true,
 
-      plugins: [
-        [
-          MarkersPlugins,
-          {
-            // list of markers
-            markers: [
-              {
-                // image marker that opens the panel when clicked
-                id: "image",
-                longitude: 0.32,
-                latitude: 0.11,
-                image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
-                width: 32,
-                height: 32,
-                anchor: "bottom center",
-                tooltip: "BLACK/RED TEA",
-                content: `Black tea – which Kasim Ali, Owner of Waterloo Tea and Founder of the Tea Brewers Cup, tells me is sold as “red tea” in the Chinese market – is the most oxidised of all teas. The moment the leaves are picked, they begin to wilt and oxidation begins. They are often then crushed or rolled to speed up the process.
-
-                The flavour profile is strong, with plenty of depth and body. As the most oxidised tea, you would also brew it at the highest temperatures. Kasim Ali recommends 95–100℃/203–212℉. And much like coffee, the greater the temperature, the more bitter you can expect the brew to taste.
-                
-                Some of the most famous black teas include the English Breakfast blend and Earl Grey, which is flavoured with bergamot.`,
-              },
-              {
-                id: "image2",
-                longitude: 1.42,
-                latitude: 0.21,
-                image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
-                width: 32,
-                height: 32,
-                anchor: "bottom center",
-                tooltip: "OOLONG/WULONG TEA",
-                content: `The only difference between oolong and wulong tea is the name. Oolong is the most recognised in Western countries, yet linguists would say that wulong is a more accurate romanisation of the original Chinese kanji.
-
-                Oolong tea is also perhaps one of the widest categories of tea: according to Max Falkowitz in Serious Eats, oxidation can run between 8 and 85%. This means you will also come across vastly different flavours.
-                
-                All oolong tea processing begins with some form of encouraging oxidation, such as bruising the edges of the leaves. It also ends with a form of “fixing”, the process by which oxidation is paused. This could be pan firing, steaming, baking, or some other way of adding heat. However, Gebely states that the process between the initial oxidation and the fixing will vary because of the different oxidation levels.
-                
-                When brewing, Kasim suggests that medium oxidised teas are brewed at 85℃/185℉, while lower oxidised teas should be brewed at 80℃/176℉.`,
-              },
-              {
-                id: "image3",
-                longitude: 2.82,
-                latitude: 0.11,
-                image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
-                width: 32,
-                height: 32,
-                anchor: "bottom center",
-                tooltip: "GREEN TEA",
-                content: `Green tea is only very lightly oxidised. After the initial withering, the leaves must be quickly fixed. This tends to give it a lighter profile, and it will also lose its flavour much quicker than black or oolong tea.
-
-                While associated with Asia, there are significant differences between the offerings from the different Asian countries. To start with, Mary Lou and Robert J. Heiss emphasise that Chinese and Japanese green tea tastes vastly different thanks to the varieties and terroir (The Tea Enthusiast’s Handbook: A Guide to the World’s Best Teas).
-                
-                Then you have the way the green teas are processed, prepared, and brewed. This results in categories such as sencha, matcha, longjing and bilochun.
-                
-                Matcha, which is ground into a powder, is perhaps the most well-known green tea thanks to Starbucks “matcha lattes”. Japan’s highest-quality green tea category, it is ground into a powder (meaning it quickly becomes stale). It’s consumed in the traditional Japanese tea ceremony.
-                
-                Ali recommends brewing Chinese green teas at 75℃/167℉, but Japanese green teas at 65℃/149℉. “Some Japanese greens will brew closer to 50℃ (122℉),” he adds.
-                
-                `,
-              },
-            ],
-          },
-        ],
-      ],
-    });
-
-    var markersPlugin = viewer.getPlugin(MarkersPlugins);
-
-    /**
-     * Create a new marker when the user clicks somewhere
-     */
-    viewer.on("click", function (e, data) {
-      if (!data.rightclick) {
-        markersPlugin.addMarker({
-          id: "#" + Math.random(),
-          longitude: data.longitude,
-          latitude: data.latitude,
-          image: "https://photo-sphere-viewer.js.org/assets/pin-red.png",
-          width: 32,
-          height: 32,
-          anchor: "bottom center",
-          tooltip: "Generated pin",
-          data: {
-            generated: true,
-          },
-        });
-      }
-    });
-
-    /**
-     * Delete a generated marker when the user double-clicks on it
-     * Or change the image if the user right-clicks on it
-     */
-    markersPlugin.on("select-marker", function (e, marker, data) {
-      if (marker.data && marker.data.generated) {
-        if (data.dblclick) {
-          markersPlugin.removeMarker(marker);
-        } else if (data.rightclick) {
-          markersPlugin.updateMarker({
-            id: marker.id,
-            image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
-          });
-        }
-      }
-    });
-
-    this.haspano = true;
-  }
-
-  destroy() {
-    const viewer = document.querySelector("#viewer");
-    // Viewer.destroy().css("display","none");
-    document.getElementById("viewer").style.display = "none";
-    this.haspano = false;
-    // this.scratchModal()
-  }
 
   createNewScratchCard() {
     const scContainer = document.getElementById("js--sc--container");
@@ -1367,54 +1063,146 @@ debugger
     return await modal.present();
   }
 
-  scrollToTopOnInit() {
-    this.Content.scrollToTop();
-  }
 
-  async secPlay() {
-    let sequence = ["scratch_card"];
 
-    // let obj = this.jsonToBeUsed.find(o => o.name === 'sequence');
 
-    sequence.forEach((element) => {
-      switch (element) {
-        case "scratch_card":
-          let obj = this.jsonToBeUsed.find((o) => o.key == "scratch_card");
-          console.log("seq play==================>" + JSON.stringify(obj));
-          this.scratchModal();
 
-          break;
-        case "product-video":
-          obj = this.jsonToBeUsed.find((o) => o.key == "product-video");
-          this.showProductVideo(obj.value);
-          console.log("seq play2==================>" + JSON.stringify(obj));
 
-        default:
-          break;
+
+
+
+
+
+
+
+  getQuestions() {
+    // this.subscription.unsubscribe();
+    let data = {
+      brand_id: window.localStorage.getItem('brand_id'),
+      // brand_id: "38",
+    };
+
+    this.apiSvc.getQuestion(data).subscribe(
+      (res: any) => {
+        if (res.message == 'Success') {
+
+          let loginInfo = window.localStorage.getItem('name')
+          // new flow coding
+
+          this.openQuiz("default");
+
+
+
+        }
+
+
+      },
+
+      (err) => {
+        alert(JSON.stringify(err));
       }
-
-      // if(element=='scratch_card'){
-      //   let obj = this.jsonToBeUsed.find(o => o.key == 'scratch_card');
-      //   console.log("seq play==================>"+ JSON.stringify(obj))
-      //   this.scratchModal()
-      //   return;
-
-      // }else if(element=='product-video'){
-      //   let obj = this.jsonToBeUsed.find(o => o.key == 'product-video');
-      //   this.showProductVideo(obj.value)
-      //   console.log("seq play2==================>"+ JSON.stringify(obj) )
-
-      // }else if(element=='certificates'){
-      //   let obj = this.jsonToBeUsed.find(o => o.key == 'certificates');
-      //   console.log("seq play3==================>"+ JSON.stringify(obj) )
-
-      // }else if(element=='x'){
-      //   let obj = this.jsonToBeUsed.find(o => o.key == 'certificates');
-      //   console.log("seq play3==================>"+ JSON.stringify(obj) )
-
-      // }
-    });
+    );
   }
+
+
+
+
+
+
+
+  //new flow constructs
+
+  flowOperation1(data) {
+
+    if (window.localStorage.getItem('name') && data == '1') {
+      this.loginService.isProductInfo = true;
+      this.utilservice.isProductInfo = true;
+      window.localStorage.setItem("hasquizModal", "1");
+      this.getQuestions()
+    } else {
+      // this.loginService.isProductInfo = true;
+      this.utilservice.isProductInfo = true;
+
+
+      this.router.navigateByUrl('/login')
+    }
+
+  }
+
+  flowOperation2(data) {
+
+    if (!window.localStorage.getItem('name')){
+      this.checkWinnerStatus2()
+
+    } else {
+      this.getQuestions()
+    }
+  }
+
+  flowOperation3(data){
+    debugger
+    window.localStorage.setItem('user_upi','xxxxxxx')
+
+    if (window.localStorage.getItem('name') && data == '3') {
+      this.loginService.isProductInfo = true;
+      this.utilservice.isProductInfo = true;
+      window.localStorage.setItem("hasquizModal", "1");
+      this.getQuestions()
+    } else {
+  
+      this.utilservice.newflow = true
+      
+      this.router.navigateByUrl('/login')
+    }
+
+  }
+
+  flowOperation4(data){
+    if (!window.localStorage.getItem('name')){
+      this.checkWinnerStatus2()
+
+    } else {
+      this.getQuestions()
+    }
+  }
+
+  checkWinnerStatus2(){
+    let winnerData = {
+      product_id: this.utilservice.callgettagresult.product_id,
+      user_id: window.localStorage.getItem("userid"),
+    };
+    this.apiSvc.checkWinStatus(winnerData).subscribe(
+      (res: any) => {
+
+        if (res.data.win == 1 && !this.utilservice.source_token) {
+
+          this.utilservice.cashbackAmount = res.data.price_money
+          this.utilservice.winMessage = res.data.res_message
+          this.utilservice.winLossAlgoData = res.data
+          // this.subscription.unsubscribe();
+          console.log(res);
+          this.utilservice.usernotwon = true;
+          // this.utilservice.showConfetti();
+          // this.router.navigateByUrl('/surprise-modal')
+          this.scratchModal()
+        } else {
+          this.utilservice.winMessage = res.data.res_message
+          this.utilservice.winLossAlgoData = res.data
+          this.utilservice.usernotwon = false;
+
+          if (this.utilservice.winLossAlgoData) {
+
+            this.router.navigateByUrl('/surprise-modal')
+          }
+        }
+      },
+      (err) => {
+        alert(JSON.stringify(err));
+      }
+    );
+  }
+
+// static code
 
   showHide() {
     this.showmore = !this.showmore;
@@ -1466,69 +1254,31 @@ debugger
 
   checkWinnerStatus() {
     let winnerData = {
-      product_id: this.callgettagresult.product_id,
+      product_id: this.utilservice.callgettagresult.product_id,
       user_id: window.localStorage.getItem("userid"),
     };
     this.apiSvc.checkWinStatus(winnerData).subscribe(
-      //**charu Start */
       (res: any) => {
-
-        // this.utilservice.triggerLocation()
-
-
 
         if (res.data.win == 1 && !this.utilservice.source_token) {
 
           this.utilservice.cashbackAmount = res.data.price_money
           this.utilservice.winMessage = res.data.res_message
           this.utilservice.winLossAlgoData = res.data
-          this.subscription.unsubscribe();
+          // this.subscription.unsubscribe();
           console.log(res);
           this.utilservice.usernotwon = true;
-
-          
-          // setTimeout(function(){
-          //   // that.messageSuccess = false;
-          // },3000);
-
-
-
-          // new flow change
-          
-
-          if((window.localStorage.getItem('scan_flow')=="2") && !window.localStorage.getItem('name')){
-this.scratchModal()
-
-          }else{
-
-            
-            this.utilservice.showConfetti();
-            this.router.navigateByUrl('/surprise-modal')
-          }
-          
-
-       // new flow change
-
-
-          // this.utilservice.showConfetti()
-          // this.utilservice.popNotification()
+          this.utilservice.showConfetti();
+          this.router.navigateByUrl('/surprise-modal')
         } else {
           this.utilservice.winMessage = res.data.res_message
           this.utilservice.winLossAlgoData = res.data
           this.utilservice.usernotwon = false;
-          
-          // this.surpriseModal();
-          // setTimeout(function(){
-            //   // that.messageSuccess = false;
-            // },3000);
-            // this.utilservice.showConfetti();
-            if(this.utilservice.winLossAlgoData){
 
-              this.router.navigateByUrl('/surprise-modal')
-            }
-            
-            this.subscription.unsubscribe();
-          // this.utilservice.popNotification()
+          if (this.utilservice.winLossAlgoData) {
+
+            this.router.navigateByUrl('/surprise-modal')
+          }
         }
       },
       (err) => {
@@ -1537,13 +1287,6 @@ this.scratchModal()
     );
   }
 
-  // async surpriseModal() {
-  //   let modal = await this.modalController.create({
-  //     component: SurpriseModalComponent,
-  //     cssClass: "surprise-modal",
-  //   });
-  //   return await modal.present();
-  // }
 
   SubmitUPI() {
     this.subscription2.unsubscribe();
@@ -1585,83 +1328,179 @@ this.scratchModal()
   }
 
 
+  /// not used code
+  // async secPlay() {
+  //   let sequence = ["scratch_card"];
+
+  //   // let obj = this.jsonToBeUsed.find(o => o.name === 'sequence');
+
+  //   sequence.forEach((element) => {
+  //     switch (element) {
+  //       case "scratch_card":
+  //         let obj = this.jsonToBeUsed.find((o) => o.key == "scratch_card");
+  //         console.log("seq play==================>" + JSON.stringify(obj));
+  //         this.scratchModal();
+
+  //         break;
+  //       case "product-video":
+  //         obj = this.jsonToBeUsed.find((o) => o.key == "product-video");
+  //         this.showProductVideo(obj.value);
+  //         console.log("seq play2==================>" + JSON.stringify(obj));
+
+  //       default:
+  //         break;
+  //     }
+
+  //   });
+  // }
 
 
+    // 360 view image
 
-  getQuestions() {
-    // this.subscription.unsubscribe();
-    let data = {
-      brand_id: window.localStorage.getItem('brand_id'),
-    };
+  // panoramaimage
 
-    this.apiSvc.getQuestion(data).subscribe(
-      (res: any) => {
-        if (res.message == 'Success') {
+  // async openPanoImage() {
+  //   this.utilservice.warrantyInformation = this.callgettagresult;
+  //   let modal = await this.modalController.create({
+  //     component: PanoimageComponent,
+  //   });
+  //   return await modal.present();
+  // }
 
-         let loginInfo= window.localStorage.getItem('name')
-          // new flow coding
+  // opena() {
+  //   var viewer = new PhotoSphereViewer.Viewer({
+  //     panorama: "assets/testp.jpg",
+  //     container: "viewer",
+  //     loadingImg:
+  //       "https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif",
+  //     caption: "GOODWYN TEA ESTATES",
+  //     defaultLat: 0.3,
+  //     touchmoveTwoFingers: true,
+  //     mousewheelCtrlKey: true,
 
-          if((window.localStorage.getItem('scan_flow') == "2" )&& !window.localStorage.getItem('name')){
+  //     plugins: [
+  //       [
+  //         MarkersPlugins,
+  //         {
+          
+  //           markers: [
+  //             {
+              
+  //               id: "image",
+  //               longitude: 0.32,
+  //               latitude: 0.11,
+  //               image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
+  //               width: 32,
+  //               height: 32,
+  //               anchor: "bottom center",
+  //               tooltip: "BLACK/RED TEA",
+  //               content: `Black tea – which Kasim Ali, Owner of Waterloo Tea and Founder of the Tea Brewers Cup, tells me is sold as “red tea” in the Chinese market – is the most oxidised of all teas. The moment the leaves are picked, they begin to wilt and oxidation begins. They are often then crushed or rolled to speed up the process.
 
-            window.localStorage.setItem('user_upi','xxxxxxx')
-            // this.utilservice.LoadSurpriseModal();
+  //               The flavour profile is strong, with plenty of depth and body. As the most oxidised tea, you would also brew it at the highest temperatures. Kasim Ali recommends 95–100℃/203–212℉. And much like coffee, the greater the temperature, the more bitter you can expect the brew to taste.
+                
+  //               Some of the most famous black teas include the English Breakfast blend and Earl Grey, which is flavoured with bergamot.`,
+  //             },
+  //             {
+  //               id: "image2",
+  //               longitude: 1.42,
+  //               latitude: 0.21,
+  //               image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
+  //               width: 32,
+  //               height: 32,
+  //               anchor: "bottom center",
+  //               tooltip: "OOLONG/WULONG TEA",
+  //               content: `The only difference between oolong and wulong tea is the name. Oolong is the most recognised in Western countries, yet linguists would say that wulong is a more accurate romanisation of the original Chinese kanji.
 
-            // this.scratchModal()
+  //               Oolong tea is also perhaps one of the widest categories of tea: according to Max Falkowitz in Serious Eats, oxidation can run between 8 and 85%. This means you will also come across vastly different flavours.
+                
+  //               All oolong tea processing begins with some form of encouraging oxidation, such as bruising the edges of the leaves. It also ends with a form of “fixing”, the process by which oxidation is paused. This could be pan firing, steaming, baking, or some other way of adding heat. However, Gebely states that the process between the initial oxidation and the fixing will vary because of the different oxidation levels.
+                
+  //               When brewing, Kasim suggests that medium oxidised teas are brewed at 85℃/185℉, while lower oxidised teas should be brewed at 80℃/176℉.`,
+  //             },
+  //             {
+  //               id: "image3",
+  //               longitude: 2.82,
+  //               latitude: 0.11,
+  //               image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
+  //               width: 32,
+  //               height: 32,
+  //               anchor: "bottom center",
+  //               tooltip: "GREEN TEA",
+  //               content: `Green tea is only very lightly oxidised. After the initial withering, the leaves must be quickly fixed. This tends to give it a lighter profile, and it will also lose its flavour much quicker than black or oolong tea.
 
-            this.checkWinnerStatus()
-            // if(window.localStorage.getItem('flow')=='flow3'){
-            //   this.openQuiz("default");
-            // }else{
+  //               While associated with Asia, there are significant differences between the offerings from the different Asian countries. To start with, Mary Lou and Robert J. Heiss emphasise that Chinese and Japanese green tea tastes vastly different thanks to the varieties and terroir (The Tea Enthusiast’s Handbook: A Guide to the World’s Best Teas).
+                
+  //               Then you have the way the green teas are processed, prepared, and brewed. This results in categories such as sencha, matcha, longjing and bilochun.
+                
+  //               Matcha, which is ground into a powder, is perhaps the most well-known green tea thanks to Starbucks “matcha lattes”. Japan’s highest-quality green tea category, it is ground into a powder (meaning it quickly becomes stale). It’s consumed in the traditional Japanese tea ceremony.
+                
+  //               Ali recommends brewing Chinese green teas at 75℃/167℉, but Japanese green teas at 65℃/149℉. “Some Japanese greens will brew closer to 50℃ (122℉),” he adds.
+                
+  //               `,
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     ],
+  //   });
 
-            // }
+  //   var markersPlugin = viewer.getPlugin(MarkersPlugins);
+
+   
+  //   viewer.on("click", function (e, data) {
+  //     if (!data.rightclick) {
+  //       markersPlugin.addMarker({
+  //         id: "#" + Math.random(),
+  //         longitude: data.longitude,
+  //         latitude: data.latitude,
+  //         image: "https://photo-sphere-viewer.js.org/assets/pin-red.png",
+  //         width: 32,
+  //         height: 32,
+  //         anchor: "bottom center",
+  //         tooltip: "Generated pin",
+  //         data: {
+  //           generated: true,
+  //         },
+  //       });
+  //     }
+  //   });
+
+   
+  //   markersPlugin.on("select-marker", function (e, marker, data) {
+  //     if (marker.data && marker.data.generated) {
+  //       if (data.dblclick) {
+  //         markersPlugin.removeMarker(marker);
+  //       } else if (data.rightclick) {
+  //         markersPlugin.updateMarker({
+  //           id: marker.id,
+  //           image: "https://photo-sphere-viewer.js.org/assets/pin-blue.png",
+  //         });
+  //       }
+  //     }
+  //   });
+
+  //   this.haspano = true;
+  // }
+
+  // destroy() {
+  //   const viewer = document.querySelector("#viewer");
+   
+  //   document.getElementById("viewer").style.display = "none";
+  //   this.haspano = false;
+    
+  // }
 
 
-// newflow coding
-          }else {
-
-            this.openQuiz("default");
-
-
-          }
+    // scrollToTopOnInit() {
+  //   this.Content.scrollToTop();
+  // }
 
 
-          // this.checkWinnerStatus()
-
-
-          // this.questions = res.data.question;
-          // console.table(this.questions);
-        } else {
-          // this.router.navigateByUrl('/surprise-modal')
-
-          let brand=window.localStorage.getItem('scan_flow')
-
-          let config=["2"]
-
-          if( config.indexOf(brand) > -1){
-
-          }else{
-            this.utilservice.LoadSurpriseModal();
-          }
-
-         
-
-
-
-
-          // if(window.localStorage.getItem('brand_id') != "42" || window.localStorage.getItem('brand_id') != "10" || window.localStorage.getItem('brand_id') != "11" || window.localStorage.getItem('brand_id') != "32" || window.localStorage.getItem('brand_id') != "12" || window.localStorage.getItem('brand_id') != "13" || window.localStorage.getItem('brand_id') != "15" || window.localStorage.getItem('brand_id') != "19" || window.localStorage.getItem('brand_id') != "20"){
-
-          //   this.utilservice.LoadSurpriseModal();
-          // }else{
-
-          // }
-
-
-        }
-      },
-
-      (err) => {
-        alert(JSON.stringify(err));
-      }
-    );
-  }
+  // async generateEwarrantyCard() {
+  //   this.utilservice.warrantyInformation = this.callgettagresult;
+  //   let modal = await this.modalController.create({
+  //     component: WarrantycardComponent,
+  //   });
+  //   return await modal.present();
+  // }
 }

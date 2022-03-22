@@ -170,12 +170,12 @@ export class VerifyitDashboardPage implements OnInit {
     }
   }
 
-  ionViewDidEnter() {
-    this.videoElement = this.video.nativeElement;
-    this.canvasElement = this.canvas.nativeElement;
-    this.canvasContext = this.canvasElement.getContext("2d");
-    console.log(this.videoElement);
-  }
+  // ionViewDidEnter() {
+  //   this.videoElement = this.video.nativeElement;
+  //   this.canvasElement = this.canvas.nativeElement;
+  //   this.canvasContext = this.canvasElement.getContext("2d");
+  //   console.log(this.videoElement);
+  // }
 
   data = {
     lat: 0,
