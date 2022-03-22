@@ -115,6 +115,16 @@ this.email_end_selected="@gmail.com"
   hideloginbox
   subscription1
   ngOnInit() {
+    debugger
+
+
+    if(window.localStorage.getItem('scan_flow')=='3'){
+
+      this.googleLoginText="Welcome to the myPAPERCLIP family. Get a chance to win iPhone 12, iWatch and exclusive offers on myPAPERCLIP products."
+    }else{
+      this.googleLoginText="You are just one step away from your cashback. Provide your details so that your cashback can be credited to your Paytm number."
+    }
+
 
     if (this.utils.newflow == true) {
       this.toggleSignup()
@@ -840,6 +850,7 @@ config.forEach(element => {
       }
     })
   }
+  googleLoginText
   registerUser() {
     debugger
     const data = {
@@ -872,7 +883,20 @@ config.forEach(element => {
       
       window.localStorage.setItem('userid', data.data.uid);
       this.utils.LoadPageOnrouteChange();
-      this.presentToast("We have received your details, you will receive your Paytm cashback back in 7-10 working days")
+      if(window.localStorage.getItem('scan_flow')=='3'){
+
+
+        this.utils.openQuizModal()
+      }else if(window.localStorage.getItem('scan_flow')=='4'){
+
+        this.utils.openQuizModal()
+
+      }
+      
+      else{
+
+        this.presentToast("We have received your details, you will receive your Paytm cashback back in 7-10 working days")
+      }
 
       this.navCtrl.pop()
       // this.navCtrl.pop()

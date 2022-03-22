@@ -8,6 +8,14 @@ import { Utils } from "../../services/utils.service";
 import { NailaService } from "../../services/naila.service";
 // import { Utils } from "../Rentals Management/services/utils.service";
 // import { TrackingService } from "../services/tracking.service";
+
+import { Browser } from "@capacitor/browser";
+import { Content } from "ionic-angular";
+import {
+  InAppBrowser,
+  InAppBrowserOptions,
+  InAppBrowserEvent,
+} from "@ionic-native/in-app-browser/ngx";
 // import { AlertServiceService } from "../common-services/alert-service.service";
 // import { NailaservicePage } from "../Rentals Management/pages/nailaservicepage/nailaservicepage";
 // import {NailaService} from ""
@@ -44,7 +52,7 @@ export class QuizModalComponent implements OnInit {
     private utilservice: Utils,
     private navParams: NavParams,
     private navCtrl: NavController,
-    private loadingController:LoadingController
+    private loadingController: LoadingController
   ) {
     this.selectdate = '';
     console.log("this.navParams reward", this.navParams);
@@ -104,7 +112,8 @@ export class QuizModalComponent implements OnInit {
       user_brand_id: window.localStorage.getItem('brand_id')
     };
   };
-  dataChange(i, qid, answer, ansid, brandId, questionType) {
+  dataChange(i, qid, answer, ansid, brandId, questionType, goToId, is_conditional) {
+    debugger
     this.showHideAutoLoader()
     console.log(i);
 
@@ -116,9 +125,22 @@ export class QuizModalComponent implements OnInit {
       brand_id: brandId,
 
     };
+
     if (questionType == '0') {
-      this.count++;
-      this.answer.answers.push(answerobj);
+
+      if (is_conditional == '1') {
+        this.calculateNextQuestion(this.questions,goToId)
+      
+      
+      
+        this.count=0
+        // let diffToJump = Number(goToId) - Number(qid)
+        this.count = this.count + this.abcd
+      } else {
+        this.count++;
+        this.answer.answers.push(answerobj);
+      }
+
     }
     if (questionType == '2') {
       i--
@@ -140,7 +162,7 @@ export class QuizModalComponent implements OnInit {
         otype: "DATA_FORM_ONE_SUBMITTED",
       };
       //let quizObj=this.questions[i]
-      
+
       this.apisc.trackingApi(data).subscribe((res) => {
         this.hideContent = true
         console.log(res, "track");
@@ -155,11 +177,11 @@ export class QuizModalComponent implements OnInit {
   saveAnswers = () => {
     this.utilservice.showConfetti()
 
-
+debugger
 
     this.apisc.saveAnswers(this.answer).subscribe(
       (_res: any) => {
-        window.localStorage.setItem('save_answer','true')
+        window.localStorage.setItem('save_answer', 'true')
         if (_res.status_code == 200) {
           // this.alertService.presentAlert("", "Answer saved successfully.");
           this.presentToast("Answer saved successfully.")
@@ -168,7 +190,7 @@ export class QuizModalComponent implements OnInit {
             this.closeModal();
           } else if (this.navParams.data["requestFrom"] == "default") {
 
-            if (window.localStorage.getItem('scan_flow') == '2') {
+            if (window.localStorage.getItem('scan_flow') == '2' || window.localStorage.getItem('scan_flow') == '4') {
               window.localStorage.setItem('hasquizModal', '1')
               // this.utilservice.LoadSurpriseModal();
               this.closeModal();
@@ -203,24 +225,28 @@ export class QuizModalComponent implements OnInit {
     );
   };
 
-  selectedDate(event, i, qid, answer, ansid, brandId, questionType) {
+  selectedDate(event, i, qid, answer, ansid, brandId, questionType, goToId, is_conditional) {
     debugger
 
-    const answerobj = {
-      question_id: qid,
-      answer: this.selectdate,
-      // answer_id: ansid,
-      answer_id: '',
-      brand_id: brandId,
+   
 
-    };
-    this.answer.answers.push(answerobj);
-    this.count++;
+      const answerobj = {
+        question_id: qid,
+        answer: this.selectdate,
+        // answer_id: ansid,
+        answer_id: '',
+        brand_id: brandId,
+
+      };
+      this.answer.answers.push(answerobj);
+      this.count++;
+     
   }
-  selectName='';
-  selectedName(event, i, qid, answer, ansid, brandId, questionType) {
+  selectName = '';
+  abcd
+  selectedName(event, i, qid, answer, ansid, brandId, questionType, goToId, is_conditional) {
     debugger
-    
+
 
     const answerobj = {
       question_id: qid,
@@ -231,9 +257,21 @@ export class QuizModalComponent implements OnInit {
 
     };
     this.answer.answers.push(answerobj);
-    this.count++;
+    if (is_conditional == '1') {
+      
+      this.calculateNextQuestion(this.questions,goToId)
+      
+      
+      
+      this.count=0
+      // let diffToJump = Number(goToId) - Number(qid)
+      this.count = this.count + this.abcd
+    } else {
+
+      this.count++;
+    }
     // i=i+1
-    this.selectName=''
+    this.selectName = ''
 
 
     if (i == this.questions.length - 1) {
@@ -345,13 +383,38 @@ export class QuizModalComponent implements OnInit {
   }
 
   showHideAutoLoader() {
-    
+
     this.loadingController.create({
       message: '........',
-     
-    
+
+
     });
 
   }
+
+
+  async openBrowser(event, i, qid, answer, ansid, brandId, questionType, goToId, is_conditional) {
+
+
+      await Browser.open({ url: goToId });
+
+      this.saveAnswers();
+
+
+  }
+
+
+  calculateNextQuestion(data,qid){
+    let index = data.indexOf(qid);
+
+    data.forEach((element, index) => {
+      if(element.id== qid){
+       this.abcd=index 
+        console.log(index)
+        return index
+      }
+    });
+  }
+  
 
 }

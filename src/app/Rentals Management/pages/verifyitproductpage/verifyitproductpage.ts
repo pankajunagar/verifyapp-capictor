@@ -214,7 +214,7 @@ export class Verifyitproductpage {
 
     // window.localStorage.setItem('flow','flow3')
     // window.localStorage.setItem('save_answer','false')
-    window.localStorage.setItem('user_upi','false')
+    // window.localStorage.setItem('user_upi','false')
 
     this.showRelatedProduct();
     this.haspano = false;

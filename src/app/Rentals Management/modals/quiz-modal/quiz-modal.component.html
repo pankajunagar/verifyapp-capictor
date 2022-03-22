@@ -48,7 +48,7 @@
           <div >
             <ion-item lines="none"  size-md="6" offset-md="3">
                 <ion-label slot="start">
-                  <h1  >{{ii+1}}.</h1>
+                  <h1  >Q.</h1>
                   
                 </ion-label>
                 <!-- <ion-skeleton-text *ngIf="!hideContent" animated style="width: 100%; padding: 10px;"></ion-skeleton-text> -->
@@ -66,10 +66,10 @@
   
   
   
-                <div class="button-div" *ngFor="let opt of ques.options.split('#||#');let i=index" (click)="dataChange(ii,ques.id,opt,i+1, ques.brand_id,ques.question_type)">
+                <div class="button-div" *ngFor="let opt of ques.options.split('#||#');let i=index" (click)="dataChange(ii,ques.id,opt,i+1, ques.brand_id,ques.question_type, opt.split('::')[1],ques.is_conditional)">
   
                   <div *ngIf="ques.question_type== '0' " class="buttons , button1" >
-                    <ion-button tappable (click)="delayText()" shape="round" expand="full" expand="full" fill="outline" >{{opt}}
+                    <ion-button tappable (click)="delayText()" shape="round" expand="full" expand="full" fill="outline" >{{opt.split('::')[0]}}
                     <!-- <input class="pricing" type="checkbox" id="pricing" name="pricing" style="visibility: hidden;"> -->
                   <!-- <label for="pricing"><span class="block-diff">1. ALMOND</span></label> -->
                 </ion-button>
@@ -85,7 +85,7 @@
                       <!-- <ion-label style="color: black;">Select Date</ion-label> -->
                       <ion-datetime placeholder="Select Month And year"
                      
-                      (ionChange)="selectedDate($event,ii,ques.id,opt,i+1, ques.brand_id,ques.question_type)"
+                      (ionChange)="selectedDate($event,ii,ques.id,opt,i+1, ques.brand_id,ques.question_type , opt.split('::')[1],ques.is_conditional)"
                       name="month"
                       [(ngModel)]="selectdate"></ion-datetime>
                     </ion-item>
@@ -97,7 +97,7 @@
                   <ion-item>
                     <!-- <ion-label position="stacked">Stacked Label</ion-label> -->
                     <ion-input  [(ngModel)]="selectName"></ion-input>
-                    <ion-button  [disabled]="selectName.length <= 1" (click)="selectedName($event,ii,ques.id,opt,i, ques.brand_id,ques.question_type);">
+                    <ion-button  [disabled]="selectName.length <= 1" (click)="selectedName($event,ii,ques.id,opt,i, ques.brand_id,ques.question_type, opt.split('::')[1],ques.is_conditional);">
                       <ion-icon style="    color: white;
                       font-size: 27px;
                       font-weight: 500;" name="checkmark-circle-outline"></ion-icon>
@@ -107,6 +107,17 @@
 
               </div>
 
+
+              
+
+              <div *ngIf="ques.question_type== '3' " class="buttons , button1" >
+                <ion-button tappable (click)="openBrowser($event,ii,ques.id,opt,i, ques.brand_id,ques.question_type, opt.split('::')[1],ques.is_conditional)" shape="round" expand="full" expand="full" fill="outline" >{{opt.split('::')[0]}}
+                <!-- <input class="pricing" type="checkbox" id="pricing" name="pricing" style="visibility: hidden;"> -->
+              <!-- <label for="pricing"><span class="block-diff">1. ALMOND</span></label> -->
+            </ion-button>
+            <!-- <ion-skeleton-text *ngIf="!hideContent" animated style="width: 100%; padding: 10px;"></ion-skeleton-text> -->
+
+            </div>
   
   
               

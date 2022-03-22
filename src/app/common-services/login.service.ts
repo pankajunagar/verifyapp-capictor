@@ -130,24 +130,27 @@ export class LoginService {
             window.localStorage.setItem('mobile', data.data.mobile);
             window.localStorage.setItem('userid', data.data.id);
       
+            debugger
             window.localStorage.setItem('token', data.data.token);
-            if(this.isProductInfo){
+          //   if(this.isProductInfo){
 
-              this.utils.LoadSurpriseModal();
-              this.isProductInfo=false;
-              this.utils.LoadPageOnrouteChange();
+          //     this.utils.LoadSurpriseModal();
+          //     this.isProductInfo=false;
+          //     this.utils.LoadPageOnrouteChange();
 
-              this.loading.dismiss()
+          //     this.loading.dismiss()
 
-              this.navCtrl.pop()
-            //  this.navCtrl.pop();//
-            return;
-          }else{
+          //     this.navCtrl.pop()
+          //   //  this.navCtrl.pop();//
+          //   return;
+          // }else{
+            this.utils.LoadSurpriseModal();
+            this.utils.LoadPageOnrouteChange();
 
             this.loading.dismiss()
 
             this.navCtrl.pop()
-          }
+          // }
 
             // this.router.navigateByUrl("/verifyit-product"); 
 

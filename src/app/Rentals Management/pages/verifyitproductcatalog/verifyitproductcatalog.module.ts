@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 import { VerifyitProductCatalogPage } from './verifyitproductcatalog';
+import { QuizModalComponent } from '../../modals/quiz-modal/quiz-modal.component';
 // import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 // import { NailasearchPage } from './nailasearchpage';
 // import { VerifyitProductCatalogPage } from './VerifyitProductCatalogPage';
@@ -21,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent],
+  entryComponents: [CreateNoticeComponent,QuizModalComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -32,7 +33,7 @@ const routes: Routes = [
   providers: [
     // BarcodeScanner
   ],
-  declarations: [VerifyitProductCatalogPage]
+  declarations: [VerifyitProductCatalogPage,QuizModalComponent]
 })
 export class VerifyitProductCatalogPageModule { }
 

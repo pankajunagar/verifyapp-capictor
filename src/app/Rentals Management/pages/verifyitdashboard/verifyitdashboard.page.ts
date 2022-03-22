@@ -497,6 +497,11 @@ export class VerifyitDashboardPage implements OnInit {
     });
   }
   async scanqrcode() {
+
+    if(this.platform.is("android")){}
+
+
+
     let locationUrl = window.location.href;
 
     if (locationUrl.includes("pwa") || locationUrl.includes("nowverifycap")) {
@@ -518,48 +523,6 @@ export class VerifyitDashboardPage implements OnInit {
       // this.scanIOS();
     }
 
-    // this.options = {
-    //   prompt: "Scan your barcode "
-    // };
-    // this.barcodeScanner.scan(this.options).then(
-    //   barcodeData => {
-    //     console.log(barcodeData);
-
-    //     // logic for existing and new qr code
-
-    //     this.tagId = (barcodeData.text).toString();
-
-    //     if(this.tagId.includes("myparam")){
-    //
-    //      this.tagId= this.tagId.split('=')[1]
-    //      alert(this.tagId)
-    //      this.gettag(this.tagId);
-    //     }else{
-    //       this.gettag(this.tagId);
-
-    //     }
-    //     // this.tagId= (JSON.parse( this.tagId))
-
-    //     // this.productData = this.strToObj(this.tagId)
-
-    //     // let variabletype = typeof (this.tagId)
-    //     // if (variabletype == "number") {
-    //     //
-    //     //   alert('number')
-    //     //   this.gettag(this.tagId);
-
-    //     // } else {
-    //     //
-    //     //   this.gettag(this.productData.tagId);
-
-    //     //   // alert('string')
-    //     // }
-
-    //   },
-    //   err => {
-    //     console.log("Error occured : " + err);
-    //   }
-    // );
   }
   bdata
   async gettag(tagId) {
@@ -582,7 +545,9 @@ export class VerifyitDashboardPage implements OnInit {
       debugger
       this.utilservice.callgettagresult = callgettagresult;
 window.localStorage.setItem('scan_flow',this.utilservice.callgettagresult.scan_flow)
+window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
       this.res = callgettagresult;
+
 
       this.loading.dismiss();
 
@@ -609,7 +574,18 @@ window.localStorage.setItem('scan_flow',this.utilservice.callgettagresult.scan_f
         window.localStorage.setItem('brand_id', this.bdata.data.id)
 
         this.loading.dismiss();
-        this.router.navigateByUrl("/verifyit-product");
+
+        if(this.hasBparams){
+
+          this.router.navigate(["/verifyit-product-catalog"], {
+            queryParams: { product_id: window.localStorage.getItem('product_id')},
+          });
+        }else{
+
+          this.router.navigateByUrl("/verifyit-product");
+
+        }
+
 
 
       })
@@ -797,12 +773,22 @@ window.localStorage.setItem('scan_flow',this.utilservice.callgettagresult.scan_f
 debugger
     // window.localStorage.setItem('product-link',this.router.url)
     if (
-      this.router.url.includes("params") &&
+      (this.router.url.includes("params")  || this.router.url.includes("bparams")) &&
       !this.router.url.includes("source")
     ) {
       this.hideDashboardScreen = false;
-      window.localStorage.setItem('params', this.url_parameter.params)
-      this.gettag(this.url_parameter.params);
+
+      
+if(this.router.url.includes("bparams")){
+  window.localStorage.setItem('params', this.url_parameter.bparams)
+  this.gettag(this.url_parameter.bparams);
+}else{
+
+  window.localStorage.setItem('params', this.url_parameter.params)
+  this.gettag(this.url_parameter.params);
+}
+
+
     } else if (
       this.router.url.includes("brand") &&
       !this.router.url.includes("source")
@@ -816,7 +802,7 @@ debugger
 
 
 
-      // this.gettag('5000')
+      this.gettag('5000')
 
     } else if (this.router.url.includes("ext-loading")) {
       this.hideDashboardScreen = false;
@@ -1128,13 +1114,22 @@ debugger
     // }
   }
 
-
+hasBparams=false;
+// productData
   callRecordScan() {
     let locationUrl = window.location.href;
     this.route.queryParams.subscribe(params => {
 
+if(params.params){
 
-      this.url_parameter = params.params
+  this.url_parameter = params.params
+  this.hasBparams= false
+}else{
+  this.url_parameter = params.bparams
+  this.hasBparams= true
+
+
+}
       this.data.tagId = this.url_parameter
       console.log("=======================")
       console.log((params))
@@ -1151,8 +1146,11 @@ debugger
         this.presentToast(["QR code scan successfully."]);
 
         this.hardwareDiagnostic()
+        this.productData= callrecordscanresult
 
         console.log(callrecordscanresult);
+        debugger
+        window.localStorage.setItem('product_id',this.productData.data.meta_data.product_id)
         this.utilservice.callrecordscanresult = callrecordscanresult;
         // this.loading.dismiss();
 
