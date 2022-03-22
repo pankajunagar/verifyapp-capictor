@@ -114,11 +114,13 @@ this.email_end_selected="@gmail.com"
   }
   hideloginbox
   subscription1
+  hidenshow
   ngOnInit() {
     debugger
 
-
+this.hidenshow=true
     if(window.localStorage.getItem('scan_flow')=='3'){
+      this.hidenshow=false
 
       this.googleLoginText="Welcome to the myPAPERCLIP family. Get a chance to win iPhone 12, iWatch and exclusive offers on myPAPERCLIP products."
     }else{
@@ -852,11 +854,10 @@ config.forEach(element => {
   }
   googleLoginText
   registerUser() {
-    debugger
     const data = {
 
       "fullname": this.loginData.name,
-      "email": this.loginData.phoneNumber+this.email_end_selected ,
+      "email": this.loginData.phoneNumber,
       "password": '123',
       "repassword": '123',
       "gender": this.loginData.gender,

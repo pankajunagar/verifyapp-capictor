@@ -131,7 +131,7 @@ export class VerifyitDashboardPage implements OnInit {
     private apiSvc: NailaService
   ) {
 
-
+    window.localStorage.setItem('locationenabled', '1')
     this.route.queryParams.subscribe(params => {
 
 
