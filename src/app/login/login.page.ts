@@ -114,11 +114,26 @@ this.email_end_selected="@gmail.com"
   }
   hideloginbox
   subscription1
+  hidenshow
   ngOnInit() {
     debugger
 
+    // this.hidenshow=true
+    // if(window.localStorage.getItem('scan_flow')=='3'){
+    //   this.hidenshow=false
+
+    //   this.googleLoginText="Welcome to the myPAPERCLIP family. Get a chance to win iPhone 12, iWatch and exclusive offers on myPAPERCLIP products."
+    // }else{
+    //   this.googleLoginText="You are just one step away from your cashback. Provide your details so that your cashback can be credited to your Paytm number."
+    // }
+
+
+
+
+    this.hidenshow=true
 
     if(window.localStorage.getItem('scan_flow')=='3'){
+      this.hidenshow=false
 
       this.googleLoginText="Welcome to the myPAPERCLIP family. Get a chance to win iPhone 12, iWatch and exclusive offers on myPAPERCLIP products."
     }else{
