@@ -856,7 +856,7 @@ config.forEach(element => {
     const data = {
 
       "fullname": this.loginData.name,
-      "email": this.loginData.phoneNumber+this.email_end_selected ,
+      "email": this.loginData.phoneNumber+this.email_end_selected,
       "password": '123',
       "repassword": '123',
       "gender": this.loginData.gender,
@@ -874,6 +874,7 @@ config.forEach(element => {
       this.utils.newflow = false
 
       // this.registeredUsernewFlow()
+      window.localStorage.setItem('token', data.data.token);
 
 
       window.localStorage.setItem('name', data.data.name);

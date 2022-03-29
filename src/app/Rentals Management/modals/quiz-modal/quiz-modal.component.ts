@@ -135,6 +135,8 @@ export class QuizModalComponent implements OnInit {
       
         this.count=0
         // let diffToJump = Number(goToId) - Number(qid)
+        this.answer.answers.push(answerobj);
+
         this.count = this.count + this.abcd
       } else {
         this.count++;
@@ -150,7 +152,16 @@ export class QuizModalComponent implements OnInit {
     console.log(this.answer);
     if (i == this.questions.length - 1) {
       /** Charu  */
-      this.saveAnswers();
+
+
+if(questionType== '0'){
+
+  this.saveAnswers();
+}
+
+
+
+
       /** Charu  */
     } else {
       const data = {
@@ -276,6 +287,7 @@ debugger
 
     if (i == this.questions.length - 1) {
       /** Charu  */
+
       this.saveAnswers();
       /** Charu  */
     }
@@ -394,6 +406,18 @@ debugger
 
 
   async openBrowser(event, i, qid, answer, ansid, brandId, questionType, goToId, is_conditional) {
+
+
+    const answerobj = {
+      question_id: qid,
+      answer: answer,
+      // answer_id: ansid,
+      answer_id: '',
+      brand_id: brandId,
+
+    };
+
+    this.answer.answers.push(answerobj);
 
 
       await Browser.open({ url: goToId });

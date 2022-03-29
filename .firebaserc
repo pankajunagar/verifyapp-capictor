@@ -7,7 +7,8 @@
     "test": "noeverifycaptest",
     "default": "noeverifycaptest",
     "stage": "noeverifycaptest",
-    "live": "nowverifyit-f7758"
+    "live": "nowverifyit-f7758",
+    "dv": "nowverifycap"
   },
   "targets": {
     "nowverifycap": {

@@ -319,6 +319,7 @@ export class VerifyitProductCatalogPage {
 
 
   flowOperation1(data) {
+    debugger
 
     if (window.localStorage.getItem('name') && data == '1') {
       this.loginService.isProductInfo = true;
@@ -336,6 +337,7 @@ export class VerifyitProductCatalogPage {
   }
 
   flowOperation2(data) {
+    debugger
 
     if (!window.localStorage.getItem('name')){
       this.checkWinnerStatus2()
@@ -365,6 +367,7 @@ export class VerifyitProductCatalogPage {
   }
 
   flowOperation4(data){
+    debugger
     if (!window.localStorage.getItem('name')){
       this.checkWinnerStatus2()
 
@@ -378,6 +381,7 @@ export class VerifyitProductCatalogPage {
 
 
   getQuestions() {
+    debugger
     // this.subscription.unsubscribe();
     let data = {
       brand_id: window.localStorage.getItem('brand_id'),

@@ -308,91 +308,7 @@ debugger
         // code block
       }
 
-      Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
-        this.jsonToBeUsed.push({
-          key: e,
-          value: this.utilservice.callgettagresult.meta_data[e],
-        })
-      );
-    
-debugger
-    
-    this.platform.ready().then((readysource) => {
-      console.log('===================brand=================')
-      console.log('===================brand=================')
-
-      console.log(this.utilservice.brand_id)
-
-
-      console.log('===================brand=================')
-
-      console.log('===================brand=================')
-
-
-
-      if (window.localStorage.getItem("showDeactivate") == "4") {
-        this.showDeactivate = true;
-      } else {
-        this.showDeactivate = false;
-      }
-
-      this.jsonToBeUsed = [];
-      this.hasLogin = window.localStorage.getItem("name");
-
-      this.callgettagresult = this.utilservice.callgettagresult;
-      this.hasScratchCard = this.utilservice.callgettagresult.meta_data.scratch_card
-      this.hasPopup = this.utilservice.callgettagresult.meta_data.pop_up
-      this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
-      this.hasComingsoon = this.utilservice.callgettagresult.meta_data.coming_soon
-      // if(this.callgettagresult.brand == "RRC"){
-      //   debugger
-      //   this.hideBrand=true
-      //   // this.secPlay()
-
-      // }else{
-      //   debugger
-      //   this.hideBrand=false
-      //   // this.secPlay()
-
-      // }
-      this.brandFlow=window.localStorage.getItem('scan_flow');
-
- 
-
-      console.log(this.jsonToBeUsed);
-      this.credKeys.key1 = "Product Name";
-      this.credKeys.key2 = "Model Number";
-      this.credKeys.key3 = "Serial Number";
-      this.credKeys.key4 = "Brand";
-
-      this.credKeys.key5 = "Water Resistant";
-      this.credKeys.key6 = "Display Type";
-      this.credKeys.key7 = "Series";
-      this.credKeys.key8 = "Occassion";
-      this.credKeys.key9 = "Strap";
-      this.credKeys.key10 = "Manufactured";
-      this.credKeys.key11 = "Instructions";
-      this.credKeys.key12 = "Wine Information";
-      this.credKeys.key13 = "Verified";
-
-      this.jsonToBeUsed.forEach((element) => {
-        if (element.key == "brand_color") {
-          this.brand_color = element.value;
-        }
-      });
-
-      if ("") {
-        this._videoPlayer = CapacitorVideoPlayer;
-      } else {
-        this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
-      }
-     
-      this._url =
-        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
-     
-      this._addListenersToPlayerPlugin();
-
-    })
+this.productInformation()
 
   }
 
@@ -1076,6 +992,7 @@ debugger
 
 
   getQuestions() {
+    debugger
     // this.subscription.unsubscribe();
     let data = {
       brand_id: window.localStorage.getItem('brand_id'),
@@ -1084,7 +1001,8 @@ debugger
 
     this.apiSvc.getQuestion(data).subscribe(
       (res: any) => {
-        if (res.message == 'Success') {
+        debugger
+        if (res.data.question.length > 0) {
 
           let loginInfo = window.localStorage.getItem('name')
           // new flow coding
@@ -1503,4 +1421,92 @@ debugger
   //   });
   //   return await modal.present();
   // }
+  productInformation(){
+    debugger
+    Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
+    this.jsonToBeUsed.push({
+      key: e,
+      value: this.utilservice.callgettagresult.meta_data[e],
+    })
+  );
+
+debugger
+
+this.platform.ready().then((readysource) => {
+  console.log('===================brand=================')
+  console.log('===================brand=================')
+
+  console.log(this.utilservice.brand_id)
+
+
+  console.log('===================brand=================')
+
+  console.log('===================brand=================')
+
+
+
+  if (window.localStorage.getItem("showDeactivate") == "4") {
+    this.showDeactivate = true;
+  } else {
+    this.showDeactivate = false;
+  }
+
+  // this.jsonToBeUsed = [];
+  this.hasLogin = window.localStorage.getItem("name");
+
+  this.callgettagresult = this.utilservice.callgettagresult;
+  this.hasScratchCard = this.utilservice.callgettagresult.meta_data.scratch_card
+  this.hasPopup = this.utilservice.callgettagresult.meta_data.pop_up
+  this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
+  this.hasComingsoon = this.utilservice.callgettagresult.meta_data.coming_soon
+  // if(this.callgettagresult.brand == "RRC"){
+  //   debugger
+  //   this.hideBrand=true
+  //   // this.secPlay()
+
+  // }else{
+  //   debugger
+  //   this.hideBrand=false
+  //   // this.secPlay()
+
+  // }
+  this.brandFlow=window.localStorage.getItem('scan_flow');
+
+
+
+  console.log(this.jsonToBeUsed);
+  this.credKeys.key1 = "Product Name";
+  this.credKeys.key2 = "Model Number";
+  this.credKeys.key3 = "Serial Number";
+  this.credKeys.key4 = "Brand";
+
+  this.credKeys.key5 = "Water Resistant";
+  this.credKeys.key6 = "Display Type";
+  this.credKeys.key7 = "Series";
+  this.credKeys.key8 = "Occassion";
+  this.credKeys.key9 = "Strap";
+  this.credKeys.key10 = "Manufactured";
+  this.credKeys.key11 = "Instructions";
+  this.credKeys.key12 = "Wine Information";
+  this.credKeys.key13 = "Verified";
+
+  this.jsonToBeUsed.forEach((element) => {
+    if (element.key == "brand_color") {
+      this.brand_color = element.value;
+    }
+  });
+
+  if ("") {
+    this._videoPlayer = CapacitorVideoPlayer;
+  } else {
+    this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
+  }
+ 
+  this._url =
+    "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
+ 
+  this._addListenersToPlayerPlugin();
+
+})
+  }
 }

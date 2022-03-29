@@ -132,8 +132,25 @@ export class VerifyitDashboardPage implements OnInit {
   ) {
 
 
+
+    // if (this.router.url.includes('bparams')) {
+
+    //   // this.hideDashboardScreen = false;
+    //   // window.localStorage.setItem('locationenabled', '1')
+    //   // window.localStorage.setItem('notification_enabled', '1')
+
+    // }
+
+
+
     this.route.queryParams.subscribe(params => {
 
+    debugger
+
+    // if(params.locoff== '1'){
+
+    //     }
+  
 
       this.generateTokenParams = params
       console.log("=======================")
@@ -146,6 +163,12 @@ export class VerifyitDashboardPage implements OnInit {
       // }
     });
 
+    // this.route.queryParams.subscribe( => {
+    //   if(locoff=='1'){
+
+    //   }
+    //   window.localStorage.setItem('locationenabled', '1')
+    // });
 
     if (this.router.url.includes('?')) {
 
@@ -1003,7 +1026,7 @@ if(this.router.url.includes("bparams")){
     },
   };
   askLocation() {
-    this.presentLoading("");
+    // this.presentLoading("");
 
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -1024,17 +1047,18 @@ if(this.router.url.includes("bparams")){
           console.log("==================================>")
           console.log("==================================>")
 
-          window.localStorage.setItem('locationenabled', '1')
           this.loading.dismiss();
+          window.localStorage.setItem('locationenabled', '1')
           this.trackingevents('LOCATION_DATA')
         })
 
         .catch((error) => {
+          // this.loading.dismiss();
+          // this.loading.dismiss();
           window.localStorage.setItem('locationenabled', '1')
 
           // this.showProductPage();
           this.trackingevents('LOCATION_DATA')
-          this.loading.dismiss();
           console.log("Error getting location", error);
         });
 
@@ -1045,39 +1069,40 @@ if(this.router.url.includes("bparams")){
 
 
   trackingevents(otype) {
-    this.presentLoading("");
-
+    debugger
+    
     const _this = this;
-
+    
     // this.trackingLinks(data)
     _this.trackingData.user_id = window.localStorage.getItem("userid");
     _this.trackingData.tag_id = window.localStorage.getItem("tagId");
     // _this.trackingData.product_id = this.utilservice.callgettagresult.product_id;
     (_this.trackingData.device_id = window.localStorage.getItem("device_id")),
-      // _this.trackingData.mobile_number = this.mobile_number
-      (_this.trackingData.otype = otype);
-
+    // _this.trackingData.mobile_number = this.mobile_number
+    (_this.trackingData.otype = otype);
+    
     _this.trackingData.meta_data.mobile_number = '';
     _this.trackingData.meta_data.js_fcm = this.fcmData.js_fcm
+    // this.presentLoading("");
     this.apiSvc.reviewTracking(_this.trackingData).subscribe(
       //**charu Start */
       (res: any) => {
-
         if (res && otype == 'NOTIFICATION_DATA') {
-
-
+          
+          
           this.showProductPage();
           this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
+          // this.loading.dismiss()
           // this.msg = `Congratualtions! You have been awarded ${res.data.loyalty} Loaylty Point from the Brand ${res.data.brand} `;
           // this.presentToast(this.msg);
           // this.openInappBrowser(data);
         } else {
           let notification_enabled = window.localStorage.getItem("notification_enabled");
           if (notification_enabled == '0' || notification_enabled == undefined) {
-            this.loading.dismiss()
+            // this.loading.dismiss()
             this.showNotificationAlert()
           } else {
-            this.loading.dismiss()
+            // this.loading.dismiss()
             this.showProductPage();
 
           }
@@ -1087,6 +1112,9 @@ if(this.router.url.includes("bparams")){
       //**charu Start */
       (err) => {
         // this.showProductPage();
+        // this.loading.dismiss()
+        // this.loading.dismiss()
+        // this.loading.dismiss()
 
         alert(JSON.stringify(err));
       }
@@ -1205,7 +1233,7 @@ if(params.params){
 
 
   firebasePermission() {
-    this.presentLoading("");
+    // this.presentLoading("");
     // window.localStorage.setItem('notification_enabled','0')
 
 
@@ -1221,15 +1249,15 @@ if(params.params){
         this.fcmData.js_fcm = token;
         // this.generateToken(this.fcmData);
         window.localStorage.setItem('notification_enabled', '1')
+        // this.loading.dismiss()
         this.trackingevents('NOTIFICATION_DATA');
-        this.loading.dismiss()
 
       },
       async (err) => {
 
         // this.generateToken(this.fcmData);
+        // this.loading.dismiss()
         this.trackingevents('NOTIFICATION_DATA')
-        this.loading.dismiss()
 
 
 
@@ -1238,6 +1266,10 @@ if(params.params){
 
 
 
+  }
+  ionViewDidLeave() {
+    // this.navCtrl.pop();
+    this.loading.dismiss()
   }
 
 }
