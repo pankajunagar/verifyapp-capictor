@@ -258,7 +258,9 @@ export class LoginService {
 
       async presentLoading() {
         const loading = await this.loading.create({
-          message: 'Loading....',
+          message: '',
+          duration: 3000,
+
         });
         await loading.present();
       }

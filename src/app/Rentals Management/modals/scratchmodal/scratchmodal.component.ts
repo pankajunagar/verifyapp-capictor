@@ -162,7 +162,7 @@ crossbtn=true
 
 
 
-      htmlBackground: `<div *ngIf="this.utils.winLossAlgoData?.res_message" class="cardamountcss"><div class="won-amnt"> Hurray!
+      htmlBackground: `<div *ngIf="this.utils.winLossAlgoData?.res_message" class="cardamountcss"><div class="won-amnt">
       <br>
       
       

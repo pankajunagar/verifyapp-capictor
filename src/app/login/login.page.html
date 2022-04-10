@@ -354,13 +354,14 @@
                   <ion-label position="stacked" class="font-20 margin-left-22 margin-bottom-10">Enter your email<small>*</small></ion-label>
 
                   <ion-input inputmode="text" placeholder="email" [(ngModel)]="loginData.phoneNumber">
-                    <ion-select interface="popover" [(ngModel)]="email_end_selected" (ionChange)="changeEmailEnd($event)" class="ion-select-email" placeholder="Select One">
+                    <!-- <ion-select interface="popover" [(ngModel)]="email_end_selected" (ionChange)="changeEmailEnd($event)" class="ion-select-email" placeholder="Select One">
                       <ion-select-option value="@gmail.com">@gmail.com</ion-select-option>
                       <ion-select-option value="@yahoo.com">@yahoo.com</ion-select-option>
-                    </ion-select>  
+                    </ion-select>   -->
                   </ion-input>
                 </ion-item>
               </ion-col>
+              
             </ion-row>
 
 
@@ -425,12 +426,12 @@
         <ion-row class="width-80-percent center-text register-btn-new">
 
 
-          <ion-item class="google-login">
+          <ion-item (click)="registerUser()" class="google-login">
 
 
 
             <ion-button class="full-button" expand="full" color="primary"
-              (click)="registerUser()">Register</ion-button>
+              >Register</ion-button>
           </ion-item>
 
 

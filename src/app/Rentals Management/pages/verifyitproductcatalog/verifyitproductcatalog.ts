@@ -173,13 +173,14 @@ export class VerifyitProductCatalogPage {
         break;
       case "2":
         this.flowOperation2("2")
+        break;
 
       case "3":
         this.flowOperation3("3")
-
+        break;
       case "4":
         this.flowOperation4("4")
-          
+        break;
       default:
       // code block
     }
@@ -396,7 +397,6 @@ export class VerifyitProductCatalogPage {
           // new flow coding
 
           this.openQuiz("default");
-
 
 
         }

@@ -8,6 +8,8 @@ import { Utils } from "../../services/utils.service";
 import { NailaService } from "../../services/naila.service";
 // import { Utils } from "../Rentals Management/services/utils.service";
 // import { TrackingService } from "../services/tracking.service";
+// import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+
 
 import { Browser } from "@capacitor/browser";
 import { Content } from "ionic-angular";
@@ -52,7 +54,8 @@ export class QuizModalComponent implements OnInit {
     private utilservice: Utils,
     private navParams: NavParams,
     private navCtrl: NavController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private iab: InAppBrowser
   ) {
     this.selectdate = '';
     console.log("this.navParams reward", this.navParams);
@@ -204,9 +207,11 @@ debugger
             if (window.localStorage.getItem('scan_flow') == '2' || window.localStorage.getItem('scan_flow') == '4') {
               window.localStorage.setItem('hasquizModal', '1')
               // this.utilservice.LoadSurpriseModal();
+              this.loadingController.dismiss()
               this.closeModal();
 
             } else {
+              debugger
 
               this.utilservice.LoadSurpriseModal();
               this.closeModal();
@@ -397,7 +402,7 @@ debugger
   showHideAutoLoader() {
 
     this.loadingController.create({
-      message: '........',
+      message: '',
 
 
     });
@@ -408,6 +413,7 @@ debugger
   async openBrowser(event, i, qid, answer, ansid, brandId, questionType, goToId, is_conditional) {
 
 
+    this.showHideAutoLoader()
     const answerobj = {
       question_id: qid,
       answer: answer,
@@ -420,9 +426,15 @@ debugger
     this.answer.answers.push(answerobj);
 
 
-      await Browser.open({ url: goToId });
+      // await Browser.open({ url: goToId,
 
-      this.saveAnswers();
+      // })
+      const browser = this.iab.create(goToId);
+      this.saveAnswers()
+
+      // setTimeout(this.saveAnswers, 000)
+      
+      
 
 
   }

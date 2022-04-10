@@ -111,6 +111,7 @@ this.email_end_selected="@gmail.com"
   }
   ionViewDidLeave() {
     this.MenuController.enable(true)
+    this.loading.dismiss()
   }
   hideloginbox
   subscription1
@@ -868,10 +869,11 @@ config.forEach(element => {
   googleLoginText
   registerUser() {
     debugger
+    this.loginService.presentLoading()
     const data = {
 
       "fullname": this.loginData.name,
-      "email": this.loginData.phoneNumber+this.email_end_selected,
+      "email": this.loginData.phoneNumber,
       "password": '123',
       "repassword": '123',
       "gender": this.loginData.gender,
@@ -1261,4 +1263,5 @@ config.forEach(element => {
     this.email_end_selected=event.detail.value
     // alert(value)
   }
+  
 }

@@ -198,7 +198,7 @@ export class Verifyitproductpage {
     private ngZone: NgZone,
     private socialSharing: SocialSharing,
     private qrScanner: QRScanner,
-    private loadingCtrl:LoadingController,
+    private loadingCtrl: LoadingController,
     private utilservice: Utils,
     private alertService: AlertServiceService,
     private toastController: ToastController,
@@ -211,6 +211,7 @@ export class Verifyitproductpage {
     private loginService: LoginService
   ) // private actionSheetController: ActionSheetController
   {
+    this.loginService.presentLoading()
 
     // window.localStorage.setItem('flow','flow3')
     // window.localStorage.setItem('save_answer','false')
@@ -246,10 +247,10 @@ export class Verifyitproductpage {
     this.subscription = this.utilservice.LoadModal.subscribe((data) => {
       debugger
 
-      if(window.localStorage.getItem('scan_flow')=="3"   &&( (window.localStorage.getItem('save_answer') !='true')||(window.localStorage.getItem('save_answer')==undefined))){
+      if (window.localStorage.getItem('scan_flow') == "3" && ((window.localStorage.getItem('save_answer') != 'true') || (window.localStorage.getItem('save_answer') == undefined))) {
         // this.openQuiz("default");
         this.getQuestions()
-      }else{
+      } else {
         // this.checkWinnerStatus()
 
         this.checkWinnerStatus();
@@ -268,13 +269,13 @@ export class Verifyitproductpage {
 
     this.subscription3 = this.utilservice.presentLoader.subscribe((data) => {
       // this.SubmitUPI();
-      if(window.localStorage.getItem('scan_flow') == "2" && !window.localStorage.getItem('name')){
+      if (window.localStorage.getItem('scan_flow') == "2" && !window.localStorage.getItem('name')) {
         this.loginService.presentLoading()
-        
-            }
-      
+
+      }
+
     });
-    
+
   }
 
   hasComingsoon
@@ -284,31 +285,34 @@ export class Verifyitproductpage {
   hasProductCatalogue
   ngOnInit() {
 
-      // new logic for flow construct
-debugger
+    // new logic for flow construct
+    debugger
 
-      switch (window.localStorage.getItem('scan_flow')) {
-        case "0":
-  
-          break;
-        case "1":
-          this.flowOperation1("1")
-          // code block
-          break;
-        case "2":
-          this.flowOperation2("2")
-          break;
-        case "3":
-          this.flowOperation3("3")
-  
-        case "4":
-          this.flowOperation4("4")
-            
-        default:
+    switch (window.localStorage.getItem('scan_flow')) {
+      case "0":
+
+        break;
+      case "1":
+        this.flowOperation1("1")
         // code block
-      }
+        break;
+      case "2":
+        this.flowOperation2("2")
+        break;
+      case "3":
+        this.flowOperation3("3")
+        break;
+      case "4":
+        this.flowOperation4("4")
+        break;
+      case "5":
+        this.flowOperation5("5")
+        break;
+      default:
+      // code block
+    }
 
-this.productInformation()
+    this.productInformation()
 
   }
 
@@ -406,7 +410,7 @@ this.productInformation()
   }
 
 
- 
+
   async boughtIt(tagId) {
     this.apiSvc.callPostBoughtIt(tagId).subscribe((res) => {
       console.log(res);
@@ -973,7 +977,7 @@ this.productInformation()
     let modal = await this.modalController.create({
       component: ScratchmodalComponent,
       cssClass: "scratch-modal",
-      backdropDismiss:false
+      backdropDismiss: false
     }
     );
     return await modal.present();
@@ -1049,7 +1053,7 @@ this.productInformation()
 
   flowOperation2(data) {
 
-    if (!window.localStorage.getItem('name')){
+    if (!window.localStorage.getItem('name')) {
       this.checkWinnerStatus2()
 
     } else {
@@ -1057,9 +1061,9 @@ this.productInformation()
     }
   }
 
-  flowOperation3(data){
+  flowOperation3(data) {
     debugger
-    window.localStorage.setItem('user_upi','xxxxxxx')
+    window.localStorage.setItem('user_upi', 'xxxxxxx')
 
     if (window.localStorage.getItem('name') && data == '3') {
       this.loginService.isProductInfo = true;
@@ -1067,24 +1071,47 @@ this.productInformation()
       window.localStorage.setItem("hasquizModal", "1");
       this.getQuestions()
     } else {
-  
+
       this.utilservice.newflow = true
-      
+
       this.router.navigateByUrl('/login')
     }
 
   }
 
-  flowOperation4(data){
-    if (!window.localStorage.getItem('name')){
+  flowOperation4(data) {
+    if (!window.localStorage.getItem('name')) {
       this.checkWinnerStatus2()
 
     } else {
       this.getQuestions()
     }
   }
+  async flowOperation5(data) {
 
-  checkWinnerStatus2(){
+
+    this.platform.ready().then(() => {
+
+      let link = this.utilservice.callgettagresult.meta_data.Website
+
+
+
+      this.browser = this.iab.create(link, '_self');
+      this.browser.show();
+
+      this.browser.on('loaderror').subscribe(event => {
+
+        this.browser.hide();
+        this.presentToast('Something Wnt Wrong');
+      });
+
+
+    });
+
+
+  }
+
+  checkWinnerStatus2() {
     let winnerData = {
       product_id: this.utilservice.callgettagresult.product_id,
       user_id: window.localStorage.getItem("userid"),
@@ -1120,7 +1147,7 @@ this.productInformation()
     );
   }
 
-// static code
+  // static code
 
   showHide() {
     this.showmore = !this.showmore;
@@ -1273,7 +1300,7 @@ this.productInformation()
   // }
 
 
-    // 360 view image
+  // 360 view image
 
   // panoramaimage
 
@@ -1300,10 +1327,10 @@ this.productInformation()
   //       [
   //         MarkersPlugins,
   //         {
-          
+
   //           markers: [
   //             {
-              
+
   //               id: "image",
   //               longitude: 0.32,
   //               latitude: 0.11,
@@ -1315,7 +1342,7 @@ this.productInformation()
   //               content: `Black tea – which Kasim Ali, Owner of Waterloo Tea and Founder of the Tea Brewers Cup, tells me is sold as “red tea” in the Chinese market – is the most oxidised of all teas. The moment the leaves are picked, they begin to wilt and oxidation begins. They are often then crushed or rolled to speed up the process.
 
   //               The flavour profile is strong, with plenty of depth and body. As the most oxidised tea, you would also brew it at the highest temperatures. Kasim Ali recommends 95–100℃/203–212℉. And much like coffee, the greater the temperature, the more bitter you can expect the brew to taste.
-                
+
   //               Some of the most famous black teas include the English Breakfast blend and Earl Grey, which is flavoured with bergamot.`,
   //             },
   //             {
@@ -1330,9 +1357,9 @@ this.productInformation()
   //               content: `The only difference between oolong and wulong tea is the name. Oolong is the most recognised in Western countries, yet linguists would say that wulong is a more accurate romanisation of the original Chinese kanji.
 
   //               Oolong tea is also perhaps one of the widest categories of tea: according to Max Falkowitz in Serious Eats, oxidation can run between 8 and 85%. This means you will also come across vastly different flavours.
-                
+
   //               All oolong tea processing begins with some form of encouraging oxidation, such as bruising the edges of the leaves. It also ends with a form of “fixing”, the process by which oxidation is paused. This could be pan firing, steaming, baking, or some other way of adding heat. However, Gebely states that the process between the initial oxidation and the fixing will vary because of the different oxidation levels.
-                
+
   //               When brewing, Kasim suggests that medium oxidised teas are brewed at 85℃/185℉, while lower oxidised teas should be brewed at 80℃/176℉.`,
   //             },
   //             {
@@ -1347,13 +1374,13 @@ this.productInformation()
   //               content: `Green tea is only very lightly oxidised. After the initial withering, the leaves must be quickly fixed. This tends to give it a lighter profile, and it will also lose its flavour much quicker than black or oolong tea.
 
   //               While associated with Asia, there are significant differences between the offerings from the different Asian countries. To start with, Mary Lou and Robert J. Heiss emphasise that Chinese and Japanese green tea tastes vastly different thanks to the varieties and terroir (The Tea Enthusiast’s Handbook: A Guide to the World’s Best Teas).
-                
+
   //               Then you have the way the green teas are processed, prepared, and brewed. This results in categories such as sencha, matcha, longjing and bilochun.
-                
+
   //               Matcha, which is ground into a powder, is perhaps the most well-known green tea thanks to Starbucks “matcha lattes”. Japan’s highest-quality green tea category, it is ground into a powder (meaning it quickly becomes stale). It’s consumed in the traditional Japanese tea ceremony.
-                
+
   //               Ali recommends brewing Chinese green teas at 75℃/167℉, but Japanese green teas at 65℃/149℉. “Some Japanese greens will brew closer to 50℃ (122℉),” he adds.
-                
+
   //               `,
   //             },
   //           ],
@@ -1364,7 +1391,7 @@ this.productInformation()
 
   //   var markersPlugin = viewer.getPlugin(MarkersPlugins);
 
-   
+
   //   viewer.on("click", function (e, data) {
   //     if (!data.rightclick) {
   //       markersPlugin.addMarker({
@@ -1383,7 +1410,7 @@ this.productInformation()
   //     }
   //   });
 
-   
+
   //   markersPlugin.on("select-marker", function (e, marker, data) {
   //     if (marker.data && marker.data.generated) {
   //       if (data.dblclick) {
@@ -1402,14 +1429,14 @@ this.productInformation()
 
   // destroy() {
   //   const viewer = document.querySelector("#viewer");
-   
+
   //   document.getElementById("viewer").style.display = "none";
   //   this.haspano = false;
-    
+
   // }
 
 
-    // scrollToTopOnInit() {
+  // scrollToTopOnInit() {
   //   this.Content.scrollToTop();
   // }
 
@@ -1421,92 +1448,92 @@ this.productInformation()
   //   });
   //   return await modal.present();
   // }
-  productInformation(){
+  productInformation() {
     debugger
     Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
-    this.jsonToBeUsed.push({
-      key: e,
-      value: this.utilservice.callgettagresult.meta_data[e],
+      this.jsonToBeUsed.push({
+        key: e,
+        value: this.utilservice.callgettagresult.meta_data[e],
+      })
+    );
+
+    debugger
+
+    this.platform.ready().then((readysource) => {
+      console.log('===================brand=================')
+      console.log('===================brand=================')
+
+      console.log(this.utilservice.brand_id)
+
+
+      console.log('===================brand=================')
+
+      console.log('===================brand=================')
+
+
+
+      if (window.localStorage.getItem("showDeactivate") == "4") {
+        this.showDeactivate = true;
+      } else {
+        this.showDeactivate = false;
+      }
+
+      // this.jsonToBeUsed = [];
+      this.hasLogin = window.localStorage.getItem("name");
+
+      this.callgettagresult = this.utilservice.callgettagresult;
+      this.hasScratchCard = this.utilservice.callgettagresult.meta_data.scratch_card
+      this.hasPopup = this.utilservice.callgettagresult.meta_data.pop_up
+      this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
+      this.hasComingsoon = this.utilservice.callgettagresult.meta_data.coming_soon
+      // if(this.callgettagresult.brand == "RRC"){
+      //   debugger
+      //   this.hideBrand=true
+      //   // this.secPlay()
+
+      // }else{
+      //   debugger
+      //   this.hideBrand=false
+      //   // this.secPlay()
+
+      // }
+      this.brandFlow = window.localStorage.getItem('scan_flow');
+
+
+
+      console.log(this.jsonToBeUsed);
+      this.credKeys.key1 = "Product Name";
+      this.credKeys.key2 = "Model Number";
+      this.credKeys.key3 = "Serial Number";
+      this.credKeys.key4 = "Brand";
+
+      this.credKeys.key5 = "Water Resistant";
+      this.credKeys.key6 = "Display Type";
+      this.credKeys.key7 = "Series";
+      this.credKeys.key8 = "Occassion";
+      this.credKeys.key9 = "Strap";
+      this.credKeys.key10 = "Manufactured";
+      this.credKeys.key11 = "Instructions";
+      this.credKeys.key12 = "Wine Information";
+      this.credKeys.key13 = "Verified";
+
+      this.jsonToBeUsed.forEach((element) => {
+        if (element.key == "brand_color") {
+          this.brand_color = element.value;
+        }
+      });
+
+      if ("") {
+        this._videoPlayer = CapacitorVideoPlayer;
+      } else {
+        this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
+      }
+
+      this._url =
+        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
+
+      this._addListenersToPlayerPlugin();
+
     })
-  );
-
-debugger
-
-this.platform.ready().then((readysource) => {
-  console.log('===================brand=================')
-  console.log('===================brand=================')
-
-  console.log(this.utilservice.brand_id)
-
-
-  console.log('===================brand=================')
-
-  console.log('===================brand=================')
-
-
-
-  if (window.localStorage.getItem("showDeactivate") == "4") {
-    this.showDeactivate = true;
-  } else {
-    this.showDeactivate = false;
-  }
-
-  // this.jsonToBeUsed = [];
-  this.hasLogin = window.localStorage.getItem("name");
-
-  this.callgettagresult = this.utilservice.callgettagresult;
-  this.hasScratchCard = this.utilservice.callgettagresult.meta_data.scratch_card
-  this.hasPopup = this.utilservice.callgettagresult.meta_data.pop_up
-  this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
-  this.hasComingsoon = this.utilservice.callgettagresult.meta_data.coming_soon
-  // if(this.callgettagresult.brand == "RRC"){
-  //   debugger
-  //   this.hideBrand=true
-  //   // this.secPlay()
-
-  // }else{
-  //   debugger
-  //   this.hideBrand=false
-  //   // this.secPlay()
-
-  // }
-  this.brandFlow=window.localStorage.getItem('scan_flow');
-
-
-
-  console.log(this.jsonToBeUsed);
-  this.credKeys.key1 = "Product Name";
-  this.credKeys.key2 = "Model Number";
-  this.credKeys.key3 = "Serial Number";
-  this.credKeys.key4 = "Brand";
-
-  this.credKeys.key5 = "Water Resistant";
-  this.credKeys.key6 = "Display Type";
-  this.credKeys.key7 = "Series";
-  this.credKeys.key8 = "Occassion";
-  this.credKeys.key9 = "Strap";
-  this.credKeys.key10 = "Manufactured";
-  this.credKeys.key11 = "Instructions";
-  this.credKeys.key12 = "Wine Information";
-  this.credKeys.key13 = "Verified";
-
-  this.jsonToBeUsed.forEach((element) => {
-    if (element.key == "brand_color") {
-      this.brand_color = element.value;
-    }
-  });
-
-  if ("") {
-    this._videoPlayer = CapacitorVideoPlayer;
-  } else {
-    this._videoPlayer = WebVPPlugin.CapacitorVideoPlayer;
-  }
- 
-  this._url =
-    "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4";
- 
-  this._addListenersToPlayerPlugin();
-
-})
   }
 }

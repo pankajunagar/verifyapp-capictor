@@ -16,7 +16,6 @@ import { Utils } from "../../services/utils.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlertServiceService } from "src/app/common-services/alert-service.service";
 import { LoadingController } from "@ionic/angular";
-// import { LoadingController } from 'ionic-angular';
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 
@@ -34,14 +33,7 @@ import { SettingsService } from "src/app/settings.service";
 import { MessagingService } from "src/app/services/messaging.service";
 const { Browser } = Plugins;
 
-
-// import { Viewer } from 'photo-sphere-viewer'
-// import { Viewer } from 'photo-sphere-viewer';
-
 const Viewer = require('photo-sphere-viewer');
-// declare var Viewer: any;
-
-// import {PhotoSphereViewer} from 'photo-sphere-viewer/dist/photo-sphere-viewer';
 
 @Component({
   selector: "app-verifyitdashboard",
@@ -95,7 +87,6 @@ export class VerifyitDashboardPage implements OnInit {
   readedMsg: string;
   userType;
   generateTokenParams;
-  // trying
   readingTag: boolean = false;
   writingTag: boolean = false;
   isWriting: boolean = false;
@@ -131,44 +122,15 @@ export class VerifyitDashboardPage implements OnInit {
     private apiSvc: NailaService
   ) {
 
-
-
-    // if (this.router.url.includes('bparams')) {
-
-    //   // this.hideDashboardScreen = false;
-    //   // window.localStorage.setItem('locationenabled', '1')
-    //   // window.localStorage.setItem('notification_enabled', '1')
-
-    // }
-
-
-
     this.route.queryParams.subscribe(params => {
-
-    debugger
-
-    // if(params.locoff== '1'){
-
-    //     }
-  
 
       this.generateTokenParams = params
       console.log("=======================")
       console.log((params))
       console.log("=======================")
 
-      // if (params) {
-      //   let queryParams = JSON.parse(params);
-      //   console.log(queryParams)
-      // }
     });
 
-    // this.route.queryParams.subscribe( => {
-    //   if(locoff=='1'){
-
-    //   }
-    //   window.localStorage.setItem('locationenabled', '1')
-    // });
 
     if (this.router.url.includes('?')) {
 
@@ -193,12 +155,7 @@ export class VerifyitDashboardPage implements OnInit {
     }
   }
 
-  // ionViewDidEnter() {
-  //   this.videoElement = this.video.nativeElement;
-  //   this.canvasElement = this.canvas.nativeElement;
-  //   this.canvasContext = this.canvasElement.getContext("2d");
-  //   console.log(this.videoElement);
-  // }
+
 
   data = {
     lat: 0,
@@ -221,32 +178,23 @@ export class VerifyitDashboardPage implements OnInit {
 
 
     this.subscription2 = this.utilservice.showNotification.subscribe((data) => {
-      debugger
-     this.hardwareDiagnostic()
+      this.hardwareDiagnostic()
 
 
     });
 
-
-
-    // this.showProductPage();
-    // this.firebasePermission()
     this.hasToken()
-
-
-
-
 
 
   }
   async presentLoading(data) {
     const loading = await this.loading.create({
       message: data,
+      duration: 6000,
     });
     await loading.present();
   }
 
-  //**Charu Start */
   open() {
     var url = "https://ionicframework.com/";
     const option: InAppBrowserOptions = {
@@ -308,7 +256,7 @@ export class VerifyitDashboardPage implements OnInit {
             }
           },
           (err) => {
-            this.loading.dismiss();
+            // this.loading.dismiss();
             this.alertService.presentAlert("", "Something went wrong!");
           }
         )
@@ -325,7 +273,7 @@ export class VerifyitDashboardPage implements OnInit {
       let tagId = this.nfc.bytesToString(payload).substring(3);
       // you can read tag data here
       console.log(tagId);
-      this.loading.dismiss();
+      // this.loading.dismiss();
       this.nfc.cancelScan();
       this.getProductInfo(tagId);
 
@@ -355,7 +303,7 @@ export class VerifyitDashboardPage implements OnInit {
       this.utilservice.callgettagresult = callgettagresult;
       this.res = callgettagresult;
       // window.localStorage.setItem('brand_id',this.res.brand_id)
-      this.loading.dismiss();
+      // this.loading.dismiss();
       this.presentLoading("Processing data from NFC Tag.");
 
       this.cred.product_name = this.res.product_name;
@@ -367,12 +315,12 @@ export class VerifyitDashboardPage implements OnInit {
       this.apiSvc.callRecordScan(this.data).subscribe(
         (callrecordscanresult) => {
           this.utilservice.callrecordscanresult = callrecordscanresult;
-          this.loading.dismiss();
+          // this.loading.dismiss();
           this.router.navigateByUrl("/verifyit-product");
           //location
         },
         (err) => {
-          this.loading.dismiss();
+          // this.loading.dismiss();
           this.alertService.presentAlert("", "call record scan went wrong");
         }
       );
@@ -426,15 +374,6 @@ export class VerifyitDashboardPage implements OnInit {
     }
   }
 
-  // boughtIt(tagId){
-  //       this.apiSvc.callPostBoughtIt(tagId).subscribe((res) => {
-  //         this.alertService.presentAlert('',res);
-  //         // this.helperSvc.hideLoading();
-  //   });
-  //   // this.navCtrl.push(ThankyouPage,{})
-  //   this.alertService.presentAlert('','thank you')
-
-  // }
 
   ionViewWillLeave() {
     this.hideDashboardScreen = true;
@@ -492,9 +431,6 @@ export class VerifyitDashboardPage implements OnInit {
           tagId.replace(/\s+/g, "");
           if (tagId.includes("params")) {
             tagId = tagId.split("=")[1].split("&")[0];
-            //  alert(tagId)
-            // this need to be tested
-            // this.router.url.split("=")[1].split("&")[0]
 
             this.gettag(tagId);
             this.stopScan();
@@ -521,7 +457,7 @@ export class VerifyitDashboardPage implements OnInit {
   }
   async scanqrcode() {
 
-    if(this.platform.is("android")){}
+    if (this.platform.is("android")) { }
 
 
 
@@ -543,7 +479,7 @@ export class VerifyitDashboardPage implements OnInit {
       this.videoElement.setAttribute("playsinline", true);
       this.videoElement.play();
       requestAnimationFrame(this.scan.bind(this));
-      // this.scanIOS();
+
     }
 
   }
@@ -553,31 +489,20 @@ export class VerifyitDashboardPage implements OnInit {
     window.localStorage.setItem("tagId", tagId);
     let locationUrl = window.location.href;
 
-    // this.geolocation
-    //   .getCurrentPosition()
-    //   .then((resp) => {
-    //     this.data.lat = resp.coords.latitude;
-    //     this.data.long = resp.coords.longitude;
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error getting location", error);
-    //   });
-    // await this.presentLoading("");
-
     this.apiSvc.callGetTag(tagId).subscribe((callgettagresult) => {
       debugger
       this.utilservice.callgettagresult = callgettagresult;
-window.localStorage.setItem('scan_flow',this.utilservice.callgettagresult.scan_flow)
-window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
+      window.localStorage.setItem('scan_flow', this.utilservice.callgettagresult.scan_flow)
+      window.localStorage.setItem('brand', this.utilservice.callgettagresult.brand)
       this.res = callgettagresult;
 
 
-      this.loading.dismiss();
-
+      
       this.apiSvc.getBrandDetail(this.res.product_id).subscribe((data) => {
-
+        
         this.bdata = data
         // window.localStorage.setItem('brand_id','0')
+        // this.loading.dismiss();
         this.utilservice.brand_id = this.bdata.data.id
         console.log('======================dasboard brand==================')
         console.log('======================dasboard brand==================')
@@ -596,14 +521,16 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
 
         window.localStorage.setItem('brand_id', this.bdata.data.id)
 
-        this.loading.dismiss();
+        // this.loading.dismiss();
 
-        if(this.hasBparams){
+        if (this.hasBparams) {
+        // this.loading.dismiss();
 
           this.router.navigate(["/verifyit-product-catalog"], {
-            queryParams: { product_id: window.localStorage.getItem('product_id')},
+            queryParams: { product_id: window.localStorage.getItem('product_id') },
           });
-        }else{
+        } else {
+          // this.loading.dismiss();
 
           this.router.navigateByUrl("/verifyit-product");
 
@@ -618,30 +545,6 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
       this.cred.verified = this.res.verified;
       this.cred.tagId = tagId;
       this.data.tagId = tagId;
-      // this.apiSvc.callRecordScan(this.data).subscribe(
-      //   (callrecordscanresult) => {
-      //     if(locationUrl.includes("pwa") || locationUrl.includes("nowverifycap") || locationUrl.includes("noeverifycaptest") ){
-
-      //     }else{
-
-      //       this.presentToast(["QR code scan successfully."]);
-      //     }
-
-      //     console.log(callrecordscanresult);
-      //     this.utilservice.callrecordscanresult = callrecordscanresult;
-      //     this.loading.dismiss();
-      //     window.localStorage.setItem('hasquizModal','0')
-
-      //     this.router.navigateByUrl("/verifyit-product");
-      //     //location
-      //   },
-      //   (err) => {
-      //     this.loading.dismiss();
-      //     this.presentToast(["QR code scan went wrong.."]);
-
-      //     // this.alertService.presentAlert("", "call record scan went wrong");
-      //   }
-      // );
 
       this.cred.model_number = this.res.model_number;
       this.cred.serial_number = this.res.serial_number;
@@ -664,18 +567,6 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
       this.credKeys.key12 = "Wine Information";
       this.credKeys.key13 = "Verified";
 
-      // setInterval(this.redirectProduct, 3000);
-      // setTimeout(this.redirectProduct.bind(this),2000);
-
-
-
-      // this.helperSvc.hideLoading();
-      //   setInterval(function(){ 
-
-      //     // alert("Hello"); 
-      //     this.redirectProduct()
-
-      // }, 2000);
     });
 
   }
@@ -691,10 +582,6 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
     this.router.navigateByUrl("/verifyit-product");
   }
 
-  // redirectProduct(){
-  //   this.router.navigateByUrl("/verifyit-product");
-
-  // }
 
   scanIOS() {
     this.options = {
@@ -755,8 +642,7 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
         (data: any) => {
           window.localStorage.setItem("token", data.data.token);
 
-          // this.showProductPage();
-          // this.hardwareDiagnostic()
+
 
 
 
@@ -765,7 +651,7 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
 
         },
         async (err) => {
-          await this.loading.dismiss();
+          // await this.loading.dismiss();
           this.alertService.presentAlert("", "Something went wrong.");
         }
       );
@@ -779,6 +665,7 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
 
 
   showProductPage() {
+    this.presentLoading('')
     this.route.queryParams.subscribe(params => {
 
 
@@ -793,23 +680,23 @@ window.localStorage.setItem('brand',this.utilservice.callgettagresult.brand)
       // }
     });
 
-debugger
+    debugger
     // window.localStorage.setItem('product-link',this.router.url)
     if (
-      (this.router.url.includes("params")  || this.router.url.includes("bparams")) &&
+      (this.router.url.includes("params") || this.router.url.includes("bparams")) &&
       !this.router.url.includes("source")
     ) {
       this.hideDashboardScreen = false;
 
-      
-if(this.router.url.includes("bparams")){
-  window.localStorage.setItem('params', this.url_parameter.bparams)
-  this.gettag(this.url_parameter.bparams);
-}else{
 
-  window.localStorage.setItem('params', this.url_parameter.params)
-  this.gettag(this.url_parameter.params);
-}
+      if (this.router.url.includes("bparams")) {
+        window.localStorage.setItem('params', this.url_parameter.bparams)
+        this.gettag(this.url_parameter.bparams);
+      } else {
+
+        window.localStorage.setItem('params', this.url_parameter.params)
+        this.gettag(this.url_parameter.params);
+      }
 
 
     } else if (
@@ -852,43 +739,6 @@ if(this.router.url.includes("bparams")){
       this.gettag(this.url_parameter.params);
       // this.router.navigateByUrl('/verifyit-product')
     }
-    // this.gettag('4516') 4925
-    //  for multiple image ,scrach card 4516
-    // for vedio link      4573
-    //for customer review  4517
-    // 4534 for reward
-    //4507  //for scratchcard
-    // 5013 first care product
-    // this.gettag('5020')
-
-
-
-
-    // ask for location
-
-    // const alert = await this.alertCtrl.create({
-    //   header: "Error",
-    //   message: 'err',
-    //   buttons: ["OK"],
-    // });
-
-    // await alert.present();
-    // }
-
-
-    // this.askLocation()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     this.utilservice.LoadPage.subscribe((data) => {
@@ -1026,7 +876,7 @@ if(this.router.url.includes("bparams")){
     },
   };
   askLocation() {
-    // this.presentLoading("");
+    this.presentLoading("");
 
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -1053,7 +903,7 @@ if(this.router.url.includes("bparams")){
         })
 
         .catch((error) => {
-          // this.loading.dismiss();
+          this.loading.dismiss();
           // this.loading.dismiss();
           window.localStorage.setItem('locationenabled', '1')
 
@@ -1070,17 +920,17 @@ if(this.router.url.includes("bparams")){
 
   trackingevents(otype) {
     debugger
-    
+
     const _this = this;
-    
+
     // this.trackingLinks(data)
     _this.trackingData.user_id = window.localStorage.getItem("userid");
     _this.trackingData.tag_id = window.localStorage.getItem("tagId");
     // _this.trackingData.product_id = this.utilservice.callgettagresult.product_id;
     (_this.trackingData.device_id = window.localStorage.getItem("device_id")),
-    // _this.trackingData.mobile_number = this.mobile_number
-    (_this.trackingData.otype = otype);
-    
+      // _this.trackingData.mobile_number = this.mobile_number
+      (_this.trackingData.otype = otype);
+
     _this.trackingData.meta_data.mobile_number = '';
     _this.trackingData.meta_data.js_fcm = this.fcmData.js_fcm
     // this.presentLoading("");
@@ -1088,8 +938,8 @@ if(this.router.url.includes("bparams")){
       //**charu Start */
       (res: any) => {
         if (res && otype == 'NOTIFICATION_DATA') {
-          
-          
+
+
           this.showProductPage();
           this.msg = `Congratualtions! You have been awarded Loaylty Point from the Brand ${res.data.brand} `;
           // this.loading.dismiss()
@@ -1142,22 +992,22 @@ if(this.router.url.includes("bparams")){
     // }
   }
 
-hasBparams=false;
-// productData
+  hasBparams = false;
+  // productData
   callRecordScan() {
     let locationUrl = window.location.href;
     this.route.queryParams.subscribe(params => {
 
-if(params.params){
+      if (params.params) {
 
-  this.url_parameter = params.params
-  this.hasBparams= false
-}else{
-  this.url_parameter = params.bparams
-  this.hasBparams= true
+        this.url_parameter = params.params
+        this.hasBparams = false
+      } else {
+        this.url_parameter = params.bparams
+        this.hasBparams = true
 
 
-}
+      }
       this.data.tagId = this.url_parameter
       console.log("=======================")
       console.log((params))
@@ -1174,11 +1024,11 @@ if(params.params){
         this.presentToast(["QR code scan successfully."]);
 
         this.hardwareDiagnostic()
-        this.productData= callrecordscanresult
+        this.productData = callrecordscanresult
 
         console.log(callrecordscanresult);
         debugger
-        window.localStorage.setItem('product_id',this.productData.data.meta_data.product_id)
+        window.localStorage.setItem('product_id', this.productData.data.meta_data.product_id)
         this.utilservice.callrecordscanresult = callrecordscanresult;
         // this.loading.dismiss();
 
@@ -1269,7 +1119,7 @@ if(params.params){
   }
   ionViewDidLeave() {
     // this.navCtrl.pop();
-    this.loading.dismiss()
+    this.loading.dismiss();
   }
 
 }
