@@ -1448,6 +1448,7 @@ export class Verifyitproductpage {
   //   });
   //   return await modal.present();
   // }
+  websiteLink
   productInformation() {
     debugger
     Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
@@ -1486,6 +1487,7 @@ export class Verifyitproductpage {
       this.hasPopup = this.utilservice.callgettagresult.meta_data.pop_up
       this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
       this.hasComingsoon = this.utilservice.callgettagresult.meta_data.coming_soon
+      this.websiteLink=this.utilservice.callgettagresult.meta_data.Website
       // if(this.callgettagresult.brand == "RRC"){
       //   debugger
       //   this.hideBrand=true
