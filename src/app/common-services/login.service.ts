@@ -259,7 +259,7 @@ export class LoginService {
       async presentLoading() {
         const loading = await this.loading.create({
           message: '',
-          duration: 3000,
+          duration: 2000,
 
         });
         await loading.present();
