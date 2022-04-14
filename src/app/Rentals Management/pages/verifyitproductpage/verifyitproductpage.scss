@@ -221,7 +221,7 @@ position: relative;
   line-height: 15px;
   color: #121213;
   vertical-align: top;
-  padding: 6px 12px 0 37px;
+  padding: 0px 12px 0px 9px;
   text-align: left;
 }
 .main-section_wapper {
@@ -363,6 +363,8 @@ ion-slide.md.swiper-slide.swiper-slide-next {
 }
 .myCard {
   flex: none;
+  height: 100px;
+  width: 120px !important;
 }
 
 .auth-logo {
@@ -428,6 +430,7 @@ border-radius: 0px 0px 18px 18px;
 .prod-info{
   margin-top: 0;
   margin-bottom: 0rem;
+  color: #292E30;
 }
 .desc-new{
 background: #F4F4F4;
@@ -455,4 +458,12 @@ border-radius: 10px;
   box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.07), -4px -4px 13px #FFFFFF, 6px 6px 36px rgba(0, 0, 0, 0.06);
   border-radius: 0px 0px 18px 18px;
   color: black;
+}
+
+
+.main-slide{
+  
+  height: 360px;
+  width: 100%;
+
 }

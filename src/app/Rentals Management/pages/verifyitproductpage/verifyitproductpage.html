@@ -119,10 +119,12 @@
             <ng-container *ngFor=" let item of callgettagresult.meta_data.images">
 
               <ion-slide>
+                <ion-card class="main-slide">
                 <img class="img-responsive" src="{{item}}" />
-                <img *ngIf="callgettagresult.verified=='Yes' &&(callgettagresult.meta_data?.images) " style="     right: 6px !important;
+                <img *ngIf="callgettagresult.verified=='Yes' &&(callgettagresult.meta_data?.images) " style="
                 bottom: 9px !important;" class="auth-logo" width="100" height="100"
                 src="assets/auth-logo.png" />
+                </ion-card>
               </ion-slide>
               
 
@@ -168,9 +170,10 @@
 
 
     <ion-row class="brand-info">
-      <ion-col style="    margin-left: 17px;">
+      <ion-col style="margin-left: 17px;">
        <p class="prod-info">
-         MRP <i class="fa fa-rupee"></i>11000
+       <span style="    color: #677278;
+       margin-right: 8px;">MRP</span><i class="fa fa-rupee"></i>11000
        </p>
        
           <p class="prod-info">Brand Name - {{callgettagresult.brand}}</p>
@@ -260,7 +263,7 @@
       
       <ion-row class="simler-heading">
         <ion-col size="12" class=" ">
-          <h2 class="underline">Similar Products</h2>
+          <h2 >Similar Products</h2>
         </ion-col>
       </ion-row>
       <ion-row >
@@ -278,13 +281,13 @@
 
 
 
-        <ion-slides [options]="sliderConfig">
+        <ion-slides  [options]="sliderConfig">
           <ng-container *ngFor="let item of listofBanner">
 
             <ion-slide >
               <ion-card class="myCard">
-                <img *ngIf="item" style="height: auto;
-                    width: auto;" src={{item.img1}} />
+                <img *ngIf="item" style="    width: 120px;
+                " src={{item.img1}} />
               </ion-card>
 
               <div *ngIf="item" class="myOverlay">
