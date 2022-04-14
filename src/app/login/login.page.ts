@@ -116,6 +116,7 @@ this.email_end_selected="@gmail.com"
   hideloginbox
   subscription1
   hidenshow
+  brandImage
   ngOnInit() {
     debugger
 
@@ -133,13 +134,32 @@ this.email_end_selected="@gmail.com"
 
     this.hidenshow=true
 
-    if(window.localStorage.getItem('scan_flow')=='3'){
-      this.hidenshow=false
+    if(window.localStorage.getItem('brand_image').length > 2){
 
-      this.googleLoginText="Welcome to the myPAPERCLIP family. Get a chance to win iPhone 12, iWatch and exclusive offers on myPAPERCLIP products."
+      this.brandImage=window.localStorage.getItem('brand_image')
+    }else{
+      this.brandImage=""
+    }
+
+    if(window.localStorage.getItem('brand_text').length > 2){
+      this.googleLoginText=window.localStorage.getItem('brand_text')
     }else{
       this.googleLoginText="You are just one step away from your cashback. Provide your details so that your cashback can be credited to your Paytm number."
     }
+
+
+
+
+
+    // if(window.localStorage.getItem('scan_flow')=='3'){
+    //   this.hidenshow=false
+
+    //   this.googleLoginText="Welcome to the myPAPERCLIP family. Get a chance to win iPhone 12, iWatch and exclusive offers on myPAPERCLIP products."
+    // }
+    
+    // else{
+    //   this.googleLoginText="You are just one step away from your cashback. Provide your details so that your cashback can be credited to your Paytm number."
+    // }
 
 
     if (this.utils.newflow == true) {

@@ -504,6 +504,7 @@ export class VerifyitDashboardPage implements OnInit {
         // window.localStorage.setItem('brand_id','0')
         // this.loading.dismiss();
         this.utilservice.brand_id = this.bdata.data.id
+
         console.log('======================dasboard brand==================')
         console.log('======================dasboard brand==================')
 
@@ -520,6 +521,9 @@ export class VerifyitDashboardPage implements OnInit {
         console.log('======================dasboard brand==================')
 
         window.localStorage.setItem('brand_id', this.bdata.data.id)
+        window.localStorage.setItem('brand_image', this.bdata.data.brand_image)
+        window.localStorage.setItem('brand_text', this.bdata.data.tagline)
+
 
         // this.loading.dismiss();
 

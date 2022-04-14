@@ -181,6 +181,9 @@ export class VerifyitProductCatalogPage {
       case "4":
         this.flowOperation4("4")
         break;
+        case "7":
+          this.flowOperation7("7")
+          break;
       default:
       // code block
     }
@@ -375,6 +378,28 @@ export class VerifyitProductCatalogPage {
     } else {
       this.getQuestions()
     }
+  }
+
+  flowOperation7(data){
+
+    window.localStorage.setItem('user_upi','xxxxxxx')
+
+    if (window.localStorage.getItem('name') && data == '3') {
+      this.loginService.isProductInfo = true;
+      this.utilservice.isProductInfo = true;
+      window.localStorage.setItem("hasquizModal", "1");
+      this.getQuestions()
+    } else {
+      // this.loginService.isProductInfo = true;
+      // this.utilservice.isProductInfo = true;
+      // this.utilservice.newflow = true
+      
+      // this.router.navigateByUrl('/login')
+      this.checkWinnerStatus()
+    }
+
+    // this.getQuestions()
+
   }
 
 
