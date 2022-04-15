@@ -49,10 +49,15 @@ export class VerifyitProductCatalogPage {
   brand_name
   ngOnInit() {
 
+    if (!(window.localStorage.getItem('flow7secondTimeuser'))) {
+      window.localStorage.setItem('flow7secondTimeuser', '0')
+
+    }
+
     this.subscription1 = this.utilservice.LoadModal.subscribe((data) => {
       debugger
 
-      this.brand_name= window.localStorage.getItem('brand')
+      this.brand_name = window.localStorage.getItem('brand')
 
 
 
@@ -64,7 +69,7 @@ export class VerifyitProductCatalogPage {
     this.subscription2 = this.utilservice.getQues.subscribe((data) => {
       debugger
 
-      this.brand_name= window.localStorage.getItem('brand')
+      this.brand_name = window.localStorage.getItem('brand')
 
 
       this.getQuestions();
@@ -109,7 +114,7 @@ export class VerifyitProductCatalogPage {
         this.brandName = this.listbanner.data[0]?.brand
 
 
-        
+
         if (this.listbanner.data[0].meta_data.category) {
           this.groupBy(this.listbanner.data, "category");
 
@@ -181,9 +186,12 @@ export class VerifyitProductCatalogPage {
       case "4":
         this.flowOperation4("4")
         break;
-        case "7":
-          this.flowOperation7("7")
-          break;
+      case "7":
+        this.flowOperation7("7")
+        break;
+      case "6":
+        this.flowOperation6("6")
+        break;
       default:
       // code block
     }
@@ -343,7 +351,7 @@ export class VerifyitProductCatalogPage {
   flowOperation2(data) {
     debugger
 
-    if (!window.localStorage.getItem('name')){
+    if (!window.localStorage.getItem('name')) {
       this.checkWinnerStatus2()
 
     } else {
@@ -351,9 +359,9 @@ export class VerifyitProductCatalogPage {
     }
   }
 
-  flowOperation3(data){
+  flowOperation3(data) {
     debugger
-    window.localStorage.setItem('user_upi','xxxxxxx')
+    window.localStorage.setItem('user_upi', 'xxxxxxx')
 
     if (window.localStorage.getItem('name') && data == '3') {
       this.loginService.isProductInfo = true;
@@ -364,15 +372,15 @@ export class VerifyitProductCatalogPage {
       // this.loginService.isProductInfo = true;
       // this.utilservice.isProductInfo = true;
       this.utilservice.newflow = true
-      
+
       this.router.navigateByUrl('/login')
     }
 
   }
 
-  flowOperation4(data){
+  flowOperation4(data) {
     debugger
-    if (!window.localStorage.getItem('name')){
+    if (!window.localStorage.getItem('name')) {
       this.checkWinnerStatus2()
 
     } else {
@@ -380,25 +388,50 @@ export class VerifyitProductCatalogPage {
     }
   }
 
-  flowOperation7(data){
+  flow7secondTimeuser
 
-    window.localStorage.setItem('user_upi','xxxxxxx')
+  flowOperation7(data) {
 
-    if (window.localStorage.getItem('name') && data == '3') {
-      this.loginService.isProductInfo = true;
-      this.utilservice.isProductInfo = true;
-      window.localStorage.setItem("hasquizModal", "1");
-      this.getQuestions()
-    } else {
+
+
+
+    if (data == '7' && window.localStorage.getItem('flow7secondTimeuser') == '0') {
       // this.loginService.isProductInfo = true;
       // this.utilservice.isProductInfo = true;
-      // this.utilservice.newflow = true
-      
-      // this.router.navigateByUrl('/login')
+      // window.localStorage.setItem("hasquizModal", "1");
+      window.localStorage.setItem('flow7secondTimeuser', '1')
+
+      setTimeout(() => {
+        this.getQuestions();
+      }, 1000);
+  
+
+    } else {
+  
       this.checkWinnerStatus()
     }
 
     // this.getQuestions()
+
+  }
+
+  flowOperation6(data){
+
+    window.localStorage.setItem('user_upi', 'xxxxxxx')
+
+    if (window.localStorage.getItem('name') && data == '6') {
+      this.loginService.isProductInfo = true;
+      this.utilservice.isProductInfo = true;
+      window.localStorage.setItem("hasquizModal", "1");
+      // this.getQuestions()
+      this.checkWinnerStatus()
+    } else {
+      // this.loginService.isProductInfo = true;
+      // this.utilservice.isProductInfo = true;
+      this.utilservice.newflow = true
+
+      this.router.navigateByUrl('/login')
+    }
 
   }
 
@@ -455,11 +488,18 @@ export class VerifyitProductCatalogPage {
 
   }
 
-
+  user_id
   checkWinnerStatus() {
+
+    if (!window.localStorage.getItem("userid") && (window.localStorage.getItem('scan_flow') == '7')) {
+      this.user_id = "156"
+    } else {
+      this.user_id = window.localStorage.getItem("userid")
+    }
+
     let winnerData = {
       product_id: this.utils.callgettagresult.product_id,
-      user_id: window.localStorage.getItem("userid"),
+      user_id: this.user_id,
     };
     this.apiSvc.checkWinStatus(winnerData).subscribe(
       (res: any) => {
@@ -492,7 +532,7 @@ export class VerifyitProductCatalogPage {
   }
 
 
-  checkWinnerStatus2(){
+  checkWinnerStatus2() {
     let winnerData = {
       product_id: this.utils.callgettagresult.product_id,
       user_id: window.localStorage.getItem("userid"),
@@ -535,7 +575,7 @@ export class VerifyitProductCatalogPage {
     let modal = await this.modalController.create({
       component: ScratchmodalComponent,
       cssClass: "scratch-modal",
-      backdropDismiss:false
+      backdropDismiss: false
     }
     );
     return await modal.present();

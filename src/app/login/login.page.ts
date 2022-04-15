@@ -929,6 +929,10 @@ config.forEach(element => {
 
         this.utils.openQuizModal()
 
+      }else if(window.localStorage.getItem('scan_flow')=='6'){
+
+        this.utils.LoadSurpriseModal();
+
       }
       
       else{
