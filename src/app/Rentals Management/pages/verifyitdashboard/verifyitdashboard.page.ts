@@ -190,7 +190,7 @@ export class VerifyitDashboardPage implements OnInit {
   async presentLoading(data) {
     const loading = await this.loading.create({
       message: data,
-      // duration: 2000,
+      duration: 3000,
     });
     await loading.present();
   }
