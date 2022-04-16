@@ -213,6 +213,7 @@ export class VerifyitProductCatalogPage {
 
 
 
+
   }
   items
   setFilteredItems() {
@@ -392,6 +393,7 @@ export class VerifyitProductCatalogPage {
 
   flowOperation7(data) {
 
+    window.localStorage.setItem('user_upi', 'xxxxxxx')
 
 
 
@@ -491,11 +493,11 @@ export class VerifyitProductCatalogPage {
   user_id
   checkWinnerStatus() {
 
-    if (!window.localStorage.getItem("userid") && (window.localStorage.getItem('scan_flow') == '7')) {
-      this.user_id = "156"
-    } else {
-      this.user_id = window.localStorage.getItem("userid")
-    }
+    this.user_id = window.localStorage.getItem("userid")
+    // if (!window.localStorage.getItem("userid") && (window.localStorage.getItem('scan_flow') == '7')) {
+    //   this.user_id = "156"
+    // } else {
+    // }
 
     let winnerData = {
       product_id: this.utils.callgettagresult.product_id,
