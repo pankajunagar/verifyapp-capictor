@@ -239,28 +239,31 @@
   <p (click)="closeModal()" class="cross-win-algo">X</p>
 <ion-grid class="lose-card">
   <div class="inset-card">
-<ion-row>
+<!-- <ion-row>
   <ion-col>
     <h5 class="better-luck">
       Better luck next time
     </h5>
   </ion-col>
-</ion-row>
+</ion-row> -->
 <ion-row>
   <ion-col>
-    <ion-img style="    height: 117px;
-    margin-top: -21px;"  src="../../../../assets/worry.png"></ion-img>
+    <p class="lose-text">
+      <!-- Oh you just missed cashback. Do not worry your details are with us. You still hold a chance to win our lottery prize. -->
+      {{this.utils.winMessage}}
+
+    </p>
 
   </ion-col>
 </ion-row>
 </div>
   <ion-row>
     <ion-col>
-      <p class="lose-text">
-        <!-- Oh you just missed cashback. Do not worry your details are with us. You still hold a chance to win our lottery prize. -->
+      <!-- Oh you just missed cashback. Do not worry your details are with us. You still hold a chance to win our lottery prize. -->
+      <!-- <p class="lose-text">
         {{this.utils.winMessage}}
 
-      </p>
+      </p> -->
     </ion-col>
 
    

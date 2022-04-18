@@ -283,7 +283,13 @@ export class Verifyitproductpage {
   hasPopup
   brandFlow
   hasProductCatalogue
+  flow7secondTimeuser
   ngOnInit() {
+
+    if (!(window.localStorage.getItem('flow7secondTimeuser'))) {
+      window.localStorage.setItem('flow7secondTimeuser', '0')
+
+    }
 
     // new logic for flow construct
     debugger
@@ -307,6 +313,9 @@ export class Verifyitproductpage {
         break;
       case "5":
         this.flowOperation5("5")
+        break;
+      case "7":
+        this.flowOperation7('7')
         break;
       default:
       // code block
@@ -1108,6 +1117,33 @@ export class Verifyitproductpage {
 
     });
 
+
+  }
+
+
+  flowOperation7(data) {
+
+    window.localStorage.setItem('user_upi', 'xxxxxxx')
+
+
+
+    if (data == '7' && window.localStorage.getItem('flow7secondTimeuser') == '0') {
+      // this.loginService.isProductInfo = true;
+      // this.utilservice.isProductInfo = true;
+      // window.localStorage.setItem("hasquizModal", "1");
+      window.localStorage.setItem('flow7secondTimeuser', '1')
+
+      setTimeout(() => {
+        this.getQuestions();
+      }, 1000);
+  
+
+    } else {
+  
+      this.checkWinnerStatus()
+    }
+
+    // this.getQuestions()
 
   }
 
