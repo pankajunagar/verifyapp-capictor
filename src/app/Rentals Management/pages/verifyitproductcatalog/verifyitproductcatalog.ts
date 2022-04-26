@@ -46,8 +46,12 @@ export class VerifyitProductCatalogPage {
   groupedProducts = [];
   jsonToBeUsed = []
   brandName: any;
-  brand_name
+  brand_name;
+  hasCatalog
   ngOnInit() {
+
+
+    this.hasCatalog=window.localStorage.getItem('hasCatalog')
 
     if (!(window.localStorage.getItem('flow7secondTimeuser'))) {
       window.localStorage.setItem('flow7secondTimeuser', '0')

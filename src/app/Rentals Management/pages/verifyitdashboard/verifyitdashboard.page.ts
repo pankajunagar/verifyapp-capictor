@@ -91,6 +91,7 @@ export class VerifyitDashboardPage implements OnInit {
   writingTag: boolean = false;
   isWriting: boolean = false;
   writtenInput = "";
+  hasCatalog
   ndefMsg: any;
   scanData: {};
   triggerLocation
@@ -99,6 +100,7 @@ export class VerifyitDashboardPage implements OnInit {
   canvasElement: any;
   canvasContext: any;
   selectedTheme: any;
+  popuptext:any;
   constructor(
     private iab: InAppBrowser,
     private nfc: NFC,
@@ -122,12 +124,29 @@ export class VerifyitDashboardPage implements OnInit {
     private apiSvc: NailaService
   ) {
 
+
+    
+
     this.route.queryParams.subscribe(params => {
 
       this.generateTokenParams = params
       console.log("=======================")
       console.log((params))
       console.log("=======================")
+
+      if(params.p == "1"){
+        window.localStorage.setItem('locationenabled','1');
+        this.popuptext = "want to hear from us? or Allow notification?"
+        window.localStorage.setItem('hasCatalog','0')
+        // this.hasCatalog="0"
+
+      }else{
+        this.popuptext = 'Increase your chances of winning the lucky prize by allowing notification.'
+        window.localStorage.setItem('hasCatalog','1')
+
+        // this.hasCatalog="1"
+
+      }
 
     });
 
@@ -1055,7 +1074,7 @@ export class VerifyitDashboardPage implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       // header: 'Confirm!',
-      message: 'Increase your chances of winning the lucky prize by allowing notification.',
+      message: this.popuptext,
       buttons: [
         {
           text: 'No',
