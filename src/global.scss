@@ -30,6 +30,12 @@
   src: url("./fonts/gotham-font/gotham-font/Gotham-Bold.ttf");
 }
 
+@font-face {
+  font-family: "Open-sans";
+  font-weight: 500;
+  src: url("./fonts/Open-Sans/OpenSans-Regular.ttf");
+}
+
 .txt-bold {
   font-weight: bold;
 }

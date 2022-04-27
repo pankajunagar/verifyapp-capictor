@@ -186,6 +186,7 @@ export class Verifyitproductpage {
   hasLogin;
   subscription3
   subscriptions: Array<Subscription> = new Array<Subscription>();
+  initialProdImage = '';
   constructor(
     private appSettings: MainAppSetting,
     private nfc: NFC,
@@ -245,7 +246,7 @@ export class Verifyitproductpage {
     // );
 
     this.subscription = this.utilservice.LoadModal.subscribe((data) => {
-      debugger
+      
 
       if (window.localStorage.getItem('scan_flow') == "3" && ((window.localStorage.getItem('save_answer') != 'true') || (window.localStorage.getItem('save_answer') == undefined))) {
         // this.openQuiz("default");
@@ -286,7 +287,7 @@ export class Verifyitproductpage {
   ngOnInit() {
 
     // new logic for flow construct
-    debugger
+    
 
     switch (window.localStorage.getItem('scan_flow')) {
       case "0":
@@ -996,7 +997,7 @@ export class Verifyitproductpage {
 
 
   getQuestions() {
-    debugger
+    
     // this.subscription.unsubscribe();
     let data = {
       brand_id: window.localStorage.getItem('brand_id'),
@@ -1005,7 +1006,7 @@ export class Verifyitproductpage {
 
     this.apiSvc.getQuestion(data).subscribe(
       (res: any) => {
-        debugger
+        
         if (res.data.question.length > 0) {
 
           let loginInfo = window.localStorage.getItem('name')
@@ -1062,7 +1063,7 @@ export class Verifyitproductpage {
   }
 
   flowOperation3(data) {
-    debugger
+    
     window.localStorage.setItem('user_upi', 'xxxxxxx')
 
     if (window.localStorage.getItem('name') && data == '3') {
@@ -1450,7 +1451,7 @@ export class Verifyitproductpage {
   // }
   websiteLink
   productInformation() {
-    debugger
+    
     Object.keys(this.utilservice.callgettagresult.meta_data).forEach((e) =>
       this.jsonToBeUsed.push({
         key: e,
@@ -1458,7 +1459,7 @@ export class Verifyitproductpage {
       })
     );
 
-    debugger
+    
 
     this.platform.ready().then((readysource) => {
       console.log('===================brand=================')
@@ -1488,13 +1489,17 @@ export class Verifyitproductpage {
       this.hasProductCatalogue = this.utilservice.callgettagresult.meta_data.product_catalogue
       this.hasComingsoon = this.utilservice.callgettagresult.meta_data.coming_soon
       this.websiteLink=this.utilservice.callgettagresult.meta_data.Website
+
+      if((this.callgettagresult as any)?.meta_data?.images.length > 1){
+        this.initialProdImage = (this.callgettagresult as any).meta_data.images[0]
+      }
       // if(this.callgettagresult.brand == "RRC"){
-      //   debugger
+      //   
       //   this.hideBrand=true
       //   // this.secPlay()
 
       // }else{
-      //   debugger
+      //   
       //   this.hideBrand=false
       //   // this.secPlay()
 

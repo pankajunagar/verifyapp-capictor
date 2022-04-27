@@ -1,7 +1,12 @@
 <ion-header no-border>
   <ion-toolbar class="io-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-toggle>
+        <ion-button fill="clear" class="header-buttons">
+          <ion-icon class="menu-icon" src="/assets/images/menu.svg"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+      <!-- <ion-menu-button></ion-menu-button> -->
       <!-- <img src="../../../../assets/images/arrow-down.png" alt=""> -->
     </ion-buttons>
     <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
@@ -11,6 +16,11 @@
       </ion-button>
     </ion-buttons> -->
     <ion-title>{{callgettagresult.product_name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="header-buttons">
+        <ion-icon name="md-share"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -29,62 +39,62 @@
 
 
     <ion-card-content
-    style="width: 100%;    box-shadow: none;    border: 0;    height: auto;    padding: 0 5px;    margin-top: 208px;">
-    <ion-row>
-      <ion-col size="12">
-        <img class="img-responsive" src="{{callgettagresult.img1}}" alt=""
-          style="border-radius: 12px;margin-top: -105px;">
-      </ion-col>
-    </ion-row>
+      style="width: 100%;    box-shadow: none;    border: 0;    height: auto;    padding: 0 5px;    margin-top: 208px;">
+      <ion-row>
+        <ion-col size="12">
+          <img class="img-responsive" src="{{callgettagresult.img1}}" alt=""
+            style="border-radius: 12px;margin-top: -105px;">
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <!-- <img *ngIf="callgettagresult.verified=='Yes' " class="auth-logo" width="100" height="100"
+      <ion-row>
+        <!-- <img *ngIf="callgettagresult.verified=='Yes' " class="auth-logo" width="100" height="100"
       src="assets/auth-logo.png" /> -->
 
-    <!-- <img *ngIf="callgettagresult.verified=='No'" style="
+        <!-- <img *ngIf="callgettagresult.verified=='No'" style="
         margin-right: -15vh;
         margin-top: 6vh;
         position: absolute;
         height: 100px;
         width: 100px;
       " src="assets/fake.png" /> -->
-    <!-- <div class="btn-share" (click)="socialShare();"> -->
-      <!-- <ion-icon ios="ios-share" md="md-share"></ion-icon> -->
-    <!-- </div> -->
-    </ion-row>
+        <!-- <div class="btn-share" (click)="socialShare();"> -->
+        <!-- <ion-icon ios="ios-share" md="md-share"></ion-icon> -->
+        <!-- </div> -->
+      </ion-row>
 
 
-  </ion-card-content>
-
-  
-  <ion-card>
-    <ion-card-header class="underlinehead">
-      <ion-card-title class="product_hdr">Product Details</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content class="name_wraper">
-      
-      <div [ngClass]="{ 'showHide': showmore}"  >
-
-      <div class="row">
-        <div class="label">{{credKeys.key4}}</div>
-        <div class="description">{{callgettagresult.brand}}</div>
-      </div>
+    </ion-card-content>
 
 
-      <div class="coming-soon">
-       <h1>COMING SOON</h1>
-      </div>
+    <ion-card>
+      <ion-card-header class="underlinehead">
+        <ion-card-title class="product_hdr">Product Details</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="name_wraper">
+
+        <div [ngClass]="{ 'showHide': showmore}">
+
+          <div class="row">
+            <div class="label">{{credKeys.key4}}</div>
+            <div class="description">{{callgettagresult.brand}}</div>
+          </div>
+
+
+          <div class="coming-soon">
+            <h1>COMING SOON</h1>
+          </div>
 
 
 
-     
 
 
-</div>
-</ion-card-content>
 
-  </ion-card>
+        </div>
+      </ion-card-content>
+
+    </ion-card>
 
 
 
@@ -97,142 +107,119 @@
 
 
 <ion-content *ngIf="hasComingsoon != '1'" class="main-section" fullscreen>
-  <section style=" background-color: #E5E5E5;" class="main-section_wapper">
+  <section style=" background-color: #F4F4F4;" class="main-section_wapper">
 
     <!-- <ion-row
       style="background-image: url('../../assets/images/multicolor-bg.png');position:absolute; width:100%;  padding: 20px 10px 10px; height: 200px;background-size: 100% 100%;color: #fff;font-size: 24px;line-height: 31px;">
       <ion-col size="12" class="banner-text">
-       
         {{callgettagresult.product_name}}
       </ion-col>
-    
     </ion-row> -->
 
-    <ion-card-content
-        class="product-image">
+    <ion-card-content class="product-image">
       <ion-row>
-        <ion-col size="12">
-
-
-          <ion-slides [options]="sliderConfig2"  *ngIf="callgettagresult.meta_data?.images" pager="true">
-
-            <ng-container *ngFor=" let item of callgettagresult.meta_data.images">
-
-              <ion-slide>
-                <ion-card class="main-slide">
-                <img class="img-responsive" src="{{item}}" />
-                <img *ngIf="callgettagresult.verified=='Yes' &&(callgettagresult.meta_data?.images) " style="
-                bottom: 9px !important;" class="auth-logo" width="100" height="100"
-                src="assets/auth-logo.png" />
-                </ion-card>
-              </ion-slide>
-              
-
-            </ng-container>
-          </ion-slides>
-
-
-
-          <img *ngIf ="!callgettagresult.meta_data?.images" class="img-responsive" src="{{callgettagresult.img1}}" alt=""
-            style="border-radius: 12px;margin-top: 0px;">
-
-
+        <ion-col class="ion-no-padding">
+          <div class="main-slide" *ngIf="callgettagresult.meta_data?.images">
+            <img class="main-image" src="{{initialProdImage || callgettagresult.meta_data.images[0]}}" />
+            <img *ngIf="callgettagresult.verified=='Yes' &&(callgettagresult.meta_data?.images) " style="
+          bottom: 9px !important;" class="auth-logo" width="100" height="100" src="assets/auth-logo.png" />
+          </div>
+        </ion-col>
+        <ion-col size="auto" class="ion-no-padding" *ngIf="callgettagresult.meta_data?.images.length > 1">
+          <div class="side-images">
+            <div *ngFor=" let item of callgettagresult.meta_data.images" (click)="initialProdImage = item">
+              <img class="side-prod-images" src="{{item}}" />
+            </div>
+          </div>
         </ion-col>
       </ion-row>
 
-
-
-
-
+      <!-- <ion-slides [options]="sliderConfig2" *ngIf="callgettagresult.meta_data?.images" pager="true">
+            <ng-container *ngFor=" let item of callgettagresult.meta_data.images">
+              <ion-slide>
+                <ion-card class="main-slide">
+                  <img class="img-responsive" src="{{item}}" />
+                  <img *ngIf="callgettagresult.verified=='Yes' &&(callgettagresult.meta_data?.images) " style="
+                bottom: 9px !important;" class="auth-logo" width="100" height="100" src="assets/auth-logo.png" />
+                </ion-card>
+              </ion-slide>
+            </ng-container>
+          </ion-slides> -->
+      <!-- <img *ngIf="!callgettagresult.meta_data?.images" class="img-responsive" src="{{callgettagresult.img1}}" alt=""
+            style="border-radius: 12px;margin-top: 0px;"> -->
       <ion-row>
-        <img *ngIf="callgettagresult.verified=='Yes' && !(callgettagresult.meta_data.images) " class="auth-logo" width="100" height="100"
-        src="assets/auth-logo.png" />
-
-   
-
-
-       
-
-      <img *ngIf="callgettagresult.verified=='No'" style="
+        <img *ngIf="callgettagresult.verified=='Yes' && !(callgettagresult.meta_data.images) " class="auth-logo"
+          width="100" height="100" src="assets/auth-logo.png" />
+        <img *ngIf="callgettagresult.verified=='No'" style="
           margin-right: -15vh;
           margin-top: 6vh;
           position: absolute;
           height: 100px;
           width: 100px;
         " src="assets/fake.png" />
-      <div class="btn-share" (click)="socialShare();">
-        <ion-icon ios="ios-share" md="md-share"></ion-icon>
-      </div>
+        <div class="btn-share" (click)="socialShare();">
+          <ion-icon ios="ios-share" md="md-share"></ion-icon>
+        </div>
       </ion-row>
-
-
     </ion-card-content>
-
-
     <ion-row class="brand-info">
       <ion-col style="margin-left: 17px;">
-       <p class="prod-info">
-       <span style="    color: #677278;
-       margin-right: 8px;">MRP</span><i class="fa fa-rupee"></i>11000
-       </p>
-       
-          <p class="prod-info">Brand Name - {{callgettagresult.brand}}</p>
-          <a style="text-decoration: underline;
+        <p class="prod-info">
+          <span style="    color: #677278;
+       margin-right: 8px;">MRP</span><i class="fa fa-rupee"></i><b>11000</b>
+        </p>
+        <ion-row>
+          <ion-col class="ion-no-padding ion-padding-end" size="auto">
+            <p class="prod-info"><b>Brand Name</b></p>
+            <p class="prod-info other">Country of Origin</p>
+            <p class="prod-info other">Certified</p>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <p class="prod-info"><b>- {{callgettagresult.brand}}</b></p>
+            <p class="prod-info other">- {{callgettagresult?.manufactured}}</p>
+            <p class="prod-info other">- {{callgettagresult?.meta_data?.Certified}}</p>
+          </ion-col>
+        </ion-row>
+
+        <a style="text-decoration: underline;
          color: #5163E0;">{{websiteLink}}</a>
-   
       </ion-col>
     </ion-row>
-
-
     <!-- <ion-row *ngIf="hasScratchCard == '1'" class="">
       <ion-col (click)="scratchModal()" size="12" class=" exciting-offers">
         <img class="img-responsive" style="    width: 100% !important;
         height: 100% !important;" src="../../../../assets/images/exciting-offers.png" alt="">
       </ion-col>
     </ion-row> -->
-    <ion-card class="desc-new">
-  
-      
-
+    <ion-card class="desc-new ion-margin">
       <ion-card-content (click)="showHide2()" class="name_wraper">
-        <ion-row  class="show-more" *ngIf="showmore2">
-          <ion-col  [ngClass]="{ 'moredetail': showmore2}" size="12" class="moredetail">
+        <ion-row class="show-more" *ngIf="showmore2">
+          <ion-col [ngClass]="{ 'moredetail': showmore2}" size="12" class="moredetail">
             <img class="" src="../../../../assets/images/arrow-down.png" alt="">
           </ion-col>
         </ion-row>
-    
+
         <ion-row class="show-more" *ngIf="!showmore2">
-          <ion-col  [ngClass]="{ 'moredetail': !showmore2}" size="12" class="moredetail">
-           <img class="" src="../../../../assets/images/arrow-down.png" alt="">
+          <ion-col [ngClass]="{ 'moredetail': !showmore2}" size="12" class="moredetail">
+            <img class="" src="../../../../assets/images/arrow-down.png" alt="">
           </ion-col>
         </ion-row>
 
         <div [ngClass]="{ 'showHide': showmore2}">
-
-
-
-
-        <ng-container *ngFor="let item of jsonToBeUsed;let i = index">
-
-          <ion-col style="color: black;"
-            *ngIf="item.key==('Instruction') || item.key=='Product-details' || item.key=='Description' && jsonToBeUsed.length">
-            <h2 class="instruction-label">{{item.key.split('_').join(' ')}}</h2>
-          </ion-col>
-          <ion-col style="color: black;"
-            *ngIf="item.key==('Instruction') || item.key=='Product-details' || item.key=='Description' && jsonToBeUsed.length"
-            size="12">
-            <p [innerHTML]="item.value" class="instruction"></p>
-          </ion-col>
-        </ng-container>
-
-
-      </div>
-
-
-
-
-    </ion-card-content>
-    <!-- <ion-row *ngIf="showmore2">
+          <ng-container *ngFor="let item of jsonToBeUsed;let i = index">
+            <ion-col style="color: black;"
+              *ngIf="item.key==('Instruction') || item.key=='Product-details' || item.key=='Description' && jsonToBeUsed.length">
+              <h2 class="instruction-label">{{item.key.split('_').join(' ')}}</h2>
+            </ion-col>
+            <ion-col style="color: black;"
+              *ngIf="item.key==('Instruction') || item.key=='Product-details' || item.key=='Description' && jsonToBeUsed.length"
+              size="12">
+              <p [innerHTML]="item.value" class="instruction"></p>
+            </ion-col>
+          </ng-container>
+        </div>
+      </ion-card-content>
+      <!-- <ion-row *ngIf="showmore2">
       <ion-col (click)="showHide2()" [ngClass]="{ 'moredetail': showmore2}" size="12" class="moredetail">
         MORE DETAILS <img class="" src="../../../../assets/images/arrow-down.png" alt="">
       </ion-col>
@@ -245,87 +232,59 @@
     </ion-row> -->
     </ion-card>
     <!-- *ngIf="hasPopup == '1'" -->
-    <ion-row  class="participate">
-      <ion-col (click)="openQuiz('win')" 
-       size="2" class="participate_in">
-       <img class="" src="../../../../assets/images/winner.png" alt="">
+    <ion-row class="participate">
+      <ion-col (click)="openQuiz('win')" size="auto" class="participate_in">
+        <img class="" src="../../../../assets/images/winner.png" alt="">
       </ion-col>
-      <ion-col size="10">
+      <ion-col>
         <p style="margin-top: 5px;
         margin-bottom: 0rem;">Participate and Win Loyalty Points</p>
       </ion-col>
     </ion-row>
 
-
-    <ion-grid class="ion-padding">
-      
-      
-      
+    <ion-grid class="similar-product-ele">
       <ion-row class="simler-heading">
-        <ion-col size="12" class=" ">
-          <h2 >Similar Products</h2>
+        <ion-col size="12" class="ion-no-padding">
+          <h2>Similar Products</h2>
         </ion-col>
       </ion-row>
-      <ion-row >
-        <ion-list class="padding-top-12">
-          <!-- <label *ngIf="listofBanner" class="font-12 font-weight-500"></label> -->
-      
-        
-      
-
-
-
-
-
-
-
-
-
-        <ion-slides  [options]="sliderConfig">
-          <ng-container *ngFor="let item of listofBanner">
-
-            <ion-slide >
-              <ion-card class="myCard">
-                <img *ngIf="item" style="    width: 120px;
-                " src={{item.img1}} />
-              </ion-card>
-
-              <div *ngIf="item" class="myOverlay">
-                <div class="slidetext">
-                  <!-- <img class="" src={{item.img1}} alt=""> -->
-                  {{item.product_name}}
+      <ion-row>
+        <ion-list class="padding-top-6">
+          <div class="footer-slider">
+            <ng-container *ngFor="let item of listofBanner">
+              <div class="card-wrapper">
+                <ion-card class="myCard">
+                  <img *ngIf="item" style=" width: 120px;
+              " src={{item.img1}} />
+                </ion-card>
+                <div *ngIf="item" class="myOverlay">
+                  <div class="slidetext">
+                    <!-- <img class="" src={{item.img1}} alt=""> -->
+                    {{item.product_name}}
+                  </div>
+                  <!-- <div class="card-title">{{item.product_name}}</div> -->
                 </div>
-               <!-- <div class="card-title">{{item.product_name}}</div> -->
-           </div>
-            </ion-slide>
-          </ng-container>
-          </ion-slides> 
-
-      </ion-list>
-
-
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
       </ion-row>
     </ion-grid>
 
-
-
-
-
-
-
-
-<!-- 
-    <ion-row  *ngIf="hasProductCatalogue == 'Yes'" class="participate explore">
+    <ion-row class="participate">
       <ion-col (click)="showCatalog(this.utilservice.callgettagresult.product_id)" size="12" class="participate_in">
-        <span><img class="" src="../../../../assets/images/explor.png" alt="">Explore more about brand</span>
+        <img class="" src="../../../../assets/images/explor.png" alt="" />
       </ion-col>
-    </ion-row> -->
+      <ion-col size="10">
+        <p style="margin-top: 5px;
+        margin-bottom: 0rem;">Explore more about brand</p>
+      </ion-col>
+    </ion-row>
 
 
-    <ion-row  *ngIf="hasProductCatalogue == 'Yes'" class="participate">
-      <ion-col (click)="showCatalog(this.utilservice.callgettagresult.product_id)"
-       size="2" class="participate_in">
-       <img class="" src="../../../../assets/images/explor.png" alt="">
+    <ion-row *ngIf="hasProductCatalogue == 'Yes'" class="participate">
+      <ion-col (click)="showCatalog(this.utilservice.callgettagresult.product_id)" size="2" class="participate_in">
+        <img class="" src="../../../../assets/images/explor.png" alt="">
       </ion-col>
       <ion-col size="9">
         <p style="    margin-top: 5px;
@@ -334,7 +293,7 @@
     </ion-row>
 
     <ion-row class="bottom-padding">
-      
+
     </ion-row>
 
   </section>
