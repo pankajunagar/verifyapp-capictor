@@ -246,8 +246,6 @@ export class Verifyitproductpage {
     // );
 
     this.subscription = this.utilservice.LoadModal.subscribe((data) => {
-      
-
       if (window.localStorage.getItem('scan_flow') == "3" && ((window.localStorage.getItem('save_answer') != 'true') || (window.localStorage.getItem('save_answer') == undefined))) {
         // this.openQuiz("default");
         this.getQuestions()
@@ -256,7 +254,6 @@ export class Verifyitproductpage {
 
         this.checkWinnerStatus();
       }
-
     });
 
     this.subscription1 = this.utilservice.share_product.subscribe((data) => {
@@ -266,17 +263,12 @@ export class Verifyitproductpage {
     this.subscription2 = this.utilservice.submit_upi.subscribe((data) => {
       this.SubmitUPI();
     });
-
-
     this.subscription3 = this.utilservice.presentLoader.subscribe((data) => {
       // this.SubmitUPI();
       if (window.localStorage.getItem('scan_flow') == "2" && !window.localStorage.getItem('name')) {
         this.loginService.presentLoading()
-
       }
-
     });
-
   }
 
   hasComingsoon
@@ -285,10 +277,7 @@ export class Verifyitproductpage {
   brandFlow
   hasProductCatalogue
   ngOnInit() {
-
     // new logic for flow construct
-    
-
     switch (window.localStorage.getItem('scan_flow')) {
       case "0":
 
